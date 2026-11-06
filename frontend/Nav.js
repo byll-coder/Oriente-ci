@@ -40,7 +40,7 @@
 
   host.innerHTML = `
     <nav class="nav glass" aria-label="Navigation principale">
-      <a href="index.html" class="nav-logo" aria-label="OrienteCI — accueil"><img class="logo-img" src="/logo/image.png" width="178" height="56" alt="OrienteCI" /></a>
+      <a href="index.html" class="nav-logo" aria-label="OrienteCI — accueil"><img class="logo-img" src="./logo/image.png" width="178" height="56" alt="OrienteCI" /></a>
       <button class="burger" aria-label="Ouvrir le menu" aria-expanded="false"><i></i><i></i><i></i></button>
       <div class="nav-menu">
         <ul class="nav-links">
