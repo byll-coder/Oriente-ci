@@ -1,0 +1,1109 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Je ne sais pas quoi faire — OrienteCI</title>
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+      /* ── TEST PERSONNALITÉ ── */
+      .test-wrap {
+        max-width: 680px;
+        margin: 0 auto;
+      }
+
+      /* ── BARRE DE PROGRESSION ── */
+      .progress-bloc {
+        margin-bottom: 40px;
+      }
+      .progress-info {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 12px;
+        font-size: 0.82rem;
+        color: var(--txt-3);
+      }
+      .progress-info strong {
+        color: var(--violet-2);
+        font-family: "Fraunces", serif;
+        font-size: 1rem;
+      }
+      .progress-piste {
+        height: 6px;
+        background: var(--glass-border-soft);
+        border-radius: 3px;
+        overflow: hidden;
+      }
+      .progress-remplissage {
+        height: 100%;
+        background: linear-gradient(90deg, var(--violet), var(--cyan));
+        border-radius: 3px;
+        transition: width 0.6s var(--ease);
+      }
+
+      /* ── QUESTION ── */
+      .question-card {
+        border-radius: var(--r-lg);
+        padding: 40px;
+        margin-bottom: 20px;
+        min-height: 260px;
+        transition:
+          opacity 0.35s var(--ease),
+          transform 0.45s var(--ease),
+          filter 0.4s var(--ease);
+      }
+      .question-card.slide-out {
+        opacity: 0;
+        transform: translateX(-30px);
+        filter: blur(4px);
+        pointer-events: none;
+      }
+      .question-card.slide-in {
+        animation: slideInQ 0.5s var(--ease) both;
+      }
+      @keyframes slideInQ {
+        from {
+          opacity: 0;
+          transform: translateX(30px);
+          filter: blur(4px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+          filter: blur(0);
+        }
+      }
+      .question-num {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 0.72rem;
+        font-weight: 700;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--violet-2);
+        margin-bottom: 20px;
+      }
+      .question-num svg {
+        width: 13px;
+        height: 13px;
+      }
+      .question-texte {
+        font-family: "Fraunces", serif;
+        font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+        font-weight: 500;
+        line-height: 1.4;
+        margin-bottom: 32px;
+      }
+      .options-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+      }
+      .option-btn {
+        padding: 16px 18px;
+        border: 1px solid var(--glass-border);
+        border-radius: var(--r);
+        background: var(--glass);
+        cursor: pointer;
+        text-align: left;
+        font-family: "Inter", sans-serif;
+        font-size: 0.86rem;
+        font-weight: 500;
+        color: var(--txt-2);
+        line-height: 1.45;
+        transition:
+          border-color 0.28s var(--ease),
+          background 0.28s var(--ease),
+          color 0.28s var(--ease),
+          box-shadow 0.28s var(--ease);
+        transform: none;
+        display: flex;
+        align-items: flex-start;
+        gap: 11px;
+        backdrop-filter: blur(12px);
+      }
+      .option-btn .opt-ico {
+        width: 28px;
+        height: 28px;
+        border-radius: 9px;
+        background: rgba(139, 92, 246, 0.1);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        transition:
+          background 0.28s var(--ease),
+          box-shadow 0.28s var(--ease);
+      }
+      .option-btn .opt-ico svg {
+        width: 15px;
+        height: 15px;
+        color: var(--violet-2);
+        transition: color 0.28s var(--ease);
+      }
+      /* Hover : seul changement visuel, sans transform */
+      .option-btn:not(.selected):hover {
+        border-color: rgba(139, 92, 246, 0.5);
+        background: rgba(139, 92, 246, 0.07);
+        color: var(--txt);
+        box-shadow: 0 4px 18px rgba(139, 92, 246, 0.12);
+      }
+      .option-btn:not(.selected):hover .opt-ico {
+        background: rgba(139, 92, 246, 0.18);
+      }
+      /* Selected : animation unique via @keyframes — pas de conflit avec hover */
+      .option-btn.selected {
+        border-color: var(--violet-2);
+        background: rgba(139, 92, 246, 0.16);
+        color: var(--txt);
+        box-shadow:
+          0 6px 24px rgba(139, 92, 246, 0.22),
+          0 0 0 1px var(--violet-2);
+        animation: selectPulse 0.38s var(--ease-spring) both;
+      }
+      @keyframes selectPulse {
+        0% {
+          transform: scale(1);
+        }
+        45% {
+          transform: scale(1.025);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+      .option-btn.selected .opt-ico {
+        background: linear-gradient(135deg, var(--violet), var(--violet-deep));
+        box-shadow: 0 4px 14px rgba(139, 92, 246, 0.35);
+      }
+      .option-btn.selected .opt-ico svg {
+        color: #fff;
+      }
+
+      /* ── NAVIGATION Q ── */
+      .q-nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 16px;
+      }
+
+      /* ── RÉSULTATS ── */
+      .resultats-test {
+        animation: liquidReveal 0.7s var(--ease) both;
+      }
+      .res-head {
+        text-align: center;
+        padding: 50px 30px 40px;
+        border-radius: var(--r-lg);
+        margin-bottom: 24px;
+        position: relative;
+        overflow: hidden;
+      }
+      .res-head::before {
+        content: "";
+        position: absolute;
+        width: 400px;
+        height: 400px;
+        background: radial-gradient(
+          circle,
+          rgba(139, 92, 246, 0.18),
+          transparent 65%
+        );
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+      .res-head-inner {
+        position: relative;
+        z-index: 1;
+      }
+      .res-icone {
+        width: 68px;
+        height: 68px;
+        border-radius: 20px;
+        background: linear-gradient(140deg, var(--violet), var(--violet-deep));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 22px;
+        box-shadow: 0 12px 36px rgba(139, 92, 246, 0.38);
+      }
+      .res-icone svg {
+        width: 32px;
+        height: 32px;
+        color: #fff;
+      }
+      .res-profil {
+        font-family: "Fraunces", serif;
+        font-size: clamp(1.6rem, 4vw, 2.4rem);
+        font-weight: 600;
+        margin-bottom: 12px;
+        background: linear-gradient(135deg, var(--violet-2), var(--magenta));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+      .res-desc {
+        font-size: 0.95rem;
+        color: var(--txt-2);
+        max-width: 480px;
+        margin: 0 auto;
+        font-weight: 300;
+        line-height: 1.7;
+      }
+
+      /* Domaines suggérés */
+      .domaines-sugeres {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 12px;
+        margin-bottom: 28px;
+      }
+      .domaine-carte {
+        border-radius: var(--r);
+        padding: 22px;
+        transition:
+          transform 0.35s var(--ease),
+          box-shadow 0.35s var(--ease);
+      }
+      .domaine-carte:hover {
+        transform: translateY(-3px);
+        box-shadow: var(--shadow-lift);
+      }
+      .domaine-ico {
+        width: 42px;
+        height: 42px;
+        border-radius: 13px;
+        background: rgba(139, 92, 246, 0.12);
+        border: 1px solid rgba(139, 92, 246, 0.22);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 14px;
+        transition: transform 0.4s var(--ease-spring);
+      }
+      .domaine-ico svg {
+        width: 20px;
+        height: 20px;
+        color: var(--violet-2);
+      }
+      .domaine-carte:hover .domaine-ico {
+        transform: scale(1.1) rotate(-8deg);
+      }
+      .domaine-nom {
+        font-family: "Fraunces", serif;
+        font-weight: 500;
+        font-size: 0.95rem;
+        margin-bottom: 6px;
+      }
+      .domaine-desc {
+        font-size: 0.78rem;
+        color: var(--txt-2);
+        line-height: 1.5;
+        font-weight: 300;
+      }
+
+      /* Traits personnalité */
+      .traits-liste {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin-top: 18px;
+      }
+      .trait-pill {
+        font-size: 0.78rem;
+        font-weight: 600;
+        padding: 6px 16px;
+        border-radius: var(--r-pill);
+        background: rgba(139, 92, 246, 0.12);
+        color: var(--violet-2);
+        border: 1px solid rgba(139, 92, 246, 0.24);
+      }
+
+      .cta-test-bloc {
+        border-radius: var(--r);
+        padding: 32px;
+        text-align: center;
+        margin-top: 24px;
+      }
+      .cta-test-bloc h3 {
+        font-size: 1.1rem;
+        margin-bottom: 8px;
+      }
+      .cta-test-bloc p {
+        font-size: 0.88rem;
+        color: var(--txt-2);
+        margin-bottom: 20px;
+        font-weight: 300;
+      }
+      .cta-test-btns {
+        display: flex;
+        gap: 12px;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+
+      @media (max-width: 560px) {
+        .options-grid {
+          grid-template-columns: 1fr;
+        }
+        .question-card {
+          padding: 28px 22px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="liquid-field">
+      <div class="lq-orb lq-1"></div>
+      <div class="lq-orb lq-2"></div>
+      <div class="lq-orb lq-3"></div>
+    </div>
+    <div class="grain" aria-hidden="true"></div>
+
+    <!-- NAV -->
+    <div id="site-nav"></div>
+    <script src="Nav.js"></script>
+
+    <!-- BANNIÈRE -->
+    <div class="page-banner fade-up">
+      <div class="page-banner-inner">
+        <div class="eyebrow"><span class=""></span>Test de personnalité</div>
+        <h1>Je ne sais pas quoi faire</h1>
+        <p>
+          Réponds à 10 questions simples. On te suggère des domaines qui
+          pourraient te correspondre.
+        </p>
+      </div>
+    </div>
+
+    <section class="section" style="padding-top: 14px">
+      <div class="test-wrap">
+        <!-- ZONE PRINCIPALE -->
+        <div id="zone-test">
+          <!-- Progress -->
+          <div class="progress-bloc fade-up delay-1">
+            <div class="progress-info">
+              <span>Question <strong id="prog-num">1</strong> / 10</span>
+              <span id="prog-pct">0%</span>
+            </div>
+            <div class="progress-piste">
+              <div
+                class="progress-remplissage"
+                id="prog-bar"
+                style="width: 0%"
+              ></div>
+            </div>
+          </div>
+
+          <!-- Question -->
+          <div class="question-card glass fade-up delay-2" id="qcard">
+            <!-- rempli par JS -->
+          </div>
+
+          <!-- Navigation -->
+          <div class="q-nav fade-up delay-2">
+            <button
+              class="btn btn-secondary"
+              id="btn-prev"
+              onclick="precedent()"
+              style="display: none"
+            >
+              <svg class="icon" viewBox="0 0 24 24" stroke-width="2">
+                <path d="M19 12H5M11 6l-6 6 6 6" />
+              </svg>
+              Précédent
+            </button>
+            <div></div>
+            <button
+              class="btn btn-primary"
+              id="btn-next"
+              onclick="suivant()"
+              disabled
+            >
+              Suivant
+              <svg class="icon" viewBox="0 0 24 24" stroke-width="2.2">
+                <path d="M5 12h14M13 6l6 6-6 6" />
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- RÉSULTATS (caché au départ) -->
+        <div id="zone-resultats" style="display: none"></div>
+      </div>
+    </section>
+
+    <footer>
+      <strong>OrienteCI</strong>
+      <div class="foot-links">
+        <a href="Ecole.html">Écoles</a>
+        <a href="orientation.html">Orientation</a>
+        <a href="Decouvrire.html">Test personnalité</a>
+        <a href="faq.html">FAQ</a>
+      </div>
+    </footer>
+
+    <script>
+      /* ════════════════════════════════════════════════════
+         BANQUE DE QUESTIONS + SCORES DOMAINE
+         ════════════════════════════════════════════════════ */
+      const Q = [
+        {
+          texte: "Le week-end, tu préfères...",
+          options: [
+            {
+              texte: "Bricoler, construire, réparer quelque chose",
+              ico: "wrench",
+              domaines: { Ingénierie: 3, Architecture: 2 },
+            },
+            {
+              texte: "Lire, écrire ou faire de la recherche",
+              ico: "book",
+              domaines: { Lettres: 3, "Sciences Humaines": 2 },
+            },
+            {
+              texte: "Aider des amis ou t'investir dans la communauté",
+              ico: "heart",
+              domaines: { Santé: 2, "Sciences Humaines": 3, Communication: 1 },
+            },
+            {
+              texte:
+                "Coder, jouer à des jeux stratégiques ou créer des trucs numériques",
+              ico: "cpu",
+              domaines: { Informatique: 3, Sciences: 1 },
+            },
+          ],
+        },
+        {
+          texte:
+            "Quelle activité te donnerait le plus de satisfaction au travail ?",
+          options: [
+            {
+              texte: "Soigner des personnes ou améliorer leur bien-être",
+              ico: "heart-pulse",
+              domaines: { Santé: 3, "Sciences Humaines": 1 },
+            },
+            {
+              texte: "Résoudre des problèmes mathématiques ou logiques",
+              ico: "function",
+              domaines: { Sciences: 3, Informatique: 2, Ingénierie: 2 },
+            },
+            {
+              texte: "Convaincre, négocier ou vendre",
+              ico: "handshake",
+              domaines: { Commerce: 3, Marketing: 2, Management: 2 },
+            },
+            {
+              texte: "Créer des plans, des structures ou des systèmes",
+              ico: "blueprint",
+              domaines: { Architecture: 3, Ingénierie: 2, Informatique: 1 },
+            },
+          ],
+        },
+        {
+          texte: "Dans un groupe de travail, tu es souvent...",
+          options: [
+            {
+              texte: "Celui ou celle qui organise et prend des décisions",
+              ico: "star",
+              domaines: { Management: 3, Gestion: 2 },
+            },
+            {
+              texte:
+                "Celui ou celle qui analyse les données et produit des rapports",
+              ico: "chart",
+              domaines: { Sciences: 2, Économie: 2, Comptabilité: 2 },
+            },
+            {
+              texte: "Celui ou celle qui communique et présente les idées",
+              ico: "mic",
+              domaines: { Communication: 3, Marketing: 2, Lettres: 1 },
+            },
+            {
+              texte: "Celui ou celle qui trouve des solutions techniques",
+              ico: "cpu",
+              domaines: { Informatique: 2, Ingénierie: 2, Sciences: 1 },
+            },
+          ],
+        },
+        {
+          texte: "Quel type d'environnement de travail t'attire le plus ?",
+          options: [
+            {
+              texte:
+                "Un bureau ou un laboratoire, avec des équipements modernes",
+              ico: "lab",
+              domaines: { Sciences: 3, Informatique: 2, Santé: 1 },
+            },
+            {
+              texte: "Dehors, sur le terrain, en contact avec la nature",
+              ico: "leaf",
+              domaines: { Agriculture: 3, Environnement: 3, Mines: 1 },
+            },
+            {
+              texte: "Un espace créatif : atelier, studio, agence",
+              ico: "palette",
+              domaines: { Architecture: 2, Communication: 2, Marketing: 1 },
+            },
+            {
+              texte:
+                "Une entreprise ou une institution, avec des responsabilités",
+              ico: "building",
+              domaines: { Management: 2, Gestion: 2, Droit: 1, Commerce: 1 },
+            },
+          ],
+        },
+        {
+          texte: "Quelle matière scolaire t'a le plus passionné(e) ?",
+          options: [
+            {
+              texte: "Mathématiques et Physique",
+              ico: "function",
+              domaines: { Sciences: 3, Ingénierie: 3, Informatique: 2 },
+            },
+            {
+              texte: "Français, Philosophie ou Histoire",
+              ico: "book",
+              domaines: { Lettres: 3, "Sciences Humaines": 2, Droit: 2 },
+            },
+            {
+              texte: "SVT, Biologie ou Sciences de la Vie",
+              ico: "leaf",
+              domaines: { Santé: 3, Agriculture: 2, Environnement: 2 },
+            },
+            {
+              texte: "Économie ou Sciences Sociales",
+              ico: "chart",
+              domaines: { Économie: 3, Gestion: 2, Commerce: 2 },
+            },
+          ],
+        },
+        {
+          texte: "Dans 10 ans, tu te vois...",
+          options: [
+            {
+              texte: "À la tête d'une entreprise ou d'un projet",
+              ico: "star",
+              domaines: { Management: 3, Commerce: 2, Gestion: 2 },
+            },
+            {
+              texte: "Expert(e) dans un domaine technique ou scientifique",
+              ico: "cpu",
+              domaines: { Sciences: 3, Informatique: 3, Ingénierie: 2 },
+            },
+            {
+              texte: "Travaillant dans le secteur public ou l'humanitaire",
+              ico: "heart",
+              domaines: { Droit: 2, "Sciences Humaines": 3, Communication: 1 },
+            },
+            {
+              texte: "Entrepreneur(e) à ton compte ou dans la création",
+              ico: "rocket",
+              domaines: {
+                Commerce: 2,
+                Marketing: 2,
+                Architecture: 1,
+                Tourisme: 1,
+              },
+            },
+          ],
+        },
+        {
+          texte: "Qu'est-ce qui t'importerait le plus dans ton métier ?",
+          options: [
+            {
+              texte: "Un bon salaire et une stabilité financière",
+              ico: "coin",
+              domaines: {
+                Informatique: 2,
+                Ingénierie: 2,
+                Mines: 2,
+                Comptabilité: 1,
+              },
+            },
+            {
+              texte: "L'impact social et aider les autres",
+              ico: "heart",
+              domaines: { Santé: 3, "Sciences Humaines": 3, Environnement: 1 },
+            },
+            {
+              texte: "L'innovation et créer quelque chose de nouveau",
+              ico: "rocket",
+              domaines: {
+                Informatique: 2,
+                Ingénierie: 2,
+                Architecture: 2,
+                Marketing: 1,
+              },
+            },
+            {
+              texte: "Voyager, rencontrer des gens, découvrir le monde",
+              ico: "globe",
+              domaines: {
+                Tourisme: 3,
+                Commerce: 2,
+                Communication: 1,
+                Logistique: 1,
+              },
+            },
+          ],
+        },
+        {
+          texte: "Face à un problème compliqué, tu tends à...",
+          options: [
+            {
+              texte: "Le décomposer étape par étape de façon logique",
+              ico: "function",
+              domaines: { Informatique: 2, Sciences: 2, Ingénierie: 2 },
+            },
+            {
+              texte: "Chercher des exemples et des précédents",
+              ico: "book",
+              domaines: { Droit: 3, "Sciences Humaines": 2, Lettres: 1 },
+            },
+            {
+              texte: "Consulter les autres et chercher un consensus",
+              ico: "handshake",
+              domaines: {
+                Management: 2,
+                Communication: 2,
+                "Sciences Humaines": 1,
+              },
+            },
+            {
+              texte: "Faire des tests, expérimenter, essayer des solutions",
+              ico: "lab",
+              domaines: {
+                Sciences: 2,
+                Agriculture: 1,
+                Environnement: 1,
+                Informatique: 1,
+              },
+            },
+          ],
+        },
+        {
+          texte: "Lequel de ces secteurs t'inspire le plus ?",
+          options: [
+            {
+              texte: "Tech & Numérique : IA, cybersécurité, applications",
+              ico: "cpu",
+              domaines: { Informatique: 3, Sciences: 1 },
+            },
+            {
+              texte: "Santé & Bio : médecine, pharmacie, recherche médicale",
+              ico: "heart-pulse",
+              domaines: { Santé: 3, Sciences: 1 },
+            },
+            {
+              texte:
+                "Finance & Business : banque, investissement, entrepreneuriat",
+              ico: "coin",
+              domaines: {
+                Économie: 3,
+                Commerce: 2,
+                Comptabilité: 2,
+                Gestion: 2,
+              },
+            },
+            {
+              texte:
+                "Droit & Justice : avocature, magistrature, droits humains",
+              ico: "scale",
+              domaines: { Droit: 3 },
+            },
+          ],
+        },
+        {
+          texte: "Comment aimes-tu apprendre de nouvelles choses ?",
+          options: [
+            {
+              texte: "En faisant moi-même, en pratique directe",
+              ico: "wrench",
+              domaines: {
+                Ingénierie: 2,
+                Agriculture: 2,
+                Architecture: 1,
+                Logistique: 1,
+              },
+            },
+            {
+              texte:
+                "En lisant, en faisant des recherches, en regardant des vidéos",
+              ico: "book",
+              domaines: { Sciences: 2, Lettres: 2, "Sciences Humaines": 1 },
+            },
+            {
+              texte: "En échangeant avec d'autres, en débattant, en enseignant",
+              ico: "mic",
+              domaines: {
+                Communication: 2,
+                Management: 2,
+                "Sciences Humaines": 2,
+              },
+            },
+            {
+              texte: "En résolvant des exercices, des puzzles, des défis",
+              ico: "function",
+              domaines: { Informatique: 2, Sciences: 2, Mathématiques: 2 },
+            },
+          ],
+        },
+      ];
+
+      /* Icônes SVG par identifiant (remplace les emojis) */
+      const ICONS = {
+        wrench:
+          '<svg class="icon" viewBox="0 0 24 24" stroke-width="1.9"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.77 3.77Z"/></svg>',
+        book: '<svg class="icon" viewBox="0 0 24 24" stroke-width="1.9"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z"/></svg>',
+        heart:
+          '<svg class="icon" viewBox="0 0 24 24" stroke-width="1.9"><path d="M19 14c1.5-1 2-3 2-4.5A4.5 4.5 0 0 0 12 6a4.5 4.5 0 0 0-9 3.5c0 1.5.5 3.5 2 4.5l7 7 7-7Z"/></svg>',
+        cpu: '<svg class="icon" viewBox="0 0 24 24" stroke-width="1.9"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="8" y="8" width="8" height="8"/><path d="M8 2v2M16 2v2M8 20v2M16 20v2M2 8h2M2 16h2M20 8h2M20 16h2"/></svg>',
+        "heart-pulse":
+          '<svg class="icon" viewBox="0 0 24 24" stroke-width="1.9"><path d="M19 14c1.5-1 2-3 2-4.5A4.5 4.5 0 0 0 12 6a4.5 4.5 0 0 0-9 3.5c0 1.5.5 3.5 2 4.5l7 7 7-7Z"/><polyline points="1 12 5 12 7 8 9 16 11 12 13 12"/></svg>',
+        function:
+          '<svg class="icon" viewBox="0 0 24 24" stroke-width="1.9"><path d="M4 6h16M4 12h9M4 18h16M17 15l3 3-3 3"/></svg>',
+        handshake:
+          '<svg class="icon" viewBox="0 0 24 24" stroke-width="1.9"><path d="M20.5 7.3 16 2.7a2 2 0 0 0-2.8 0l-1.5 1.5L8 1a2 2 0 0 0-2.8 0L2 4.2l5.2 5.2L4 12.6 11.4 20l3.2-3.2L20.8 23l3.2-3.2-3.2-3.2 1.6-1.6a2 2 0 0 0 0-2.8L20.5 7.3Z"/></svg>',
+        blueprint:
+          '<svg class="icon" viewBox="0 0 24 24" stroke-width="1.9"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 3v18M3 9h6M3 15h6M15 9h6M15 15h6M9 9h6M9 15h6"/></svg>',
+        star: '<svg class="icon" viewBox="0 0 24 24" stroke-width="1.9"><path d="M12 17.75 5.8 21l1.2-7L2 9.3l7-1L12 2l3 6.3 7 1-5 4.7 1.2 7Z"/></svg>',
+        chart:
+          '<svg class="icon" viewBox="0 0 24 24" stroke-width="1.9"><path d="M3 17l5-5 4 4 8-9"/><path d="M14 7h6v6"/></svg>',
+        mic: '<svg class="icon" viewBox="0 0 24 24" stroke-width="1.9"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M19 10a7 7 0 0 1-14 0M12 19v3M8 22h8"/></svg>',
+        lab: '<svg class="icon" viewBox="0 0 24 24" stroke-width="1.9"><path d="M9 3h6M10 3v7l-5 9a1 1 0 0 0 .9 1.5h12.2A1 1 0 0 0 19 19l-5-9V3"/></svg>',
+        leaf: '<svg class="icon" viewBox="0 0 24 24" stroke-width="1.9"><path d="M11 20A7 7 0 0 1 4 13c0-2.7.9-5.2 2.6-7.1 1.7-2 4.1-3.1 6.9-3.1C19 2.8 21 8 21 13.1c0 3.8-3 6.9-6.8 6.9H11Z"/><path d="M11 20c0-3.3 2.6-6.1 5.5-7.5"/></svg>',
+        palette:
+          '<svg class="icon" viewBox="0 0 24 24" stroke-width="1.9"><circle cx="13.5" cy="6.5" r=".5" fill="currentColor" stroke="none"/><circle cx="17.5" cy="10.5" r=".5" fill="currentColor" stroke="none"/><circle cx="8.5" cy="7.5" r=".5" fill="currentColor" stroke="none"/><circle cx="6.5" cy="12.5" r=".5" fill="currentColor" stroke="none"/><path d="M12 2C6.5 2 2 6.5 2 12a10 10 0 0 0 10 10c.83 0 1.5-.67 1.5-1.5 0-.39-.15-.74-.39-1.01-.23-.26-.38-.61-.38-.99 0-.83.67-1.5 1.5-1.5H16c2.76 0 5-2.24 5-5 0-4.97-4.48-9-9-9Z"/></svg>',
+        building:
+          '<svg class="icon" viewBox="0 0 24 24" stroke-width="1.9"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>',
+        coin: '<svg class="icon" viewBox="0 0 24 24" stroke-width="1.9"><circle cx="12" cy="12" r="9"/><path d="M9.5 15.2c.4.9 1.3 1.5 2.5 1.5 1.6 0 2.7-.9 2.7-2.1 0-1.4-1.2-1.9-2.7-2.2-1.5-.3-2.6-.9-2.6-2.1 0-1.1 1-2 2.6-2 1.1 0 2 .5 2.4 1.3M12 7.5v9"/></svg>',
+        rocket:
+          '<svg class="icon" viewBox="0 0 24 24" stroke-width="1.9"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09Z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2Z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></svg>',
+        globe:
+          '<svg class="icon" viewBox="0 0 24 24" stroke-width="1.9"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.5 4 5.7 4 9s-1.5 6.5-4 9c-2.5-2.5-4-5.7-4-9s1.5-6.5 4-9Z"/></svg>',
+        scale:
+          '<svg class="icon" viewBox="0 0 24 24" stroke-width="1.9"><path d="M12 3v18M6 8l-3 6a3.5 3.5 0 0 0 6 0Zm12 0-3 6a3.5 3.5 0 0 0 6 0Z"/><path d="M4 21h16M6 8h12"/></svg>',
+      };
+
+      /* Profils personnalité */
+      const PROFILS = {
+        Analytique: {
+          icon: "function",
+          desc: "Tu aimes comprendre le fonctionnement des choses en profondeur. La logique, les données et la précision sont tes atouts naturels.",
+          traits: ["Rigoureux", "Logique", "Précis", "Curieux", "Méthodique"],
+        },
+        Créatif: {
+          icon: "palette",
+          desc: "Tu as une façon unique de voir le monde. L'esthétique, l'innovation et l'expression sont au cœur de ta personnalité.",
+          traits: [
+            "Innovant",
+            "Intuitif",
+            "Expressif",
+            "Imaginatif",
+            "Visionnaire",
+          ],
+        },
+        Humaniste: {
+          icon: "heart",
+          desc: "Tu es porté par l'envie d'aider, de comprendre les autres et de contribuer au bien commun.",
+          traits: [
+            "Empathique",
+            "Généreux",
+            "Communicatif",
+            "Social",
+            "Engagé",
+          ],
+        },
+        Leader: {
+          icon: "star",
+          desc: "Tu es à l'aise pour prendre des décisions, mobiliser une équipe et aller de l'avant. Le défi te motive.",
+          traits: [
+            "Ambitieux",
+            "Décisif",
+            "Charismatique",
+            "Organisé",
+            "Stratégique",
+          ],
+        },
+        Technique: {
+          icon: "wrench",
+          desc: "Tu préfères agir plutôt que théoriser. La mise en œuvre concrète, la construction et le terrain sont ta zone de confort.",
+          traits: [
+            "Concret",
+            "Pratique",
+            "Mécanique",
+            "Fiable",
+            "Perfectionniste",
+          ],
+        },
+      };
+
+      /* ── ÉTAT ── */
+      let qActuelle = 0;
+      let reponses = new Array(Q.length).fill(null);
+      const scores = {};
+
+      function renderQuestion(idx) {
+        const q = Q[idx];
+        const card = document.getElementById("qcard");
+
+        card.classList.add("slide-out");
+        setTimeout(() => {
+          card.innerHTML = `
+          <div class="question-num">
+            <svg class="icon" viewBox="0 0 24 24" stroke-width="2.2"><path d="M12 17.75 5.8 21l1.2-7L2 9.3l7-1L12 2l3 6.3 7 1-5 4.7 1.2 7Z"/></svg>
+            Question ${idx + 1} sur ${Q.length}
+          </div>
+          <div class="question-texte">${q.texte}</div>
+          <div class="options-grid">
+            ${q.options
+              .map(
+                (opt, i) => `
+              <button class="option-btn ${reponses[idx] === i ? "selected" : ""}"
+                onclick="selectionner(${i})" data-idx="${i}">
+                <span class="opt-ico">${ICONS[opt.ico] || ICONS.star}</span>
+                <span>${opt.texte}</span>
+              </button>`,
+              )
+              .join("")}
+          </div>`;
+          card.classList.remove("slide-out");
+          card.classList.add("slide-in");
+          setTimeout(() => card.classList.remove("slide-in"), 500);
+        }, 250);
+
+        /* Boutons nav */
+        document.getElementById("btn-prev").style.display =
+          idx > 0 ? "inline-flex" : "none";
+        document.getElementById("btn-next").disabled = reponses[idx] === null;
+        document.getElementById("btn-next").textContent =
+          idx === Q.length - 1 ? "Voir mes résultats →" : "Suivant →";
+        if (idx === Q.length - 1) {
+          document.getElementById("btn-next").innerHTML = `
+          Voir mes résultats
+          <svg class="icon" viewBox="0 0 24 24" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>`;
+        } else {
+          document.getElementById("btn-next").innerHTML = `
+          Suivant
+          <svg class="icon" viewBox="0 0 24 24" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>`;
+        }
+
+        /* Barre de progression */
+        const pct = Math.round((idx / Q.length) * 100);
+        document.getElementById("prog-bar").style.width = pct + "%";
+        document.getElementById("prog-num").textContent = idx + 1;
+        document.getElementById("prog-pct").textContent = pct + "%";
+      }
+
+      function selectionner(optIdx) {
+        reponses[qActuelle] = optIdx;
+        document
+          .querySelectorAll(".option-btn")
+          .forEach((b) => b.classList.remove("selected"));
+        document
+          .querySelectorAll(`.option-btn[data-idx="${optIdx}"]`)[0]
+          ?.classList.add("selected");
+        document.getElementById("btn-next").disabled = false;
+      }
+
+      function suivant() {
+        if (reponses[qActuelle] === null) return;
+        if (qActuelle < Q.length - 1) {
+          qActuelle++;
+          renderQuestion(qActuelle);
+        } else {
+          calculerResultat();
+        }
+      }
+      function precedent() {
+        if (qActuelle > 0) {
+          qActuelle--;
+          renderQuestion(qActuelle);
+        }
+      }
+
+      function calculerResultat() {
+        /* Accumule les scores domaine */
+        const totaux = {};
+        Q.forEach((q, qi) => {
+          const idx = reponses[qi];
+          if (idx === null) return;
+          const dom = q.options[idx].domaines;
+          Object.entries(dom).forEach(([d, pts]) => {
+            totaux[d] = (totaux[d] || 0) + pts;
+          });
+        });
+
+        /* Top domaines */
+        const sorted = Object.entries(totaux)
+          .sort((a, b) => b[1] - a[1])
+          .slice(0, 4);
+
+        /* Profil personnalité — basé sur le domaine #1 */
+        const top = sorted[0]?.[0] || "Informatique";
+        let profil = "Analytique";
+        if (
+          ["Lettres", "Sciences Humaines", "Communication", "Lettres"].includes(
+            top,
+          )
+        )
+          profil = "Humaniste";
+        else if (["Architecture", "Marketing", "Tourisme"].includes(top))
+          profil = "Créatif";
+        else if (
+          ["Management", "Commerce", "Gestion", "Économie"].includes(top)
+        )
+          profil = "Leader";
+        else if (
+          ["Ingénierie", "Agriculture", "Mines", "Logistique"].includes(top)
+        )
+          profil = "Technique";
+        else if (
+          [
+            "Informatique",
+            "Sciences",
+            "Comptabilité",
+            "Droit",
+            "Santé",
+          ].includes(top)
+        )
+          profil = "Analytique";
+
+        const p = PROFILS[profil];
+
+        /* Descriptions domaines */
+        const DOMAINE_DESC = {
+          Informatique:
+            "Développement, cybersécurité, data, intelligence artificielle.",
+          Sciences:
+            "Recherche, laboratoire, mathématiques appliquées, physique.",
+          Santé: "Médecine, pharmacie, infirmerie, biologie médicale.",
+          Droit: "Avocature, magistrature, jurisprudence, droits humains.",
+          Économie:
+            "Analyse économique, finance internationale, politiques publiques.",
+          Gestion: "Administration, comptabilité, ressources humaines, audit.",
+          Commerce: "Ventes, export, négociation, distribution.",
+          Management: "Leadership, stratégie, entrepreneuriat, direction.",
+          Architecture: "Conception, urbanisme, habitat, BTP.",
+          Ingénierie:
+            "Conception de systèmes, production industrielle, énergie.",
+          Agriculture: "Agro-alimentaire, agronomie, développement rural.",
+          Environnement:
+            "Écologie, développement durable, gestion des ressources.",
+          Communication: "Relations publiques, journalisme, médias numériques.",
+          Marketing: "Branding, publicité, stratégie commerciale, digital.",
+          Lettres: "Littérature, rédaction, traduction, enseignement.",
+          "Sciences Humaines":
+            "Psychologie, sociologie, travail social, anthropologie.",
+          Logistique: "Transport, supply chain, douanes, port.",
+          Mines: "Géologie, exploration minière, énergie fossile.",
+          Tourisme: "Hôtellerie, voyages, culture, événementiel.",
+          Comptabilité: "Comptabilité générale, audit, fiscalité, paie.",
+        };
+
+        const DOMAINE_ICO = {
+          Informatique: "cpu",
+          Sciences: "function",
+          Santé: "heart-pulse",
+          Droit: "scale",
+          Économie: "chart",
+          Gestion: "building",
+          Commerce: "handshake",
+          Management: "star",
+          Architecture: "blueprint",
+          Ingénierie: "wrench",
+          Agriculture: "leaf",
+          Environnement: "leaf",
+          Communication: "mic",
+          Marketing: "rocket",
+          Lettres: "book",
+          "Sciences Humaines": "heart",
+          Logistique: "globe",
+          Mines: "lab",
+          Tourisme: "globe",
+          Comptabilité: "coin",
+        };
+
+        document.getElementById("zone-test").style.display = "none";
+        const zone = document.getElementById("zone-resultats");
+        zone.style.display = "block";
+        zone.innerHTML = `
+        <div class="resultats-test">
+          <!-- Profil -->
+          <div class="res-head glass">
+            <div class="res-head-inner">
+              <div class="res-icone">${ICONS[p.icon] || ICONS.star}</div>
+              <div class="res-profil">Profil ${profil}</div>
+              <p class="res-desc">${p.desc}</p>
+              <div class="traits-liste">
+                ${p.traits.map((t) => `<span class="trait-pill">${t}</span>`).join("")}
+              </div>
+            </div>
+          </div>
+
+          <!-- Domaines suggérés -->
+          <h3 style="margin:36px 0 18px;font-size:1rem;color:var(--txt-2);font-weight:400;font-family:'Fraunces',serif;">
+            Domaines qui pourraient te correspondre
+          </h3>
+          <div class="domaines-sugeres">
+            ${sorted
+              .map(
+                ([dom], i) => `
+              <div class="domaine-carte glass pop-in" style="animation-delay:${i * 0.08}s">
+                <div class="domaine-ico">${ICONS[DOMAINE_ICO[dom] || "star"] || ICONS.star}</div>
+                <div class="domaine-nom">${dom}</div>
+                <div class="domaine-desc">${DOMAINE_DESC[dom] || ""}</div>
+              </div>`,
+              )
+              .join("")}
+          </div>
+
+          <!-- CTA -->
+          <div class="cta-test-bloc glass rv">
+            <h3>Tu as une piste !</h3>
+            <p>Lance maintenant ton test d'orientation pour voir les formations et écoles qui correspondent à ces domaines.</p>
+            <div class="cta-test-btns">
+              <a href="orientation.html?domaine=${encodeURIComponent(sorted[0]?.[0] || "")}" class="btn btn-primary">
+                Trouver mon école
+                <svg class="icon" viewBox="0 0 24 24" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              </a>
+              <button class="btn btn-secondary" onclick="recommencer()">
+                <svg class="icon" viewBox="0 0 24 24" stroke-width="2"><path d="M2 12a10 10 0 1 1 10 10M2 12V7M2 12H7"/></svg>
+                Recommencer
+              </button>
+            </div>
+          </div>
+        </div>`;
+
+        /* Scroll reveal des domaines */
+        const obs = new IntersectionObserver(
+          (entries) =>
+            entries.forEach(
+              (e) =>
+                e.isIntersecting &&
+                (e.target.classList.add("on"), obs.unobserve(e.target)),
+            ),
+          { threshold: 0.1 },
+        );
+        zone.querySelectorAll(".rv").forEach((el) => obs.observe(el));
+      }
+
+      function recommencer() {
+        reponses = new Array(Q.length).fill(null);
+        qActuelle = 0;
+        document.getElementById("zone-resultats").style.display = "none";
+        document.getElementById("zone-test").style.display = "block";
+        renderQuestion(0);
+      }
+
+      /* ── INIT ── */
+      renderQuestion(0);
+    </script>
+  </body>
+</html>

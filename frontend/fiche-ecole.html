@@ -1,0 +1,413 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fiche école — OrienteCI</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="Nav.js" defer></script>
+    <style>
+      /* ── HERO FICHE ── */
+      .fiche-hero {
+        padding: 54px 6% 48px;
+        position: relative;
+      }
+      .fiche-hero-retour {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 0.82rem;
+        color: var(--txt-3);
+        margin-bottom: 22px;
+        transition: color 0.2s;
+      }
+      .fiche-hero-retour svg {
+        width: 14px;
+        height: 14px;
+      }
+      .fiche-hero-retour:hover {
+        color: var(--violet-2);
+      }
+      .fiche-hero-top {
+        display: flex;
+        align-items: flex-start;
+        gap: 18px;
+        margin-bottom: 10px;
+      }
+      .fiche-sigle-grand {
+        width: 64px;
+        height: 64px;
+        flex-shrink: 0;
+        background: linear-gradient(140deg, var(--violet), var(--violet-deep));
+        border-radius: 18px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: "Fraunces", serif;
+        font-weight: 600;
+        font-size: 0.85rem;
+        color: #fff;
+        text-align: center;
+        line-height: 1.1;
+        padding: 4px;
+        box-shadow: 0 10px 30px rgba(139, 92, 246, 0.35);
+      }
+      .fiche-hero h1 {
+        font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+        margin-bottom: 8px;
+      }
+      .fiche-hero-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 18px;
+        margin-top: 20px;
+      }
+      .fiche-meta-item {
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        font-size: 0.86rem;
+        color: var(--txt-2);
+      }
+      .fiche-meta-item svg {
+        width: 15px;
+        height: 15px;
+        color: var(--violet-2);
+        flex-shrink: 0;
+      }
+      .fiche-meta-item a {
+        color: var(--txt-2);
+        text-decoration: underline;
+        text-underline-offset: 3px;
+      }
+      .fiche-meta-item a:hover {
+        color: var(--txt);
+      }
+
+      /* ── CARTES CHIFFRES ── */
+      .chiffres {
+        display: flex;
+        gap: 16px;
+        flex-wrap: wrap;
+        margin-top: 28px;
+      }
+      .chiffre-carte {
+        border-radius: var(--r);
+        padding: 18px 26px;
+        text-align: center;
+        min-width: 150px;
+      }
+      .chiffre-carte .num {
+        font-family: "Fraunces", serif;
+        font-size: 1.7rem;
+        font-weight: 600;
+      }
+      .chiffre-carte .lib {
+        font-size: 0.78rem;
+        margin-top: 4px;
+        color: var(--txt-2);
+      }
+      .chiffre-orange .num {
+        color: var(--orange-soft);
+      }
+      .chiffre-violet .num {
+        color: var(--violet-2);
+      }
+
+      /* ── CORPS ── */
+      .fiche-body {
+        max-width: 860px;
+        margin: 0 auto;
+        padding: 50px 6% 90px;
+      }
+      .fiche-section {
+        margin-bottom: 48px;
+      }
+      .fiche-section-titre {
+        font-family: "Fraunces", serif;
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: var(--txt);
+        padding-bottom: 12px;
+        border-bottom: 1px solid var(--glass-border-soft);
+        margin-bottom: 22px;
+      }
+
+      /* ── CARTE FORMATION ── */
+      .formation-carte {
+        border-radius: var(--r);
+        padding: 22px;
+        margin-bottom: 14px;
+        transition:
+          transform 0.4s var(--ease),
+          box-shadow 0.4s var(--ease),
+          border-color 0.3s;
+      }
+      .formation-carte:hover {
+        transform: translateY(-3px);
+        box-shadow: var(--shadow-lift);
+        border-color: rgba(255, 255, 255, 0.2);
+      }
+      .formation-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 12px;
+        margin-bottom: 12px;
+      }
+      .formation-nom {
+        font-family: "Fraunces", serif;
+        font-size: 1rem;
+        font-weight: 500;
+      }
+      .formation-domaine {
+        font-size: 0.72rem;
+        font-weight: 600;
+        white-space: nowrap;
+        padding: 4px 12px;
+        border-radius: var(--r-pill);
+        background: rgba(139, 92, 246, 0.14);
+        color: var(--violet-2);
+        border: 1px solid rgba(139, 92, 246, 0.25);
+      }
+      .formation-details {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 14px;
+        font-size: 0.81rem;
+        color: var(--txt-2);
+        margin-bottom: 12px;
+      }
+      .formation-details span {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .formation-details svg {
+        width: 14px;
+        height: 14px;
+        color: var(--violet-2);
+      }
+      .formation-desc {
+        font-size: 0.85rem;
+        color: var(--txt-2);
+        margin-bottom: 12px;
+        line-height: 1.6;
+        font-weight: 300;
+      }
+      .formation-debouches {
+        font-size: 0.83rem;
+        color: var(--txt-2);
+        margin-bottom: 12px;
+      }
+      .formation-debouches strong {
+        color: var(--txt);
+      }
+
+      .series-wrap {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex-wrap: wrap;
+        margin-top: 8px;
+      }
+      .series-wrap span:first-child {
+        font-size: 0.76rem;
+        color: var(--txt-3);
+      }
+      .serie-pill {
+        font-size: 0.72rem;
+        font-weight: 700;
+        background: linear-gradient(135deg, var(--violet), var(--violet-deep));
+        color: #fff;
+        padding: 3px 11px;
+        border-radius: var(--r-pill);
+      }
+
+      /* ── CTA BAS ── */
+      .fiche-cta {
+        text-align: center;
+        padding: 46px 24px;
+        border-radius: var(--r-lg);
+      }
+      .fiche-cta h3 {
+        font-family: "Fraunces", serif;
+        margin-bottom: 10px;
+        font-size: 1.3rem;
+      }
+      .fiche-cta p {
+        font-size: 0.9rem;
+        color: var(--txt-2);
+        margin-bottom: 24px;
+        font-weight: 300;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="liquid-field">
+      <div class="lq-orb lq-1"></div>
+      <div class="lq-orb lq-2"></div>
+      <div class="lq-orb lq-3"></div>
+    </div>
+    <div class="grain" aria-hidden="true"></div>
+
+    <!-- NAVBAR -->
+    <link rel="stylesheet" href="Nav.js" />
+    <div id="site-nav"></div>
+
+    <!-- CONTENU DYNAMIQUE -->
+    <div id="page-contenu">
+      <div class="spinner" style="margin-top: 80px"></div>
+    </div>
+
+    <script>
+      const API = "http://localhost:3000/api";
+
+      const ICON_PIN =
+        '<svg class="icon" viewBox="0 0 24 24" stroke-width="2"><path d="M12 21s7-6.1 7-11.5A7 7 0 0 0 5 9.5C5 14.9 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.4"/></svg>';
+      const ICON_PHONE =
+        '<svg class="icon" viewBox="0 0 24 24" stroke-width="2"><path d="M4 5c0-.6.4-1 1-1h3l2 5-2 1.5a11 11 0 0 0 5 5L14.5 14l5 2v3c0 .6-.4 1-1 1C10.5 20 4 13.5 4 5Z"/></svg>';
+      const ICON_MAIL =
+        '<svg class="icon" viewBox="0 0 24 24" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3.5 6 8.5 7 8.5-7"/></svg>';
+      const ICON_GLOBE =
+        '<svg class="icon" viewBox="0 0 24 24" stroke-width="1.9"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.5 4 5.7 4 9s-1.5 6.5-4 9c-2.5-2.5-4-5.7-4-9s1.5-6.5 4-9Z"/></svg>';
+      const ICON_CLOCK =
+        '<svg viewBox="0 0 24 24" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>';
+      const ICON_TARGET =
+        '<svg viewBox="0 0 24 24" stroke-width="1.9"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="1" fill="currentColor" stroke="none"/></svg>';
+
+      async function charger() {
+        const id = new URLSearchParams(window.location.search).get("id");
+        if (!id) {
+          window.location.href = "Ecole.html";
+          return;
+        }
+
+        try {
+          const res = await fetch(`${API}/ecoles/${id}`);
+          const data = await res.json();
+          if (!data.success) throw new Error();
+          afficher(data.data);
+        } catch {
+          document.getElementById("page-contenu").innerHTML =
+            '<p style="padding:60px 6%;color:var(--txt-2);">École introuvable ou serveur non disponible.</p>';
+        }
+      }
+
+      function afficher(e) {
+        document.title = `${e.sigle} — OrienteCI`;
+
+        document.getElementById("page-contenu").innerHTML = `
+
+        <!-- HERO -->
+        <div class="fiche-hero">
+          <a href="Ecole.html" class="fiche-hero-retour">
+            <svg class="icon" viewBox="0 0 24 24" stroke-width="2"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>
+            Retour
+          </a>
+          <div class="fiche-hero-top fade-up">
+            <div class="fiche-sigle-grand">${e.sigle}</div>
+            <div>
+              <h1>${e.nom}</h1>
+              <span class="badge-type badge-${e.type}">
+                ${e.type.charAt(0).toUpperCase() + e.type.slice(1)}
+              </span>
+            </div>
+          </div>
+          <div class="fiche-hero-meta fade-up delay-1">
+            <span class="fiche-meta-item">${ICON_PIN} ${e.ville}${e.quartier ? ", " + e.quartier : ""}</span>
+            ${e.telephone ? `<span class="fiche-meta-item">${ICON_PHONE} ${e.telephone}</span>` : ""}
+            ${e.email ? `<span class="fiche-meta-item">${ICON_MAIL} ${e.email}</span>` : ""}
+            ${e.site_web ? `<span class="fiche-meta-item">${ICON_GLOBE} <a href="${e.site_web}" target="_blank">Site web</a></span>` : ""}
+          </div>
+        </div>
+
+        <!-- CORPS -->
+        <div class="fiche-body">
+
+          <!-- À propos -->
+          <div class="fiche-section fade-up delay-2">
+            <div class="fiche-section-titre">À propos</div>
+            <p style="color:var(--txt-2);margin-bottom:22px;font-weight:300;line-height:1.7;">${e.description}</p>
+            <div class="chiffres">
+              <div class="chiffre-carte chiffre-orange glass pop-in" style="animation-delay:0.1s">
+                <div class="num">
+                  ${Number(e.frais_min).toLocaleString("fr")} F
+                </div>
+                <div class="lib">Frais minimum / an</div>
+              </div>
+              <div class="chiffre-carte chiffre-orange glass pop-in" style="animation-delay:0.18s">
+                <div class="num">
+                  ${Number(e.frais_max).toLocaleString("fr")} F
+                </div>
+                <div class="lib">Frais maximum / an</div>
+              </div>
+              <div class="chiffre-carte chiffre-violet glass pop-in" style="animation-delay:0.26s">
+                <div class="num">${e.formations.length}</div>
+                <div class="lib">Formation(s) disponible(s)</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Formations -->
+          <div class="fiche-section">
+            <div class="fiche-section-titre fade-up">Formations proposées</div>
+            ${e.formations
+              .map(
+                (f, i) => `
+              <div class="formation-carte glass pop-in" style="animation-delay:${i * 0.08}s">
+                <div class="formation-top">
+                  <div class="formation-nom">${f.nom}</div>
+                  <span class="formation-domaine">${f.domaine}</span>
+                </div>
+                <div class="formation-details">
+                  <span>${ICON_CLOCK} Durée : <strong>${f.duree}</strong></span>
+                  <span>${ICON_TARGET} Moyenne requise : <strong>${f.moyenne_requise}/20</strong></span>
+                </div>
+                <div class="formation-desc">${f.description}</div>
+                <div class="formation-debouches">
+                  <strong>Débouchés :</strong> ${f.debouches.join(", ")}
+                </div>
+                <div class="series-wrap">
+                  <span>Séries acceptées :</span>
+                  ${f.series_acceptees.map((s) => `<span class="serie-pill">${s}</span>`).join("")}
+                </div>
+              </div>
+            `,
+              )
+              .join("")}
+          </div>
+
+          <!-- CTA -->
+          <div class="fiche-cta glass fade-up">
+            <h3>Cette école t'intéresse ?</h3>
+            <p>Vérifie si tu es compatible avec ses formations en remplissant ton profil.</p>
+            <a href="orientation.html" class="btn btn-primary">
+              Faire mon test d'orientation
+              <svg class="icon" viewBox="0 0 24 24" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </a>
+          </div>
+
+        </div>
+
+        <footer>
+          <strong>OrienteCI</strong>
+          <div class="foot-links">
+            <a href="Ecole.html">Écoles</a>
+            <a href="orientation.html">Orientation</a>
+            <a href="Decouvrire.html">Test personnalité</a>
+            <a href="faq.html">FAQ</a>
+          </div>
+        </footer>
+      `;
+
+        /* Icônes en filaire dans formation-details (stroke SVG sans classe .icon) */
+        document
+          .querySelectorAll(".formation-details svg")
+          .forEach((svg) => svg.classList.add("icon"));
+      }
+
+      charger();
+    </script>
+  </body>
+</html>

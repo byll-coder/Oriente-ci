@@ -1,0 +1,1296 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <title>Mon orientation — OrienteCI</title>
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+      /* ── LAYOUT ────────────────────────────────────────────────── */
+      .orientation-layout {
+        display: grid;
+        grid-template-columns: 360px 1fr;
+        gap: 24px;
+        align-items: start;
+      }
+
+      /* ── FORMULAIRE ────────────────────────────────────────────── */
+      .form-card {
+        border-radius: var(--r-lg);
+        padding: 28px;
+        position: sticky;
+        top: 80px;
+      }
+      .form-card-head {
+        margin-bottom: 24px;
+        padding-bottom: 20px;
+        border-bottom: 1px solid var(--glass-border-2);
+      }
+      .form-card-head h2 {
+        font-size: 1.2rem;
+        font-weight: 800;
+        letter-spacing: -0.03em;
+        margin-bottom: 5px;
+      }
+      .form-card-head p {
+        font-size: 0.78rem;
+        color: var(--txt-3);
+        font-weight: 400;
+      }
+
+      .champ {
+        margin-bottom: 18px;
+      }
+      .champ label {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 0.76rem;
+        font-weight: 700;
+        letter-spacing: 0.02em;
+        color: var(--txt-2);
+        margin-bottom: 8px;
+        text-transform: uppercase;
+      }
+      .champ label svg {
+        width: 12px;
+        height: 12px;
+        color: var(--purple-light);
+      }
+      .req {
+        color: var(--amber);
+        margin-left: 2px;
+      }
+
+      .champ select,
+      .champ input {
+        width: 100%;
+        padding: 12px 14px;
+        border: 1px solid var(--glass-border);
+        border-radius: var(--r-sm);
+        font-family: "Plus Jakarta Sans", sans-serif;
+        font-size: 0.88rem;
+        font-weight: 500;
+        background: rgba(255, 255, 255, 0.05);
+        color: var(--txt);
+        transition:
+          border-color 0.22s,
+          background 0.22s,
+          box-shadow 0.22s;
+        appearance: none;
+      }
+      .champ select {
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23a78bfa' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 14px center;
+        cursor: pointer;
+      }
+      .champ select option {
+        background: var(--bg-2);
+        color: var(--txt);
+      }
+      .champ input::placeholder {
+        color: var(--txt-4);
+        font-weight: 400;
+      }
+      .champ select:focus,
+      .champ input:focus {
+        outline: none;
+        border-color: var(--purple);
+        background: rgba(124, 92, 252, 0.08);
+        box-shadow: 0 0 0 3px rgba(124, 92, 252, 0.15);
+      }
+
+      /* Panneau métiers */
+      .panneau-metiers {
+        margin-top: 10px;
+        max-height: 0;
+        overflow: hidden;
+        opacity: 0;
+        transition:
+          max-height 0.45s var(--ease),
+          opacity 0.35s var(--ease);
+      }
+      .panneau-metiers.open {
+        max-height: 500px;
+        opacity: 1;
+      }
+      .panneau-metiers-inner {
+        background: rgba(240, 165, 0, 0.07);
+        border: 1px solid rgba(240, 165, 0, 0.2);
+        border-radius: var(--r-sm);
+        padding: 14px;
+      }
+      .panneau-titre {
+        font-size: 0.72rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--amber-light);
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        margin-bottom: 12px;
+      }
+      .panneau-titre svg {
+        width: 12px;
+        height: 12px;
+      }
+      .metier-item {
+        display: flex;
+        gap: 10px;
+        padding: 8px 0;
+        border-bottom: 1px solid rgba(240, 165, 0, 0.1);
+      }
+      .metier-item:last-child {
+        border-bottom: none;
+      }
+      .metier-dot {
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        background: var(--amber);
+        margin-top: 7px;
+        flex-shrink: 0;
+      }
+      .metier-nom {
+        font-size: 0.8rem;
+        font-weight: 600;
+        color: var(--txt);
+      }
+      .metier-desc {
+        font-size: 0.72rem;
+        color: var(--txt-3);
+        line-height: 1.4;
+      }
+
+      /* Matières */
+      .matieres {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 7px;
+      }
+      .matiere-label {
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        font-size: 0.78rem;
+        font-weight: 600;
+        padding: 9px 11px;
+        border: 1px solid var(--glass-border-2);
+        border-radius: var(--r-sm);
+        cursor: pointer;
+        transition: all 0.2s var(--ease);
+        background: rgba(255, 255, 255, 0.03);
+        color: var(--txt-3);
+      }
+      .matiere-label svg {
+        width: 14px;
+        height: 14px;
+        color: var(--purple-light);
+        flex-shrink: 0;
+      }
+      .matiere-label input {
+        display: none;
+      }
+      .matiere-label:has(input:checked) {
+        background: rgba(240, 165, 0, 0.12);
+        border-color: rgba(240, 165, 0, 0.35);
+        color: var(--amber-light);
+      }
+      .matiere-label:has(input:checked) svg {
+        color: var(--amber-light);
+      }
+
+      .form-submit-btn {
+        width: 100%;
+        justify-content: center;
+        margin-top: 8px;
+        padding: 14px;
+        font-size: 0.92rem;
+        background: linear-gradient(135deg, var(--purple), var(--purple-deep));
+        box-shadow: var(--shadow-btn-purple);
+      }
+      .form-submit-btn:hover {
+        background: linear-gradient(135deg, var(--purple-light), var(--purple));
+        box-shadow:
+          0 12px 36px rgba(124, 92, 252, 0.5),
+          0 1px 0 rgba(255, 255, 255, 0.25) inset;
+      }
+
+      /* ── RÉSULTATS ─────────────────────────────────────────────── */
+      .resultats-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 20px;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+      .resultats-header h3 {
+        font-size: 1rem;
+        font-weight: 700;
+        letter-spacing: -0.02em;
+      }
+      .resultats-header p {
+        font-size: 0.8rem;
+        color: var(--txt-3);
+      }
+      .res-count-pill {
+        font-family: "DM Mono", monospace;
+        font-size: 0.75rem;
+        font-weight: 500;
+        background: rgba(124, 92, 252, 0.15);
+        color: var(--purple-light);
+        border: 1px solid rgba(124, 92, 252, 0.28);
+        padding: 4px 12px;
+        border-radius: var(--r-pill);
+      }
+
+      .carte-resultat {
+        border-radius: var(--r);
+        padding: 22px;
+        margin-bottom: 14px;
+        transition:
+          transform 0.4s var(--ease),
+          box-shadow 0.4s var(--ease),
+          border-color 0.3s;
+      }
+      .carte-resultat:hover {
+        transform: translateY(-4px);
+        box-shadow: var(--shadow-lift);
+        border-color: rgba(124, 92, 252, 0.3);
+      }
+
+      /* Score */
+      .score-row {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        margin-bottom: 16px;
+      }
+      .score-track {
+        flex: 1;
+        height: 7px;
+        background: var(--glass-border-2);
+        border-radius: 4px;
+        overflow: hidden;
+      }
+      .score-fill {
+        height: 100%;
+        border-radius: 4px;
+        width: 0;
+        transition: width 0.9s var(--ease);
+      }
+      .fill-top {
+        background: linear-gradient(90deg, var(--purple), var(--teal));
+      }
+      .fill-good {
+        background: linear-gradient(90deg, var(--amber), var(--amber-light));
+      }
+      .fill-ok {
+        background: rgba(255, 255, 255, 0.2);
+      }
+      .score-val {
+        font-family: "DM Mono", monospace;
+        font-size: 1.3rem;
+        font-weight: 500;
+        min-width: 48px;
+        text-align: right;
+      }
+      .score-top {
+        color: var(--purple-light);
+      }
+      .score-good {
+        color: var(--amber-light);
+      }
+      .score-ok {
+        color: var(--txt-3);
+      }
+
+      .badge-res {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        font-size: 0.7rem;
+        font-weight: 700;
+        letter-spacing: 0.04em;
+        padding: 4px 11px;
+        border-radius: var(--r-pill);
+        margin-bottom: 12px;
+      }
+      .badge-res svg {
+        width: 10px;
+        height: 10px;
+      }
+      .badge-res-top {
+        background: rgba(124, 92, 252, 0.14);
+        color: var(--purple-light);
+        border: 1px solid rgba(124, 92, 252, 0.28);
+      }
+      .badge-res-good {
+        background: rgba(240, 165, 0, 0.12);
+        color: var(--amber-light);
+        border: 1px solid rgba(240, 165, 0, 0.26);
+      }
+      .badge-res-ok {
+        background: var(--glass-bg);
+        color: var(--txt-3);
+        border: 1px solid var(--glass-border-2);
+      }
+
+      .res-formation {
+        font-size: 1.02rem;
+        font-weight: 700;
+        letter-spacing: -0.025em;
+        margin-bottom: 5px;
+      }
+      .res-ecole {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 0.84rem;
+        color: var(--txt-2);
+        margin-bottom: 14px;
+      }
+      .res-ecole svg {
+        width: 13px;
+        height: 13px;
+        color: var(--purple-light);
+      }
+      .res-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px 16px;
+        font-size: 0.78rem;
+        color: var(--txt-3);
+        margin-bottom: 12px;
+      }
+      .res-meta span {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+      }
+      .res-meta svg {
+        width: 12px;
+        height: 12px;
+        color: var(--purple-light);
+      }
+      .res-debouches {
+        font-size: 0.8rem;
+        color: var(--txt-3);
+        line-height: 1.5;
+      }
+      .res-debouches strong {
+        color: var(--txt-2);
+        font-weight: 600;
+      }
+
+      /* État vide */
+      .empty-results {
+        text-align: center;
+        padding: 80px 24px;
+        border-radius: var(--r-lg);
+      }
+      .empty-results .empty-ico {
+        width: 60px;
+        height: 60px;
+        margin: 0 auto 20px;
+        border-radius: 18px;
+        background: rgba(124, 92, 252, 0.1);
+        border: 1px solid rgba(124, 92, 252, 0.2);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .empty-results .empty-ico svg {
+        width: 28px;
+        height: 28px;
+        color: var(--purple-light);
+      }
+      .empty-results h3 {
+        font-size: 1.1rem;
+        font-weight: 700;
+        margin-bottom: 10px;
+      }
+      .empty-results p {
+        font-size: 0.88rem;
+        color: var(--txt-3);
+        max-width: 340px;
+        margin: 0 auto;
+        line-height: 1.6;
+      }
+
+      /* ── BADGES TYPE DE MATCH ─────────────────────────────────── */
+      .badge-match-exact {
+        background: rgba(20, 184, 166, 0.12);
+        color: #2dd4bf;
+        border: 1px solid rgba(20, 184, 166, 0.28);
+      }
+      .badge-match-equiv {
+        background: rgba(99, 102, 241, 0.12);
+        color: #a5b4fc;
+        border: 1px solid rgba(99, 102, 241, 0.28);
+      }
+      .badge-match-domaine {
+        background: rgba(249, 115, 22, 0.12);
+        color: #fdba74;
+        border: 1px solid rgba(249, 115, 22, 0.28);
+      }
+
+      /* ── BARRE DE COMPARAISON ──────────────────────────────────── */
+      .compare-bar {
+        position: fixed;
+        bottom: 24px;
+        left: 50%;
+        transform: translateX(-50%) translateY(120px);
+        z-index: 999;
+        background: var(--bg-2, #1a1a2e);
+        border: 1px solid rgba(124, 92, 252, 0.4);
+        border-radius: var(--r-pill, 999px);
+        padding: 12px 20px;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+        transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        white-space: nowrap;
+      }
+      .compare-bar.visible {
+        transform: translateX(-50%) translateY(0);
+      }
+      .compare-slots {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+      }
+      .compare-slot {
+        font-size: 0.8rem;
+        font-weight: 600;
+        color: var(--txt-2);
+        background: rgba(124, 92, 252, 0.1);
+        border: 1px dashed rgba(124, 92, 252, 0.3);
+        border-radius: var(--r-sm, 8px);
+        padding: 6px 14px;
+        min-width: 120px;
+        text-align: center;
+      }
+      .compare-slot.filled {
+        border-style: solid;
+        border-color: rgba(124, 92, 252, 0.5);
+        color: var(--purple-light);
+      }
+      .compare-vs {
+        font-size: 0.72rem;
+        font-weight: 700;
+        color: var(--txt-4);
+        letter-spacing: 0.05em;
+      }
+      .btn-compare.selected {
+        background: rgba(124, 92, 252, 0.25) !important;
+        border-color: var(--purple) !important;
+        color: var(--purple-light) !important;
+      }
+      .compare-clear {
+        background: none;
+        border: none;
+        color: var(--txt-4);
+        cursor: pointer;
+        font-size: 1rem;
+        padding: 4px;
+        line-height: 1;
+      }
+
+      @media (max-width: 768px) {
+        .orientation-layout {
+          grid-template-columns: 1fr;
+        }
+        .form-card {
+          position: static;
+        }
+        .matieres {
+          grid-template-columns: repeat(4, 1fr);
+        }
+      }
+      @media (max-width: 480px) {
+        .matieres {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="liquid-field">
+      <div class="lq-orb lq-1"></div>
+      <div class="lq-orb lq-2"></div>
+      <div class="lq-orb lq-3"></div>
+    </div>
+    <div class="grain" aria-hidden="true"></div>
+
+    <!-- NAV -->
+    <div id="site-nav"></div>
+    <script src="nav.js"></script>
+
+    <!-- BANNER -->
+    <div class="page-banner fade-up">
+      <div class="page-banner-inner">
+        <div class="eyebrow">
+          <span class=""></span>Formulaire d'orientation
+        </div>
+        <h1>Trouve ton école</h1>
+        <p>
+          Remplis ton profil. OrienteCI calcule les formations compatibles avec
+          ton BAC.
+        </p>
+      </div>
+    </div>
+
+    <!-- CONTENT -->
+    <section class="section" style="padding-top: 32px">
+      <div class="orientation-layout">
+        <!-- FORM -->
+        <div class="form-card glass fade-up delay-1">
+          <div class="form-card-head">
+            <h2>Ton profil</h2>
+            <p>Tes informations restent sur cet appareil uniquement.</p>
+          </div>
+
+          <div class="champ">
+            <label>
+              <svg class="icon" viewBox="0 0 24 24" stroke-width="2">
+                <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
+                <path
+                  d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z"
+                />
+              </svg>
+              Série du BAC <span class="req">*</span>
+            </label>
+            <select id="serie">
+              <option value="">Choisir une série</option>
+              <option value="A">
+                Série A — Lettres &amp; Sciences Humaines
+              </option>
+              <option value="B">
+                Série B — Économie &amp; Sciences Sociales
+              </option>
+              <option value="C">
+                Série C — Maths &amp; Sciences Physiques
+              </option>
+              <option value="D">
+                Série D — Sciences de la Vie &amp; Terre
+              </option>
+              <option value="E">Série E — Sciences &amp; Technologies</option>
+              <optgroup label="Enseignement Technique">
+                <option value="F1">Série F1 — Construction Mécanique</option>
+                <option value="F2">Série F2 — Électronique</option>
+                <option value="G1">Série G1 — Secrétariat</option>
+                <option value="G2">Série G2 — Comptabilité</option>
+                <option value="BT-ELEC">BT Électronique</option>
+              </optgroup>
+            </select>
+          </div>
+
+          <div class="champ">
+            <label>
+              <svg class="icon" viewBox="0 0 24 24" stroke-width="2">
+                <path d="M3 17l5-5 4 4 8-9" />
+              </svg>
+              Moyenne au BAC <span class="req">*</span>
+            </label>
+            <input
+              type="number"
+              id="moyenne"
+              min="0"
+              max="20"
+              step="0.5"
+              placeholder="Ex : 13.5"
+            />
+          </div>
+
+          <div class="champ">
+            <label>
+              <svg class="icon" viewBox="0 0 24 24" stroke-width="2">
+                <circle cx="12" cy="12" r="8.5" />
+                <circle cx="12" cy="12" r="4.5" />
+              </svg>
+              Domaine souhaité
+            </label>
+            <select id="domaine" onchange="afficherMetiers()">
+              <option value="">Pas de préférence</option>
+            </select>
+            <div id="panneau-metiers" class="panneau-metiers"></div>
+          </div>
+
+          <div class="champ">
+            <label>
+              <svg class="icon" viewBox="0 0 24 24" stroke-width="2">
+                <path
+                  d="M12 21s7-6.1 7-11.5A7 7 0 0 0 5 9.5C5 14.9 12 21 12 21Z"
+                />
+              </svg>
+              Ville préférée
+            </label>
+            <select id="ville">
+              <option value="">Pas de préférence</option>
+            </select>
+          </div>
+
+          <div class="champ">
+            <label>
+              <svg class="icon" viewBox="0 0 24 24" stroke-width="2">
+                <circle cx="12" cy="12" r="9" />
+                <path
+                  d="M9.5 15.2c.4.9 1.3 1.5 2.5 1.5 1.6 0 2.7-.9 2.7-2.1 0-1.4-1.2-1.9-2.7-2.2-1.5-.3-2.6-.9-2.6-2.1 0-1.1 1-2 2.6-2 1.1 0 2 .5 2.4 1.3M12 7.5v9"
+                />
+              </svg>
+              Budget max / an (FCFA)
+            </label>
+            <input
+              type="number"
+              id="budget"
+              min="0"
+              step="50000"
+              placeholder="Ex : 500 000"
+            />
+          </div>
+
+          <div class="champ">
+            <label>
+              <svg class="icon" viewBox="0 0 24 24" stroke-width="2">
+                <path
+                  d="M12 17.75 5.8 21l1.2-7L2 9.3l7-1L12 2l3 6.3 7 1-5 4.7 1.2 7Z"
+                />
+              </svg>
+              Matières fortes
+            </label>
+            <div class="matieres">
+              <label class="matiere-label">
+                <input type="checkbox" value="Mathématiques" />
+                <svg class="icon" viewBox="0 0 24 24" stroke-width="1.9">
+                  <path d="M4 6h16M4 12h9M4 18h16M17 15l3 3-3 3" />
+                </svg>
+                Maths
+              </label>
+              <label class="matiere-label">
+                <input type="checkbox" value="Physique" />
+                <svg class="icon" viewBox="0 0 24 24" stroke-width="1.9">
+                  <circle
+                    cx="12"
+                    cy="12"
+                    r="1.4"
+                    fill="currentColor"
+                    stroke="none"
+                  />
+                  <ellipse cx="12" cy="12" rx="9" ry="3.6" />
+                  <ellipse
+                    cx="12"
+                    cy="12"
+                    rx="9"
+                    ry="3.6"
+                    transform="rotate(60 12 12)"
+                  />
+                  <ellipse
+                    cx="12"
+                    cy="12"
+                    rx="9"
+                    ry="3.6"
+                    transform="rotate(120 12 12)"
+                  />
+                </svg>
+                Physique
+              </label>
+              <label class="matiere-label">
+                <input type="checkbox" value="SVT" />
+                <svg class="icon" viewBox="0 0 24 24" stroke-width="1.9">
+                  <path
+                    d="M12 21c-4-3-7-6.5-7-11a7 7 0 0 1 14 0c0 4.5-3 8-7 11Z"
+                  />
+                  <path d="M12 8v9" />
+                </svg>
+                SVT
+              </label>
+              <label class="matiere-label">
+                <input type="checkbox" value="Français" />
+                <svg class="icon" viewBox="0 0 24 24" stroke-width="1.9">
+                  <path d="M6 4h9l3 3v13H6z" />
+                  <path d="M9 9h6M9 13h6M9 17h4" />
+                </svg>
+                Français
+              </label>
+              <label class="matiere-label">
+                <input type="checkbox" value="Anglais" />
+                <svg class="icon" viewBox="0 0 24 24" stroke-width="1.9">
+                  <circle cx="12" cy="12" r="9" />
+                  <path
+                    d="M3 12h18M12 3c2.5 2.5 4 5.7 4 9s-1.5 6.5-4 9c-2.5-2.5-4-5.7-4-9s1.5-6.5 4-9Z"
+                  />
+                </svg>
+                Anglais
+              </label>
+              <label class="matiere-label">
+                <input type="checkbox" value="Histoire-Géo" />
+                <svg class="icon" viewBox="0 0 24 24" stroke-width="1.9">
+                  <path
+                    d="M12 21s7-6.1 7-11.5A7 7 0 0 0 5 9.5C5 14.9 12 21 12 21Z"
+                  />
+                  <circle cx="12" cy="9.5" r="2.4" />
+                </svg>
+                Hist-Géo
+              </label>
+              <label class="matiere-label">
+                <input type="checkbox" value="Économie" />
+                <svg class="icon" viewBox="0 0 24 24" stroke-width="1.9">
+                  <path d="M3 17l5-5 4 4 8-9" />
+                  <path d="M14 7h6v6" />
+                </svg>
+                Éco
+              </label>
+              <label class="matiere-label">
+                <input type="checkbox" value="Informatique" />
+                <svg class="icon" viewBox="0 0 24 24" stroke-width="1.9">
+                  <rect x="3" y="4" width="18" height="12" rx="2" />
+                  <path d="M8 21h8M12 16v5" />
+                </svg>
+                Info
+              </label>
+
+              <!-- Matières techniques -->
+              <label class="matiere-label" title="F1 — Construction Mécanique">
+                <input type="checkbox" value="Dessin Technique" />
+                <svg class="icon" viewBox="0 0 24 24" stroke-width="1.9">
+                  <path
+                    d="M12 20h9M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4Z"
+                  />
+                </svg>
+                Dessin Tech.
+              </label>
+              <label
+                class="matiere-label"
+                title="F1, F2 — Mécanique / Électronique"
+              >
+                <input type="checkbox" value="Technologie" />
+                <svg class="icon" viewBox="0 0 24 24" stroke-width="1.9">
+                  <circle cx="12" cy="12" r="3" />
+                  <path
+                    d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"
+                  />
+                </svg>
+                Techno.
+              </label>
+              <label class="matiere-label" title="F2, BT Électronique">
+                <input type="checkbox" value="Électrotechnique" />
+                <svg class="icon" viewBox="0 0 24 24" stroke-width="1.9">
+                  <path d="M13 2 3 14h9l-1 8 10-12h-9z" />
+                </svg>
+                Électrotech.
+              </label>
+              <label class="matiere-label" title="F2, BT Électronique">
+                <input type="checkbox" value="Électronique" />
+                <svg class="icon" viewBox="0 0 24 24" stroke-width="1.9">
+                  <path
+                    d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2v-4M9 21H5a2 2 0 0 1-2-2v-4m0 0h18"
+                  />
+                </svg>
+                Électronique
+              </label>
+              <label class="matiere-label" title="G2 — Comptabilité">
+                <input type="checkbox" value="Comptabilité" />
+                <svg class="icon" viewBox="0 0 24 24" stroke-width="1.9">
+                  <path
+                    d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"
+                  />
+                  <path d="M14 2v6h6M8 13h8M8 17h5" />
+                </svg>
+                Comptabilité
+              </label>
+              <label
+                class="matiere-label"
+                title="G1, G2 — Secrétariat / Comptabilité"
+              >
+                <input type="checkbox" value="Gestion" />
+                <svg class="icon" viewBox="0 0 24 24" stroke-width="1.9">
+                  <rect x="2" y="3" width="20" height="14" rx="2" />
+                  <path d="M8 21h8M12 17v4" />
+                </svg>
+                Gestion
+              </label>
+              <label class="matiere-label" title="G1 — Secrétariat">
+                <input type="checkbox" value="Bureautique" />
+                <svg class="icon" viewBox="0 0 24 24" stroke-width="1.9">
+                  <path
+                    d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"
+                  />
+                  <rect x="9" y="3" width="6" height="4" rx="2" />
+                </svg>
+                Bureautique
+              </label>
+              <label class="matiere-label" title="G1 — Secrétariat">
+                <input type="checkbox" value="Communication" />
+                <svg class="icon" viewBox="0 0 24 24" stroke-width="1.9">
+                  <path
+                    d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"
+                  />
+                </svg>
+                Communi.
+              </label>
+            </div>
+          </div>
+
+          <button class="btn form-submit-btn" onclick="lancer()">
+            Voir mes résultats
+            <svg class="icon" viewBox="0 0 24 24" stroke-width="2.2">
+              <path d="M5 12h14M13 6l6 6-6 6" />
+            </svg>
+          </button>
+        </div>
+
+        <!-- RÉSULTATS -->
+        <div id="zone-resultats">
+          <div class="empty-results glass">
+            <div class="empty-ico">
+              <svg class="icon" viewBox="0 0 24 24" stroke-width="1.6">
+                <path d="M22 10 12 5 2 10l10 5 10-5Z" />
+                <path d="M6 12v5c0 1.5 2.7 3 6 3s6-1.5 6-3v-5" />
+              </svg>
+            </div>
+            <h3>Remplis ton profil</h3>
+            <p>
+              Indique au minimum ta série et ta moyenne pour découvrir les
+              formations compatibles.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <strong>OrienteCI</strong>
+      <div class="foot-links">
+        <a href="Ecole.html">Écoles</a>
+        <a href="orientation.html">Orientation</a>
+        <a href="Decouvrire.html">Test personnalité</a>
+        <a href="faq.html">FAQ</a>
+      </div>
+    </footer>
+
+    <!-- BARRE DE COMPARAISON -->
+    <div class="compare-bar" id="compare-bar">
+      <div class="compare-slots">
+        <div class="compare-slot" id="slot-1">École 1</div>
+        <span class="compare-vs">VS</span>
+        <div class="compare-slot" id="slot-2">École 2</div>
+      </div>
+      <a
+        id="btn-comparer"
+        href="#"
+        class="btn btn-dark"
+        style="
+          padding: 9px 20px;
+          font-size: 0.82rem;
+          opacity: 0.4;
+          pointer-events: none;
+        "
+      >
+        Comparer
+        <svg class="icon" viewBox="0 0 24 24" stroke-width="2.2">
+          <path d="M5 12h14M13 6l6 6-6 6" />
+        </svg>
+      </a>
+      <button class="compare-clear" onclick="clearCompare()" title="Vider">
+        ✕
+      </button>
+    </div>
+
+    <script>
+      const API = "http://localhost:3000/api";
+
+      /* ── Métiers par domaine ── */
+      const METIERS = {
+        Informatique: [
+          "Développeur web/mobile",
+          "Expert cybersécurité",
+          "Data analyst",
+          "Administrateur réseau",
+        ],
+        Sciences: [
+          "Chercheur scientifique",
+          "Technicien de laboratoire",
+          "Statisticien",
+          "Enseignant scientifique",
+        ],
+        Droit: ["Avocat", "Magistrat", "Juriste d'entreprise", "Notaire"],
+        Économie: [
+          "Économiste",
+          "Analyste financier",
+          "Banquier",
+          "Conseiller économique",
+        ],
+        Gestion: [
+          "Gestionnaire d'entreprise",
+          "Comptable",
+          "Responsable RH",
+          "Chef de projet",
+        ],
+        Santé: ["Médecin", "Pharmacien", "Infirmier", "Biologiste médical"],
+        Agriculture: [
+          "Ingénieur agronome",
+          "Conseiller agricole",
+          "Chef d'exploitation",
+          "Agent développement rural",
+        ],
+        Environnement: [
+          "Écologue",
+          "Consultant environnemental",
+          "Chargé dév. durable",
+          "Gestionnaire ressources naturelles",
+        ],
+        Ingénierie: [
+          "Ingénieur BTP",
+          "Ingénieur industriel",
+          "Ingénieur électricien",
+          "Responsable maintenance",
+        ],
+        Commerce: [
+          "Commercial export",
+          "Responsable achats",
+          "Chargé de clientèle",
+          "Négociateur international",
+        ],
+        Lettres: [
+          "Écrivain / Rédacteur",
+          "Journaliste",
+          "Enseignant lettres",
+          "Traducteur",
+        ],
+        "Sciences Humaines": [
+          "Psychologue",
+          "Travailleur social",
+          "Sociologue",
+          "Chercheur sciences sociales",
+        ],
+        Logistique: [
+          "Logisticien",
+          "Agent portuaire",
+          "Responsable supply chain",
+          "Transitaire",
+        ],
+        Mines: [
+          "Géologue",
+          "Ingénieur minier",
+          "Prospecteur",
+          "Consultant ressources minières",
+        ],
+        Architecture: [
+          "Architecte",
+          "Urbaniste",
+          "Dessinateur BTP",
+          "Chef de projet urbain",
+        ],
+        Tourisme: [
+          "Guide touristique",
+          "Manager hôtelier",
+          "Agent de voyage",
+          "Promoteur culturel",
+        ],
+        Communication: [
+          "Chargé de communication",
+          "Community manager",
+          "Journaliste",
+          "Attaché de presse",
+        ],
+        Marketing: [
+          "Chargé marketing",
+          "Chef de produit",
+          "Community manager",
+          "Responsable étude de marché",
+        ],
+        Management: [
+          "Manager d'équipe",
+          "Consultant en stratégie",
+          "Chef de projet",
+          "Directeur général",
+        ],
+        Comptabilité: [
+          "Comptable",
+          "Auditeur",
+          "Contrôleur de gestion",
+          "Gestionnaire de paie",
+        ],
+      };
+
+      function afficherMetiers() {
+        const domaine = document.getElementById("domaine").value;
+        const panneau = document.getElementById("panneau-metiers");
+        const metiers = METIERS[domaine];
+        if (!domaine || !metiers) {
+          panneau.classList.remove("open");
+          panneau.innerHTML = "";
+          return;
+        }
+        panneau.innerHTML = `
+    <div class="panneau-metiers-inner">
+      <div class="panneau-titre">
+        <svg class="icon" viewBox="0 0 24 24" stroke-width="2"><rect x="3" y="8" width="18" height="12" rx="2"/><path d="M8 8V6a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M3 13h18"/></svg>
+        Métiers en ${domaine}
+      </div>
+      ${metiers.map((m) => `<div class="metier-item"><div class="metier-dot"></div><div><div class="metier-nom">${m}</div></div></div>`).join("")}
+    </div>`;
+        panneau.classList.add("open");
+      }
+
+      async function init() {
+        try {
+          const [resDom, resVil] = await Promise.all([
+            fetch(`${API}/orientation/domaines`),
+            fetch(`${API}/orientation/villes`),
+          ]);
+          const domaines = (await resDom.json()).data;
+          const villes = (await resVil.json()).data;
+          domaines.forEach((d) =>
+            document
+              .getElementById("domaine")
+              .insertAdjacentHTML(
+                "beforeend",
+                `<option value="${d}">${d}</option>`,
+              ),
+          );
+          villes.forEach((v) =>
+            document
+              .getElementById("ville")
+              .insertAdjacentHTML(
+                "beforeend",
+                `<option value="${v}">${v}</option>`,
+              ),
+          );
+        } catch {}
+      }
+
+      async function lancer() {
+        const serie = document.getElementById("serie").value;
+        const moyenne = document.getElementById("moyenne").value;
+        if (!serie || !moyenne) {
+          alert("La série et la moyenne sont obligatoires !");
+          return;
+        }
+
+        const matieres = [
+          ...document.querySelectorAll(".matieres input:checked"),
+        ].map((i) => i.value);
+        const payload = {
+          serie,
+          moyenne: parseFloat(moyenne),
+          domaine_souhaite:
+            document.getElementById("domaine").value || undefined,
+          ville: document.getElementById("ville").value || undefined,
+          budget_max: document.getElementById("budget").value || undefined,
+          matieres_fortes: matieres,
+        };
+
+        const zone = document.getElementById("zone-resultats");
+        zone.innerHTML = '<div class="spinner"></div>';
+
+        try {
+          const res = await fetch(`${API}/orientation`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload),
+          });
+          const data = await res.json();
+          afficherResultats(data.data, data.total);
+        } catch {
+          zone.innerHTML =
+            '<p style="color:var(--txt-3);padding:40px 0;">Impossible de joindre le serveur.</p>';
+        }
+      }
+
+      // Libellés des séries (miroir du backend)
+      const SERIES_LABELS = {
+        A: "Lettres & Sc. Humaines",
+        B: "Économie & Sc. Sociales",
+        C: "Maths & Sc. Physiques",
+        D: "Sciences de la Vie & Terre",
+        E: "Sciences & Technologies",
+        F1: "Construction Mécanique",
+        F2: "Électronique",
+        G1: "Secrétariat",
+        G2: "Comptabilité",
+        "BT-ELEC": "BT Électronique",
+      };
+
+      // Libellé du type de match renvoyé par le backend
+      const MATCH_LABELS = {
+        exact: { txt: "Série exacte", cls: "badge-match-exact" },
+        equiv: { txt: "Série équivalente", cls: "badge-match-equiv" },
+        domaine: { txt: "Domaine compatible", cls: "badge-match-domaine" },
+      };
+
+      function afficherResultats(resultats, total) {
+        const zone = document.getElementById("zone-resultats");
+        const serieChoisie = document
+          .getElementById("serie")
+          .value.toUpperCase();
+
+        if (!total) {
+          zone.innerHTML = `
+      <div class="empty-results glass">
+        <div class="empty-ico">
+          <svg class="icon" viewBox="0 0 24 24" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M8 15c1-1.2 2.3-1.8 4-1.8s3 .6 4 1.8M9 9h.01M15 9h.01"/></svg>
+        </div>
+        <h3>Aucun résultat</h3>
+        <p>Aucune formation ne correspond à tes critères. Essaie d'assouplir tes filtres.</p>
+      </div>`;
+          return;
+        }
+
+        zone.innerHTML = `
+    <div class="resultats-header fade-up">
+      <div>
+        <h3>${total} formation(s) compatible(s)</h3>
+        <p>Série <strong>${serieChoisie}</strong> — ${SERIES_LABELS[serieChoisie] || ""}</p>
+      </div>
+      <span class="res-count-pill">${total} résultats</span>
+    </div>
+    ${resultats
+      .map((r, i) => {
+        const niv = r.score >= 80 ? "top" : r.score >= 60 ? "good" : "ok";
+        const label =
+          r.score >= 80
+            ? "Top match"
+            : r.score >= 60
+              ? "Bon match"
+              : "Match possible";
+        const checkIco = `<svg class="icon" viewBox="0 0 24 24" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg>`;
+        const dotIco = `<svg class="icon" viewBox="0 0 24 24" stroke-width="2.5"><circle cx="12" cy="12" r="4"/></svg>`;
+        const match = MATCH_LABELS[r.type_match] || MATCH_LABELS.domaine;
+        const moyenneOk =
+          r.formation.moyenne_requise &&
+          parseFloat(document.getElementById("moyenne").value) <
+            r.formation.moyenne_requise;
+        return `
+        <div class="carte-resultat glass pop-in" style="animation-delay:${i * 0.05}s">
+          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px;">
+            <span class="badge-res badge-res-${niv}">${niv === "top" ? checkIco : dotIco} ${label}</span>
+            <span class="badge-res ${match.cls}" style="font-size:.68rem;">${match.txt}</span>
+            ${
+              moyenneOk
+                ? `<span class="badge-res" style="background:rgba(239,68,68,.12);color:#f87171;border:1px solid rgba(239,68,68,.25);font-size:.68rem;">
+              <svg class="icon" viewBox="0 0 24 24" stroke-width="2.5" style="width:9px;height:9px;"><path d="M12 9v4M12 17h.01"/><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/></svg>
+              Moyenne insuffisante
+            </span>`
+                : ""
+            }
+          </div>
+          <div class="score-row">
+            <div class="score-track"><div class="score-fill fill-${niv}" data-score="${r.score}"></div></div>
+            <div class="score-val score-${niv}">${r.score}<span style="font-size:.55rem;opacity:.6">/100</span></div>
+          </div>
+          <div class="res-formation">${r.formation.nom}</div>
+          <div class="res-ecole">
+            <svg class="icon" viewBox="0 0 24 24" stroke-width="2"><path d="M12 21s7-6.1 7-11.5A7 7 0 0 0 5 9.5C5 14.9 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.4"/></svg>
+            ${r.ecole.nom} (${r.ecole.sigle}) — ${r.ecole.ville}
+          </div>
+          <div class="res-meta">
+            <span><svg class="icon" viewBox="0 0 24 24" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>${r.formation.duree}</span>
+            <span><svg class="icon" viewBox="0 0 24 24" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M9.5 15.2c.4.9 1.3 1.5 2.5 1.5 1.6 0 2.7-.9 2.7-2.1 0-1.4-1.2-1.9-2.7-2.2-1.5-.3-2.6-.9-2.6-2.1 0-1.1 1-2 2.6-2 1.1 0 2 .5 2.4 1.3M12 7.5v9"/></svg>dès ${Number(r.ecole.frais_min).toLocaleString("fr")} FCFA/an</span>
+            <span><svg class="icon" viewBox="0 0 24 24" stroke-width="2"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="1" fill="currentColor" stroke="none"/></svg>Moy. requise : ${r.formation.moyenne_requise}/20</span>
+            <span><svg class="icon" viewBox="0 0 24 24" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z"/></svg>${r.formation.domaine}</span>
+          </div>
+          ${r.formation.debouches?.length ? `<div class="res-debouches"><strong>Débouchés :</strong> ${r.formation.debouches.join(", ")}</div>` : ""}
+          <div style="margin-top:16px;display:flex;gap:10px;flex-wrap:wrap;">
+            <a href="fiche-ecole.html?id=${r.ecole.id}" class="btn btn-secondary" style="padding:9px 18px;font-size:.8rem;">
+              Voir l'école
+              <svg class="icon" viewBox="0 0 24 24" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </a>
+            <button class="btn btn-compare" data-id="${r.ecole.id}" data-nom="${r.ecole.nom}" onclick="toggleCompare(this)"
+              style="padding:9px 18px;font-size:.8rem;background:rgba(124,92,252,0.12);border:1px solid rgba(124,92,252,0.3);color:var(--purple-light);border-radius:var(--r-pill);cursor:pointer;display:inline-flex;align-items:center;gap:6px;font-family:inherit;font-weight:600;transition:all .2s;">
+              <svg class="icon" viewBox="0 0 24 24" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+              Sélectionner
+            </button>
+          </div>
+        </div>`;
+      })
+      .join("")}`;
+
+        requestAnimationFrame(() =>
+          requestAnimationFrame(() => {
+            document
+              .querySelectorAll(".score-fill[data-score]")
+              .forEach((b) => {
+                b.style.width = b.dataset.score + "%";
+              });
+          }),
+        );
+      }
+
+      /* ── COMPARAISON ── */
+      let compareList = []; // [{id, nom}]
+
+      function toggleCompare(btn) {
+        const id = btn.dataset.id;
+        const nom = btn.dataset.nom;
+        const idx = compareList.findIndex((e) => e.id === id);
+
+        if (idx !== -1) {
+          // Déjà sélectionné → retirer
+          compareList.splice(idx, 1);
+          btn.classList.remove("selected");
+          btn.innerHTML = `<svg class="icon" viewBox="0 0 24 24" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg> Sélectionner`;
+        } else {
+          if (compareList.length >= 2) {
+            // Remplacer le plus ancien
+            const oldId = compareList.shift().id;
+            document
+              .querySelectorAll(`.btn-compare[data-id="${oldId}"]`)
+              .forEach((b) => {
+                b.classList.remove("selected");
+                b.innerHTML = `<svg class="icon" viewBox="0 0 24 24" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg> Sélectionner`;
+              });
+          }
+          compareList.push({ id, nom });
+          btn.classList.add("selected");
+          btn.innerHTML = `<svg class="icon" viewBox="0 0 24 24" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg> Sélectionné ✓`;
+        }
+        updateCompareBar();
+      }
+
+      function updateCompareBar() {
+        const bar = document.getElementById("compare-bar");
+        const slot1 = document.getElementById("slot-1");
+        const slot2 = document.getElementById("slot-2");
+        const btnComparer = document.getElementById("btn-comparer");
+
+        slot1.textContent = compareList[0]?.nom || "École 1";
+        slot1.className = "compare-slot" + (compareList[0] ? " filled" : "");
+        slot2.textContent = compareList[1]?.nom || "École 2";
+        slot2.className = "compare-slot" + (compareList[1] ? " filled" : "");
+
+        if (compareList.length === 2) {
+          btnComparer.href = `comparer.html?id1=${compareList[0].id}&id2=${compareList[1].id}`;
+          btnComparer.style.opacity = "1";
+          btnComparer.style.pointerEvents = "auto";
+        } else {
+          btnComparer.href = "#";
+          btnComparer.style.opacity = "0.4";
+          btnComparer.style.pointerEvents = "none";
+        }
+
+        bar.classList.toggle("visible", compareList.length > 0);
+      }
+
+      function clearCompare() {
+        compareList.forEach(({ id }) => {
+          document
+            .querySelectorAll(`.btn-compare[data-id="${id}"]`)
+            .forEach((b) => {
+              b.classList.remove("selected");
+              b.innerHTML = `<svg class="icon" viewBox="0 0 24 24" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg> Sélectionner`;
+            });
+        });
+        compareList = [];
+        updateCompareBar();
+      }
+
+      init();
+    </script>
+  </body>
+</html>

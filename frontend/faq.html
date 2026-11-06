@@ -1,0 +1,708 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FAQ — OrienteCI</title>
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+      /* ── ACCORDÉON ── */
+      .faq-wrap {
+        max-width: 760px;
+        margin: 0 auto;
+      }
+      .faq-categorie {
+        margin-bottom: 48px;
+      }
+      .faq-cat-titre {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-size: 0.7rem;
+        font-weight: 700;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: var(--violet-2);
+        margin-bottom: 18px;
+      }
+      .faq-cat-titre::after {
+        content: "";
+        flex: 1;
+        height: 1px;
+        background: var(--glass-border-soft);
+      }
+      .faq-item {
+        border-radius: var(--r);
+        overflow: hidden;
+        margin-bottom: 10px;
+        transition:
+          box-shadow 0.4s var(--ease),
+          border-color 0.3s var(--ease);
+      }
+      .faq-item.open {
+        box-shadow: var(--shadow-lift);
+        border-color: rgba(255, 255, 255, 0.18);
+      }
+      .faq-q {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        padding: 22px 24px;
+        cursor: pointer;
+        font-weight: 600;
+        font-size: 0.95rem;
+        color: var(--txt);
+        user-select: none;
+        transition: background 0.2s;
+      }
+      .faq-q:hover {
+        background: var(--glass);
+      }
+      .faq-item.open .faq-q {
+        color: var(--violet-2);
+      }
+      .faq-chevron {
+        width: 22px;
+        height: 22px;
+        border-radius: 50%;
+        border: 1px solid var(--glass-border);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        transition:
+          transform 0.4s var(--ease),
+          background 0.3s,
+          border-color 0.3s;
+      }
+      .faq-chevron svg {
+        width: 11px;
+        height: 11px;
+        transition: transform 0.4s var(--ease);
+        color: var(--txt-3);
+      }
+      .faq-item.open .faq-chevron {
+        background: rgba(139, 92, 246, 0.15);
+        border-color: rgba(139, 92, 246, 0.35);
+        transform: rotate(180deg);
+      }
+      .faq-item.open .faq-chevron svg {
+        color: var(--violet-2);
+      }
+      .faq-r {
+        max-height: 0;
+        overflow: hidden;
+        transition:
+          max-height 0.5s var(--ease),
+          opacity 0.35s var(--ease);
+        opacity: 0;
+      }
+      .faq-item.open .faq-r {
+        opacity: 1;
+      }
+      .faq-r-inner {
+        padding: 0 24px 22px;
+        font-size: 0.88rem;
+        color: var(--txt-2);
+        line-height: 1.75;
+        font-weight: 300;
+        border-top: 1px solid var(--glass-border-soft);
+        padding-top: 16px;
+      }
+      .faq-r-inner strong {
+        color: var(--txt);
+      }
+      .faq-r-inner a {
+        color: var(--violet-2);
+        text-decoration: underline;
+        text-underline-offset: 3px;
+      }
+      .faq-r-inner a:hover {
+        color: var(--txt);
+      }
+      .faq-r-inner ul {
+        list-style: none;
+        margin-top: 12px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+      .faq-r-inner ul li {
+        display: flex;
+        gap: 10px;
+        align-items: flex-start;
+      }
+      .faq-r-inner ul li::before {
+        content: "";
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--violet-2);
+        margin-top: 7px;
+        flex-shrink: 0;
+      }
+
+      /* ── CTA CONTACT ── */
+      .contact-bloc {
+        margin-top: 64px;
+        border-radius: var(--r-lg);
+        padding: 46px;
+        text-align: center;
+      }
+      .contact-bloc h3 {
+        font-size: 1.3rem;
+        margin-bottom: 10px;
+      }
+      .contact-bloc p {
+        font-size: 0.9rem;
+        color: var(--txt-2);
+        margin-bottom: 24px;
+        font-weight: 300;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="liquid-field">
+      <div class="lq-orb lq-1"></div>
+      <div class="lq-orb lq-2"></div>
+      <div class="lq-orb lq-3"></div>
+    </div>
+    <div class="grain" aria-hidden="true"></div>
+
+    <!-- NAV -->
+    <div id="site-nav"></div>
+    <script src="Nav.js"></script>
+
+    <!-- BANNIÈRE -->
+    <div class="page-banner fade-up">
+      <div class="page-banner-inner">
+        <div class="eyebrow"><span class=""></span>Aide</div>
+        <h1>Questions fréquentes</h1>
+        <p>
+          Tout ce que tu dois savoir sur OrienteCI et l'orientation en Côte
+          d'Ivoire.
+        </p>
+      </div>
+    </div>
+
+    <section class="section" style="padding-top: 20px">
+      <div class="faq-wrap">
+        <!-- CATÉGORIE 1 : La plateforme -->
+        <div class="faq-categorie rv">
+          <div class="faq-cat-titre">
+            <svg
+              class="icon"
+              viewBox="0 0 24 24"
+              stroke-width="2"
+              style="width: 14px; height: 14px; flex-shrink: 0"
+            >
+              <circle cx="12" cy="12" r="9" />
+              <path d="M9.5 9.5a2.5 2.5 0 0 1 4.7 1.2c0 1.6-2.2 1.8-2.2 3.3" />
+              <path d="M12 17.5h.01" />
+            </svg>
+            La plateforme
+          </div>
+
+          <div class="faq-item glass">
+            <div class="faq-q" onclick="toggle(this)">
+              <span>Qu'est-ce qu'OrienteCI ?</span>
+              <div class="faq-chevron">
+                <svg class="icon" viewBox="0 0 24 24" stroke-width="2.5">
+                  <path d="m6 9 6 6 6-6" />
+                </svg>
+              </div>
+            </div>
+            <div class="faq-r">
+              <div class="faq-r-inner">
+                OrienteCI est une plateforme ivoirienne d'aide à l'orientation
+                scolaire après le BAC. En renseignant ta série, ta moyenne et
+                tes préférences, tu obtiens une liste personnalisée de
+                formations et d'écoles qui correspondent réellement à ton
+                profil, avec un <strong>score de compatibilité sur 100</strong>.
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item glass">
+            <div class="faq-q" onclick="toggle(this)">
+              <span>Est-ce que c'est gratuit ?</span>
+              <div class="faq-chevron">
+                <svg class="icon" viewBox="0 0 24 24" stroke-width="2.5">
+                  <path d="m6 9 6 6 6-6" />
+                </svg>
+              </div>
+            </div>
+            <div class="faq-r">
+              <div class="faq-r-inner">
+                <strong>Oui, totalement gratuit.</strong> OrienteCI ne te
+                demandera jamais de créer un compte ni de payer quoi que ce
+                soit. La plateforme est un outil d'aide à la décision, pas un
+                service d'inscription scolaire.
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item glass">
+            <div class="faq-q" onclick="toggle(this)">
+              <span>Mes données sont-elles conservées ?</span>
+              <div class="faq-chevron">
+                <svg class="icon" viewBox="0 0 24 24" stroke-width="2.5">
+                  <path d="m6 9 6 6 6-6" />
+                </svg>
+              </div>
+            </div>
+            <div class="faq-r">
+              <div class="faq-r-inner">
+                Non. Aucune information personnelle n'est enregistrée sur nos
+                serveurs. Les données que tu saisis (série, moyenne,
+                préférences) sont uniquement utilisées pour générer tes
+                résultats en temps réel. Elles disparaissent dès que tu fermes
+                l'onglet.
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item glass">
+            <div class="faq-q" onclick="toggle(this)">
+              <span
+                >OrienteCI est-il officiel ? A-t-il une accréditation du MESRS
+                ?</span
+              >
+              <div class="faq-chevron">
+                <svg class="icon" viewBox="0 0 24 24" stroke-width="2.5">
+                  <path d="m6 9 6 6 6-6" />
+                </svg>
+              </div>
+            </div>
+            <div class="faq-r">
+              <div class="faq-r-inner">
+                OrienteCI est un outil indépendant d'aide à la décision, non
+                affilié au Ministère de l'Enseignement Supérieur et de la
+                Recherche Scientifique (MESRS). Nous te recommandons toujours de
+                <strong>contacter directement les établissements</strong> pour
+                confirmer les conditions d'admission.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CATÉGORIE 2 : L'orientation -->
+        <div class="faq-categorie rv" style="transition-delay: 0.07s">
+          <div class="faq-cat-titre">
+            <svg
+              class="icon"
+              viewBox="0 0 24 24"
+              stroke-width="2"
+              style="width: 14px; height: 14px; flex-shrink: 0"
+            >
+              <circle cx="12" cy="12" r="8.5" />
+              <circle cx="12" cy="12" r="4.5" />
+              <circle cx="12" cy="12" r="1" fill="currentColor" stroke="none" />
+            </svg>
+            L'orientation
+          </div>
+
+          <div class="faq-item glass">
+            <div class="faq-q" onclick="toggle(this)">
+              <span>Comment fonctionne le score de compatibilité ?</span>
+              <div class="faq-chevron">
+                <svg class="icon" viewBox="0 0 24 24" stroke-width="2.5">
+                  <path d="m6 9 6 6 6-6" />
+                </svg>
+              </div>
+            </div>
+            <div class="faq-r">
+              <div class="faq-r-inner">
+                Le score (de 0 à 100) est calculé selon plusieurs critères :
+                <ul>
+                  <li>Ta série est-elle acceptée par la formation ?</li>
+                  <li>
+                    Ta moyenne est-elle suffisante par rapport au seuil requis ?
+                  </li>
+                  <li>Le domaine correspond-il à ta préférence déclarée ?</li>
+                  <li>La ville et le budget sont-ils compatibles ?</li>
+                  <li>
+                    Tes matières fortes sont-elles valorisées dans cette
+                    formation ?
+                  </li>
+                </ul>
+                Plus le score est élevé, plus la formation est adaptée à ton
+                profil.
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item glass">
+            <div class="faq-q" onclick="toggle(this)">
+              <span
+                >Quelle est la différence entre un score « Excellent match » et
+                « Bon match » ?</span
+              >
+              <div class="faq-chevron">
+                <svg class="icon" viewBox="0 0 24 24" stroke-width="2.5">
+                  <path d="m6 9 6 6 6-6" />
+                </svg>
+              </div>
+            </div>
+            <div class="faq-r">
+              <div class="faq-r-inner">
+                <ul>
+                  <li>
+                    <strong>Excellent match (80-100)</strong> : tous les
+                    critères principaux sont remplis. Tu es un candidat idéal
+                    pour cette formation.
+                  </li>
+                  <li>
+                    <strong>Bon match (60-79)</strong> : la plupart des critères
+                    sont remplis, avec quelques points à vérifier (ex : ta
+                    moyenne est légèrement en dessous du seuil).
+                  </li>
+                  <li>
+                    <strong>Match possible (en dessous de 60)</strong> : la
+                    formation est techniquement accessible, mais avec des
+                    réserves importantes. Renseigne-toi directement auprès de
+                    l'école.
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item glass">
+            <div class="faq-q" onclick="toggle(this)">
+              <span
+                >Puis-je faire le test sans connaître ma moyenne définitive
+                ?</span
+              >
+              <div class="faq-chevron">
+                <svg class="icon" viewBox="0 0 24 24" stroke-width="2.5">
+                  <path d="m6 9 6 6 6-6" />
+                </svg>
+              </div>
+            </div>
+            <div class="faq-r">
+              <div class="faq-r-inner">
+                Oui ! Tu peux utiliser ta <strong>moyenne estimée</strong> ou ta
+                moyenne au premier trimestre pour avoir une idée des formations
+                accessibles. Tu pourras refaire la simulation une fois ta note
+                définitive connue. C'est gratuit et instantané, alors n'hésite
+                pas à tester plusieurs scénarios.
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item glass">
+            <div class="faq-q" onclick="toggle(this)">
+              <span
+                >Je n'ai aucune idée de ce que je veux faire. OrienteCI peut-il
+                m'aider ?</span
+              >
+              <div class="faq-chevron">
+                <svg class="icon" viewBox="0 0 24 24" stroke-width="2.5">
+                  <path d="m6 9 6 6 6-6" />
+                </svg>
+              </div>
+            </div>
+            <div class="faq-r">
+              <div class="faq-r-inner">
+                Absolument ! Si tu ne sais pas encore ce que tu veux faire,
+                commence par la page
+                <a href="Decouvrire.html"><strong>« Je ne sais pas »</strong></a
+                >. Elle te propose un test de personnalité rapide qui identifie
+                tes centres d'intérêt et te suggère des domaines qui pourraient
+                te correspondre, avant même de choisir une formation.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CATÉGORIE 3 : Les écoles -->
+        <div class="faq-categorie rv" style="transition-delay: 0.14s">
+          <div class="faq-cat-titre">
+            <svg
+              class="icon"
+              viewBox="0 0 24 24"
+              stroke-width="2"
+              style="width: 14px; height: 14px; flex-shrink: 0"
+            >
+              <path d="M22 10 12 5 2 10l10 5 10-5Z" />
+              <path d="M6 12v5c0 1.5 2.7 3 6 3s6-1.5 6-3v-5" />
+            </svg>
+            Les écoles
+          </div>
+
+          <div class="faq-item glass">
+            <div class="faq-q" onclick="toggle(this)">
+              <span>Combien d'écoles sont référencées sur OrienteCI ?</span>
+              <div class="faq-chevron">
+                <svg class="icon" viewBox="0 0 24 24" stroke-width="2.5">
+                  <path d="m6 9 6 6 6-6" />
+                </svg>
+              </div>
+            </div>
+            <div class="faq-r">
+              <div class="faq-r-inner">
+                La base de données compte actuellement
+                <strong>plus de 36 établissements</strong> pour
+                <strong>plus de 92 formations</strong>. Elle est régulièrement
+                mise à jour pour intégrer de nouveaux établissements, publics
+                comme privés, à travers toute la Côte d'Ivoire.
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item glass">
+            <div class="faq-q" onclick="toggle(this)">
+              <span>Comment une école peut-elle rejoindre OrienteCI ?</span>
+              <div class="faq-chevron">
+                <svg class="icon" viewBox="0 0 24 24" stroke-width="2.5">
+                  <path d="m6 9 6 6 6-6" />
+                </svg>
+              </div>
+            </div>
+            <div class="faq-r">
+              <div class="faq-r-inner">
+                Les établissements souhaitant figurer ou mettre à jour leurs
+                informations peuvent nous contacter directement. L'ajout est
+                <strong>gratuit</strong> pour les écoles ivoiriennes
+                accréditées. Les informations sont vérifiées avant publication.
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item glass">
+            <div class="faq-q" onclick="toggle(this)">
+              <span>Les frais indiqués sont-ils définitifs ?</span>
+              <div class="faq-chevron">
+                <svg class="icon" viewBox="0 0 24 24" stroke-width="2.5">
+                  <path d="m6 9 6 6 6-6" />
+                </svg>
+              </div>
+            </div>
+            <div class="faq-r">
+              <div class="faq-r-inner">
+                Les frais affichés correspondent aux montants déclarés par les
+                établissements ou collectés lors de nos recherches. Ils sont
+                donnés à titre <strong>indicatif</strong>. Les tarifs peuvent
+                varier selon l'année universitaire, les filières, les bourses
+                disponibles ou les conditions particulières. Contacte toujours
+                l'école pour confirmation.
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item glass">
+            <div class="faq-q" onclick="toggle(this)">
+              <span>Comment utiliser la fonction « Comparer » ?</span>
+              <div class="faq-chevron">
+                <svg class="icon" viewBox="0 0 24 24" stroke-width="2.5">
+                  <path d="m6 9 6 6 6-6" />
+                </svg>
+              </div>
+            </div>
+            <div class="faq-r">
+              <div class="faq-r-inner">
+                Sur la page <a href="Ecole.html"><strong>Les écoles</strong></a
+                >, chaque carte dispose d'un bouton de comparaison. Sélectionne
+                2 ou 3 établissements, puis clique sur « Comparer » dans la
+                barre qui apparaît en bas de l'écran. Tu verras un tableau côte
+                à côte avec les informations clés : frais, formations,
+                localisation, etc.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CATÉGORIE 4 : Conseils pratiques -->
+        <div class="faq-categorie rv" style="transition-delay: 0.21s">
+          <div class="faq-cat-titre">
+            <svg
+              class="icon"
+              viewBox="0 0 24 24"
+              stroke-width="2"
+              style="width: 14px; height: 14px; flex-shrink: 0"
+            >
+              <path
+                d="M12 17.75 5.8 21l1.2-7L2 9.3l7-1L12 2l3 6.3 7 1-5 4.7 1.2 7Z"
+              />
+            </svg>
+            Conseils pratiques
+          </div>
+
+          <div class="faq-item glass">
+            <div class="faq-q" onclick="toggle(this)">
+              <span
+                >Comment bien choisir son orientation après le BAC en Côte
+                d'Ivoire ?</span
+              >
+              <div class="faq-chevron">
+                <svg class="icon" viewBox="0 0 24 24" stroke-width="2.5">
+                  <path d="m6 9 6 6 6-6" />
+                </svg>
+              </div>
+            </div>
+            <div class="faq-r">
+              <div class="faq-r-inner">
+                Quelques étapes clés :
+                <ul>
+                  <li>
+                    Fais d'abord le point sur
+                    <strong>tes goûts, tes forces et tes valeurs</strong> (notre
+                    test de personnalité peut t'aider).
+                  </li>
+                  <li>
+                    Renseigne-toi sur les <strong>débouchés réels</strong> des
+                    formations qui t'intéressent.
+                  </li>
+                  <li>
+                    Prends en compte le <strong>budget familial</strong> : frais
+                    de scolarité, logement, transport.
+                  </li>
+                  <li>
+                    Visite ou contacte les établissements pour te faire une idée
+                    du cadre de vie et de l'ambiance.
+                  </li>
+                  <li>
+                    Ne te fie pas uniquement au prestige d'une école : la
+                    qualité de la pédagogie et l'insertion professionnelle sont
+                    plus importants.
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item glass">
+            <div class="faq-q" onclick="toggle(this)">
+              <span>Quelles séries du BAC sont couvertes ?</span>
+              <div class="faq-chevron">
+                <svg class="icon" viewBox="0 0 24 24" stroke-width="2.5">
+                  <path d="m6 9 6 6 6-6" />
+                </svg>
+              </div>
+            </div>
+            <div class="faq-r">
+              <div class="faq-r-inner">
+                OrienteCI couvre les cinq séries principales du BAC ivoirien :
+                <ul>
+                  <li>
+                    <strong>Série A</strong> — Lettres, Philosophie, Sciences
+                    Humaines
+                  </li>
+                  <li>
+                    <strong>Série B</strong> — Économie, Sciences Sociales
+                  </li>
+                  <li>
+                    <strong>Série C</strong> — Mathématiques, Sciences Physiques
+                  </li>
+                  <li>
+                    <strong>Série D</strong> — Sciences de la Vie et de la
+                    Terre, Biologie
+                  </li>
+                  <li>
+                    <strong>Série E</strong> — Sciences et Technologies, Génie
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item glass">
+            <div class="faq-q" onclick="toggle(this)">
+              <span
+                >Y a-t-il des formations accessibles sans BAC ou avec un BAC
+                étranger ?</span
+              >
+              <div class="faq-chevron">
+                <svg class="icon" viewBox="0 0 24 24" stroke-width="2.5">
+                  <path d="m6 9 6 6 6-6" />
+                </svg>
+              </div>
+            </div>
+            <div class="faq-r">
+              <div class="faq-r-inner">
+                La base de données OrienteCI est structurée autour du BAC
+                ivoirien. Pour les équivalences de diplômes étrangers ou les
+                admissions parallèles, nous te conseillons de contacter
+                directement l'établissement ou le
+                <strong>service des équivalences du MESRS</strong>. Certaines
+                écoles privées acceptent les bacheliers d'autres systèmes sous
+                réserve de dossier.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CTA CONTACT -->
+        <div class="contact-bloc glass rv" style="transition-delay: 0.28s">
+          <h3>Tu n'as pas trouvé ta réponse ?</h3>
+          <p>
+            Une question non couverte ici ? Contacte-nous directement — nous
+            répondons en moins de 48 h.
+          </p>
+          <a href="orientation.html" class="btn btn-violet">
+            Faire mon test d'orientation
+            <svg class="icon" viewBox="0 0 24 24" stroke-width="2.2">
+              <path d="M5 12h14M13 6l6 6-6 6" />
+            </svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <strong>OrienteCI</strong>
+      <div class="foot-links">
+        <a href="Ecole.html">Écoles</a>
+        <a href="orientation.html">Orientation</a>
+        <a href="Decouvrire.html">Test personnalité</a>
+        <a href="faq.html">FAQ</a>
+      </div>
+    </footer>
+
+    <script>
+      /* ── ACCORDÉON FLUIDE ── */
+      function toggle(btn) {
+        const item = btn.closest(".faq-item");
+        const reponse = item.querySelector(".faq-r");
+        const inner = item.querySelector(".faq-r-inner");
+        const isOpen = item.classList.contains("open");
+
+        /* Ferme tous les autres de la même catégorie */
+        const allItems = item
+          .closest(".faq-categorie")
+          .querySelectorAll(".faq-item");
+        allItems.forEach((i) => {
+          if (i !== item) {
+            i.classList.remove("open");
+            i.querySelector(".faq-r").style.maxHeight = "0";
+            i.querySelector(".faq-r").style.opacity = "0";
+          }
+        });
+
+        if (isOpen) {
+          item.classList.remove("open");
+          reponse.style.maxHeight = "0";
+          reponse.style.opacity = "0";
+        } else {
+          item.classList.add("open");
+          reponse.style.maxHeight = inner.scrollHeight + 40 + "px";
+          reponse.style.opacity = "1";
+        }
+      }
+
+      /* ── SCROLL REVEAL ── */
+      const obs = new IntersectionObserver(
+        (entries) =>
+          entries.forEach(
+            (e) =>
+              e.isIntersecting &&
+              (e.target.classList.add("on"), obs.unobserve(e.target)),
+          ),
+        { threshold: 0.1 },
+      );
+      document.querySelectorAll(".rv").forEach((el) => obs.observe(el));
+    </script>
+  </body>
+</html>

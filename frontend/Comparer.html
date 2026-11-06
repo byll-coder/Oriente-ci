@@ -1,0 +1,360 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Comparer les écoles — OrienteCI</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="Nav.js" defer></script>
+    <style>
+      /* ── TABLEAU COMPARATIF ── */
+      .compare-wrap {
+        overflow-x: auto;
+        padding-bottom: 8px;
+      }
+      .compare-grid {
+        display: grid;
+        grid-template-columns: 170px repeat(var(--n, 2), minmax(230px, 1fr));
+        min-width: 620px;
+        border-radius: var(--r);
+        overflow: hidden;
+      }
+      .cell {
+        padding: 16px 18px;
+        border-bottom: 1px solid var(--glass-border-soft);
+        border-right: 1px solid var(--glass-border-soft);
+        font-size: 0.85rem;
+        display: flex;
+        align-items: center;
+        color: var(--txt-2);
+      }
+      .compare-grid > .cell:nth-last-child(-n + var(--n)) {
+        border-bottom: none;
+      }
+      .row-label {
+        background: rgba(255, 255, 255, 0.03);
+        font-weight: 600;
+        color: var(--violet-2);
+        font-size: 0.8rem;
+      }
+      .cell-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+        padding: 20px 18px;
+        position: relative;
+      }
+      .cell-header .carte-sigle {
+        width: 42px;
+        height: 42px;
+        font-size: 0.68rem;
+      }
+      .cell-header .nom {
+        font-family: "Fraunces", serif;
+        font-weight: 500;
+        font-size: 0.9rem;
+        line-height: 1.3;
+        color: var(--txt);
+      }
+      .btn-retirer {
+        position: absolute;
+        top: 12px;
+        right: 12px;
+        background: var(--glass);
+        border: 1px solid var(--glass-border-soft);
+        color: var(--txt-3);
+        cursor: pointer;
+        line-height: 1;
+        width: 26px;
+        height: 26px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.2s;
+      }
+      .btn-retirer svg {
+        width: 12px;
+        height: 12px;
+      }
+      .btn-retirer:hover {
+        background: rgba(236, 72, 153, 0.15);
+        border-color: rgba(236, 72, 153, 0.4);
+        color: var(--rose);
+      }
+      .formations-liste {
+        display: flex;
+        flex-direction: column;
+        gap: 7px;
+      }
+      .formation-mini {
+        font-size: 0.76rem;
+        background: rgba(139, 92, 246, 0.12);
+        color: var(--violet-2);
+        padding: 4px 10px;
+        border-radius: var(--r-pill);
+        font-weight: 500;
+        width: fit-content;
+      }
+      .meilleur {
+        background: rgba(34, 211, 238, 0.06);
+      }
+      .meilleur-tag {
+        font-size: 0.66rem;
+        font-weight: 700;
+        color: var(--cyan);
+        background: rgba(34, 211, 238, 0.14);
+        padding: 2px 8px;
+        border-radius: var(--r-pill);
+        margin-left: 8px;
+        white-space: nowrap;
+      }
+      .ajout-bloc {
+        margin-top: 30px;
+        border-radius: var(--r);
+        padding: 24px;
+        text-align: center;
+        border-style: dashed;
+      }
+      .ajout-bloc select {
+        padding: 10px 16px;
+        border: 1px solid var(--glass-border);
+        border-radius: var(--r-pill);
+        font-family: "Inter", sans-serif;
+        font-size: 0.88rem;
+        margin-right: 10px;
+        background: var(--glass);
+        color: var(--txt);
+      }
+
+      @media (max-width: 640px) {
+        .compare-grid {
+          grid-template-columns: 130px repeat(var(--n, 2), minmax(190px, 1fr));
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="liquid-field">
+      <div class="lq-orb lq-1"></div>
+      <div class="lq-orb lq-2"></div>
+      <div class="lq-orb lq-3"></div>
+    </div>
+    <div class="grain" aria-hidden="true"></div>
+    <div id="site-nav"></div>
+
+    <div class="page-banner fade-up">
+      <div class="page-banner-inner">
+        <div class="eyebrow">
+          <span class=""></span>
+          Comparaison
+        </div>
+        <h1>Comparer les écoles</h1>
+        <p>Place plusieurs établissements côte à côte pour faire ton choix.</p>
+      </div>
+    </div>
+
+    <section class="section">
+      <div id="zone-comparaison"><div class="spinner"></div></div>
+    </section>
+
+    <footer>
+      <strong>OrienteCI</strong>
+      <div class="foot-links">
+        <a href="Ecole.html">Écoles</a>
+        <a href="orientation.html">Orientation</a>
+        <a href="Decouvrire.html">Test personnalité</a>
+        <a href="faq.html">FAQ</a>
+      </div>
+    </footer>
+
+    <script>
+      const API = "http://localhost:3000/api";
+      const MAX_COMPARAISON = 3;
+
+      const ICON_SCALE_EMPTY =
+        '<svg viewBox="0 0 24 24" stroke-width="1.6" fill="none" stroke="currentColor"><path d="M12 3v18M6 8l-3 6a3.5 3.5 0 0 0 6 0Zm12 0-3 6a3.5 3.5 0 0 0 6 0Z"/><path d="M4 21h16M6 8h12"/></svg>';
+      const ICON_PIN =
+        '<svg class="icon" viewBox="0 0 24 24" stroke-width="2"><path d="M12 21s7-6.1 7-11.5A7 7 0 0 0 5 9.5C5 14.9 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.4"/></svg>';
+
+      function getIdsDepuisURL() {
+        const params = new URLSearchParams(window.location.search);
+        const ids = params.get("ids");
+        return ids ? ids.split(",").map(Number).filter(Boolean) : [];
+      }
+      function setIdsDansURL(ids) {
+        const url = new URL(window.location);
+        if (ids.length) url.searchParams.set("ids", ids.join(","));
+        else url.searchParams.delete("ids");
+        window.history.replaceState({}, "", url);
+      }
+
+      let toutesEcoles = [];
+      let ecolesComparees = [];
+
+      async function init() {
+        try {
+          const res = await fetch(`${API}/ecoles`);
+          const data = await res.json();
+          toutesEcoles = data.data;
+
+          const ids = getIdsDepuisURL();
+          ecolesComparees = toutesEcoles
+            .filter((e) => ids.includes(e.id))
+            .slice(0, MAX_COMPARAISON);
+
+          render();
+        } catch {
+          document.getElementById("zone-comparaison").innerHTML =
+            '<p style="color:var(--txt-2);">Serveur non disponible.</p>';
+        }
+      }
+
+      function retirerEcole(id) {
+        ecolesComparees = ecolesComparees.filter((e) => e.id !== id);
+        setIdsDansURL(ecolesComparees.map((e) => e.id));
+        render();
+      }
+
+      function ajouterEcole(id) {
+        if (!id) return;
+        id = Number(id);
+        if (ecolesComparees.length >= MAX_COMPARAISON) return;
+        if (ecolesComparees.find((e) => e.id === id)) return;
+        const ecole = toutesEcoles.find((e) => e.id === id);
+        if (ecole) {
+          ecolesComparees.push(ecole);
+          setIdsDansURL(ecolesComparees.map((e) => e.id));
+          render();
+        }
+      }
+
+      function render() {
+        const zone = document.getElementById("zone-comparaison");
+
+        if (!ecolesComparees.length) {
+          zone.innerHTML = `
+          <div class="etat-vide fade-up">
+            <div class="icone">${ICON_SCALE_EMPTY}</div>
+            <h3>Aucune école à comparer</h3>
+            <p>Choisis 2 ou 3 écoles depuis la liste, ou ajoute-les directement ci-dessous.</p>
+          </div>
+          ${blocAjout()}
+        `;
+          return;
+        }
+
+        const n = ecolesComparees.length;
+        const fraisMin = Math.min(...ecolesComparees.map((e) => e.frais_min));
+        const nbFormationsMax = Math.max(
+          ...ecolesComparees.map((e) => e.formations.length),
+        );
+
+        const lignes = [
+          {
+            label: "Ville",
+            get: (e) =>
+              `${ICON_PIN} ${e.ville}${e.quartier ? ", " + e.quartier : ""}`,
+          },
+          {
+            label: "Type",
+            get: (e) =>
+              `<span class="badge-type badge-${e.type}">${e.type.charAt(0).toUpperCase() + e.type.slice(1)}</span>`,
+          },
+          {
+            label: "Frais / an",
+            get: (e) => {
+              const txt = `${Number(e.frais_min).toLocaleString("fr")} – ${Number(e.frais_max).toLocaleString("fr")} F`;
+              return e.frais_min === fraisMin
+                ? `${txt}<span class="meilleur-tag">Moins cher</span>`
+                : txt;
+            },
+            highlight: (e) => e.frais_min === fraisMin,
+          },
+          { label: "Téléphone", get: (e) => e.telephone || "—" },
+          { label: "Email", get: (e) => e.email || "—" },
+          {
+            label: "Formations",
+            get: (e) => {
+              const txt = `${e.formations.length}`;
+              return e.formations.length === nbFormationsMax
+                ? `${txt}<span class="meilleur-tag">Plus de choix</span>`
+                : txt;
+            },
+            highlight: (e) => e.formations.length === nbFormationsMax,
+          },
+          {
+            label: "Domaines",
+            get: (e) => `
+            <div class="formations-liste">
+              ${[...new Set(e.formations.map((f) => f.domaine))].map((d) => `<span class="formation-mini">${d}</span>`).join("")}
+            </div>`,
+          },
+        ];
+
+        let html = `<div class="compare-wrap pop-in"><div class="compare-grid glass" style="--n:${n}">`;
+        html += `<div class="cell row-label">École</div>`;
+        ecolesComparees.forEach((e) => {
+          html += `
+          <div class="cell cell-header">
+            <button class="btn-retirer" onclick="retirerEcole(${e.id})" title="Retirer">
+              <svg class="icon" viewBox="0 0 24 24" stroke-width="2.2"><path d="M18 6 6 18M6 6l12 12"/></svg>
+            </button>
+            <div class="carte-sigle">${e.sigle}</div>
+            <div class="nom">${e.nom}</div>
+          </div>`;
+        });
+
+        lignes.forEach((ligne) => {
+          html += `<div class="cell row-label">${ligne.label}</div>`;
+          ecolesComparees.forEach((e) => {
+            const surligne = ligne.highlight && ligne.highlight(e);
+            html += `<div class="cell ${surligne ? "meilleur" : ""}">${ligne.get(e)}</div>`;
+          });
+        });
+        html += `</div></div>`;
+
+        html += `<div style="display:grid;grid-template-columns:170px repeat(${n},minmax(230px,1fr));min-width:620px;gap:0;margin-top:14px;">
+        <div></div>
+        ${ecolesComparees
+          .map(
+            (e) => `
+          <div style="padding:0 18px;">
+            <a href="fiche-ecole.html?id=${e.id}" class="btn btn-secondary" style="font-size:0.8rem;padding:9px 14px;width:100%;justify-content:center;">
+              Voir la fiche
+              <svg class="icon" viewBox="0 0 24 24" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </a>
+          </div>`,
+          )
+          .join("")}
+      </div>`;
+
+        if (n < MAX_COMPARAISON) html += blocAjout();
+
+        zone.innerHTML = html;
+      }
+
+      function blocAjout() {
+        const dejaChoisies = ecolesComparees.map((e) => e.id);
+        const disponibles = toutesEcoles.filter(
+          (e) => !dejaChoisies.includes(e.id),
+        );
+        return `
+        <div class="ajout-bloc glass">
+          <select id="select-ajout">
+            <option value="">+ Ajouter une école à comparer (${ecolesComparees.length}/${MAX_COMPARAISON})</option>
+            ${disponibles.map((e) => `<option value="${e.id}">${e.sigle} — ${e.nom}</option>`).join("")}
+          </select>
+          <button class="btn btn-orange" style="padding:9px 18px;font-size:0.85rem;" onclick="ajouterDepuisSelect()">Ajouter</button>
+        </div>`;
+      }
+
+      function ajouterDepuisSelect() {
+        const select = document.getElementById("select-ajout");
+        if (select && select.value) ajouterEcole(select.value);
+      }
+
+      init();
+    </script>
+  </body>
+</html>

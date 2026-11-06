@@ -1,0 +1,1267 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin — OrienteCI</title>
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+      /* ── LOGIN ── */
+      .login-overlay {
+        position: fixed;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 200;
+        padding: 20px;
+        background: var(--bg);
+      }
+      .login-box {
+        border-radius: var(--r-lg);
+        padding: 46px 40px;
+        max-width: 420px;
+        width: 100%;
+        text-align: center;
+      }
+      .login-ico {
+        width: 64px;
+        height: 64px;
+        border-radius: 20px;
+        background: linear-gradient(140deg, var(--violet), var(--violet-deep));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 24px;
+        box-shadow: 0 12px 36px rgba(139, 92, 246, 0.4);
+      }
+      .login-ico svg {
+        width: 30px;
+        height: 30px;
+        color: #fff;
+      }
+      .login-box h2 {
+        font-size: 1.5rem;
+        margin-bottom: 8px;
+      }
+      .login-box > p {
+        font-size: 0.87rem;
+        color: var(--txt-2);
+        margin-bottom: 28px;
+        font-weight: 300;
+      }
+      .login-error {
+        font-size: 0.82rem;
+        color: var(--rose);
+        background: rgba(236, 72, 153, 0.1);
+        border: 1px solid rgba(236, 72, 153, 0.28);
+        border-radius: var(--r-sm);
+        padding: 10px;
+        margin-bottom: 16px;
+        display: none;
+      }
+      .login-input {
+        width: 100%;
+        padding: 14px 18px;
+        border: 1px solid var(--glass-border);
+        border-radius: var(--r-sm);
+        font-family: "Inter", sans-serif;
+        font-size: 0.92rem;
+        background: var(--glass);
+        color: var(--txt);
+        margin-bottom: 14px;
+        text-align: center;
+        letter-spacing: 0.1em;
+        transition: border-color 0.25s;
+      }
+      .login-input:focus {
+        outline: none;
+        border-color: var(--violet-2);
+      }
+      .login-hint {
+        margin-top: 18px;
+        font-size: 0.74rem;
+        color: var(--txt-3);
+      }
+      .login-hint strong {
+        color: var(--txt-2);
+      }
+
+      /* ── LAYOUT ADMIN ── */
+      .admin-wrap {
+        display: grid;
+        grid-template-columns: 220px 1fr;
+        min-height: calc(100vh - 60px);
+      }
+
+      /* ── SIDEBAR ── */
+      .admin-side {
+        border-right: 1px solid var(--glass-border-soft);
+        padding: 26px 16px;
+        background: rgba(255, 255, 255, 0.02);
+        position: sticky;
+        top: 60px;
+        height: calc(100vh - 60px);
+        overflow-y: auto;
+      }
+      .admin-side-title {
+        font-size: 0.65rem;
+        font-weight: 700;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--txt-4);
+        padding: 0 10px;
+        margin-bottom: 10px;
+      }
+      .admin-nav-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 11px 14px;
+        border-radius: var(--r-sm);
+        font-size: 0.85rem;
+        font-weight: 500;
+        color: var(--txt-2);
+        cursor: pointer;
+        transition: all 0.2s var(--ease);
+        margin-bottom: 4px;
+      }
+      .admin-nav-item svg {
+        width: 16px;
+        height: 16px;
+        flex-shrink: 0;
+        color: var(--txt-3);
+        transition: color 0.2s;
+      }
+      .admin-nav-item:hover {
+        background: var(--glass);
+        color: var(--txt);
+      }
+      .admin-nav-item:hover svg {
+        color: var(--violet-2);
+      }
+      .admin-nav-item.active {
+        background: rgba(139, 92, 246, 0.14);
+        color: var(--violet-2);
+        font-weight: 600;
+      }
+      .admin-nav-item.active svg {
+        color: var(--violet-2);
+      }
+      .admin-side-sep {
+        border: none;
+        border-top: 1px solid var(--glass-border-soft);
+        margin: 14px 0;
+      }
+
+      /* ── CONTENU PRINCIPAL ── */
+      .admin-main {
+        padding: 32px;
+        overflow-y: auto;
+      }
+      .admin-toolbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 24px;
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+      .admin-toolbar h2 {
+        font-size: 1.2rem;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .admin-toolbar h2 svg {
+        width: 20px;
+        height: 20px;
+        color: var(--violet-2);
+      }
+
+      /* ── TABLEAU ── */
+      .table-wrap {
+        background: var(--glass);
+        border: 1px solid var(--glass-border);
+        border-radius: var(--r);
+        overflow: hidden;
+        backdrop-filter: blur(18px);
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      thead {
+        background: rgba(139, 92, 246, 0.12);
+        border-bottom: 1px solid var(--glass-border);
+      }
+      thead th {
+        padding: 13px 16px;
+        text-align: left;
+        font-size: 0.76rem;
+        font-weight: 700;
+        color: var(--violet-2);
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+      }
+      tbody td {
+        padding: 13px 16px;
+        font-size: 0.85rem;
+        border-bottom: 1px solid var(--glass-border-soft);
+        color: var(--txt-2);
+        vertical-align: middle;
+      }
+      tbody tr:last-child td {
+        border-bottom: none;
+      }
+      tbody tr:hover td {
+        background: var(--glass);
+        color: var(--txt);
+      }
+      .td-nom {
+        font-weight: 600;
+        color: var(--txt);
+      }
+      .td-sigle {
+        font-family: "Fraunces", serif;
+        font-size: 0.78rem;
+        background: linear-gradient(135deg, var(--violet), var(--violet-deep));
+        color: #fff;
+        padding: 3px 9px;
+        border-radius: 7px;
+        display: inline-block;
+      }
+      .td-actions {
+        display: flex;
+        gap: 7px;
+        align-items: center;
+      }
+      .btn-edit {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        background: rgba(139, 92, 246, 0.12);
+        color: var(--violet-2);
+        border: 1px solid rgba(139, 92, 246, 0.24);
+        padding: 7px 13px;
+        border-radius: var(--r-sm);
+        font-size: 0.78rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s;
+        font-family: "Inter", sans-serif;
+      }
+      .btn-edit svg {
+        width: 12px;
+        height: 12px;
+      }
+      .btn-edit:hover {
+        background: rgba(139, 92, 246, 0.22);
+      }
+      .btn-del {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        background: rgba(236, 72, 153, 0.1);
+        color: var(--rose);
+        border: 1px solid rgba(236, 72, 153, 0.24);
+        padding: 7px 13px;
+        border-radius: var(--r-sm);
+        font-size: 0.78rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s;
+        font-family: "Inter", sans-serif;
+      }
+      .btn-del svg {
+        width: 12px;
+        height: 12px;
+      }
+      .btn-del:hover {
+        background: rgba(236, 72, 153, 0.2);
+      }
+
+      /* ── STATS CARDS ── */
+      .stats-admin {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 16px;
+        margin-bottom: 28px;
+      }
+      .stat-admin-card {
+        border-radius: var(--r);
+        padding: 22px;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+      }
+      .stat-admin-ico {
+        width: 44px;
+        height: 44px;
+        border-radius: 13px;
+        background: rgba(139, 92, 246, 0.12);
+        border: 1px solid rgba(139, 92, 246, 0.22);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+      }
+      .stat-admin-ico svg {
+        width: 20px;
+        height: 20px;
+        color: var(--violet-2);
+      }
+      .stat-admin-n {
+        font-family: "Fraunces", serif;
+        font-size: 1.7rem;
+        font-weight: 600;
+        color: var(--txt);
+        line-height: 1;
+      }
+      .stat-admin-l {
+        font-size: 0.78rem;
+        color: var(--txt-3);
+        margin-top: 3px;
+      }
+
+      /* ── MODAL ── */
+      .modal-bg {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.55);
+        backdrop-filter: blur(6px);
+        z-index: 300;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.25s;
+        padding: 20px;
+      }
+      .modal-bg.open {
+        opacity: 1;
+        pointer-events: all;
+      }
+      .modal {
+        background: var(--bg-2);
+        border: 1px solid var(--glass-border);
+        border-radius: var(--r-lg);
+        padding: 36px;
+        width: 100%;
+        max-width: 620px;
+        max-height: 88vh;
+        overflow-y: auto;
+        transform: translateY(14px) scale(0.98);
+        transition:
+          transform 0.35s var(--ease),
+          opacity 0.3s;
+        opacity: 0;
+      }
+      .modal-bg.open .modal {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+      }
+      .modal-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 28px;
+      }
+      .modal-header h3 {
+        font-size: 1.15rem;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .modal-header h3 svg {
+        width: 18px;
+        height: 18px;
+        color: var(--violet-2);
+      }
+      .modal-close {
+        width: 34px;
+        height: 34px;
+        border-radius: 50%;
+        border: 1px solid var(--glass-border);
+        background: var(--glass);
+        color: var(--txt-3);
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.2s;
+      }
+      .modal-close svg {
+        width: 14px;
+        height: 14px;
+      }
+      .modal-close:hover {
+        background: rgba(236, 72, 153, 0.12);
+        border-color: rgba(236, 72, 153, 0.3);
+        color: var(--rose);
+      }
+
+      /* ── FORM MODAL ── */
+      .form-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 14px;
+      }
+      .champ-admin {
+        margin-bottom: 16px;
+      }
+      .champ-admin label {
+        display: block;
+        font-size: 0.79rem;
+        font-weight: 600;
+        color: var(--txt-2);
+        margin-bottom: 7px;
+      }
+      .champ-admin input,
+      .champ-admin select,
+      .champ-admin textarea {
+        width: 100%;
+        padding: 11px 14px;
+        border: 1px solid var(--glass-border);
+        border-radius: var(--r-sm);
+        font-family: "Inter", sans-serif;
+        font-size: 0.87rem;
+        background: var(--glass);
+        color: var(--txt);
+        transition:
+          border-color 0.25s,
+          background 0.25s;
+      }
+      .champ-admin input:focus,
+      .champ-admin select:focus,
+      .champ-admin textarea:focus {
+        outline: none;
+        border-color: var(--violet-2);
+        background: var(--glass-hover);
+      }
+      .champ-admin select option {
+        background: var(--bg-2);
+      }
+      .champ-admin textarea {
+        resize: vertical;
+        min-height: 76px;
+      }
+      .section-label {
+        font-size: 0.7rem;
+        font-weight: 700;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--orange-soft);
+        margin: 22px 0 14px;
+        padding-top: 18px;
+        border-top: 1px solid var(--glass-border-soft);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .section-label svg {
+        width: 13px;
+        height: 13px;
+      }
+
+      /* Formation bloc */
+      .formation-bloc {
+        background: var(--glass);
+        border: 1px solid var(--glass-border-soft);
+        border-radius: var(--r-sm);
+        padding: 16px;
+        margin-bottom: 12px;
+        position: relative;
+      }
+      .formation-bloc-titre {
+        font-size: 0.8rem;
+        font-weight: 700;
+        color: var(--violet-2);
+        margin-bottom: 12px;
+        display: flex;
+        align-items: center;
+        gap: 7px;
+      }
+      .formation-bloc-titre svg {
+        width: 13px;
+        height: 13px;
+      }
+      .btn-remove-formation {
+        position: absolute;
+        top: 12px;
+        right: 12px;
+        background: rgba(236, 72, 153, 0.1);
+        color: var(--rose);
+        border: 1px solid rgba(236, 72, 153, 0.22);
+        border-radius: 7px;
+        padding: 4px 9px;
+        font-size: 0.73rem;
+        cursor: pointer;
+        font-family: "Inter", sans-serif;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        transition: background 0.2s;
+      }
+      .btn-remove-formation svg {
+        width: 11px;
+        height: 11px;
+      }
+      .btn-remove-formation:hover {
+        background: rgba(236, 72, 153, 0.2);
+      }
+      .btn-add-formation {
+        background: none;
+        border: 1.5px dashed var(--glass-border);
+        color: var(--txt-3);
+        width: 100%;
+        padding: 12px;
+        border-radius: var(--r-sm);
+        font-size: 0.84rem;
+        cursor: pointer;
+        transition: all 0.2s var(--ease);
+        margin-top: 4px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        font-family: "Inter", sans-serif;
+      }
+      .btn-add-formation svg {
+        width: 15px;
+        height: 15px;
+        transition: transform 0.3s var(--ease-spring);
+      }
+      .btn-add-formation:hover {
+        border-color: var(--violet-2);
+        color: var(--violet-2);
+        background: rgba(139, 92, 246, 0.07);
+      }
+      .btn-add-formation:hover svg {
+        transform: scale(1.2) rotate(90deg);
+      }
+
+      /* ── TOAST ── */
+      .toast {
+        position: fixed;
+        bottom: 24px;
+        right: 24px;
+        background: linear-gradient(135deg, var(--violet), var(--violet-deep));
+        color: #fff;
+        padding: 13px 22px;
+        border-radius: var(--r-sm);
+        font-size: 0.87rem;
+        font-weight: 500;
+        box-shadow: 0 8px 32px rgba(139, 92, 246, 0.4);
+        transform: translateY(90px);
+        opacity: 0;
+        transition:
+          transform 0.4s var(--ease-spring),
+          opacity 0.3s;
+        z-index: 400;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        max-width: 360px;
+      }
+      .toast.show {
+        transform: translateY(0);
+        opacity: 1;
+      }
+      .toast.error {
+        background: linear-gradient(135deg, var(--rose), #b91c6e);
+      }
+      .toast svg {
+        width: 16px;
+        height: 16px;
+        flex-shrink: 0;
+      }
+
+      @media (max-width: 768px) {
+        .admin-wrap {
+          grid-template-columns: 1fr;
+        }
+        .admin-side {
+          display: flex;
+          overflow-x: auto;
+          height: auto;
+          position: static;
+          padding: 10px;
+          gap: 6px;
+        }
+        .admin-side-title,
+        .admin-side-sep {
+          display: none;
+        }
+        .admin-nav-item {
+          white-space: nowrap;
+          margin-bottom: 0;
+        }
+        .form-row {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="liquid-field">
+      <div class="lq-orb lq-1"></div>
+      <div class="lq-orb lq-2"></div>
+      <div class="lq-orb lq-3"></div>
+    </div>
+    <div class="grain" aria-hidden="true"></div>
+
+    <!-- NAVBAR -->
+    <nav class="nav">
+      <a href="index.html" class="nav-logo">
+        <span class="mark">
+          <svg class="icon" viewBox="0 0 24 24" stroke="white" stroke-width="2">
+            <path d="M12 2 2 7l10 5 10-5-10-5Z" />
+            <path d="M2 17l10 5 10-5M2 12l10 5 10-5" />
+          </svg>
+        </span>
+        Oriente<span>CI</span>
+        <span
+          style="
+            font-size: 0.65rem;
+            background: var(--orange);
+            color: #1a0f06;
+            padding: 3px 10px;
+            border-radius: var(--r-pill);
+            font-weight: 700;
+            letter-spacing: 0.06em;
+          "
+          >ADMIN</span
+        >
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html" target="_blank">Voir le site →</a></li>
+        <li>
+          <a href="#" onclick="deconnexion()" style="color: var(--txt-3)">
+            <svg
+              class="icon"
+              viewBox="0 0 24 24"
+              stroke-width="2"
+              style="
+                width: 15px;
+                height: 15px;
+                vertical-align: -2px;
+                margin-right: 4px;
+              "
+            >
+              <path
+                d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"
+              />
+            </svg>
+            Déconnexion
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+    <!-- LOGIN OVERLAY -->
+    <div class="login-overlay" id="login-overlay">
+      <div class="login-box glass">
+        <div class="login-ico">
+          <svg class="icon" viewBox="0 0 24 24" stroke-width="2">
+            <rect x="3" y="11" width="18" height="11" rx="2" />
+            <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+          </svg>
+        </div>
+        <h2>Espace Admin</h2>
+        <p>Entrez le mot de passe pour accéder au tableau de bord.</p>
+        <div class="login-error" id="login-error">
+          <svg
+            class="icon"
+            viewBox="0 0 24 24"
+            stroke-width="2"
+            style="width: 14px; height: 14px"
+          >
+            <circle cx="12" cy="12" r="9" />
+            <path d="M12 8v4M12 16h.01" />
+          </svg>
+          Mot de passe incorrect.
+        </div>
+        <input
+          type="password"
+          class="login-input"
+          id="login-input"
+          placeholder="Mot de passe"
+          onkeydown="if (event.key === 'Enter') seConnecter();"
+        />
+        <button
+          class="btn btn-violet"
+          style="width: 100%; justify-content: center"
+          onclick="seConnecter()"
+        >
+          <svg class="icon" viewBox="0 0 24 24" stroke-width="2">
+            <path
+              d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4M10 17l5-5-5-5M15 12H3"
+            />
+          </svg>
+          Accéder
+        </button>
+        <p class="login-hint">
+          Mot de passe par défaut : <strong>admin123</strong>
+        </p>
+      </div>
+    </div>
+
+    <!-- DASHBOARD -->
+    <div class="admin-wrap" id="admin-wrap" style="display: none">
+      <!-- SIDEBAR -->
+      <aside class="admin-side">
+        <div class="admin-side-title">Navigation</div>
+        <div
+          class="admin-nav-item active"
+          onclick="afficherSection('ecoles', this)"
+        >
+          <svg class="icon" viewBox="0 0 24 24" stroke-width="1.9">
+            <path d="M22 10 12 5 2 10l10 5 10-5Z" />
+            <path d="M6 12v5c0 1.5 2.7 3 6 3s6-1.5 6-3v-5" />
+          </svg>
+          Les écoles
+        </div>
+        <div class="admin-nav-item" onclick="afficherSection('stats', this)">
+          <svg class="icon" viewBox="0 0 24 24" stroke-width="1.9">
+            <path d="M3 17l5-5 4 4 8-9" />
+            <path d="M14 7h6v6" />
+          </svg>
+          Statistiques
+        </div>
+        <hr class="admin-side-sep" />
+        <div class="admin-nav-item" onclick="window.open('index.html')">
+          <svg class="icon" viewBox="0 0 24 24" stroke-width="1.9">
+            <circle cx="12" cy="12" r="9" />
+            <path
+              d="M3 12h18M12 3c2.5 2.5 4 5.7 4 9s-1.5 6.5-4 9c-2.5-2.5-4-5.7-4-9s1.5-6.5 4-9Z"
+            />
+          </svg>
+          Voir le site
+        </div>
+      </aside>
+
+      <!-- CONTENU -->
+      <main class="admin-main">
+        <!-- SECTION ÉCOLES -->
+        <div id="section-ecoles">
+          <div class="admin-toolbar">
+            <h2>
+              <svg class="icon" viewBox="0 0 24 24" stroke-width="1.9">
+                <path d="M22 10 12 5 2 10l10 5 10-5Z" />
+                <path d="M6 12v5c0 1.5 2.7 3 6 3s6-1.5 6-3v-5" />
+              </svg>
+              Gestion des écoles
+            </h2>
+            <button
+              class="btn btn-primary"
+              style="padding: 11px 22px; font-size: 0.86rem"
+              onclick="ouvrirModalAjout()"
+            >
+              <svg class="icon" viewBox="0 0 24 24" stroke-width="2.5">
+                <path d="M12 5v14M5 12h14" />
+              </svg>
+              Ajouter une école
+            </button>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Sigle</th>
+                  <th>Nom</th>
+                  <th>Ville</th>
+                  <th>Type</th>
+                  <th>Formations</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="tbody-ecoles">
+                <tr>
+                  <td
+                    colspan="6"
+                    style="
+                      text-align: center;
+                      padding: 36px;
+                      color: var(--txt-3);
+                    "
+                  >
+                    <div
+                      class="spinner"
+                      style="margin: 0 auto 12px; width: 26px; height: 26px"
+                    ></div>
+                    Chargement...
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- SECTION STATS -->
+        <div id="section-stats" style="display: none">
+          <div class="admin-toolbar">
+            <h2>
+              <svg class="icon" viewBox="0 0 24 24" stroke-width="1.9">
+                <path d="M3 17l5-5 4 4 8-9" />
+                <path d="M14 7h6v6" />
+              </svg>
+              Statistiques
+            </h2>
+          </div>
+          <div class="stats-admin" id="stats-grid"></div>
+        </div>
+      </main>
+    </div>
+
+    <!-- MODAL AJOUT / ÉDITION -->
+    <div class="modal-bg" id="modal-bg">
+      <div class="modal">
+        <div class="modal-header">
+          <h3 id="modal-titre">
+            <svg class="icon" viewBox="0 0 24 24" stroke-width="1.9">
+              <path d="M22 10 12 5 2 10l10 5 10-5Z" />
+              <path d="M6 12v5c0 1.5 2.7 3 6 3s6-1.5 6-3v-5" />
+            </svg>
+            Ajouter une école
+          </h3>
+          <button class="modal-close" onclick="fermerModal()">
+            <svg class="icon" viewBox="0 0 24 24" stroke-width="2.2">
+              <path d="M18 6 6 18M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+
+        <div class="section-label">
+          <svg class="icon" viewBox="0 0 24 24" stroke-width="2">
+            <circle cx="12" cy="8" r="4" />
+            <path d="M6 20v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2" />
+          </svg>
+          Informations générales
+        </div>
+        <div class="form-row">
+          <div class="champ-admin">
+            <label>Nom complet *</label
+            ><input
+              type="text"
+              id="f-nom"
+              placeholder="Ex : Université de Man"
+            />
+          </div>
+          <div class="champ-admin">
+            <label>Sigle *</label
+            ><input type="text" id="f-sigle" placeholder="Ex : UDM" />
+          </div>
+        </div>
+        <div class="champ-admin">
+          <label>Description</label
+          ><textarea
+            id="f-description"
+            placeholder="Points forts, spécialités..."
+          ></textarea>
+        </div>
+        <div class="form-row">
+          <div class="champ-admin">
+            <label>Type *</label
+            ><select id="f-type">
+              <option value="publique">Publique</option>
+              <option value="privée">Privée</option>
+            </select>
+          </div>
+          <div class="champ-admin">
+            <label>Ville *</label
+            ><input type="text" id="f-ville" placeholder="Ex : Abidjan" />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="champ-admin">
+            <label>Quartier</label
+            ><input type="text" id="f-quartier" placeholder="Ex : Cocody" />
+          </div>
+          <div class="champ-admin">
+            <label>Téléphone</label
+            ><input
+              type="text"
+              id="f-telephone"
+              placeholder="+225 XX XX XX XX"
+            />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="champ-admin">
+            <label>Email</label
+            ><input type="email" id="f-email" placeholder="contact@ecole.ci" />
+          </div>
+          <div class="champ-admin">
+            <label>Site web</label
+            ><input type="text" id="f-site" placeholder="https://..." />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="champ-admin">
+            <label>Frais min / an (FCFA)</label
+            ><input type="number" id="f-frais-min" placeholder="50000" />
+          </div>
+          <div class="champ-admin">
+            <label>Frais max / an (FCFA)</label
+            ><input type="number" id="f-frais-max" placeholder="200000" />
+          </div>
+        </div>
+
+        <div class="section-label">
+          <svg class="icon" viewBox="0 0 24 24" stroke-width="2">
+            <path d="M22 10 12 5 2 10l10 5 10-5Z" />
+            <path d="M6 12v5c0 1.5 2.7 3 6 3s6-1.5 6-3v-5" />
+          </svg>
+          Formations
+        </div>
+        <div id="formations-container"></div>
+        <button class="btn-add-formation" onclick="ajouterBlocFormation()">
+          <svg class="icon" viewBox="0 0 24 24" stroke-width="2.5">
+            <path d="M12 5v14M5 12h14" />
+          </svg>
+          Ajouter une formation
+        </button>
+
+        <div
+          style="
+            display: flex;
+            gap: 10px;
+            margin-top: 28px;
+            justify-content: flex-end;
+          "
+        >
+          <button class="btn btn-secondary" onclick="fermerModal()">
+            Annuler
+          </button>
+          <button class="btn btn-primary" onclick="sauvegarder()">
+            Sauvegarder
+            <svg class="icon" viewBox="0 0 24 24" stroke-width="2.2">
+              <path d="M5 12h14M13 6l6 6-6 6" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- TOAST -->
+    <div class="toast" id="toast"></div>
+
+    <script>
+      const API = "http://localhost:3000/api";
+      const MOT_PASSE = "admin123";
+      let modeEdition = false;
+      let idEdition = null;
+
+      const ICO_CHECK =
+        '<svg class="icon" viewBox="0 0 24 24" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg>';
+      const ICO_ERR =
+        '<svg class="icon" viewBox="0 0 24 24" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 8v4M12 16h.01"/></svg>';
+      const ICO_FORM =
+        '<svg class="icon" viewBox="0 0 24 24" stroke-width="1.9"><path d="M22 10 12 5 2 10l10 5 10-5Z"/><path d="M6 12v5c0 1.5 2.7 3 6 3s6-1.5 6-3v-5"/></svg>';
+      const ICO_EDIT =
+        '<svg class="icon" viewBox="0 0 24 24" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7M18.5 2.5a2.12 2.12 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5Z"/></svg>';
+      const ICO_DEL =
+        '<svg class="icon" viewBox="0 0 24 24" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6M10 11v6M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>';
+
+      /* ── AUTH ── */
+      function seConnecter() {
+        const val = document.getElementById("login-input").value;
+        if (val === MOT_PASSE) {
+          document.getElementById("login-overlay").style.display = "none";
+          document.getElementById("admin-wrap").style.display = "grid";
+          chargerEcoles();
+          chargerStats();
+        } else {
+          document.getElementById("login-error").style.display = "flex";
+        }
+      }
+      function deconnexion() {
+        document.getElementById("login-overlay").style.display = "flex";
+        document.getElementById("admin-wrap").style.display = "none";
+        document.getElementById("login-input").value = "";
+        document.getElementById("login-error").style.display = "none";
+      }
+
+      /* ── NAV ── */
+      function afficherSection(nom, el) {
+        document.getElementById("section-ecoles").style.display =
+          nom === "ecoles" ? "block" : "none";
+        document.getElementById("section-stats").style.display =
+          nom === "stats" ? "block" : "none";
+        document
+          .querySelectorAll(".admin-nav-item")
+          .forEach((i) => i.classList.remove("active"));
+        el.classList.add("active");
+      }
+
+      /* ── ÉCOLES ── */
+      async function chargerEcoles() {
+        try {
+          const res = await fetch(`${API}/ecoles`);
+          const data = await res.json();
+          const tbody = document.getElementById("tbody-ecoles");
+          tbody.innerHTML = data.data
+            .map(
+              (e) => `
+          <tr>
+            <td><span class="td-sigle">${e.sigle}</span></td>
+            <td class="td-nom">${e.nom}</td>
+            <td>${e.ville}${e.quartier ? " · " + e.quartier : ""}</td>
+            <td><span class="badge-type badge-${e.type}">${e.type.charAt(0).toUpperCase() + e.type.slice(1)}</span></td>
+            <td>${e.formations?.length || 0} formation(s)</td>
+            <td><div class="td-actions">
+              <button class="btn-edit" onclick="ouvrirModalEdition(${e.id})">${ICO_EDIT} Modifier</button>
+              <button class="btn-del" onclick="supprimer(${e.id})">${ICO_DEL} Suppr.</button>
+            </div></td>
+          </tr>`,
+            )
+            .join("");
+        } catch {
+          document.getElementById("tbody-ecoles").innerHTML =
+            '<tr><td colspan="6" style="text-align:center;padding:30px;color:var(--txt-3);">Serveur non disponible.</td></tr>';
+        }
+      }
+
+      /* ── STATS ── */
+      async function chargerStats() {
+        try {
+          const res = await fetch(`${API}/ecoles`);
+          const data = await res.json();
+          const ecoles = data.data;
+          const totalF = ecoles.reduce(
+            (a, e) => a + (e.formations?.length || 0),
+            0,
+          );
+          const villes = [...new Set(ecoles.map((e) => e.ville))].length;
+          const priv = ecoles.filter((e) => e.type === "privée").length;
+          const stats = [
+            { n: ecoles.length, l: "Écoles référencées", ico: ICO_FORM },
+            {
+              n: totalF,
+              l: "Formations disponibles",
+              ico: '<svg class="icon" viewBox="0 0 24 24" stroke-width="1.9"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z"/></svg>',
+            },
+            {
+              n: villes,
+              l: "Villes couvertes",
+              ico: '<svg class="icon" viewBox="0 0 24 24" stroke-width="1.9"><path d="M12 21s7-6.1 7-11.5A7 7 0 0 0 5 9.5C5 14.9 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.4"/></svg>',
+            },
+            {
+              n: priv,
+              l: "Écoles privées",
+              ico: '<svg class="icon" viewBox="0 0 24 24" stroke-width="1.9"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>',
+            },
+          ];
+          document.getElementById("stats-grid").innerHTML = stats
+            .map(
+              (s) => `
+          <div class="stat-admin-card glass pop-in">
+            <div class="stat-admin-ico">${s.ico}</div>
+            <div>
+              <div class="stat-admin-n">${s.n}</div>
+              <div class="stat-admin-l">${s.l}</div>
+            </div>
+          </div>`,
+            )
+            .join("");
+        } catch {}
+      }
+
+      /* ── MODAL ── */
+      let formationCount = 0;
+      function ouvrirModalAjout() {
+        modeEdition = false;
+        idEdition = null;
+        formationCount = 0;
+        document.getElementById("modal-titre").innerHTML =
+          `${ICO_FORM} Ajouter une école`;
+        [
+          "f-nom",
+          "f-sigle",
+          "f-description",
+          "f-quartier",
+          "f-telephone",
+          "f-email",
+          "f-site",
+          "f-frais-min",
+          "f-frais-max",
+        ].forEach((id) => {
+          document.getElementById(id).value = "";
+        });
+        document.getElementById("f-type").value = "publique";
+        document.getElementById("f-ville").value = "";
+        document.getElementById("formations-container").innerHTML = "";
+        ouvrirModal();
+      }
+      async function ouvrirModalEdition(id) {
+        modeEdition = true;
+        idEdition = id;
+        formationCount = 0;
+        document.getElementById("modal-titre").innerHTML =
+          `${ICO_EDIT} Modifier l'école`;
+        try {
+          const res = await fetch(`${API}/ecoles/${id}`);
+          const data = await res.json();
+          const e = data.data;
+          document.getElementById("f-nom").value = e.nom || "";
+          document.getElementById("f-sigle").value = e.sigle || "";
+          document.getElementById("f-description").value = e.description || "";
+          document.getElementById("f-type").value = e.type || "publique";
+          document.getElementById("f-ville").value = e.ville || "";
+          document.getElementById("f-quartier").value = e.quartier || "";
+          document.getElementById("f-telephone").value = e.telephone || "";
+          document.getElementById("f-email").value = e.email || "";
+          document.getElementById("f-site").value = e.site_web || "";
+          document.getElementById("f-frais-min").value = e.frais_min || "";
+          document.getElementById("f-frais-max").value = e.frais_max || "";
+          const fc = document.getElementById("formations-container");
+          fc.innerHTML = "";
+          (e.formations || []).forEach((f) => ajouterBlocFormation(f));
+          ouvrirModal();
+        } catch {
+          afficherToast("Impossible de charger l'école.", true);
+        }
+      }
+      function ouvrirModal() {
+        document.getElementById("modal-bg").classList.add("open");
+        document.body.style.overflow = "hidden";
+      }
+      function fermerModal() {
+        document.getElementById("modal-bg").classList.remove("open");
+        document.body.style.overflow = "";
+      }
+      document
+        .getElementById("modal-bg")
+        .addEventListener("click", function (e) {
+          if (e.target === this) fermerModal();
+        });
+
+      /* Blocs formation */
+      function ajouterBlocFormation(f = null) {
+        formationCount++;
+        const idx = formationCount;
+        const fc = document.getElementById("formations-container");
+        const div = document.createElement("div");
+        div.className = "formation-bloc";
+        div.id = `formation-${idx}`;
+        div.innerHTML = `
+        <div class="formation-bloc-titre">${ICO_FORM} Formation ${idx}</div>
+        <button class="btn-remove-formation" type="button" onclick="document.getElementById('formation-${idx}').remove()">
+          <svg class="icon" viewBox="0 0 24 24" stroke-width="2.2"><path d="M18 6 6 18M6 6l12 12"/></svg> Retirer
+        </button>
+        <div class="form-row">
+          <div class="champ-admin"><label>Nom *</label><input type="text" class="fn-nom" placeholder="Ex : Licence Informatique" value="${f?.nom || ""}" /></div>
+          <div class="champ-admin"><label>Domaine *</label><input type="text" class="fn-domaine" placeholder="Ex : Informatique" value="${f?.domaine || ""}" /></div>
+        </div>
+        <div class="form-row">
+          <div class="champ-admin"><label>Durée</label><input type="text" class="fn-duree" placeholder="Ex : 3 ans" value="${f?.duree || ""}" /></div>
+          <div class="champ-admin"><label>Moyenne requise /20</label><input type="number" class="fn-moy" min="0" max="20" step="0.5" placeholder="10" value="${f?.moyenne_requise || ""}" /></div>
+        </div>
+        <div class="champ-admin"><label>Description</label><textarea class="fn-desc" placeholder="Présentation courte...">${f?.description || ""}</textarea></div>
+        <div class="champ-admin"><label>Séries acceptées (ex: A,B,C)</label><input type="text" class="fn-series" placeholder="C,D,E" value="${(f?.series_acceptees || []).join(",")}" /></div>
+        <div class="champ-admin"><label>Débouchés (séparés par des virgules)</label><input type="text" class="fn-debouches" placeholder="Développeur, Ingénieur..." value="${(f?.debouches || []).join(", ")}" /></div>`;
+        fc.appendChild(div);
+      }
+
+      async function sauvegarder() {
+        const nom = document.getElementById("f-nom").value.trim();
+        const sigle = document.getElementById("f-sigle").value.trim();
+        const ville = document.getElementById("f-ville").value.trim();
+        if (!nom || !sigle || !ville) {
+          afficherToast("Nom, sigle et ville sont obligatoires.", true);
+          return;
+        }
+        const formations = [
+          ...document
+            .getElementById("formations-container")
+            .querySelectorAll(".formation-bloc"),
+        ]
+          .map((b) => ({
+            nom: b.querySelector(".fn-nom").value.trim(),
+            domaine: b.querySelector(".fn-domaine").value.trim(),
+            duree: b.querySelector(".fn-duree").value.trim(),
+            moyenne_requise: parseFloat(b.querySelector(".fn-moy").value) || 10,
+            description: b.querySelector(".fn-desc").value.trim(),
+            series_acceptees: b
+              .querySelector(".fn-series")
+              .value.split(",")
+              .map((s) => s.trim())
+              .filter(Boolean),
+            debouches: b
+              .querySelector(".fn-debouches")
+              .value.split(",")
+              .map((s) => s.trim())
+              .filter(Boolean),
+          }))
+          .filter((f) => f.nom && f.domaine);
+        const payload = {
+          nom,
+          sigle,
+          description: document.getElementById("f-description").value.trim(),
+          type: document.getElementById("f-type").value,
+          ville,
+          quartier: document.getElementById("f-quartier").value.trim(),
+          telephone: document.getElementById("f-telephone").value.trim(),
+          email: document.getElementById("f-email").value.trim(),
+          site_web: document.getElementById("f-site").value.trim(),
+          frais_min:
+            parseInt(document.getElementById("f-frais-min").value) || 0,
+          frais_max:
+            parseInt(document.getElementById("f-frais-max").value) || 0,
+          formations,
+        };
+        try {
+          const url = modeEdition
+            ? `${API}/ecoles/${idEdition}`
+            : `${API}/ecoles`;
+          const method = modeEdition ? "PUT" : "POST";
+          const res = await fetch(url, {
+            method,
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload),
+          });
+          const data = await res.json();
+          if (!data.success) throw new Error(data.message);
+          afficherToast(modeEdition ? "École mise à jour." : "École ajoutée.");
+          fermerModal();
+          chargerEcoles();
+          chargerStats();
+        } catch (err) {
+          afficherToast(
+            "Erreur : " + (err.message || "Serveur non disponible."),
+            true,
+          );
+        }
+      }
+
+      async function supprimer(id) {
+        if (
+          !confirm(
+            "Supprimer définitivement cette école et toutes ses formations ?",
+          )
+        )
+          return;
+        try {
+          await fetch(`${API}/ecoles/${id}`, { method: "DELETE" });
+          afficherToast("École supprimée.");
+          chargerEcoles();
+          chargerStats();
+        } catch {
+          afficherToast("Erreur lors de la suppression.", true);
+        }
+      }
+
+      /* ── TOAST ── */
+      let toastTimer;
+      function afficherToast(msg, err = false) {
+        const t = document.getElementById("toast");
+        t.innerHTML = `${err ? ICO_ERR : ICO_CHECK} ${msg}`;
+        t.className = "toast" + (err ? " error" : "") + " show";
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => t.classList.remove("show"), 3200);
+      }
+    </script>
+  </body>
+</html>
