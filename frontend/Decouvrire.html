@@ -4,1106 +4,888 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Je ne sais pas quoi faire — OrienteCI</title>
+    <meta
+      name="description"
+      content="8 questions simples, aucune mauvaise réponse. OrienteCI te propose des domaines qui pourraient te correspondre après le BAC."
+    />
+    <meta name="theme-color" content="#13203b" />
+    <link rel="icon" href="images/logo-nav.png" />
     <link rel="stylesheet" href="styles.css" />
+    <script src="Nav.js" defer></script>
+    <noscript
+      ><style>
+        .card {
+          display: none;
+        }
+      </style></noscript
+    >
     <style>
-      /* ── TEST PERSONNALITÉ ── */
-      .test-wrap {
-        max-width: 680px;
-        margin: 0 auto;
+      :focus-visible {
+        outline: 2px solid var(--blue);
+        outline-offset: 3px;
+        border-radius: 10px;
+      }
+      .skip {
+        position: absolute;
+        left: 12px;
+        top: -64px;
+        z-index: 400;
+        background: var(--ink);
+        color: #fff;
+        padding: 10px 18px;
+        border-radius: 999px;
+        font-weight: 600;
+        transition: top 0.2s;
+      }
+      .skip:focus {
+        top: 12px;
+      }
+      .btn[aria-disabled="true"] {
+        opacity: 0.55;
       }
 
-      /* ── BARRE DE PROGRESSION ── */
-      .progress-bloc {
-        margin-bottom: 40px;
+      .page {
+        max-width: 720px;
+        margin: 0 auto;
+        padding: 130px 5% 80px;
       }
-      .progress-info {
+      .intro {
+        text-align: center;
+        margin-bottom: 34px;
+      }
+      .intro h1 {
+        font-size: clamp(2.4rem, 6vw, 4rem);
+      }
+      .intro p {
+        color: var(--muted);
+        max-width: 46ch;
+        margin: 16px auto 0;
+      }
+
+      /* ── Progression ── */
+      .prog-info {
         display: flex;
         justify-content: space-between;
-        align-items: center;
-        margin-bottom: 12px;
-        font-size: 0.82rem;
-        color: var(--txt-3);
+        align-items: baseline;
+        font-size: 0.85rem;
+        color: var(--muted);
+        margin-bottom: 10px;
       }
-      .progress-info strong {
-        color: var(--violet-2);
-        font-family: "Fraunces", serif;
-        font-size: 1rem;
+      .prog-info b {
+        color: var(--ink);
+        font-variant-numeric: tabular-nums;
       }
-      .progress-piste {
-        height: 6px;
-        background: var(--glass-border-soft);
-        border-radius: 3px;
+      .track {
+        height: 8px;
+        border-radius: 8px;
+        background: rgba(19, 32, 59, 0.1);
         overflow: hidden;
       }
-      .progress-remplissage {
+      .fill {
+        display: block;
         height: 100%;
-        background: linear-gradient(90deg, var(--violet), var(--cyan));
-        border-radius: 3px;
-        transition: width 0.6s var(--ease);
+        width: 0;
+        border-radius: 8px;
+        background: linear-gradient(
+          90deg,
+          var(--blue-deep),
+          var(--blue) 60%,
+          #f5a01a
+        );
+        transition: width 0.5s var(--ease);
+      }
+      .enc {
+        min-height: 1.4em;
+        margin: 12px 0 20px;
+        font-size: 0.92rem;
+        font-weight: 600;
+        color: var(--blue-deep);
       }
 
-      /* ── QUESTION ── */
-      .question-card {
-        border-radius: var(--r-lg);
-        padding: 40px;
-        margin-bottom: 20px;
-        min-height: 260px;
+      /* ── Question ── */
+      .card {
+        padding: clamp(24px, 5vw, 40px);
+        border-radius: 30px;
+        min-height: 340px;
         transition:
-          opacity 0.35s var(--ease),
-          transform 0.45s var(--ease),
-          filter 0.4s var(--ease);
+          opacity 0.2s,
+          transform 0.3s var(--ease);
       }
-      .question-card.slide-out {
+      .card.out {
         opacity: 0;
-        transform: translateX(-30px);
-        filter: blur(4px);
-        pointer-events: none;
+        transform: translateX(-18px);
       }
-      .question-card.slide-in {
-        animation: slideInQ 0.5s var(--ease) both;
+      .q {
+        font:
+          400 clamp(1.7rem, 4vw, 2.3rem)/1.15 "Instrument Serif",
+          serif;
+        margin-bottom: 24px;
       }
-      @keyframes slideInQ {
-        from {
-          opacity: 0;
-          transform: translateX(30px);
-          filter: blur(4px);
-        }
-        to {
-          opacity: 1;
-          transform: translateX(0);
-          filter: blur(0);
-        }
-      }
-      .question-num {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        font-size: 0.72rem;
-        font-weight: 700;
-        letter-spacing: 0.16em;
-        text-transform: uppercase;
-        color: var(--violet-2);
-        margin-bottom: 20px;
-      }
-      .question-num svg {
-        width: 13px;
-        height: 13px;
-      }
-      .question-texte {
-        font-family: "Fraunces", serif;
-        font-size: clamp(1.1rem, 2.5vw, 1.4rem);
-        font-weight: 500;
-        line-height: 1.4;
-        margin-bottom: 32px;
-      }
-      .options-grid {
+      .opts {
         display: grid;
-        grid-template-columns: 1fr 1fr;
         gap: 10px;
       }
-      .option-btn {
-        padding: 16px 18px;
-        border: 1px solid var(--glass-border);
-        border-radius: var(--r);
-        background: var(--glass);
-        cursor: pointer;
-        text-align: left;
-        font-family: "Inter", sans-serif;
-        font-size: 0.86rem;
-        font-weight: 500;
-        color: var(--txt-2);
-        line-height: 1.45;
-        transition:
-          border-color 0.28s var(--ease),
-          background 0.28s var(--ease),
-          color 0.28s var(--ease),
-          box-shadow 0.28s var(--ease);
-        transform: none;
-        display: flex;
-        align-items: flex-start;
-        gap: 11px;
-        backdrop-filter: blur(12px);
-      }
-      .option-btn .opt-ico {
-        width: 28px;
-        height: 28px;
-        border-radius: 9px;
-        background: rgba(139, 92, 246, 0.1);
+      .opt {
         display: flex;
         align-items: center;
-        justify-content: center;
-        flex-shrink: 0;
+        gap: 14px;
+        width: 100%;
+        text-align: left;
+        padding: 15px 18px;
+        border-radius: 18px;
+        border: 1px solid var(--line);
+        background: var(--white);
+        font: inherit;
+        font-size: 0.98rem;
+        line-height: 1.4;
+        color: var(--ink);
+        cursor: pointer;
         transition:
-          background 0.28s var(--ease),
-          box-shadow 0.28s var(--ease);
+          border-color 0.2s,
+          background 0.2s;
       }
-      .option-btn .opt-ico svg {
-        width: 15px;
-        height: 15px;
-        color: var(--violet-2);
-        transition: color 0.28s var(--ease);
+      .opt:hover {
+        border-color: var(--blue);
       }
-      /* Hover : seul changement visuel, sans transform */
-      .option-btn:not(.selected):hover {
-        border-color: rgba(139, 92, 246, 0.5);
-        background: rgba(139, 92, 246, 0.07);
-        color: var(--txt);
-        box-shadow: 0 4px 18px rgba(139, 92, 246, 0.12);
+      .opt .k {
+        flex: none;
+        width: 30px;
+        height: 30px;
+        border-radius: 10px;
+        display: grid;
+        place-items: center;
+        background: var(--blue-soft);
+        color: var(--blue-deep);
+        font-weight: 700;
+        font-size: 0.82rem;
+        transition:
+          background 0.2s,
+          color 0.2s;
       }
-      .option-btn:not(.selected):hover .opt-ico {
-        background: rgba(139, 92, 246, 0.18);
+      .opt[aria-checked="true"] {
+        border-color: var(--blue);
+        background: var(--blue-soft);
       }
-      /* Selected : animation unique via @keyframes — pas de conflit avec hover */
-      .option-btn.selected {
-        border-color: var(--violet-2);
-        background: rgba(139, 92, 246, 0.16);
-        color: var(--txt);
-        box-shadow:
-          0 6px 24px rgba(139, 92, 246, 0.22),
-          0 0 0 1px var(--violet-2);
-        animation: selectPulse 0.38s var(--ease-spring) both;
-      }
-      @keyframes selectPulse {
-        0% {
-          transform: scale(1);
-        }
-        45% {
-          transform: scale(1.025);
-        }
-        100% {
-          transform: scale(1);
-        }
-      }
-      .option-btn.selected .opt-ico {
-        background: linear-gradient(135deg, var(--violet), var(--violet-deep));
-        box-shadow: 0 4px 14px rgba(139, 92, 246, 0.35);
-      }
-      .option-btn.selected .opt-ico svg {
+      .opt[aria-checked="true"] .k {
+        background: var(--blue);
         color: #fff;
       }
-
-      /* ── NAVIGATION Q ── */
       .q-nav {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        margin-top: 16px;
+        gap: 12px;
+        margin-top: 18px;
+      }
+      .q-nav .mid {
+        background: none;
+        border: 0;
+        font: inherit;
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: var(--muted);
+        text-decoration: underline;
+        text-underline-offset: 3px;
+        cursor: pointer;
+        padding: 10px;
+      }
+      .q-nav .mid:hover {
+        color: var(--ink);
+      }
+      .hint {
+        text-align: center;
+        margin-top: 22px;
+        font-size: 0.84rem;
+        color: var(--muted);
       }
 
-      /* ── RÉSULTATS ── */
-      .resultats-test {
-        animation: liquidReveal 0.7s var(--ease) both;
+      /* ── Résultats ── */
+      .res {
+        animation: pop 0.7s var(--ease) both;
+      }
+      @keyframes pop {
+        from {
+          opacity: 0;
+          transform: translateY(14px);
+        }
+        to {
+          opacity: 1;
+          transform: none;
+        }
       }
       .res-head {
         text-align: center;
-        padding: 50px 30px 40px;
-        border-radius: var(--r-lg);
-        margin-bottom: 24px;
-        position: relative;
-        overflow: hidden;
+        padding: clamp(32px, 6vw, 52px) 6%;
+        border-radius: 32px;
       }
-      .res-head::before {
-        content: "";
-        position: absolute;
-        width: 400px;
-        height: 400px;
-        background: radial-gradient(
-          circle,
-          rgba(139, 92, 246, 0.18),
-          transparent 65%
-        );
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-      }
-      .res-head-inner {
-        position: relative;
-        z-index: 1;
-      }
-      .res-icone {
-        width: 68px;
-        height: 68px;
-        border-radius: 20px;
-        background: linear-gradient(140deg, var(--violet), var(--violet-deep));
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin: 0 auto 22px;
-        box-shadow: 0 12px 36px rgba(139, 92, 246, 0.38);
-      }
-      .res-icone svg {
-        width: 32px;
-        height: 32px;
-        color: #fff;
-      }
-      .res-profil {
-        font-family: "Fraunces", serif;
-        font-size: clamp(1.6rem, 4vw, 2.4rem);
-        font-weight: 600;
-        margin-bottom: 12px;
-        background: linear-gradient(135deg, var(--violet-2), var(--magenta));
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-      }
-      .res-desc {
+      .res-head small {
+        color: var(--muted);
         font-size: 0.95rem;
-        color: var(--txt-2);
-        max-width: 480px;
+      }
+      .profil {
+        font:
+          400 clamp(2.4rem, 7vw, 4rem)/1.05 "Instrument Serif",
+          serif;
+        color: var(--blue-deep);
+        margin: 8px 0 14px;
+      }
+      .desc {
+        color: var(--muted);
+        max-width: 48ch;
         margin: 0 auto;
-        font-weight: 300;
-        line-height: 1.7;
       }
-
-      /* Domaines suggérés */
-      .domaines-sugeres {
+      .pills {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        justify-content: center;
+        margin-top: 20px;
+      }
+      .pill {
+        font-size: 0.8rem;
+        font-weight: 700;
+        padding: 6px 14px;
+        border-radius: 999px;
+        background: var(--blue-soft);
+        color: var(--blue-deep);
+      }
+      .res h2 {
+        font-size: 1.9rem;
+        margin: 40px 0 6px;
+        text-align: center;
+      }
+      .res .sub {
+        text-align: center;
+        color: var(--muted);
+        margin-bottom: 20px;
+        font-size: 0.92rem;
+      }
+      .pistes {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
         gap: 12px;
-        margin-bottom: 28px;
       }
-      .domaine-carte {
-        border-radius: var(--r);
+      .piste {
+        display: block;
         padding: 22px;
+        border-radius: 24px;
+        border: 1px solid var(--line);
+        color: var(--ink);
         transition:
           transform 0.35s var(--ease),
+          border-color 0.25s,
           box-shadow 0.35s var(--ease);
+        animation: pop 0.6s var(--ease) both;
       }
-      .domaine-carte:hover {
-        transform: translateY(-3px);
-        box-shadow: var(--shadow-lift);
+      .piste:hover {
+        transform: translateY(-4px);
+        border-color: var(--blue);
+        box-shadow: var(--shadow);
       }
-      .domaine-ico {
-        width: 42px;
-        height: 42px;
-        border-radius: 13px;
-        background: rgba(139, 92, 246, 0.12);
-        border: 1px solid rgba(139, 92, 246, 0.22);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin-bottom: 14px;
-        transition: transform 0.4s var(--ease-spring);
+      .piste.main {
+        border-color: var(--blue);
       }
-      .domaine-ico svg {
-        width: 20px;
-        height: 20px;
-        color: var(--violet-2);
+      .piste .badge {
+        display: inline-block;
+        font-size: 0.72rem;
+        font-weight: 700;
+        padding: 4px 10px;
+        border-radius: 999px;
+        background: var(--blue);
+        color: #fff;
+        margin-bottom: 10px;
       }
-      .domaine-carte:hover .domaine-ico {
-        transform: scale(1.1) rotate(-8deg);
-      }
-      .domaine-nom {
-        font-family: "Fraunces", serif;
-        font-weight: 500;
-        font-size: 0.95rem;
+      .piste h3 {
+        font-size: 1.6rem;
         margin-bottom: 6px;
       }
-      .domaine-desc {
-        font-size: 0.78rem;
-        color: var(--txt-2);
-        line-height: 1.5;
-        font-weight: 300;
-      }
-
-      /* Traits personnalité */
-      .traits-liste {
-        display: flex;
-        gap: 8px;
-        flex-wrap: wrap;
-        justify-content: center;
-        margin-top: 18px;
-      }
-      .trait-pill {
-        font-size: 0.78rem;
-        font-weight: 600;
-        padding: 6px 16px;
-        border-radius: var(--r-pill);
-        background: rgba(139, 92, 246, 0.12);
-        color: var(--violet-2);
-        border: 1px solid rgba(139, 92, 246, 0.24);
-      }
-
-      .cta-test-bloc {
-        border-radius: var(--r);
-        padding: 32px;
-        text-align: center;
-        margin-top: 24px;
-      }
-      .cta-test-bloc h3 {
-        font-size: 1.1rem;
-        margin-bottom: 8px;
-      }
-      .cta-test-bloc p {
+      .piste p {
+        color: var(--muted);
         font-size: 0.88rem;
-        color: var(--txt-2);
-        margin-bottom: 20px;
-        font-weight: 300;
+        margin-bottom: 12px;
       }
-      .cta-test-btns {
+      .piste span {
+        font-size: 0.85rem;
+        font-weight: 700;
+        color: var(--blue-deep);
+      }
+      .res-ico {
+        width: 76px;
+        height: 76px;
+        border-radius: 24px;
+        display: grid;
+        place-items: center;
+        margin: 0 auto 18px;
+        background: linear-gradient(140deg, var(--blue), var(--blue-deep));
+        color: #fff;
+        box-shadow: var(--shadow);
+        animation: pop 0.8s var(--ease) 0.1s both;
+      }
+      .res-ico svg {
+        width: 36px;
+        height: 36px;
+      }
+      .piste-ico {
+        width: 48px;
+        height: 48px;
+        border-radius: 16px;
+        display: grid;
+        place-items: center;
+        background: var(--blue-soft);
+        color: var(--blue-deep);
+        margin-bottom: 14px;
+        transition: transform 0.45s var(--ease);
+      }
+      .piste-ico svg {
+        width: 23px;
+        height: 23px;
+      }
+      .piste:hover .piste-ico {
+        transform: scale(1.1) rotate(-6deg);
+      }
+      .piste.main .piste-ico {
+        background: var(--blue);
+        color: #fff;
+      }
+      .reassure {
+        text-align: center;
+        color: var(--muted);
+        max-width: 50ch;
+        margin: 28px auto 0;
+        font-size: 0.92rem;
+      }
+      .res-cta {
         display: flex;
         gap: 12px;
         justify-content: center;
         flex-wrap: wrap;
+        margin-top: 26px;
       }
 
       @media (max-width: 560px) {
-        .options-grid {
-          grid-template-columns: 1fr;
+        .page {
+          padding-top: 110px;
         }
-        .question-card {
-          padding: 28px 22px;
+        .q-nav {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 8px;
+        }
+        .q-nav #next {
+          grid-column: 1/-1;
+          order: -1;
+          width: 100%;
+          justify-content: center;
+        }
+        .q-nav #prev,
+        .q-nav .mid {
+          width: 100%;
+          justify-content: center;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .res,
+        .piste,
+        .card {
+          animation: none;
+          transition: none;
         }
       }
     </style>
   </head>
   <body>
-    <div class="liquid-field">
-      <div class="lq-orb lq-1"></div>
-      <div class="lq-orb lq-2"></div>
-      <div class="lq-orb lq-3"></div>
-    </div>
-    <div class="grain" aria-hidden="true"></div>
-
-    <!-- NAV -->
+    <a class="skip" href="#test">Aller au test</a>
     <div id="site-nav"></div>
-    <script src="Nav.js"></script>
 
-    <!-- BANNIÈRE -->
-    <div class="page-banner fade-up">
-      <div class="page-banner-inner">
-        <div class="eyebrow"><span class=""></span>Test de personnalité</div>
-        <h1>Je ne sais pas quoi faire</h1>
+    <main class="page" id="test">
+      <header class="intro">
+        <h1>Tu ne sais pas encore ? C'est normal.</h1>
         <p>
-          Réponds à 10 questions simples. On te suggère des domaines qui
-          pourraient te correspondre.
+          8 questions, 2 minutes. Il n'y a ni bonne ni mauvaise réponse :
+          choisis simplement ce qui te ressemble le plus.
+        </p>
+      </header>
+
+      <div id="zone-test">
+        <div class="prog-info">
+          <span>Question <b id="p-num">1</b> sur <b id="p-tot">8</b></span>
+        </div>
+        <div class="track"><i class="fill" id="p-bar"></i></div>
+        <p class="enc" id="enc" aria-live="polite"></p>
+
+        <div class="card glass" id="card" aria-live="polite"></div>
+
+        <div class="q-nav">
+          <button class="btn btn-ghost" id="prev" type="button">
+            Précédent
+          </button>
+          <button class="mid" id="skipq" type="button">
+            Passer cette question
+          </button>
+          <button class="btn btn-dark" id="next" type="button">Suivant</button>
+        </div>
+        <p class="hint">
+          Astuce : les touches 1 à 4 choisissent une réponse, les flèches
+          changent de question.
         </p>
       </div>
-    </div>
 
-    <section class="section" style="padding-top: 14px">
-      <div class="test-wrap">
-        <!-- ZONE PRINCIPALE -->
-        <div id="zone-test">
-          <!-- Progress -->
-          <div class="progress-bloc fade-up delay-1">
-            <div class="progress-info">
-              <span>Question <strong id="prog-num">1</strong> / 10</span>
-              <span id="prog-pct">0%</span>
-            </div>
-            <div class="progress-piste">
-              <div
-                class="progress-remplissage"
-                id="prog-bar"
-                style="width: 0%"
-              ></div>
-            </div>
-          </div>
+      <div id="zone-res" hidden></div>
+    </main>
 
-          <!-- Question -->
-          <div class="question-card glass fade-up delay-2" id="qcard">
-            <!-- rempli par JS -->
-          </div>
-
-          <!-- Navigation -->
-          <div class="q-nav fade-up delay-2">
-            <button
-              class="btn btn-secondary"
-              id="btn-prev"
-              onclick="precedent()"
-              style="display: none"
-            >
-              <svg class="icon" viewBox="0 0 24 24" stroke-width="2">
-                <path d="M19 12H5M11 6l-6 6 6 6" />
-              </svg>
-              Précédent
-            </button>
-            <div></div>
-            <button
-              class="btn btn-primary"
-              id="btn-next"
-              onclick="suivant()"
-              disabled
-            >
-              Suivant
-              <svg class="icon" viewBox="0 0 24 24" stroke-width="2.2">
-                <path d="M5 12h14M13 6l6 6-6 6" />
-              </svg>
-            </button>
-          </div>
-        </div>
-
-        <!-- RÉSULTATS (caché au départ) -->
-        <div id="zone-resultats" style="display: none"></div>
-      </div>
-    </section>
-
-    <footer>
+    <footer class="site-foot">
       <strong>OrienteCI</strong>
-      <div class="foot-links">
-        <a href="Ecole.html">Écoles</a>
-        <a href="orientation.html">Orientation</a>
-        <a href="Decouvrire.html">Test personnalité</a>
-        <a href="faq.html">FAQ</a>
-      </div>
+      <nav aria-label="Pied de page">
+        <a href="Ecole.html">Écoles</a><a href="orientation.html">Orientation</a
+        ><a href="Decouvrire.html">Test personnalité</a
+        ><a href="faq.html">FAQ</a>
+      </nav>
     </footer>
 
     <script>
-      /* ════════════════════════════════════════════════════
-         BANQUE DE QUESTIONS + SCORES DOMAINE
-         ════════════════════════════════════════════════════ */
+      /* Chaque option : [texte, { domaine: points }] */
       const Q = [
         {
-          texte: "Le week-end, tu préfères...",
-          options: [
-            {
-              texte: "Bricoler, construire, réparer quelque chose",
-              ico: "wrench",
-              domaines: { Ingénierie: 3, Architecture: 2 },
-            },
-            {
-              texte: "Lire, écrire ou faire de la recherche",
-              ico: "book",
-              domaines: { Lettres: 3, "Sciences Humaines": 2 },
-            },
-            {
-              texte: "Aider des amis ou t'investir dans la communauté",
-              ico: "heart",
-              domaines: { Santé: 2, "Sciences Humaines": 3, Communication: 1 },
-            },
-            {
-              texte:
-                "Coder, jouer à des jeux stratégiques ou créer des trucs numériques",
-              ico: "cpu",
-              domaines: { Informatique: 3, Sciences: 1 },
-            },
+          t: "Un samedi sans devoirs, tu fais quoi en premier ?",
+          o: [
+            [
+              "Je répare ou je bricole quelque chose",
+              { Ingénierie: 3, Architecture: 2 },
+            ],
+            [
+              "Je regarde des vidéos ou je lis pour apprendre un truc",
+              { Sciences: 2, Lettres: 2, "Sciences Humaines": 1 },
+            ],
+            [
+              "Je retrouve mes amis et j'organise une sortie",
+              { Management: 2, Tourisme: 2, Communication: 2 },
+            ],
+            [
+              "Je teste des applis ou je joue sur mon téléphone",
+              { Informatique: 3, Marketing: 1 },
+            ],
           ],
         },
         {
-          texte:
-            "Quelle activité te donnerait le plus de satisfaction au travail ?",
-          options: [
-            {
-              texte: "Soigner des personnes ou améliorer leur bien-être",
-              ico: "heart-pulse",
-              domaines: { Santé: 3, "Sciences Humaines": 1 },
-            },
-            {
-              texte: "Résoudre des problèmes mathématiques ou logiques",
-              ico: "function",
-              domaines: { Sciences: 3, Informatique: 2, Ingénierie: 2 },
-            },
-            {
-              texte: "Convaincre, négocier ou vendre",
-              ico: "handshake",
-              domaines: { Commerce: 3, Marketing: 2, Management: 2 },
-            },
-            {
-              texte: "Créer des plans, des structures ou des systèmes",
-              ico: "blueprint",
-              domaines: { Architecture: 3, Ingénierie: 2, Informatique: 1 },
-            },
+          t: "Dans un travail de groupe, tu es souvent celui ou celle qui…",
+          o: [
+            ["Organise et répartit les tâches", { Management: 3, Gestion: 2 }],
+            [
+              "A les idées originales",
+              { Communication: 2, Marketing: 2, Architecture: 1 },
+            ],
+            [
+              "Vérifie que tout est juste, jusqu'aux détails",
+              { Comptabilité: 3, Gestion: 1, Droit: 1 },
+            ],
+            [
+              "Explique aux autres quand ils ne comprennent pas",
+              { "Sciences Humaines": 2, Lettres: 2, Santé: 1 },
+            ],
           ],
         },
         {
-          texte: "Dans un groupe de travail, tu es souvent...",
-          options: [
-            {
-              texte: "Celui ou celle qui organise et prend des décisions",
-              ico: "star",
-              domaines: { Management: 3, Gestion: 2 },
-            },
-            {
-              texte:
-                "Celui ou celle qui analyse les données et produit des rapports",
-              ico: "chart",
-              domaines: { Sciences: 2, Économie: 2, Comptabilité: 2 },
-            },
-            {
-              texte: "Celui ou celle qui communique et présente les idées",
-              ico: "mic",
-              domaines: { Communication: 3, Marketing: 2, Lettres: 1 },
-            },
-            {
-              texte: "Celui ou celle qui trouve des solutions techniques",
-              ico: "cpu",
-              domaines: { Informatique: 2, Ingénierie: 2, Sciences: 1 },
-            },
+          t: "Quelle matière te fait le moins regarder l'horloge ?",
+          o: [
+            [
+              "Maths ou Physique-Chimie",
+              { Sciences: 3, Ingénierie: 2, Informatique: 2 },
+            ],
+            ["SVT", { Santé: 3, Agriculture: 2, Environnement: 2 }],
+            [
+              "Français, Philo ou Histoire-Géo",
+              { Lettres: 2, Droit: 2, "Sciences Humaines": 2 },
+            ],
+            ["Économie ou langues", { Commerce: 2, Économie: 2, Tourisme: 2 }],
           ],
         },
         {
-          texte: "Quel type d'environnement de travail t'attire le plus ?",
-          options: [
-            {
-              texte:
-                "Un bureau ou un laboratoire, avec des équipements modernes",
-              ico: "lab",
-              domaines: { Sciences: 3, Informatique: 2, Santé: 1 },
-            },
-            {
-              texte: "Dehors, sur le terrain, en contact avec la nature",
-              ico: "leaf",
-              domaines: { Agriculture: 3, Environnement: 3, Mines: 1 },
-            },
-            {
-              texte: "Un espace créatif : atelier, studio, agence",
-              ico: "palette",
-              domaines: { Architecture: 2, Communication: 2, Marketing: 1 },
-            },
-            {
-              texte:
-                "Une entreprise ou une institution, avec des responsabilités",
-              ico: "building",
-              domaines: { Management: 2, Gestion: 2, Droit: 1, Commerce: 1 },
-            },
+          t: "Un ami te raconte un problème. Ta première réaction ?",
+          o: [
+            [
+              "Je l'écoute et je le réconforte",
+              { "Sciences Humaines": 3, Santé: 2 },
+            ],
+            [
+              "Je cherche tout de suite une solution concrète",
+              { Ingénierie: 2, Management: 2, Informatique: 1 },
+            ],
+            [
+              "Je l'aide à y voir clair, avec logique",
+              { Droit: 2, Sciences: 2, Économie: 1 },
+            ],
+            [
+              "Je le fais rire pour détendre l'ambiance",
+              { Communication: 3, Tourisme: 1, Marketing: 1 },
+            ],
           ],
         },
         {
-          texte: "Quelle matière scolaire t'a le plus passionné(e) ?",
-          options: [
-            {
-              texte: "Mathématiques et Physique",
-              ico: "function",
-              domaines: { Sciences: 3, Ingénierie: 3, Informatique: 2 },
-            },
-            {
-              texte: "Français, Philosophie ou Histoire",
-              ico: "book",
-              domaines: { Lettres: 3, "Sciences Humaines": 2, Droit: 2 },
-            },
-            {
-              texte: "SVT, Biologie ou Sciences de la Vie",
-              ico: "leaf",
-              domaines: { Santé: 3, Agriculture: 2, Environnement: 2 },
-            },
-            {
-              texte: "Économie ou Sciences Sociales",
-              ico: "chart",
-              domaines: { Économie: 3, Gestion: 2, Commerce: 2 },
-            },
+          t: "Où te verrais-tu bien travailler ?",
+          o: [
+            [
+              "Dans un bureau moderne, avec un ordinateur",
+              { Informatique: 2, Gestion: 2, Comptabilité: 2 },
+            ],
+            [
+              "À l'hôpital, en clinique ou en laboratoire",
+              { Santé: 3, Sciences: 2 },
+            ],
+            [
+              "Sur un chantier, dans une usine ou une plantation",
+              { Ingénierie: 2, Agriculture: 2, Mines: 2, Architecture: 1 },
+            ],
+            [
+              "Partout, avec des voyages et des rencontres",
+              { Tourisme: 2, Commerce: 2, Logistique: 2, Communication: 1 },
+            ],
           ],
         },
         {
-          texte: "Dans 10 ans, tu te vois...",
-          options: [
-            {
-              texte: "À la tête d'une entreprise ou d'un projet",
-              ico: "star",
-              domaines: { Management: 3, Commerce: 2, Gestion: 2 },
-            },
-            {
-              texte: "Expert(e) dans un domaine technique ou scientifique",
-              ico: "cpu",
-              domaines: { Sciences: 3, Informatique: 3, Ingénierie: 2 },
-            },
-            {
-              texte: "Travaillant dans le secteur public ou l'humanitaire",
-              ico: "heart",
-              domaines: { Droit: 2, "Sciences Humaines": 3, Communication: 1 },
-            },
-            {
-              texte: "Entrepreneur(e) à ton compte ou dans la création",
-              ico: "rocket",
-              domaines: {
-                Commerce: 2,
-                Marketing: 2,
-                Architecture: 1,
-                Tourisme: 1,
-              },
-            },
-          ],
-        },
-        {
-          texte: "Qu'est-ce qui t'importerait le plus dans ton métier ?",
-          options: [
-            {
-              texte: "Un bon salaire et une stabilité financière",
-              ico: "coin",
-              domaines: {
-                Informatique: 2,
-                Ingénierie: 2,
-                Mines: 2,
-                Comptabilité: 1,
-              },
-            },
-            {
-              texte: "L'impact social et aider les autres",
-              ico: "heart",
-              domaines: { Santé: 3, "Sciences Humaines": 3, Environnement: 1 },
-            },
-            {
-              texte: "L'innovation et créer quelque chose de nouveau",
-              ico: "rocket",
-              domaines: {
-                Informatique: 2,
-                Ingénierie: 2,
-                Architecture: 2,
-                Marketing: 1,
-              },
-            },
-            {
-              texte: "Voyager, rencontrer des gens, découvrir le monde",
-              ico: "globe",
-              domaines: {
-                Tourisme: 3,
-                Commerce: 2,
-                Communication: 1,
-                Logistique: 1,
-              },
-            },
-          ],
-        },
-        {
-          texte: "Face à un problème compliqué, tu tends à...",
-          options: [
-            {
-              texte: "Le décomposer étape par étape de façon logique",
-              ico: "function",
-              domaines: { Informatique: 2, Sciences: 2, Ingénierie: 2 },
-            },
-            {
-              texte: "Chercher des exemples et des précédents",
-              ico: "book",
-              domaines: { Droit: 3, "Sciences Humaines": 2, Lettres: 1 },
-            },
-            {
-              texte: "Consulter les autres et chercher un consensus",
-              ico: "handshake",
-              domaines: {
-                Management: 2,
-                Communication: 2,
-                "Sciences Humaines": 1,
-              },
-            },
-            {
-              texte: "Faire des tests, expérimenter, essayer des solutions",
-              ico: "lab",
-              domaines: {
-                Sciences: 2,
-                Agriculture: 1,
-                Environnement: 1,
-                Informatique: 1,
-              },
-            },
-          ],
-        },
-        {
-          texte: "Lequel de ces secteurs t'inspire le plus ?",
-          options: [
-            {
-              texte: "Tech & Numérique : IA, cybersécurité, applications",
-              ico: "cpu",
-              domaines: { Informatique: 3, Sciences: 1 },
-            },
-            {
-              texte: "Santé & Bio : médecine, pharmacie, recherche médicale",
-              ico: "heart-pulse",
-              domaines: { Santé: 3, Sciences: 1 },
-            },
-            {
-              texte:
-                "Finance & Business : banque, investissement, entrepreneuriat",
-              ico: "coin",
-              domaines: {
-                Économie: 3,
-                Commerce: 2,
-                Comptabilité: 2,
-                Gestion: 2,
-              },
-            },
-            {
-              texte:
-                "Droit & Justice : avocature, magistrature, droits humains",
-              ico: "scale",
-              domaines: { Droit: 3 },
-            },
-          ],
-        },
-        {
-          texte: "Comment aimes-tu apprendre de nouvelles choses ?",
-          options: [
-            {
-              texte: "En faisant moi-même, en pratique directe",
-              ico: "wrench",
-              domaines: {
-                Ingénierie: 2,
-                Agriculture: 2,
-                Architecture: 1,
-                Logistique: 1,
-              },
-            },
-            {
-              texte:
-                "En lisant, en faisant des recherches, en regardant des vidéos",
-              ico: "book",
-              domaines: { Sciences: 2, Lettres: 2, "Sciences Humaines": 1 },
-            },
-            {
-              texte: "En échangeant avec d'autres, en débattant, en enseignant",
-              ico: "mic",
-              domaines: {
-                Communication: 2,
-                Management: 2,
+          t: "On te donne un budget pour lancer un projet. Tu choisis…",
+          o: [
+            [
+              "Une application ou un site web",
+              { Informatique: 3, Marketing: 1 },
+            ],
+            [
+              "Une boutique ou une entreprise à moi",
+              { Commerce: 3, Management: 2, Gestion: 1 },
+            ],
+            [
+              "Un projet pour aider mon quartier ou protéger la nature",
+              {
+                Environnement: 2,
                 "Sciences Humaines": 2,
+                Agriculture: 1,
+                Santé: 1,
               },
-            },
-            {
-              texte: "En résolvant des exercices, des puzzles, des défis",
-              ico: "function",
-              domaines: { Informatique: 2, Sciences: 2, Mathématiques: 2 },
-            },
+            ],
+            [
+              "Un événement, un média ou une marque dont on parle",
+              { Communication: 3, Marketing: 2, Tourisme: 1 },
+            ],
+          ],
+        },
+        {
+          t: "Plus tard, qu'est-ce qui te rendrait le plus fier(e) ?",
+          o: [
+            [
+              "Avoir construit ou inventé quelque chose d'utile",
+              { Ingénierie: 2, Informatique: 2, Architecture: 2 },
+            ],
+            [
+              "Avoir soigné ou soulagé des gens",
+              { Santé: 3, "Sciences Humaines": 1 },
+            ],
+            [
+              "Avoir défendu quelqu'un et fait respecter la justice",
+              { Droit: 3, "Sciences Humaines": 1 },
+            ],
+            [
+              "Diriger une équipe ou une entreprise qui marche bien",
+              { Management: 3, Gestion: 1, Économie: 1 },
+            ],
+          ],
+        },
+        {
+          t: "Quand tu apprends quelque chose de nouveau, tu préfères…",
+          o: [
+            [
+              "Essayer directement, quitte à me tromper",
+              { Ingénierie: 2, Agriculture: 1, Architecture: 1, Logistique: 1 },
+            ],
+            [
+              "Comprendre d'abord le pourquoi",
+              { Sciences: 2, Informatique: 1, Économie: 1 },
+            ],
+            [
+              "En discuter avec d'autres",
+              { Communication: 2, "Sciences Humaines": 2 },
+            ],
+            [
+              "Suivre un plan clair, étape par étape",
+              { Gestion: 2, Comptabilité: 2, Droit: 1, Logistique: 1 },
+            ],
           ],
         },
       ];
+      const ENC = [
+        "On commence doucement, sans stress.",
+        "Tu t'en sors très bien.",
+        "Continue, tes réponses comptent.",
+        "Tu es à mi-parcours.",
+        "Ça commence à se dessiner.",
+        "Plus que quelques questions.",
+        "Dernière ligne droite.",
+        "La dernière, tu y es presque !",
+      ];
 
-      /* Icônes SVG par identifiant (remplace les emojis) */
-      const ICONS = {
-        wrench:
-          '<svg class="icon" viewBox="0 0 24 24" stroke-width="1.9"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.77 3.77Z"/></svg>',
-        book: '<svg class="icon" viewBox="0 0 24 24" stroke-width="1.9"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z"/></svg>',
-        heart:
-          '<svg class="icon" viewBox="0 0 24 24" stroke-width="1.9"><path d="M19 14c1.5-1 2-3 2-4.5A4.5 4.5 0 0 0 12 6a4.5 4.5 0 0 0-9 3.5c0 1.5.5 3.5 2 4.5l7 7 7-7Z"/></svg>',
-        cpu: '<svg class="icon" viewBox="0 0 24 24" stroke-width="1.9"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="8" y="8" width="8" height="8"/><path d="M8 2v2M16 2v2M8 20v2M16 20v2M2 8h2M2 16h2M20 8h2M20 16h2"/></svg>',
-        "heart-pulse":
-          '<svg class="icon" viewBox="0 0 24 24" stroke-width="1.9"><path d="M19 14c1.5-1 2-3 2-4.5A4.5 4.5 0 0 0 12 6a4.5 4.5 0 0 0-9 3.5c0 1.5.5 3.5 2 4.5l7 7 7-7Z"/><polyline points="1 12 5 12 7 8 9 16 11 12 13 12"/></svg>',
-        function:
-          '<svg class="icon" viewBox="0 0 24 24" stroke-width="1.9"><path d="M4 6h16M4 12h9M4 18h16M17 15l3 3-3 3"/></svg>',
-        handshake:
-          '<svg class="icon" viewBox="0 0 24 24" stroke-width="1.9"><path d="M20.5 7.3 16 2.7a2 2 0 0 0-2.8 0l-1.5 1.5L8 1a2 2 0 0 0-2.8 0L2 4.2l5.2 5.2L4 12.6 11.4 20l3.2-3.2L20.8 23l3.2-3.2-3.2-3.2 1.6-1.6a2 2 0 0 0 0-2.8L20.5 7.3Z"/></svg>',
-        blueprint:
-          '<svg class="icon" viewBox="0 0 24 24" stroke-width="1.9"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 3v18M3 9h6M3 15h6M15 9h6M15 15h6M9 9h6M9 15h6"/></svg>',
-        star: '<svg class="icon" viewBox="0 0 24 24" stroke-width="1.9"><path d="M12 17.75 5.8 21l1.2-7L2 9.3l7-1L12 2l3 6.3 7 1-5 4.7 1.2 7Z"/></svg>',
-        chart:
-          '<svg class="icon" viewBox="0 0 24 24" stroke-width="1.9"><path d="M3 17l5-5 4 4 8-9"/><path d="M14 7h6v6"/></svg>',
-        mic: '<svg class="icon" viewBox="0 0 24 24" stroke-width="1.9"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M19 10a7 7 0 0 1-14 0M12 19v3M8 22h8"/></svg>',
-        lab: '<svg class="icon" viewBox="0 0 24 24" stroke-width="1.9"><path d="M9 3h6M10 3v7l-5 9a1 1 0 0 0 .9 1.5h12.2A1 1 0 0 0 19 19l-5-9V3"/></svg>',
-        leaf: '<svg class="icon" viewBox="0 0 24 24" stroke-width="1.9"><path d="M11 20A7 7 0 0 1 4 13c0-2.7.9-5.2 2.6-7.1 1.7-2 4.1-3.1 6.9-3.1C19 2.8 21 8 21 13.1c0 3.8-3 6.9-6.8 6.9H11Z"/><path d="M11 20c0-3.3 2.6-6.1 5.5-7.5"/></svg>',
-        palette:
-          '<svg class="icon" viewBox="0 0 24 24" stroke-width="1.9"><circle cx="13.5" cy="6.5" r=".5" fill="currentColor" stroke="none"/><circle cx="17.5" cy="10.5" r=".5" fill="currentColor" stroke="none"/><circle cx="8.5" cy="7.5" r=".5" fill="currentColor" stroke="none"/><circle cx="6.5" cy="12.5" r=".5" fill="currentColor" stroke="none"/><path d="M12 2C6.5 2 2 6.5 2 12a10 10 0 0 0 10 10c.83 0 1.5-.67 1.5-1.5 0-.39-.15-.74-.39-1.01-.23-.26-.38-.61-.38-.99 0-.83.67-1.5 1.5-1.5H16c2.76 0 5-2.24 5-5 0-4.97-4.48-9-9-9Z"/></svg>',
-        building:
-          '<svg class="icon" viewBox="0 0 24 24" stroke-width="1.9"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>',
-        coin: '<svg class="icon" viewBox="0 0 24 24" stroke-width="1.9"><circle cx="12" cy="12" r="9"/><path d="M9.5 15.2c.4.9 1.3 1.5 2.5 1.5 1.6 0 2.7-.9 2.7-2.1 0-1.4-1.2-1.9-2.7-2.2-1.5-.3-2.6-.9-2.6-2.1 0-1.1 1-2 2.6-2 1.1 0 2 .5 2.4 1.3M12 7.5v9"/></svg>',
-        rocket:
-          '<svg class="icon" viewBox="0 0 24 24" stroke-width="1.9"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09Z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2Z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></svg>',
-        globe:
-          '<svg class="icon" viewBox="0 0 24 24" stroke-width="1.9"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.5 4 5.7 4 9s-1.5 6.5-4 9c-2.5-2.5-4-5.7-4-9s1.5-6.5 4-9Z"/></svg>',
-        scale:
-          '<svg class="icon" viewBox="0 0 24 24" stroke-width="1.9"><path d="M12 3v18M6 8l-3 6a3.5 3.5 0 0 0 6 0Zm12 0-3 6a3.5 3.5 0 0 0 6 0Z"/><path d="M4 21h16M6 8h12"/></svg>',
+      const DESC = {
+        Informatique:
+          "Développement, cybersécurité, données, intelligence artificielle.",
+        Sciences: "Recherche, laboratoire, mathématiques appliquées, physique.",
+        Santé: "Médecine, pharmacie, soins infirmiers, biologie médicale.",
+        Droit: "Avocature, magistrature, droits humains.",
+        Économie: "Analyse économique, finance, politiques publiques.",
+        Gestion: "Administration, ressources humaines, audit.",
+        Commerce: "Vente, import-export, négociation, distribution.",
+        Management: "Leadership, stratégie, entrepreneuriat, direction.",
+        Architecture: "Conception, urbanisme, habitat, BTP.",
+        Ingénierie: "Systèmes, production industrielle, énergie.",
+        Agriculture: "Agronomie, agro-alimentaire, développement rural.",
+        Environnement:
+          "Écologie, développement durable, ressources naturelles.",
+        Communication: "Relations publiques, journalisme, médias numériques.",
+        Marketing: "Marques, publicité, stratégie commerciale, digital.",
+        Lettres: "Littérature, rédaction, traduction, enseignement.",
+        "Sciences Humaines": "Psychologie, sociologie, travail social.",
+        Logistique: "Transport, chaîne d'approvisionnement, douanes, port.",
+        Mines: "Géologie, exploration minière, énergie.",
+        Tourisme: "Hôtellerie, voyages, culture, événementiel.",
+        Comptabilité: "Comptabilité, audit, fiscalité, paie.",
       };
-
-      /* Profils personnalité */
       const PROFILS = {
-        Analytique: {
-          icon: "function",
-          desc: "Tu aimes comprendre le fonctionnement des choses en profondeur. La logique, les données et la précision sont tes atouts naturels.",
-          traits: ["Rigoureux", "Logique", "Précis", "Curieux", "Méthodique"],
-        },
-        Créatif: {
-          icon: "palette",
-          desc: "Tu as une façon unique de voir le monde. L'esthétique, l'innovation et l'expression sont au cœur de ta personnalité.",
-          traits: [
-            "Innovant",
-            "Intuitif",
-            "Expressif",
-            "Imaginatif",
-            "Visionnaire",
-          ],
-        },
-        Humaniste: {
-          icon: "heart",
-          desc: "Tu es porté par l'envie d'aider, de comprendre les autres et de contribuer au bien commun.",
-          traits: [
-            "Empathique",
-            "Généreux",
-            "Communicatif",
-            "Social",
-            "Engagé",
-          ],
-        },
-        Leader: {
-          icon: "star",
-          desc: "Tu es à l'aise pour prendre des décisions, mobiliser une équipe et aller de l'avant. Le défi te motive.",
-          traits: [
-            "Ambitieux",
-            "Décisif",
-            "Charismatique",
-            "Organisé",
-            "Stratégique",
-          ],
-        },
-        Technique: {
-          icon: "wrench",
-          desc: "Tu préfères agir plutôt que théoriser. La mise en œuvre concrète, la construction et le terrain sont ta zone de confort.",
-          traits: [
-            "Concret",
-            "Pratique",
-            "Mécanique",
-            "Fiable",
-            "Perfectionniste",
-          ],
-        },
+        Analytique: [
+          "Tu aimes comprendre comment les choses fonctionnent. La logique et la précision sont tes points forts.",
+          ["Rigoureux", "Logique", "Curieux", "Méthodique"],
+          ["Informatique", "Sciences", "Comptabilité", "Droit"],
+        ],
+        Créatif: [
+          "Tu as ta façon à toi de voir le monde. Les idées et l'originalité sont ton moteur.",
+          ["Imaginatif", "Intuitif", "Expressif", "Innovant"],
+          ["Architecture", "Marketing", "Tourisme"],
+        ],
+        Humaniste: [
+          "Tu as envie d'aider, de comprendre les autres et de compter pour ton entourage.",
+          ["À l'écoute", "Généreux", "Sociable", "Engagé"],
+          ["Santé", "Lettres", "Sciences Humaines", "Communication"],
+        ],
+        Leader: [
+          "Tu es à l'aise pour décider, entraîner les autres et relever des défis.",
+          ["Ambitieux", "Organisé", "Décisif", "Stratège"],
+          ["Management", "Commerce", "Gestion", "Économie"],
+        ],
+        Technique: [
+          "Tu préfères agir et voir le résultat. Le concret et le terrain sont ta zone de confort.",
+          ["Pratique", "Fiable", "Débrouillard", "Persévérant"],
+          ["Ingénierie", "Agriculture", "Mines", "Logistique", "Environnement"],
+        ],
       };
 
-      /* ── ÉTAT ── */
-      let qActuelle = 0;
-      let reponses = new Array(Q.length).fill(null);
-      const scores = {};
+      /* Icônes (tracés SVG) */
+      const P = {
+        wrench:
+          '<path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.77 3.77Z"/>',
+        book: '<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z"/>',
+        heart:
+          '<path d="M19 14c1.5-1 2-3 2-4.5A4.5 4.5 0 0 0 12 6a4.5 4.5 0 0 0-9 3.5c0 1.5.5 3.5 2 4.5l7 7 7-7Z"/>',
+        pulse:
+          '<path d="M19 14c1.5-1 2-3 2-4.5A4.5 4.5 0 0 0 12 6a4.5 4.5 0 0 0-9 3.5c0 1.5.5 3.5 2 4.5l7 7 7-7Z"/><path d="M1 12h4l2-4 2 8 2-4h2"/>',
+        cpu: '<rect x="4" y="4" width="16" height="16" rx="2"/><rect x="8" y="8" width="8" height="8"/><path d="M8 2v2M16 2v2M8 20v2M16 20v2M2 8h2M2 16h2M20 8h2M20 16h2"/>',
+        fn: '<path d="M4 6h16M4 12h9M4 18h16M17 15l3 3-3 3"/>',
+        hand: '<path d="M20.5 7.3 16 2.7a2 2 0 0 0-2.8 0l-1.5 1.5L8 1a2 2 0 0 0-2.8 0L2 4.2l5.2 5.2L4 12.6 11.4 20l3.2-3.2L20.8 23l3.2-3.2-3.2-3.2 1.6-1.6a2 2 0 0 0 0-2.8L20.5 7.3Z"/>',
+        plan: '<rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 3v18M3 9h6M3 15h6M15 9h6M15 15h6M9 9h6M9 15h6"/>',
+        star: '<path d="M12 17.75 5.8 21l1.2-7L2 9.3l7-1L12 2l3 6.3 7 1-5 4.7 1.2 7Z"/>',
+        chart: '<path d="M3 17l5-5 4 4 8-9"/><path d="M14 7h6v6"/>',
+        mic: '<rect x="9" y="2" width="6" height="12" rx="3"/><path d="M19 10a7 7 0 0 1-14 0M12 19v3M8 22h8"/>',
+        lab: '<path d="M9 3h6M10 3v7l-5 9a1 1 0 0 0 .9 1.5h12.2A1 1 0 0 0 19 19l-5-9V3"/>',
+        leaf: '<path d="M11 20A7 7 0 0 1 4 13c0-2.7.9-5.2 2.6-7.1 1.7-2 4.1-3.1 6.9-3.1C19 2.8 21 8 21 13.1c0 3.8-3 6.9-6.8 6.9H11Z"/><path d="M11 20c0-3.3 2.6-6.1 5.5-7.5"/>',
+        palette:
+          '<circle cx="13.5" cy="6.5" r=".6"/><circle cx="17.5" cy="10.5" r=".6"/><circle cx="8.5" cy="7.5" r=".6"/><circle cx="6.5" cy="12.5" r=".6"/><path d="M12 2C6.5 2 2 6.5 2 12a10 10 0 0 0 10 10c.83 0 1.5-.67 1.5-1.5 0-.39-.15-.74-.39-1.01-.23-.26-.38-.61-.38-.99 0-.83.67-1.5 1.5-1.5H16c2.76 0 5-2.24 5-5 0-4.97-4.48-9-9-9Z"/>',
+        office:
+          '<path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/>',
+        coin: '<circle cx="12" cy="12" r="9"/><path d="M9.5 15.2c.4.9 1.3 1.5 2.5 1.5 1.6 0 2.7-.9 2.7-2.1 0-1.4-1.2-1.9-2.7-2.2-1.5-.3-2.6-.9-2.6-2.1 0-1.1 1-2 2.6-2 1.1 0 2 .5 2.4 1.3M12 7.5v9"/>',
+        rocket:
+          '<path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09Z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2Z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/>',
+        globe:
+          '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.5 4 5.7 4 9s-1.5 6.5-4 9c-2.5-2.5-4-5.7-4-9s1.5-6.5 4-9Z"/>',
+        scale:
+          '<path d="M12 3v18M6 8l-3 6a3.5 3.5 0 0 0 6 0Zm12 0-3 6a3.5 3.5 0 0 0 6 0Z"/><path d="M4 21h16M6 8h12"/>',
+      };
+      const ico = (n) =>
+        `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${P[n] || P.star}</svg>`;
+      const DI = {
+        Informatique: "cpu",
+        Sciences: "fn",
+        Santé: "pulse",
+        Droit: "scale",
+        Économie: "chart",
+        Gestion: "office",
+        Commerce: "hand",
+        Management: "star",
+        Architecture: "plan",
+        Ingénierie: "wrench",
+        Agriculture: "leaf",
+        Environnement: "leaf",
+        Communication: "mic",
+        Marketing: "rocket",
+        Lettres: "book",
+        "Sciences Humaines": "heart",
+        Logistique: "globe",
+        Mines: "lab",
+        Tourisme: "globe",
+        Comptabilité: "coin",
+      };
+      const PI = {
+        Analytique: "fn",
+        Créatif: "palette",
+        Humaniste: "heart",
+        Leader: "star",
+        Technique: "wrench",
+      };
 
-      function renderQuestion(idx) {
-        const q = Q[idx];
-        const card = document.getElementById("qcard");
+      /* ── État ── */
+      const $ = (id) => document.getElementById(id);
+      const reduit = matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const KEY = "oriente-test";
+      let q = 0,
+        R = Array(Q.length).fill(null);
+      const sauver = (done) => {
+        try {
+          localStorage.setItem(KEY, JSON.stringify({ q, R, done: !!done }));
+        } catch (e) {}
+      };
 
-        card.classList.add("slide-out");
-        setTimeout(() => {
-          card.innerHTML = `
-          <div class="question-num">
-            <svg class="icon" viewBox="0 0 24 24" stroke-width="2.2"><path d="M12 17.75 5.8 21l1.2-7L2 9.3l7-1L12 2l3 6.3 7 1-5 4.7 1.2 7Z"/></svg>
-            Question ${idx + 1} sur ${Q.length}
-          </div>
-          <div class="question-texte">${q.texte}</div>
-          <div class="options-grid">
-            ${q.options
-              .map(
-                (opt, i) => `
-              <button class="option-btn ${reponses[idx] === i ? "selected" : ""}"
-                onclick="selectionner(${i})" data-idx="${i}">
-                <span class="opt-ico">${ICONS[opt.ico] || ICONS.star}</span>
-                <span>${opt.texte}</span>
-              </button>`,
-              )
-              .join("")}
-          </div>`;
-          card.classList.remove("slide-out");
-          card.classList.add("slide-in");
-          setTimeout(() => card.classList.remove("slide-in"), 500);
-        }, 250);
-
-        /* Boutons nav */
-        document.getElementById("btn-prev").style.display =
-          idx > 0 ? "inline-flex" : "none";
-        document.getElementById("btn-next").disabled = reponses[idx] === null;
-        document.getElementById("btn-next").textContent =
-          idx === Q.length - 1 ? "Voir mes résultats →" : "Suivant →";
-        if (idx === Q.length - 1) {
-          document.getElementById("btn-next").innerHTML = `
-          Voir mes résultats
-          <svg class="icon" viewBox="0 0 24 24" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>`;
-        } else {
-          document.getElementById("btn-next").innerHTML = `
-          Suivant
-          <svg class="icon" viewBox="0 0 24 24" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>`;
-        }
-
-        /* Barre de progression */
-        const pct = Math.round((idx / Q.length) * 100);
-        document.getElementById("prog-bar").style.width = pct + "%";
-        document.getElementById("prog-num").textContent = idx + 1;
-        document.getElementById("prog-pct").textContent = pct + "%";
+      function render(anim = true) {
+        const card = $("card"),
+          item = Q[q];
+        const dessiner = () => {
+          card.innerHTML = `<h2 class="q" id="qt">${item.t}</h2><div class="opts" role="radiogroup" aria-labelledby="qt">${item.o
+            .map(
+              (o, i) =>
+                `<button type="button" class="opt" role="radio" aria-checked="${R[q] === i}" data-i="${i}"><span class="k">${"ABCD"[i]}</span><span>${o[0]}</span></button>`,
+            )
+            .join("")}</div>`;
+          card.classList.remove("out");
+        };
+        if (anim && !reduit) {
+          card.classList.add("out");
+          setTimeout(dessiner, 200);
+        } else dessiner();
+        $("p-num").textContent = q + 1;
+        $("p-tot").textContent = Q.length;
+        $("p-bar").style.width = ((q + 1) / Q.length) * 100 + "%";
+        $("enc").textContent = ENC[q] || "";
+        $("prev").style.visibility = q ? "visible" : "hidden";
+        majBoutons();
       }
-
-      function selectionner(optIdx) {
-        reponses[qActuelle] = optIdx;
+      function majBoutons() {
+        const last = q === Q.length - 1,
+          repondu = R[q] !== null;
+        $("next").setAttribute("aria-disabled", String(!repondu));
+        $("next").textContent = last ? "Voir mes pistes" : "Suivant";
+        $("skipq").style.visibility = repondu ? "hidden" : "visible";
+      }
+      function choisir(i) {
+        R[q] = i;
         document
-          .querySelectorAll(".option-btn")
-          .forEach((b) => b.classList.remove("selected"));
-        document
-          .querySelectorAll(`.option-btn[data-idx="${optIdx}"]`)[0]
-          ?.classList.add("selected");
-        document.getElementById("btn-next").disabled = false;
+          .querySelectorAll(".opt")
+          .forEach((b) => b.setAttribute("aria-checked", b.dataset.i == i));
+        majBoutons();
+        sauver();
+      }
+      function aller(delta) {
+        const n = q + delta;
+        if (n < 0) return;
+        if (n >= Q.length) return finir();
+        q = n;
+        sauver();
+        render();
+      }
+      function finir() {
+        const repondues = R.filter((r) => r !== null).length;
+        if (repondues < 3) {
+          $("enc").textContent =
+            "Réponds à au moins 3 questions pour qu'on puisse te proposer des pistes.";
+          q = Math.max(0, R.indexOf(null));
+          render();
+          $("enc").textContent =
+            "Réponds à au moins 3 questions pour qu'on puisse te proposer des pistes.";
+          return;
+        }
+        sauver(true);
+        resultats();
       }
 
-      function suivant() {
-        if (reponses[qActuelle] === null) return;
-        if (qActuelle < Q.length - 1) {
-          qActuelle++;
-          renderQuestion(qActuelle);
-        } else {
-          calculerResultat();
-        }
-      }
-      function precedent() {
-        if (qActuelle > 0) {
-          qActuelle--;
-          renderQuestion(qActuelle);
-        }
-      }
-
-      function calculerResultat() {
-        /* Accumule les scores domaine */
-        const totaux = {};
-        Q.forEach((q, qi) => {
-          const idx = reponses[qi];
-          if (idx === null) return;
-          const dom = q.options[idx].domaines;
-          Object.entries(dom).forEach(([d, pts]) => {
-            totaux[d] = (totaux[d] || 0) + pts;
-          });
+      function resultats() {
+        const tot = {};
+        Q.forEach((qu, i) => {
+          if (R[i] !== null)
+            for (const [d, p] of Object.entries(qu.o[R[i]][1]))
+              tot[d] = (tot[d] || 0) + p;
         });
-
-        /* Top domaines */
-        const sorted = Object.entries(totaux)
-          .sort((a, b) => b[1] - a[1])
-          .slice(0, 4);
-
-        /* Profil personnalité — basé sur le domaine #1 */
-        const top = sorted[0]?.[0] || "Informatique";
-        let profil = "Analytique";
-        if (
-          ["Lettres", "Sciences Humaines", "Communication", "Lettres"].includes(
-            top,
-          )
-        )
-          profil = "Humaniste";
-        else if (["Architecture", "Marketing", "Tourisme"].includes(top))
-          profil = "Créatif";
-        else if (
-          ["Management", "Commerce", "Gestion", "Économie"].includes(top)
-        )
-          profil = "Leader";
-        else if (
-          ["Ingénierie", "Agriculture", "Mines", "Logistique"].includes(top)
-        )
-          profil = "Technique";
-        else if (
-          [
-            "Informatique",
-            "Sciences",
-            "Comptabilité",
-            "Droit",
-            "Santé",
-          ].includes(top)
-        )
-          profil = "Analytique";
-
-        const p = PROFILS[profil];
-
-        /* Descriptions domaines */
-        const DOMAINE_DESC = {
-          Informatique:
-            "Développement, cybersécurité, data, intelligence artificielle.",
-          Sciences:
-            "Recherche, laboratoire, mathématiques appliquées, physique.",
-          Santé: "Médecine, pharmacie, infirmerie, biologie médicale.",
-          Droit: "Avocature, magistrature, jurisprudence, droits humains.",
-          Économie:
-            "Analyse économique, finance internationale, politiques publiques.",
-          Gestion: "Administration, comptabilité, ressources humaines, audit.",
-          Commerce: "Ventes, export, négociation, distribution.",
-          Management: "Leadership, stratégie, entrepreneuriat, direction.",
-          Architecture: "Conception, urbanisme, habitat, BTP.",
-          Ingénierie:
-            "Conception de systèmes, production industrielle, énergie.",
-          Agriculture: "Agro-alimentaire, agronomie, développement rural.",
-          Environnement:
-            "Écologie, développement durable, gestion des ressources.",
-          Communication: "Relations publiques, journalisme, médias numériques.",
-          Marketing: "Branding, publicité, stratégie commerciale, digital.",
-          Lettres: "Littérature, rédaction, traduction, enseignement.",
-          "Sciences Humaines":
-            "Psychologie, sociologie, travail social, anthropologie.",
-          Logistique: "Transport, supply chain, douanes, port.",
-          Mines: "Géologie, exploration minière, énergie fossile.",
-          Tourisme: "Hôtellerie, voyages, culture, événementiel.",
-          Comptabilité: "Comptabilité générale, audit, fiscalité, paie.",
-        };
-
-        const DOMAINE_ICO = {
-          Informatique: "cpu",
-          Sciences: "function",
-          Santé: "heart-pulse",
-          Droit: "scale",
-          Économie: "chart",
-          Gestion: "building",
-          Commerce: "handshake",
-          Management: "star",
-          Architecture: "blueprint",
-          Ingénierie: "wrench",
-          Agriculture: "leaf",
-          Environnement: "leaf",
-          Communication: "mic",
-          Marketing: "rocket",
-          Lettres: "book",
-          "Sciences Humaines": "heart",
-          Logistique: "globe",
-          Mines: "lab",
-          Tourisme: "globe",
-          Comptabilité: "coin",
-        };
-
-        document.getElementById("zone-test").style.display = "none";
-        const zone = document.getElementById("zone-resultats");
-        zone.style.display = "block";
-        zone.innerHTML = `
-        <div class="resultats-test">
-          <!-- Profil -->
-          <div class="res-head glass">
-            <div class="res-head-inner">
-              <div class="res-icone">${ICONS[p.icon] || ICONS.star}</div>
-              <div class="res-profil">Profil ${profil}</div>
-              <p class="res-desc">${p.desc}</p>
-              <div class="traits-liste">
-                ${p.traits.map((t) => `<span class="trait-pill">${t}</span>`).join("")}
-              </div>
-            </div>
-          </div>
-
-          <!-- Domaines suggérés -->
-          <h3 style="margin:36px 0 18px;font-size:1rem;color:var(--txt-2);font-weight:400;font-family:'Fraunces',serif;">
-            Domaines qui pourraient te correspondre
-          </h3>
-          <div class="domaines-sugeres">
-            ${sorted
-              .map(
-                ([dom], i) => `
-              <div class="domaine-carte glass pop-in" style="animation-delay:${i * 0.08}s">
-                <div class="domaine-ico">${ICONS[DOMAINE_ICO[dom] || "star"] || ICONS.star}</div>
-                <div class="domaine-nom">${dom}</div>
-                <div class="domaine-desc">${DOMAINE_DESC[dom] || ""}</div>
-              </div>`,
-              )
-              .join("")}
-          </div>
-
-          <!-- CTA -->
-          <div class="cta-test-bloc glass rv">
-            <h3>Tu as une piste !</h3>
-            <p>Lance maintenant ton test d'orientation pour voir les formations et écoles qui correspondent à ces domaines.</p>
-            <div class="cta-test-btns">
-              <a href="orientation.html?domaine=${encodeURIComponent(sorted[0]?.[0] || "")}" class="btn btn-primary">
-                Trouver mon école
-                <svg class="icon" viewBox="0 0 24 24" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-              </a>
-              <button class="btn btn-secondary" onclick="recommencer()">
-                <svg class="icon" viewBox="0 0 24 24" stroke-width="2"><path d="M2 12a10 10 0 1 1 10 10M2 12V7M2 12H7"/></svg>
-                Recommencer
-              </button>
-            </div>
-          </div>
+        const top = Object.entries(tot)
+          .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0], "fr"))
+          .slice(0, 3)
+          .map((x) => x[0]);
+        const nom =
+          Object.keys(PROFILS).find((n) => PROFILS[n][2].includes(top[0])) ||
+          "Analytique";
+        const [desc, traits] = PROFILS[nom];
+        const lien = (d) => `orientation.html?domaine=${encodeURIComponent(d)}`;
+        $("zone-test").hidden = true;
+        const z = $("zone-res");
+        z.hidden = false;
+        z.innerHTML = `<div class="res">
+          <div class="res-head glass"><div class="res-ico">${ico(PI[nom])}</div><small>Voilà ce qui ressort de tes réponses</small>
+            <div class="profil">Profil ${nom}</div><p class="desc">${desc}</p>
+            <div class="pills">${traits.map((t) => `<span class="pill">${t}</span>`).join("")}</div></div>
+          <h2>Tes pistes à explorer</h2>
+          <p class="sub">Ce ne sont pas des verdicts, juste de bons points de départ.</p>
+          <div class="pistes">${top.map((d, i) => `<a class="piste glass${i ? "" : " main"}" href="${lien(d)}" style="animation-delay:${0.15 + i * 0.12}s"><div class="piste-ico">${ico(DI[d])}</div>${i ? "" : '<span class="badge">Ta piste principale</span>'}<h3>${d}</h3><p>${DESC[d] || ""}</p><span>Voir les formations</span></a>`).join("")}</div>
+          <p class="reassure">Tu peux changer d'avis à tout moment. Refaire le test ou explorer d'autres domaines ne coûte rien.</p>
+          <div class="res-cta"><a class="btn btn-dark" href="${lien(top[0])}">Trouver mon école</a><button class="btn btn-ghost" id="redo" type="button">Refaire le test</button></div>
         </div>`;
-
-        /* Scroll reveal des domaines */
-        const obs = new IntersectionObserver(
-          (entries) =>
-            entries.forEach(
-              (e) =>
-                e.isIntersecting &&
-                (e.target.classList.add("on"), obs.unobserve(e.target)),
-            ),
-          { threshold: 0.1 },
-        );
-        zone.querySelectorAll(".rv").forEach((el) => obs.observe(el));
+        $("redo").addEventListener("click", recommencer);
+        scrollTo({ top: 0, behavior: reduit ? "auto" : "smooth" });
       }
-
       function recommencer() {
-        reponses = new Array(Q.length).fill(null);
-        qActuelle = 0;
-        document.getElementById("zone-resultats").style.display = "none";
-        document.getElementById("zone-test").style.display = "block";
-        renderQuestion(0);
+        q = 0;
+        R = Array(Q.length).fill(null);
+        sauver();
+        $("zone-res").hidden = true;
+        $("zone-test").hidden = false;
+        render(false);
+        scrollTo({ top: 0 });
       }
 
-      /* ── INIT ── */
-      renderQuestion(0);
+      /* ── Événements ── */
+      $("card").addEventListener("click", (e) => {
+        const b = e.target.closest(".opt");
+        if (b) choisir(+b.dataset.i);
+      });
+      $("next").addEventListener("click", () => {
+        if (R[q] === null) {
+          $("enc").textContent =
+            "Choisis une réponse pour continuer, ou passe la question.";
+          return;
+        }
+        aller(1);
+      });
+      $("prev").addEventListener("click", () => aller(-1));
+      $("skipq").addEventListener("click", () => {
+        R[q] = null;
+        aller(1);
+      });
+      addEventListener("keydown", (e) => {
+        if ($("zone-test").hidden || e.target.matches("input,textarea,select"))
+          return;
+        if (/^[1-4]$/.test(e.key)) choisir(+e.key - 1);
+        else if (e.key === "ArrowRight" && R[q] !== null) aller(1);
+        else if (e.key === "ArrowLeft") aller(-1);
+      });
+
+      /* ── Démarrage : reprend là où l'élève s'était arrêté ── */
+      try {
+        const s = JSON.parse(localStorage.getItem(KEY) || "null");
+        if (s && Array.isArray(s.R) && s.R.length === Q.length) {
+          R = s.R;
+          q = Math.min(s.q | 0, Q.length - 1);
+          if (s.done) resultats();
+        }
+      } catch (e) {}
+      if ($("zone-test").hidden === false) render(false);
     </script>
   </body>
 </html>

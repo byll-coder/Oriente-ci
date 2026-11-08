@@ -4,6 +4,18 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1.0" />
     <title>OrienteCI — Ton école après le BAC</title>
+    <meta
+      name="description"
+      content="Saisis ta série et ta moyenne : OrienteCI te montre en quelques secondes les formations et les écoles de Côte d'Ivoire qui t'acceptent."
+    />
+    <meta name="theme-color" content="#13203b" />
+    <meta property="og:title" content="OrienteCI — Ton école après le BAC" />
+    <meta
+      property="og:description"
+      content="Trouve les formations compatibles avec ta série et ta moyenne, classées de la plus à la moins adaptée."
+    />
+    <meta property="og:type" content="website" />
+    <link rel="icon" href="images/logo-nav.png" />
     <script>
       try {
         if (sessionStorage.getItem("oriente-splash") === "1")
@@ -12,16 +24,51 @@
     </script>
     <link rel="stylesheet" href="styles.css" />
     <script src="Nav.js" defer></script>
+    <noscript
+      ><style>
+        #splash {
+          display: none !important;
+        }
+        #main[hidden] {
+          display: block !important;
+        }
+        .rv {
+          opacity: 1 !important;
+          transform: none !important;
+        }
+      </style></noscript
+    >
     <style>
-      /* Déjà vu pendant cette session : on n'affiche jamais le splash */
       html.skip-splash #splash {
         display: none !important;
       }
       html.skip-splash #main[hidden] {
         display: block !important;
       }
+      :focus-visible {
+        outline: 2px solid var(--blue);
+        outline-offset: 3px;
+        border-radius: 8px;
+      }
 
-      /* ── Splash : logo + barre de chargement ── */
+      /* Accessibilité : lien d'évitement */
+      .skip {
+        position: absolute;
+        left: 12px;
+        top: -64px;
+        z-index: 400;
+        background: var(--ink);
+        color: #fff;
+        padding: 10px 18px;
+        border-radius: 999px;
+        font-weight: 600;
+        transition: top 0.2s;
+      }
+      .skip:focus {
+        top: 12px;
+      }
+
+      /* ── Splash ── */
       #splash {
         position: fixed;
         inset: 0;
@@ -94,6 +141,24 @@
         color: var(--muted);
         animation-delay: 0.4s;
       }
+      .passer {
+        position: absolute;
+        bottom: 26px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: none;
+        border: 0;
+        color: var(--muted);
+        font: inherit;
+        font-size: 0.85rem;
+        font-weight: 600;
+        text-decoration: underline;
+        cursor: pointer;
+        padding: 10px 16px;
+      }
+      .passer:hover {
+        color: var(--ink);
+      }
 
       /* ── Hero ── */
       .hero {
@@ -115,12 +180,41 @@
         color: var(--muted);
         font-size: 1.08rem;
         max-width: 44ch;
-        margin: 22px 0 34px;
+        margin: 22px 0 28px;
       }
-      .ctas {
+      .search {
         display: flex;
-        gap: 12px;
-        flex-wrap: wrap;
+        gap: 8px;
+        max-width: 520px;
+        margin-top: 22px;
+        padding: 7px;
+        border-radius: 999px;
+        background: var(--white);
+        border: 1px solid var(--line);
+        box-shadow: var(--shadow);
+        transition: border-color 0.25s;
+      }
+      .search:focus-within {
+        border-color: var(--blue);
+      }
+      .search input {
+        flex: 1;
+        min-width: 0;
+        border: 0;
+        background: none;
+        outline: 0;
+        font: inherit;
+        font-size: 0.98rem;
+        color: var(--ink);
+        padding: 0 16px;
+      }
+      .sr {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        clip: rect(0 0 0 0);
+        white-space: nowrap;
       }
 
       .sample {
@@ -156,7 +250,7 @@
       }
       .badge {
         display: inline-block;
-        font-size: 0.68rem;
+        font-size: 0.72rem;
         font-weight: 700;
         padding: 4px 10px;
         border-radius: 999px;
@@ -259,6 +353,9 @@
         .ticker-track {
           animation: none;
         }
+        .ticker {
+          overflow-x: auto;
+        }
       }
 
       /* ── Sections ── */
@@ -330,6 +427,51 @@
         font-size: 0.92rem;
       }
 
+      .chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        justify-content: center;
+        max-width: 760px;
+        margin: 0 auto;
+      }
+      .chip {
+        padding: 12px 24px;
+        border-radius: 999px;
+        border: 1px solid var(--line);
+        background: var(--white);
+        font-weight: 700;
+        color: var(--ink);
+        transition:
+          background 0.25s,
+          color 0.25s,
+          transform 0.25s var(--ease);
+      }
+      .chip:hover {
+        background: var(--blue);
+        color: #fff;
+        border-color: var(--blue);
+        transform: translateY(-2px);
+      }
+
+      .feats {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 18px;
+      }
+      .feat {
+        padding: 28px;
+        border-radius: 24px;
+      }
+      .feat h3 {
+        font-size: 1.35rem;
+        margin-bottom: 8px;
+      }
+      .feat p {
+        color: var(--muted);
+        font-size: 0.9rem;
+      }
+
       .stats {
         max-width: 900px;
         margin: 0 auto;
@@ -349,16 +491,55 @@
           400 clamp(3rem, 7vw, 5rem)/1 "Instrument Serif",
           serif;
         color: var(--blue-deep);
+        font-variant-numeric: tabular-nums;
       }
       .stats span {
         color: var(--muted);
         font-size: 0.88rem;
       }
 
+      .faq {
+        max-width: 760px;
+        margin: 0 auto;
+      }
+      .faq details {
+        border-bottom: 1px solid var(--line);
+      }
+      .faq summary {
+        display: flex;
+        justify-content: space-between;
+        gap: 16px;
+        padding: 20px 4px;
+        font-weight: 700;
+        cursor: pointer;
+        list-style: none;
+      }
+      .faq summary::-webkit-details-marker {
+        display: none;
+      }
+      .faq summary::after {
+        content: "+";
+        font-size: 1.4rem;
+        line-height: 1;
+        color: var(--blue);
+        transition: transform 0.3s var(--ease);
+      }
+      .faq details[open] summary::after {
+        transform: rotate(45deg);
+      }
+      .faq details p {
+        color: var(--muted);
+        padding: 0 4px 20px;
+        max-width: 60ch;
+      }
+      .faq-more {
+        text-align: center;
+        margin-top: 26px;
+      }
+
       .cta {
-        margin: 0 4% 90px;
         max-width: 1160px;
-        margin-inline: auto;
+        margin: 0 auto 90px;
         border-radius: 40px;
         padding: clamp(40px, 8vw, 90px) 6%;
         text-align: center;
@@ -382,6 +563,11 @@
         margin: 16px auto 34px;
         max-width: 42ch;
       }
+      .ctas {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
       .cta .ctas {
         justify-content: center;
       }
@@ -395,13 +581,43 @@
         border-color: rgba(255, 255, 255, 0.35);
       }
 
+      .top {
+        position: fixed;
+        right: 18px;
+        bottom: 18px;
+        z-index: 90;
+        width: 46px;
+        height: 46px;
+        border-radius: 50%;
+        border: 0;
+        background: var(--ink);
+        color: #fff;
+        font-size: 1.2rem;
+        cursor: pointer;
+        opacity: 0;
+        pointer-events: none;
+        transform: translateY(10px);
+        transition:
+          opacity 0.3s,
+          transform 0.3s var(--ease);
+      }
+      .top.show {
+        opacity: 1;
+        pointer-events: auto;
+        transform: none;
+      }
+
       @media (max-width: 900px) {
         .hero {
           grid-template-columns: 1fr;
           padding-top: 110px;
         }
-        .steps {
+        .steps,
+        .feats {
           grid-template-columns: 1fr;
+        }
+        .feats {
+          grid-template-columns: 1fr 1fr;
         }
         .wrap {
           padding: 70px 4%;
@@ -415,25 +631,32 @@
           border-top: 1px solid var(--line);
           padding-top: 22px;
         }
-        .ctas .btn {
-          flex: 1 1 100%;
-        }
         .cta {
           margin-inline: 12px;
           border-radius: 30px;
+        }
+        .ctas .btn {
+          flex: 1 1 100%;
+        }
+      }
+      @media (max-width: 560px) {
+        .feats {
+          grid-template-columns: 1fr;
         }
       }
     </style>
   </head>
   <body>
+    <a class="skip" href="#contenu">Aller au contenu</a>
+
     <!-- ══════ SPLASH ══════ -->
-    <section id="splash">
+    <section id="splash" aria-label="Chargement d'OrienteCI">
       <div class="splash-in">
         <img
           class="splash-logo"
-          src="/logo/Logo OrientéCI, éducation et ambition.png"
-          width="960"
-          height="376"
+          src="/logo/Logo%20Orient%C3%A9CI%2C%20%C3%A9ducation%20et%20ambition.png"
+          width="200"
+          height="200"
           alt="OrienteCI — Ton avenir, notre priorité"
         />
         <div
@@ -449,7 +672,8 @@
             <i class="loader-fill" id="loader-fill"></i>
           </div>
           <div class="loader-meta">
-            <span id="loader-label">Chargement…</span><b id="loader-pct">0%</b>
+            <span id="loader-label" aria-live="polite">Chargement…</span
+            ><b id="loader-pct">0%</b>
           </div>
         </div>
         <p class="splash-sub">
@@ -457,13 +681,14 @@
           carrière qui leur correspondent vraiment.
         </p>
       </div>
+      <button class="passer" id="passer" type="button">Passer l'intro</button>
     </section>
 
     <!-- ══════ SITE ══════ -->
     <div id="main" hidden>
       <div id="site-nav"></div>
 
-      <main>
+      <main id="contenu">
         <section class="hero">
           <div>
             <h1 class="rv">Trouve ton <em>école idéale</em> après le BAC.</h1>
@@ -472,25 +697,47 @@
               secondes, OrienteCI calcule les formations compatibles et te
               présente les écoles qui t'acceptent réellement.
             </p>
-            <div class="ctas rv">
+
+            <div class="ctas rv" style="transition-delay: 0.1s">
               <a href="orientation.html" class="btn btn-dark"
                 >Trouver mon école
-                <svg class="icon" viewBox="0 0 24 24">
+                <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
                   <path d="M5 12h14M13 6l6 6-6 6" /></svg
               ></a>
               <a href="Decouvrire.html" class="btn btn-ghost"
                 >Je ne sais pas encore</a
               >
             </div>
+            <form
+              class="search rv"
+              id="search"
+              role="search"
+              style="transition-delay: 0.2s"
+            >
+              <label class="sr" for="q-ecole">Chercher une école</label>
+              <input
+                id="q-ecole"
+                type="search"
+                list="liste-ecoles"
+                autocomplete="off"
+                placeholder="Cherche une école : ESATIC, UFHB, INP-HB…"
+              />
+              <button class="btn btn-dark" type="submit">Chercher</button>
+            </form>
+            <datalist id="liste-ecoles"></datalist>
           </div>
 
-          <div class="sample glass rv" style="transition-delay: 0.1s">
+          <div
+            class="sample glass rv"
+            style="transition-delay: 0.1s"
+            aria-label="Exemple de résultats"
+          >
             <div class="sample-head">
               <strong>Résultats d'orientation</strong
-              ><span>Série C · Moy. 13,5 / 20</span>
+              ><span>Exemple : série C, moyenne 13,5 / 20</span>
             </div>
             <div class="res">
-              <span class="badge">Top match</span>
+              <span class="badge">Meilleur choix</span>
               <h3>Licence en Génie Logiciel</h3>
               <small>ESATIC — Abidjan, Cocody</small>
               <div class="bar">
@@ -499,7 +746,7 @@
               </div>
             </div>
             <div class="res dim">
-              <span class="badge">Bon match</span>
+              <span class="badge">Bon choix</span>
               <h3>Licence en Mathématiques</h3>
               <small>UFHB — Abidjan · Dès 50 000 F/an</small>
               <div class="bar">
@@ -515,19 +762,20 @@
           </div>
         </section>
 
-        <div class="ticker"><div class="ticker-track" id="ticker"></div></div>
+        <div class="ticker" aria-hidden="true">
+          <div class="ticker-track" id="ticker"></div>
+        </div>
 
-        <section class="wrap">
+        <section class="wrap" id="comment">
           <div class="head rv">
-            <span class="eyebrow">Comment ça marche</span>
             <h2>Trois étapes, c'est tout</h2>
             <p>Pas de compte requis. Tes données restent sur ton appareil.</p>
           </div>
           <div class="steps">
             <div class="step glass rv">
-              <span class="n">01</span>
+              <span class="n" aria-hidden="true">01</span>
               <div class="ico">
-                <svg class="icon" viewBox="0 0 24 24">
+                <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
                   <path d="M9 3h6v4H9z" />
                   <rect x="5" y="5" width="14" height="16" rx="2" />
                   <path d="M9 12h6M9 16h4" />
@@ -540,9 +788,9 @@
               </p>
             </div>
             <div class="step glass rv" style="transition-delay: 0.1s">
-              <span class="n">02</span>
+              <span class="n" aria-hidden="true">02</span>
               <div class="ico">
-                <svg class="icon" viewBox="0 0 24 24">
+                <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
                   <path d="M13 2 3 14h8l-1 8 10-12h-8l1-8Z" />
                 </svg>
               </div>
@@ -553,9 +801,9 @@
               </p>
             </div>
             <div class="step glass rv" style="transition-delay: 0.2s">
-              <span class="n">03</span>
+              <span class="n" aria-hidden="true">03</span>
               <div class="ico">
-                <svg class="icon" viewBox="0 0 24 24">
+                <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
                   <circle cx="12" cy="12" r="8.5" />
                   <circle cx="12" cy="12" r="4.5" />
                   <circle
@@ -577,6 +825,48 @@
         </section>
 
         <section class="wrap" style="padding-top: 0">
+          <div class="head rv">
+            <h2>Choisis ta série</h2>
+            <p>Un clic et on te prépare les formations qui te correspondent.</p>
+          </div>
+          <div class="chips rv" id="chips"></div>
+        </section>
+
+        <section class="wrap" style="padding-top: 0">
+          <div class="head rv"><h2>Pensé pour les bacheliers</h2></div>
+          <div class="feats">
+            <div class="feat glass rv">
+              <h3>Gratuit</h3>
+              <p>
+                Aucun compte, aucun paiement. Tu lances ta recherche tout de
+                suite.
+              </p>
+            </div>
+            <div class="feat glass rv" style="transition-delay: 0.08s">
+              <h3>Privé</h3>
+              <p>
+                Ton profil reste sur ton appareil. Personne d'autre que toi ne
+                le voit.
+              </p>
+            </div>
+            <div class="feat glass rv" style="transition-delay: 0.16s">
+              <h3>Clair</h3>
+              <p>
+                Chaque résultat affiche son score sur 100, pour comprendre le
+                classement.
+              </p>
+            </div>
+            <div class="feat glass rv" style="transition-delay: 0.24s">
+              <h3>Concret</h3>
+              <p>
+                Écoles, formations et frais : tout est réuni pour comparer sans
+                chercher ailleurs.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section class="wrap" style="padding-top: 0" aria-label="Chiffres clés">
           <div class="stats">
             <div class="rv">
               <strong data-to="36" id="st1">0</strong
@@ -591,6 +881,44 @@
               ><span>Séries du BAC couvertes</span>
             </div>
           </div>
+        </section>
+
+        <section class="wrap" style="padding-top: 0">
+          <div class="head rv"><h2>Questions fréquentes</h2></div>
+          <div class="faq rv">
+            <details>
+              <summary>Dois-je créer un compte ?</summary>
+              <p>
+                Non. Tu renseignes ta série et ta moyenne, et tu obtiens tes
+                résultats directement.
+              </p>
+            </details>
+            <details>
+              <summary>Comment le score est-il calculé ?</summary>
+              <p>
+                OrienteCI compare ta série, ta moyenne et tes centres d'intérêt
+                aux conditions de chaque formation, puis donne un score de
+                compatibilité sur 100.
+              </p>
+            </details>
+            <details>
+              <summary>Que deviennent mes informations ?</summary>
+              <p>
+                Elles restent sur ton appareil. Tu peux les modifier ou
+                recommencer quand tu veux.
+              </p>
+            </details>
+            <details>
+              <summary>Je ne sais pas quel domaine choisir.</summary>
+              <p>
+                Fais le test de personnalité : il te propose des pistes à partir
+                de tes goûts, puis tu poursuis avec l'orientation.
+              </p>
+            </details>
+          </div>
+          <p class="faq-more">
+            <a class="btn btn-ghost" href="faq.html">Voir toute la FAQ</a>
+          </p>
         </section>
 
         <section class="cta rv">
@@ -610,25 +938,71 @@
 
       <footer class="site-foot">
         <strong>OrienteCI</strong>
-        <nav>
+        <nav aria-label="Pied de page">
           <a href="Ecole.html">Écoles</a
           ><a href="orientation.html">Orientation</a
           ><a href="Decouvrire.html">Test personnalité</a
           ><a href="faq.html">FAQ</a>
         </nav>
       </footer>
+      <button class="top" id="top" type="button" aria-label="Retour en haut">
+        ↑
+      </button>
     </div>
 
     <script>
-      const reduit = matchMedia("(prefers-reduced-motion: reduce)").matches;
+      /* ── Réglages faciles à modifier ── */
+      const API = "http://localhost:3000/api/ecoles";
+      const SERIES = ["A1", "A2", "B", "C", "D", "E", "F1", "F2", "F3", "G"];
+      const ECOLES = [
+        "UFHB",
+        "INP-HB",
+        "ESATIC",
+        "IUA",
+        "Pigier CI",
+        "IUGB",
+        "UAO",
+        "UNA",
+        "UVCI",
+        "AGITEL",
+        "HEC Abidjan",
+        "BEM",
+        "UJLoG",
+        "UPGC",
+        "UDM",
+        "USP",
+        "UDB",
+        "UCAO",
+        "ESGIS",
+        "ISM Adonai",
+        "CERCO",
+        "INPG",
+        "IASGB",
+        "UHCS",
+        "UPIGA",
+      ];
 
-      /* Chargement réel : polices + logo de la navbar + serveur (2 s max) + durée minimale */
+      const $ = (id) => document.getElementById(id);
+      const reduit = matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const attendre = (ms) => new Promise((r) => setTimeout(r, ms));
+
+      /* Une seule requête serveur, avec délai max (null si indisponible) */
+      const donnees = (() => {
+        const c = new AbortController(),
+          t = setTimeout(() => c.abort(), 2500);
+        return fetch(API, { signal: c.signal })
+          .then((r) => (r.ok ? r.json() : null))
+          .catch(() => null)
+          .finally(() => clearTimeout(t));
+      })();
+
+      /* ── Splash ── */
+      let entre = false;
       function chargerSplash() {
-        const fill = document.getElementById("loader-fill"),
-          pctEl = document.getElementById("loader-pct");
-        const label = document.getElementById("loader-label"),
-          bar = document.getElementById("loader");
-        const attendre = (ms) => new Promise((r) => setTimeout(r, ms));
+        const fill = $("loader-fill"),
+          pctEl = $("loader-pct"),
+          bar = $("loader"),
+          label = $("loader-label");
         let pct = 0;
         const set = (p) => {
           pct = Math.max(pct, Math.min(100, Math.round(p)));
@@ -643,43 +1017,45 @@
             i.onload = i.onerror = r;
             i.src = "images/logo-nav.png";
           }),
-          Promise.race([
-            fetch("http://localhost:3000/api/ecoles").catch(() => {}),
-            attendre(2000),
-          ]),
-          attendre(reduit ? 300 : 1600),
+          donnees,
+          attendre(reduit ? 300 : 1200),
         ];
         const t0 = performance.now();
         const timer = setInterval(
-          () => set(Math.min(90, ((performance.now() - t0) / 1700) * 90)),
+          () => set(Math.min(90, ((performance.now() - t0) / 1500) * 90)),
           80,
         );
         Promise.all(taches).then(() => {
           clearInterval(timer);
           set(100);
           label.textContent = "Prêt";
-          setTimeout(entrer, reduit ? 100 : 500); // entrée automatique
+          setTimeout(entrer, reduit ? 100 : 400);
         });
       }
 
-      /* Splash → site */
       function entrer() {
+        if (entre) return;
+        entre = true;
         try {
           sessionStorage.setItem("oriente-splash", "1");
         } catch (e) {}
-        const s = document.getElementById("splash");
+        const s = $("splash");
         s.style.transition =
           "opacity .6s var(--ease), transform .6s var(--ease)";
         s.style.opacity = "0";
         s.style.transform = "scale(1.03)";
-        setTimeout(() => {
-          s.remove();
-          document.getElementById("main").hidden = false;
-          window.scrollTo(0, 0);
-          initMain();
-        }, 600);
+        setTimeout(
+          () => {
+            s.remove();
+            $("main").hidden = false;
+            window.scrollTo(0, 0);
+            initMain();
+          },
+          reduit ? 0 : 600,
+        );
       }
 
+      /* ── Page ── */
       function initMain() {
         /* Apparition au scroll */
         const rv = new IntersectionObserver(
@@ -694,22 +1070,21 @@
         );
         document.querySelectorAll(".rv").forEach((el) => rv.observe(el));
 
-        /* Compteurs */
+        /* Compteurs : lisent la valeur à jour, même si l'API répond après */
         const cu = new IntersectionObserver(
           (es) =>
             es.forEach((e) => {
               if (!e.isIntersecting) return;
               const el = e.target,
-                to = parseInt(el.dataset.to),
                 t0 = performance.now();
-              if (reduit) el.textContent = to;
-              else
-                (function tick(now) {
-                  const p = Math.min((now - t0) / 1600, 1);
-                  el.textContent =
-                    p < 1 ? Math.floor((1 - Math.pow(1 - p, 3)) * to) : to;
-                  if (p < 1) requestAnimationFrame(tick);
-                })(t0);
+              (function tick(now) {
+                const to = parseInt(el.dataset.to),
+                  p = reduit ? 1 : Math.min((now - t0) / 1600, 1);
+                el.textContent =
+                  p < 1 ? Math.floor((1 - Math.pow(1 - p, 3)) * to) : to;
+                if (p < 1) requestAnimationFrame(tick);
+                else el.dataset.done = "1";
+              })(t0);
               cu.unobserve(el);
             }),
           { threshold: 0.5 },
@@ -717,63 +1092,69 @@
         document.querySelectorAll("[data-to]").forEach((el) => cu.observe(el));
 
         /* Bandeau d'écoles */
-        const noms = [
-          "UFHB",
-          "INP-HB",
-          "ESATIC",
-          "IUA",
-          "Pigier CI",
-          "IUGB",
-          "UAO",
-          "UNA",
-          "UVCI",
-          "AGITEL",
-          "HEC Abidjan",
-          "BEM",
-          "UJLoG",
-          "UPGC",
-          "UDM",
-          "USP",
-          "UDB",
-          "UCAO",
-          "ESGIS",
-          "ISM Adonai",
-          "CERCO",
-          "INPG",
-          "IASGB",
-          "UHCS",
-          "UPIGA",
-        ];
-        document.getElementById("ticker").innerHTML = [...noms, ...noms]
+        $("ticker").innerHTML = [...ECOLES, ...ECOLES]
           .map((n) => `<div class="t-item">${n}</div>`)
           .join("");
 
-        /* Vrais chiffres depuis l'API (silencieux si indisponible) */
-        fetch("http://localhost:3000/api/ecoles")
-          .then((r) => r.json())
-          .then((d) => {
-            const f = d.data.reduce(
-              (a, e) => a + (e.formations?.length || 0),
-              0,
-            );
-            document.getElementById("sn1").textContent = d.total;
-            document.getElementById("sn2").textContent = f;
-            document.getElementById("st1").dataset.to = d.total;
-            document.getElementById("st2").dataset.to = f;
-          })
-          .catch(() => {});
+        /* Pastilles des séries */
+        $("chips").innerHTML = SERIES.map(
+          (s) =>
+            `<a class="chip" href="orientation.html?serie=${encodeURIComponent(s)}">Série ${s}</a>`,
+        ).join("");
+
+        /* Recherche d'école : suggestions puis redirection vers la liste */
+        $("liste-ecoles").innerHTML = ECOLES.map(
+          (n) => `<option value="${n}"></option>`,
+        ).join("");
+        $("search").addEventListener("submit", (e) => {
+          e.preventDefault();
+          const q = $("q-ecole").value.trim();
+          location.href = q
+            ? `Ecole.html?q=${encodeURIComponent(q)}`
+            : "Ecole.html";
+        });
+
+        /* Retour en haut */
+        const top = $("top");
+        addEventListener(
+          "scroll",
+          () => top.classList.toggle("show", scrollY > 700),
+          { passive: true },
+        );
+        top.addEventListener("click", () =>
+          scrollTo({ top: 0, behavior: reduit ? "auto" : "smooth" }),
+        );
+
+        /* Vrais chiffres depuis l'API (valeurs par défaut conservées si indisponible) */
+        donnees.then((d) => {
+          if (!d || !Array.isArray(d.data)) return;
+          const total = d.total ?? d.data.length;
+          const f = d.data.reduce((a, e) => a + (e.formations?.length || 0), 0);
+          [
+            ["st1", "sn1", total],
+            ["st2", "sn2", f],
+          ].forEach(([a, b, v]) => {
+            $(a).dataset.to = v;
+            $(b).textContent = v;
+            if ($(a).dataset.done) $(a).textContent = v;
+          });
+        });
       }
 
-      /* Démarrage */
+      /* ── Démarrage ── */
       let dejaVu = false;
       try {
         dejaVu = sessionStorage.getItem("oriente-splash") === "1";
       } catch (e) {}
       if (dejaVu) {
-        document.getElementById("splash").remove();
-        document.getElementById("main").hidden = false;
+        $("splash").remove();
+        $("main").hidden = false;
         initMain();
       } else {
+        $("passer").addEventListener("click", entrer);
+        addEventListener("keydown", (e) => {
+          if (e.key === "Escape") entrer();
+        });
         chargerSplash();
       }
     </script>

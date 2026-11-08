@@ -3,133 +3,824 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Compare jusqu'à 3 écoles côte à côte : frais, formations, domaines, contacts. OrienteCI t'aide à choisir après le BAC."
+    />
     <title>Comparer les écoles — OrienteCI</title>
     <link rel="stylesheet" href="styles.css" />
     <script src="Nav.js" defer></script>
     <style>
-      /* ── TABLEAU COMPARATIF ── */
-      .compare-wrap {
-        overflow-x: auto;
-        padding-bottom: 8px;
+      /* ══ ALIAS DE TOKENS ═══════════════════════════════════════════
+         Tout passe par styles.css ; les valeurs de repli évitent
+         qu'un token manquant casse la page. */
+      :root {
+        --c-line: var(--glass-border-2, rgba(255, 255, 255, 0.07));
+        --c-line-strong: var(--glass-border, rgba(255, 255, 255, 0.12));
+        --c-surface: var(--glass-bg, rgba(255, 255, 255, 0.055));
+        --c-surface-2: var(--glass-bg-2, rgba(255, 255, 255, 0.09));
+        --c-sticky: rgba(16, 14, 34, 0.96);
+        --c-pop: #14112a;
+        --c-txt: var(--txt, #ede9ff);
+        --c-txt-2: var(--txt-2, rgba(237, 233, 255, 0.65));
+        --c-txt-3: var(--txt-3, rgba(237, 233, 255, 0.38));
+        --c-txt-4: var(--txt-4, rgba(237, 233, 255, 0.2));
+        --c-accent: var(--purple-light, #a78bfa);
+        --c-accent-strong: var(--purple, #7c5cfc);
+        --c-amber: var(--amber-light, #ffc24d);
+        --c-teal: var(--teal, #0ed2c8);
+        --c-rose: var(--rose, #f43f7e);
+        --c-radius: var(--r, 18px);
+        --c-ease: var(--ease, cubic-bezier(0.22, 1, 0.36, 1));
       }
-      .compare-grid {
-        display: grid;
-        grid-template-columns: 170px repeat(var(--n, 2), minmax(230px, 1fr));
-        min-width: 620px;
-        border-radius: var(--r);
+
+      [hidden] {
+        display: none !important;
+      }
+      .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
         overflow: hidden;
+        clip: rect(0 0 0 0);
+        white-space: nowrap;
       }
-      .cell {
-        padding: 16px 18px;
-        border-bottom: 1px solid var(--glass-border-soft);
-        border-right: 1px solid var(--glass-border-soft);
-        font-size: 0.85rem;
+      :focus-visible {
+        outline: 2px solid var(--c-accent);
+        outline-offset: 2px;
+      }
+
+      @keyframes cmpIn {
+        from {
+          opacity: 0;
+          transform: translateY(14px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      @keyframes shimmer {
+        to {
+          background-position: -200% 0;
+        }
+      }
+
+      /* ══ EN-TÊTE ═══════════════════════════════════════════════════ */
+      .banner-row {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        gap: 24px;
+        flex-wrap: wrap;
+      }
+      .page-banner-inner {
+        max-width: none;
+      }
+      .back-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 0.82rem;
+        font-weight: 600;
+        color: var(--c-txt-3);
+        margin-bottom: 20px;
+        transition:
+          color 0.18s,
+          transform 0.25s var(--c-ease);
+      }
+      .back-link svg {
+        width: 14px;
+        height: 14px;
+        transform: rotate(180deg);
+      }
+      .back-link:hover {
+        color: var(--c-accent);
+        transform: translateX(-3px);
+      }
+      .steps-mini {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        font-size: 0.78rem;
+        color: var(--c-txt-3);
+      }
+      .steps-mini .pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 14px;
+        border-radius: var(--r-pill, 999px);
+        background: var(--c-surface);
+        border: 1px solid var(--c-line);
+        font-family: "DM Mono", monospace;
+      }
+      .steps-mini .pill strong {
+        color: var(--c-amber);
+        font-weight: 500;
+      }
+
+      /* ══ BARRE D'OUTILS ════════════════════════════════════════════ */
+      .section.cmp {
+        padding-top: 40px;
+      }
+      .toolbar {
         display: flex;
         align-items: center;
-        color: var(--txt-2);
+        gap: 12px;
+        flex-wrap: wrap;
+        margin-bottom: 28px;
+        animation: cmpIn 0.6s var(--c-ease) both;
       }
-      .compare-grid > .cell:nth-last-child(-n + var(--n)) {
+
+      /* Sélecteur avec recherche */
+      .picker {
+        position: relative;
+        flex: 1 1 280px;
+        max-width: 480px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 4px 14px 4px 16px;
+        border-radius: var(--r-pill, 999px);
+        transition:
+          border-color 0.2s,
+          box-shadow 0.2s;
+      }
+      .picker:focus-within {
+        border-color: rgba(124, 92, 252, 0.55);
+        box-shadow: 0 0 0 4px rgba(124, 92, 252, 0.14);
+      }
+      .picker > svg {
+        width: 16px;
+        height: 16px;
+        color: var(--c-txt-4);
+      }
+      #picker-input {
+        flex: 1;
+        min-width: 0;
+        border: none;
+        outline: none;
+        background: transparent;
+        color: var(--c-txt);
+        font-family: "Plus Jakarta Sans", sans-serif;
+        font-size: 0.9rem;
+        font-weight: 500;
+        padding: 12px 0;
+      }
+      #picker-input::placeholder {
+        color: var(--c-txt-3);
+        font-weight: 400;
+      }
+      #picker-input:disabled {
+        cursor: not-allowed;
+      }
+      .picker-count {
+        font-family: "DM Mono", monospace;
+        font-size: 0.72rem;
+        color: var(--c-amber);
+        background: rgba(240, 165, 0, 0.12);
+        border: 1px solid rgba(240, 165, 0, 0.25);
+        padding: 3px 9px;
+        border-radius: var(--r-pill, 999px);
+      }
+      #picker-list {
+        position: absolute;
+        top: calc(100% + 8px);
+        left: 0;
+        right: 0;
+        z-index: 80;
+        max-height: 320px;
+        overflow-y: auto;
+        background: var(--c-pop);
+        border: 1px solid var(--c-line-strong);
+        border-radius: 16px;
+        padding: 6px;
+        box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.7);
+        animation: cmpIn 0.22s var(--c-ease) both;
+      }
+      #picker-list li {
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        align-items: center;
+        gap: 12px;
+        padding: 10px 12px;
+        border-radius: 11px;
+        cursor: pointer;
+        font-size: 0.84rem;
+      }
+      #picker-list li.on,
+      #picker-list li:hover {
+        background: rgba(124, 92, 252, 0.16);
+      }
+      #picker-list .opt-sigle {
+        font-family: "DM Mono", monospace;
+        font-size: 0.68rem;
+        color: #fff;
+        background: linear-gradient(140deg, var(--c-accent-strong), #4c2dbd);
+        padding: 4px 8px;
+        border-radius: 8px;
+        min-width: 44px;
+        text-align: center;
+      }
+      #picker-list .opt-nom {
+        color: var(--c-txt);
+        font-weight: 600;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      #picker-list .opt-ville {
+        color: var(--c-txt-3);
+        font-size: 0.76rem;
+      }
+      #picker-list .picker-empty {
+        display: block;
+        cursor: default;
+        text-align: center;
+        color: var(--c-txt-3);
+        padding: 18px;
+      }
+      #picker-list .picker-empty:hover {
+        background: none;
+      }
+
+      .tools-right {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin-left: auto;
+      }
+
+      /* Interrupteur */
+      .switch {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 0.82rem;
+        font-weight: 600;
+        color: var(--c-txt-2);
+        cursor: pointer;
+        user-select: none;
+      }
+      .switch input {
+        position: absolute;
+        opacity: 0;
+        pointer-events: none;
+      }
+      .switch .track {
+        width: 38px;
+        height: 22px;
+        border-radius: 999px;
+        background: var(--c-surface-2);
+        border: 1px solid var(--c-line-strong);
+        position: relative;
+        transition: background 0.25s var(--c-ease);
+        flex-shrink: 0;
+      }
+      .switch .track::after {
+        content: "";
+        position: absolute;
+        top: 2px;
+        left: 2px;
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        background: #fff;
+        transition: transform 0.3s var(--ease-spring, var(--c-ease));
+      }
+      .switch input:checked + .track {
+        background: var(--c-accent-strong);
+        border-color: transparent;
+      }
+      .switch input:checked + .track::after {
+        transform: translateX(16px);
+      }
+      .switch input:focus-visible + .track {
+        outline: 2px solid var(--c-accent);
+        outline-offset: 2px;
+      }
+      .switch input:disabled ~ span {
+        opacity: 0.4;
+      }
+      .switch:has(input:disabled) {
+        cursor: not-allowed;
+      }
+
+      .tool-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 16px;
+        border-radius: var(--r-pill, 999px);
+        border: 1px solid var(--c-line-strong);
+        background: var(--c-surface);
+        color: var(--c-txt-2);
+        font-family: inherit;
+        font-size: 0.8rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition:
+          background 0.2s,
+          color 0.2s,
+          border-color 0.2s,
+          transform 0.25s var(--c-ease);
+      }
+      .tool-btn svg {
+        width: 14px;
+        height: 14px;
+      }
+      .tool-btn:hover:not(:disabled) {
+        background: var(--c-surface-2);
+        color: var(--c-txt);
+        transform: translateY(-1px);
+      }
+      .tool-btn.danger:hover:not(:disabled) {
+        color: var(--c-rose);
+        border-color: rgba(244, 63, 126, 0.4);
+        background: rgba(244, 63, 126, 0.1);
+      }
+      .tool-btn:disabled {
+        opacity: 0.4;
+        cursor: not-allowed;
+      }
+
+      /* ══ RÉSUMÉ ════════════════════════════════════════════════════ */
+      .summary {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 14px;
+        margin-bottom: 24px;
+      }
+      .sum-card {
+        display: flex;
+        gap: 14px;
+        padding: 18px 20px;
+        border-radius: var(--c-radius);
+        animation: cmpIn 0.6s var(--c-ease) both;
+      }
+      .sum-card:nth-child(2) {
+        animation-delay: 0.07s;
+      }
+      .sum-card:nth-child(3) {
+        animation-delay: 0.14s;
+      }
+      .sum-ico {
+        width: 40px;
+        height: 40px;
+        border-radius: 12px;
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .sum-ico svg {
+        width: 19px;
+        height: 19px;
+      }
+      .sum-card[data-tone="teal"] .sum-ico {
+        background: rgba(14, 210, 200, 0.12);
+        color: var(--c-teal);
+      }
+      .sum-card[data-tone="amber"] .sum-ico {
+        background: rgba(240, 165, 0, 0.12);
+        color: var(--c-amber);
+      }
+      .sum-card[data-tone="violet"] .sum-ico {
+        background: rgba(124, 92, 252, 0.16);
+        color: var(--c-accent);
+      }
+      .sum-k {
+        font-size: 0.7rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--c-txt-3);
+        margin-bottom: 5px;
+      }
+      .sum-v {
+        font-size: 0.95rem;
+        font-weight: 700;
+        color: var(--c-txt);
+        line-height: 1.3;
+        letter-spacing: -0.02em;
+      }
+      .sum-s {
+        font-size: 0.78rem;
+        color: var(--c-txt-3);
+        margin-top: 3px;
+        line-height: 1.45;
+      }
+
+      /* ══ TABLEAU ═══════════════════════════════════════════════════ */
+      .compare-card {
+        border-radius: var(--c-radius);
+        overflow: hidden;
+        animation: cmpIn 0.6s var(--c-ease) 0.1s both;
+      }
+      .compare-scroll {
+        overflow-x: auto;
+        overscroll-behavior-x: contain;
+        scrollbar-width: thin;
+      }
+      .compare-table {
+        border-collapse: separate;
+        border-spacing: 0;
+        width: 100%;
+        min-width: calc(150px + var(--n, 2) * 240px);
+        table-layout: fixed;
+      }
+      .compare-table th,
+      .compare-table td {
+        padding: 16px 18px;
+        text-align: left;
+        vertical-align: middle;
+        font-size: 0.86rem;
+        color: var(--c-txt-2);
+        border-bottom: 1px solid var(--c-line);
+        border-right: 1px solid var(--c-line);
+        overflow-wrap: anywhere;
+        line-height: 1.5;
+      }
+      .compare-table tr > :last-child {
+        border-right: none;
+      }
+      .compare-table tbody tr:last-child > * {
         border-bottom: none;
       }
-      .row-label {
-        background: rgba(255, 255, 255, 0.03);
-        font-weight: 600;
-        color: var(--violet-2);
-        font-size: 0.8rem;
+      .compare-table thead th:first-child,
+      .compare-table tbody th {
+        width: 150px;
       }
-      .cell-header {
+      .compare-table tbody th,
+      .compare-table .corner {
+        position: sticky;
+        left: 0;
+        z-index: 2;
+        background: var(--c-sticky);
+        font-size: 0.78rem;
+        font-weight: 700;
+        letter-spacing: 0.02em;
+        color: var(--c-accent);
+      }
+      .compare-table .corner {
+        z-index: 3;
+        vertical-align: bottom;
+        color: var(--c-txt-3);
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        font-size: 0.68rem;
+      }
+      .compare-table tbody tr {
+        transition: background 0.2s;
+      }
+      .compare-table tbody tr:hover td {
+        background: rgba(255, 255, 255, 0.025);
+      }
+      .compare-table td a:not(.head-link) {
+        color: var(--c-txt);
+        border-bottom: 1px dashed var(--c-line-strong);
+        transition:
+          color 0.18s,
+          border-color 0.18s;
+      }
+      .compare-table td a:not(.head-link):hover {
+        color: var(--c-accent);
+        border-color: var(--c-accent);
+      }
+      .only-diff tr[data-same="1"] {
+        display: none;
+      }
+
+      /* En-têtes de colonnes */
+      .col-head {
+        animation: cmpIn 0.55s var(--c-ease) both;
+        animation-delay: calc(var(--i, 0) * 70ms + 150ms);
+      }
+      .head {
+        position: relative;
+        display: flex;
         flex-direction: column;
         align-items: flex-start;
         gap: 10px;
-        padding: 20px 18px;
-        position: relative;
+        padding-right: 34px;
       }
-      .cell-header .carte-sigle {
-        width: 42px;
-        height: 42px;
-        font-size: 0.68rem;
-      }
-      .cell-header .nom {
-        font-family: "Fraunces", serif;
-        font-weight: 500;
-        font-size: 0.9rem;
+      .head .nom {
+        font-size: 0.95rem;
+        font-weight: 700;
         line-height: 1.3;
-        color: var(--txt);
+        letter-spacing: -0.02em;
+        color: var(--c-txt);
+      }
+      .head-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 0.78rem;
+        font-weight: 700;
+        color: var(--c-accent);
+        transition:
+          color 0.18s,
+          gap 0.25s var(--c-ease);
+      }
+      .head-link svg {
+        width: 13px;
+        height: 13px;
+      }
+      .head-link:hover {
+        color: var(--c-amber);
+        gap: 10px;
       }
       .btn-retirer {
         position: absolute;
-        top: 12px;
-        right: 12px;
-        background: var(--glass);
-        border: 1px solid var(--glass-border-soft);
-        color: var(--txt-3);
-        cursor: pointer;
-        line-height: 1;
-        width: 26px;
-        height: 26px;
+        top: -2px;
+        right: -4px;
+        width: 28px;
+        height: 28px;
         border-radius: 50%;
         display: flex;
         align-items: center;
         justify-content: center;
-        transition: all 0.2s;
+        background: var(--c-surface);
+        border: 1px solid var(--c-line);
+        color: var(--c-txt-3);
+        cursor: pointer;
+        transition:
+          background 0.2s,
+          color 0.2s,
+          border-color 0.2s,
+          transform 0.25s var(--c-ease);
       }
       .btn-retirer svg {
         width: 12px;
         height: 12px;
       }
       .btn-retirer:hover {
-        background: rgba(236, 72, 153, 0.15);
-        border-color: rgba(236, 72, 153, 0.4);
-        color: var(--rose);
+        background: rgba(244, 63, 126, 0.15);
+        border-color: rgba(244, 63, 126, 0.4);
+        color: var(--c-rose);
+        transform: rotate(90deg);
+      }
+
+      /* Contenu des cellules */
+      .pin {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .pin svg {
+        width: 13px;
+        height: 13px;
+        color: var(--c-accent);
+      }
+      .meilleur {
+        background: rgba(14, 210, 200, 0.06);
+      }
+      .meilleur-tag {
+        display: inline-block;
+        font-size: 0.64rem;
+        font-weight: 700;
+        letter-spacing: 0.03em;
+        color: var(--c-teal);
+        background: rgba(14, 210, 200, 0.14);
+        border: 1px solid rgba(14, 210, 200, 0.28);
+        padding: 2px 8px;
+        border-radius: var(--r-pill, 999px);
+        margin-left: 8px;
+        white-space: nowrap;
+        vertical-align: middle;
+      }
+      .big-num {
+        font-family: "DM Mono", monospace;
+        font-size: 1.05rem;
+        color: var(--c-txt);
+        letter-spacing: -0.03em;
+      }
+      .muted {
+        color: var(--c-txt-4);
       }
       .formations-liste {
         display: flex;
-        flex-direction: column;
+        flex-wrap: wrap;
         gap: 7px;
       }
       .formation-mini {
-        font-size: 0.76rem;
-        background: rgba(139, 92, 246, 0.12);
-        color: var(--violet-2);
-        padding: 4px 10px;
-        border-radius: var(--r-pill);
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        font-size: 0.74rem;
+        font-weight: 600;
+        background: rgba(124, 92, 252, 0.12);
+        color: var(--c-accent);
+        border: 1px solid rgba(124, 92, 252, 0.2);
+        padding: 4px 6px 4px 11px;
+        border-radius: var(--r-pill, 999px);
+      }
+      .formation-mini b {
+        font-family: "DM Mono", monospace;
         font-weight: 500;
-        width: fit-content;
-      }
-      .meilleur {
-        background: rgba(34, 211, 238, 0.06);
-      }
-      .meilleur-tag {
         font-size: 0.66rem;
-        font-weight: 700;
-        color: var(--cyan);
-        background: rgba(34, 211, 238, 0.14);
-        padding: 2px 8px;
-        border-radius: var(--r-pill);
-        margin-left: 8px;
-        white-space: nowrap;
+        background: rgba(255, 255, 255, 0.1);
+        color: var(--c-txt-2);
+        padding: 1px 7px;
+        border-radius: 999px;
       }
-      .ajout-bloc {
-        margin-top: 30px;
-        border-radius: var(--r);
-        padding: 24px;
-        text-align: center;
-        border-style: dashed;
+      .formation-mini.commun {
+        background: rgba(14, 210, 200, 0.12);
+        color: var(--c-teal);
+        border-color: rgba(14, 210, 200, 0.3);
       }
-      .ajout-bloc select {
-        padding: 10px 16px;
-        border: 1px solid var(--glass-border);
-        border-radius: var(--r-pill);
-        font-family: "Inter", sans-serif;
-        font-size: 0.88rem;
-        margin-right: 10px;
-        background: var(--glass);
-        color: var(--txt);
+      .legend {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 0.76rem;
+        color: var(--c-txt-3);
+        margin-top: 14px;
+      }
+      .legend i {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: var(--c-teal);
+        box-shadow: 0 0 12px rgba(14, 210, 200, 0.6);
+      }
+      .scroll-hint {
+        display: none;
+        font-size: 0.74rem;
+        color: var(--c-txt-3);
+        margin-top: 12px;
+      }
+      .hint {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 14px 18px;
+        margin-bottom: 18px;
+        border-radius: 14px;
+        font-size: 0.85rem;
+        color: var(--c-amber);
+        background: rgba(240, 165, 0, 0.08);
+        border: 1px solid rgba(240, 165, 0, 0.22);
+        animation: cmpIn 0.5s var(--c-ease) both;
+      }
+      .hint svg {
+        width: 18px;
+        height: 18px;
+        flex-shrink: 0;
       }
 
+      /* ══ ÉTATS : VIDE / ERREUR / CHARGEMENT ════════════════════════ */
+      .state {
+        text-align: center;
+        padding: 72px 24px;
+        border-radius: var(--c-radius);
+        animation: cmpIn 0.6s var(--c-ease) both;
+      }
+      .state .icone {
+        width: 64px;
+        height: 64px;
+        margin: 0 auto 22px;
+        border-radius: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(124, 92, 252, 0.14);
+        border: 1px solid rgba(124, 92, 252, 0.28);
+        color: var(--c-accent);
+      }
+      .state .icone svg {
+        width: 28px;
+        height: 28px;
+      }
+      .state.error .icone {
+        background: rgba(244, 63, 126, 0.12);
+        border-color: rgba(244, 63, 126, 0.3);
+        color: var(--c-rose);
+      }
+      .state h3 {
+        font-size: 1.25rem;
+        margin-bottom: 10px;
+        color: var(--c-txt);
+      }
+      .state p {
+        color: var(--c-txt-3);
+        font-size: 0.92rem;
+        max-width: 420px;
+        margin: 0 auto 26px;
+        line-height: 1.65;
+      }
+      .state code {
+        font-family: "DM Mono", monospace;
+        font-size: 0.82rem;
+        color: var(--c-amber);
+        background: rgba(240, 165, 0, 0.1);
+        padding: 2px 8px;
+        border-radius: 6px;
+      }
+      .state-actions {
+        display: flex;
+        gap: 12px;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+      .skel {
+        border-radius: var(--c-radius);
+        padding: 22px;
+        display: grid;
+        gap: 14px;
+      }
+      .skel i {
+        display: block;
+        height: 52px;
+        border-radius: 12px;
+        background: linear-gradient(
+          100deg,
+          rgba(255, 255, 255, 0.04) 30%,
+          rgba(255, 255, 255, 0.1) 50%,
+          rgba(255, 255, 255, 0.04) 70%
+        );
+        background-size: 200% 100%;
+        animation: shimmer 1.4s linear infinite;
+      }
+      .skel i:first-child {
+        height: 110px;
+      }
+
+      /* ══ TOAST ═════════════════════════════════════════════════════ */
+      #toast {
+        position: fixed;
+        left: 50%;
+        bottom: 28px;
+        transform: translate(-50%, 140%);
+        z-index: 200;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 12px 20px;
+        border-radius: var(--r-pill, 999px);
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: #fff;
+        background: linear-gradient(135deg, #7c5cfc, #4c2dbd);
+        box-shadow: 0 20px 50px -10px rgba(76, 45, 189, 0.6);
+        transition: transform 0.45s var(--ease-spring, var(--c-ease));
+      }
+      #toast svg {
+        width: 15px;
+        height: 15px;
+      }
+      #toast.show {
+        transform: translate(-50%, 0);
+      }
+
+      /* ══ RESPONSIVE ════════════════════════════════════════════════ */
+      @media (max-width: 860px) {
+        .summary {
+          grid-template-columns: 1fr;
+        }
+        .tools-right {
+          margin-left: 0;
+        }
+        .picker {
+          max-width: none;
+        }
+        .scroll-hint {
+          display: block;
+        }
+      }
       @media (max-width: 640px) {
-        .compare-grid {
-          grid-template-columns: 130px repeat(var(--n, 2), minmax(190px, 1fr));
+        .section.cmp {
+          padding: 28px 5% 44px;
+        }
+        .compare-table {
+          min-width: calc(112px + var(--n, 2) * 210px);
+        }
+        .compare-table th,
+        .compare-table td {
+          padding: 14px 12px;
+          font-size: 0.82rem;
+        }
+        .compare-table thead th:first-child,
+        .compare-table tbody th {
+          width: 112px;
+        }
+        .steps-mini {
+          display: none;
+        }
+        .state {
+          padding: 52px 20px;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          animation-duration: 0.01ms !important;
+          animation-delay: 0ms !important;
+          transition-duration: 0.01ms !important;
         }
       }
     </style>
@@ -143,20 +834,89 @@
     <div class="grain" aria-hidden="true"></div>
     <div id="site-nav"></div>
 
-    <div class="page-banner fade-up">
+    <header class="page-banner">
       <div class="page-banner-inner">
-        <div class="eyebrow">
-          <span class=""></span>
-          Comparaison
+        <a href="Ecole.html" class="back-link fade-up">
+          <svg class="icon" viewBox="0 0 24 24" stroke-width="2.2">
+            <path d="M5 12h14M13 6l6 6-6 6" />
+          </svg>
+          Retour aux écoles
+        </a>
+        <div class="banner-row">
+          <div class="fade-up delay-1">
+            <div class="eyebrow"><span class="dot"></span>Comparaison</div>
+            <h1>Comparer les écoles</h1>
+            <p>
+              Place jusqu'à 3 établissements côte à côte : frais, formations,
+              contacts. Les meilleurs choix ressortent automatiquement.
+            </p>
+          </div>
+          <div class="steps-mini fade-up delay-2" aria-hidden="true">
+            <span class="pill"
+              >Sélection <strong id="mini-count">0/3</strong></span
+            >
+          </div>
         </div>
-        <h1>Comparer les écoles</h1>
-        <p>Place plusieurs établissements côte à côte pour faire ton choix.</p>
       </div>
-    </div>
+    </header>
 
-    <section class="section">
-      <div id="zone-comparaison"><div class="spinner"></div></div>
-    </section>
+    <main class="section cmp">
+      <div class="toolbar">
+        <div class="picker glass" id="picker">
+          <svg
+            class="icon"
+            viewBox="0 0 24 24"
+            stroke-width="2"
+            aria-hidden="true"
+          >
+            <circle cx="11" cy="11" r="7" />
+            <path d="m21 21-4.3-4.3" />
+          </svg>
+          <input
+            type="text"
+            id="picker-input"
+            role="combobox"
+            aria-label="Ajouter une école à la comparaison"
+            aria-expanded="false"
+            aria-controls="picker-list"
+            aria-autocomplete="list"
+            autocomplete="off"
+            placeholder="Ajouter une école : nom ou sigle…"
+            disabled
+          />
+          <span class="picker-count" id="picker-count">0/3</span>
+          <ul
+            id="picker-list"
+            role="listbox"
+            aria-label="Écoles disponibles"
+            hidden
+          ></ul>
+        </div>
+
+        <div class="tools-right">
+          <label class="switch">
+            <input type="checkbox" id="only-diff" disabled />
+            <span class="track" aria-hidden="true"></span>
+            <span>Différences seulement</span>
+          </label>
+          <button type="button" class="tool-btn" id="btn-copy" disabled>
+            <svg class="icon" viewBox="0 0 24 24" stroke-width="2">
+              <path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7" />
+              <path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7" />
+            </svg>
+            Copier le lien
+          </button>
+          <button type="button" class="tool-btn danger" id="btn-clear" hidden>
+            <svg class="icon" viewBox="0 0 24 24" stroke-width="2">
+              <path d="M3 6h18M8 6V4h8v2M6 6l1 14h10l1-14" />
+            </svg>
+            Tout retirer
+          </button>
+        </div>
+      </div>
+
+      <div id="zone" aria-live="off"></div>
+    </main>
 
     <footer>
       <strong>OrienteCI</strong>
@@ -168,191 +928,572 @@
       </div>
     </footer>
 
+    <div id="toast" role="status" aria-live="polite">
+      <svg class="icon" viewBox="0 0 24 24" stroke-width="2.4">
+        <path d="M20 6 9 17l-5-5" />
+      </svg>
+      <span id="toast-txt"></span>
+    </div>
+    <div class="sr-only" id="live" aria-live="polite"></div>
+
     <script>
       const API = "http://localhost:3000/api";
-      const MAX_COMPARAISON = 3;
+      const MAX = 3;
 
-      const ICON_SCALE_EMPTY =
-        '<svg viewBox="0 0 24 24" stroke-width="1.6" fill="none" stroke="currentColor"><path d="M12 3v18M6 8l-3 6a3.5 3.5 0 0 0 6 0Zm12 0-3 6a3.5 3.5 0 0 0 6 0Z"/><path d="M4 21h16M6 8h12"/></svg>';
-      const ICON_PIN =
-        '<svg class="icon" viewBox="0 0 24 24" stroke-width="2"><path d="M12 21s7-6.1 7-11.5A7 7 0 0 0 5 9.5C5 14.9 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.4"/></svg>';
+      /* ── Utilitaires ─────────────────────────────────────────── */
+      const $ = (id) => document.getElementById(id);
+      const esc = (s) =>
+        String(s ?? "").replace(
+          /[&<>"']/g,
+          (c) =>
+            ({
+              "&": "&amp;",
+              "<": "&lt;",
+              ">": "&gt;",
+              '"': "&quot;",
+              "'": "&#39;",
+            })[c],
+        );
+      const cap = (s) => (s ? s.charAt(0).toUpperCase() + s.slice(1) : "");
+      const num = (v) =>
+        v === null || v === undefined || v === "" || Number.isNaN(Number(v))
+          ? null
+          : Number(v);
+      const money = (n) => n.toLocaleString("fr") + " F";
+      const label = (e) => e.sigle || e.nom;
 
-      function getIdsDepuisURL() {
-        const params = new URLSearchParams(window.location.search);
-        const ids = params.get("ids");
-        return ids ? ids.split(",").map(Number).filter(Boolean) : [];
+      const svg = (d, sw = 2) =>
+        `<svg class="icon" viewBox="0 0 24 24" stroke-width="${sw}">${d}</svg>`;
+      const I = {
+        pin: svg(
+          '<path d="M12 21s7-6.1 7-11.5A7 7 0 0 0 5 9.5C5 14.9 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.4"/>',
+        ),
+        x: svg('<path d="M18 6 6 18M6 6l12 12"/>', 2.2),
+        arrow: svg('<path d="M5 12h14M13 6l6 6-6 6"/>', 2.2),
+        scale: svg(
+          '<path d="M12 3v18M6 8l-3 6a3.5 3.5 0 0 0 6 0Zm12 0-3 6a3.5 3.5 0 0 0 6 0Z"/><path d="M4 21h16M6 8h12"/>',
+          1.7,
+        ),
+        coin: svg(
+          '<circle cx="12" cy="12" r="9"/><path d="M9.5 15.2c.4.9 1.3 1.5 2.5 1.5 1.6 0 2.7-.9 2.7-2.1 0-1.4-1.2-1.9-2.7-2.2-1.5-.3-2.6-.9-2.6-2.1 0-1.1 1-2 2.6-2 1.1 0 2 .5 2.4 1.3M12 7.5v9"/>',
+        ),
+        layers: svg(
+          '<path d="M12 2 2 7l10 5 10-5-10-5Z"/><path d="M2 17l10 5 10-5M2 12l10 5 10-5"/>',
+        ),
+        tags: svg(
+          '<path d="M20.6 13.4 13.4 20.6a2 2 0 0 1-2.8 0L3 13V3h10l7.6 7.6a2 2 0 0 1 0 2.8Z"/><circle cx="7.5" cy="7.5" r="1.2"/>',
+        ),
+        info: svg(
+          '<circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/>',
+        ),
+        alert: svg(
+          '<path d="M12 3 2 20h20L12 3Z"/><path d="M12 10v4M12 17h.01"/>',
+          1.8,
+        ),
+      };
+
+      /* ── État ────────────────────────────────────────────────── */
+      let toutes = [];
+      let choisies = [];
+
+      function idsFromURL() {
+        const p = new URLSearchParams(location.search).get("ids");
+        return p ? p.split(",").map(Number).filter(Boolean) : [];
       }
-      function setIdsDansURL(ids) {
-        const url = new URL(window.location);
+      function idsFromStorage() {
+        try {
+          return JSON.parse(sessionStorage.getItem("comparaison") || "[]")
+            .map(Number)
+            .filter(Boolean);
+        } catch {
+          return [];
+        }
+      }
+      /* URL + sessionStorage restent synchronisés avec la page « Écoles » */
+      function persist() {
+        const ids = choisies.map((e) => e.id);
+        const url = new URL(location.href);
         if (ids.length) url.searchParams.set("ids", ids.join(","));
         else url.searchParams.delete("ids");
-        window.history.replaceState({}, "", url);
+        history.replaceState({}, "", url);
+        try {
+          sessionStorage.setItem("comparaison", JSON.stringify(ids));
+        } catch {}
+        document.title = ids.length
+          ? `Comparer ${ids.length} école${ids.length > 1 ? "s" : ""} — OrienteCI`
+          : "Comparer les écoles — OrienteCI";
       }
 
-      let toutesEcoles = [];
-      let ecolesComparees = [];
+      let toastTimer;
+      function toast(msg) {
+        $("toast-txt").textContent = msg;
+        $("toast").classList.add("show");
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(
+          () => $("toast").classList.remove("show"),
+          2200,
+        );
+      }
+      const announce = (msg) => ($("live").textContent = msg);
 
+      /* ── Chargement ──────────────────────────────────────────── */
       async function init() {
+        $("zone").innerHTML =
+          `<div class="skel glass" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>`;
         try {
           const res = await fetch(`${API}/ecoles`);
-          const data = await res.json();
-          toutesEcoles = data.data;
+          if (!res.ok) throw new Error("http " + res.status);
+          const json = await res.json();
+          toutes = Array.isArray(json.data) ? json.data : [];
 
-          const ids = getIdsDepuisURL();
-          ecolesComparees = toutesEcoles
-            .filter((e) => ids.includes(e.id))
-            .slice(0, MAX_COMPARAISON);
+          let ids = idsFromURL();
+          if (!ids.length) ids = idsFromStorage();
+          ids = [...new Set(ids)];
+          choisies = ids
+            .map((id) => toutes.find((e) => Number(e.id) === id))
+            .filter(Boolean)
+            .slice(0, MAX);
 
+          persist();
           render();
         } catch {
-          document.getElementById("zone-comparaison").innerHTML =
-            '<p style="color:var(--txt-2);">Serveur non disponible.</p>';
+          toutes = [];
+          choisies = [];
+          $("zone").innerHTML = `
+            <div class="state error glass">
+              <div class="icone">${I.alert}</div>
+              <h3>Serveur non disponible</h3>
+              <p>Impossible de récupérer la liste des écoles. Lance <code>npm run dev</code> puis réessaie.</p>
+              <div class="state-actions">
+                <button class="btn btn-violet" data-retry>Réessayer</button>
+                <a href="Ecole.html" class="btn btn-secondary">Retour aux écoles</a>
+              </div>
+            </div>`;
+          updateToolbar();
         }
       }
 
-      function retirerEcole(id) {
-        ecolesComparees = ecolesComparees.filter((e) => e.id !== id);
-        setIdsDansURL(ecolesComparees.map((e) => e.id));
-        render();
-      }
-
-      function ajouterEcole(id) {
-        if (!id) return;
+      /* ── Actions ─────────────────────────────────────────────── */
+      function add(id) {
         id = Number(id);
-        if (ecolesComparees.length >= MAX_COMPARAISON) return;
-        if (ecolesComparees.find((e) => e.id === id)) return;
-        const ecole = toutesEcoles.find((e) => e.id === id);
-        if (ecole) {
-          ecolesComparees.push(ecole);
-          setIdsDansURL(ecolesComparees.map((e) => e.id));
-          render();
+        if (choisies.length >= MAX || choisies.some((e) => Number(e.id) === id))
+          return;
+        const ecole = toutes.find((e) => Number(e.id) === id);
+        if (!ecole) return;
+        choisies.push(ecole);
+        $("picker-input").value = "";
+        persist();
+        render();
+        announce(`${ecole.nom} ajoutée à la comparaison.`);
+      }
+      function remove(id) {
+        const ecole = choisies.find((e) => Number(e.id) === id);
+        choisies = choisies.filter((e) => Number(e.id) !== id);
+        persist();
+        render();
+        if (ecole) announce(`${ecole.nom} retirée de la comparaison.`);
+      }
+
+      /* ── Rendu ───────────────────────────────────────────────── */
+      function domainesOf(e) {
+        const m = new Map();
+        (e.formations || []).forEach((f) => {
+          if (f.domaine) m.set(f.domaine, (m.get(f.domaine) || 0) + 1);
+        });
+        return m;
+      }
+      const nbFormations = (e) => (e.formations || []).length;
+
+      function emptyState() {
+        return `
+          <div class="state glass">
+            <div class="icone">${I.scale}</div>
+            <h3>Aucune école à comparer</h3>
+            <p>Ajoute 2 ou 3 écoles avec la barre de recherche ci-dessus, ou sélectionne-les depuis la liste des écoles.</p>
+            <div class="state-actions">
+              <a href="Ecole.html" class="btn btn-primary">Explorer les écoles ${I.arrow}</a>
+              <a href="orientation.html" class="btn btn-secondary">Trouver mon école</a>
+            </div>
+          </div>`;
+      }
+
+      function summaryHTML(communs) {
+        const n = choisies.length;
+        if (n < 2) return "";
+        const card = (tone, icon, k, v, s) => `
+          <div class="sum-card glass-flat" data-tone="${tone}">
+            <div class="sum-ico">${icon}</div>
+            <div><div class="sum-k">${k}</div><div class="sum-v">${v}</div><div class="sum-s">${s}</div></div>
+          </div>`;
+        const cards = [];
+
+        const fees = choisies
+          .map((e) => num(e.frais_min))
+          .filter((v) => v !== null);
+        if (fees.length) {
+          const min = Math.min(...fees);
+          const w = choisies.filter((e) => num(e.frais_min) === min);
+          cards.push(
+            card(
+              "teal",
+              I.coin,
+              "Le plus abordable",
+              w.length === n
+                ? "Frais minimum identiques"
+                : w.map((e) => esc(label(e))).join(" · "),
+              `À partir de ${money(min)} / an`,
+            ),
+          );
         }
+
+        const maxF = Math.max(...choisies.map(nbFormations));
+        if (maxF > 0) {
+          const w = choisies.filter((e) => nbFormations(e) === maxF);
+          cards.push(
+            card(
+              "amber",
+              I.layers,
+              "Le plus de choix",
+              w.length === n
+                ? "Autant de formations"
+                : w.map((e) => esc(label(e))).join(" · "),
+              `${maxF} formation${maxF > 1 ? "s" : ""} proposée${maxF > 1 ? "s" : ""}`,
+            ),
+          );
+        }
+
+        cards.push(
+          card(
+            "violet",
+            I.tags,
+            "Domaines en commun",
+            communs.length
+              ? `${communs.length} domaine${communs.length > 1 ? "s" : ""}`
+              : "Aucun domaine commun",
+            communs.length
+              ? communs.map(esc).join(", ")
+              : "Ces écoles se complètent plutôt qu'elles ne se recoupent.",
+          ),
+        );
+        return `<div class="summary">${cards.join("")}</div>`;
       }
 
       function render() {
-        const zone = document.getElementById("zone-comparaison");
-
-        if (!ecolesComparees.length) {
-          zone.innerHTML = `
-          <div class="etat-vide fade-up">
-            <div class="icone">${ICON_SCALE_EMPTY}</div>
-            <h3>Aucune école à comparer</h3>
-            <p>Choisis 2 ou 3 écoles depuis la liste, ou ajoute-les directement ci-dessous.</p>
-          </div>
-          ${blocAjout()}
-        `;
+        const zone = $("zone");
+        const n = choisies.length;
+        if (!n) {
+          zone.innerHTML = emptyState();
+          updateToolbar();
           return;
         }
 
-        const n = ecolesComparees.length;
-        const fraisMin = Math.min(...ecolesComparees.map((e) => e.frais_min));
-        const nbFormationsMax = Math.max(
-          ...ecolesComparees.map((e) => e.formations.length),
-        );
+        /* Valeurs de référence */
+        const domMaps = choisies.map(domainesOf);
+        const communs =
+          n > 1
+            ? [...domMaps[0].keys()].filter((d) =>
+                domMaps.every((m) => m.has(d)),
+              )
+            : [];
+        const feeVals = choisies.map((e) => num(e.frais_min));
+        const feeKnown = feeVals.filter((v) => v !== null);
+        const minFee = feeKnown.length ? Math.min(...feeKnown) : null;
+        const feeAllEqual =
+          minFee !== null && feeVals.every((v) => v === minFee);
+        const maxForm = Math.max(...choisies.map(nbFormations));
+        const formAllEqual = choisies.every((e) => nbFormations(e) === maxForm);
 
-        const lignes = [
+        /* En-têtes */
+        const ths = choisies
+          .map(
+            (e, i) => `
+          <th scope="col" class="col-head" style="--i:${i}">
+            <div class="head">
+              <button type="button" class="btn-retirer" data-remove="${esc(e.id)}"
+                aria-label="Retirer ${esc(e.nom)} de la comparaison" title="Retirer">${I.x}</button>
+              <div class="carte-sigle">${esc(e.sigle)}</div>
+              <div class="nom">${esc(e.nom)}</div>
+              <a class="head-link" href="fiche-ecole.html?id=${encodeURIComponent(e.id)}">Voir la fiche ${I.arrow}</a>
+            </div>
+          </th>`,
+          )
+          .join("");
+
+        /* Lignes */
+        const fee = (e) => {
+          const a = num(e.frais_min);
+          const b = num(e.frais_max);
+          if (a === null && b === null) return `<span class="muted">—</span>`;
+          if (a === null) return `<span class="big-num">${money(b)}</span>`;
+          if (b === null || a === b)
+            return `<span class="big-num">${money(a)}</span>`;
+          return `<span class="big-num">${a.toLocaleString("fr")} – ${b.toLocaleString("fr")} F</span>`;
+        };
+        const tel = (e) =>
+          e.telephone
+            ? `<a href="tel:${esc(String(e.telephone).replace(/\s+/g, ""))}">${esc(e.telephone)}</a>`
+            : `<span class="muted">—</span>`;
+        const mail = (e) =>
+          e.email
+            ? `<a href="mailto:${esc(e.email)}">${esc(e.email)}</a>`
+            : `<span class="muted">—</span>`;
+        const site = (e) => e.site_web || e.site || e.website || "";
+
+        const rows = [
           {
             label: "Ville",
-            get: (e) =>
-              `${ICON_PIN} ${e.ville}${e.quartier ? ", " + e.quartier : ""}`,
+            html: (e) =>
+              `<span class="pin">${I.pin}${esc(e.ville || "—")}${e.quartier ? ", " + esc(e.quartier) : ""}</span>`,
+            key: (e) => `${e.ville || ""}|${e.quartier || ""}`,
           },
           {
             label: "Type",
-            get: (e) =>
-              `<span class="badge-type badge-${e.type}">${e.type.charAt(0).toUpperCase() + e.type.slice(1)}</span>`,
+            html: (e) =>
+              e.type
+                ? `<span class="badge-type badge-${esc(e.type)}">${esc(cap(e.type))}</span>`
+                : `<span class="muted">—</span>`,
+            key: (e) => e.type || "",
           },
           {
             label: "Frais / an",
-            get: (e) => {
-              const txt = `${Number(e.frais_min).toLocaleString("fr")} – ${Number(e.frais_max).toLocaleString("fr")} F`;
-              return e.frais_min === fraisMin
-                ? `${txt}<span class="meilleur-tag">Moins cher</span>`
-                : txt;
-            },
-            highlight: (e) => e.frais_min === fraisMin,
+            html: fee,
+            key: (e) => `${num(e.frais_min)}|${num(e.frais_max)}`,
+            best: (e) =>
+              n > 1 &&
+              minFee !== null &&
+              !feeAllEqual &&
+              num(e.frais_min) === minFee,
+            tag: "Moins cher",
           },
-          { label: "Téléphone", get: (e) => e.telephone || "—" },
-          { label: "Email", get: (e) => e.email || "—" },
+          { label: "Téléphone", html: tel, key: (e) => e.telephone || "" },
+          { label: "Email", html: mail, key: (e) => e.email || "" },
+          ...(choisies.some((e) => site(e))
+            ? [
+                {
+                  label: "Site web",
+                  html: (e) => {
+                    const s = site(e);
+                    if (!s) return `<span class="muted">—</span>`;
+                    const href = /^https?:\/\//i.test(s) ? s : "https://" + s;
+                    return `<a href="${esc(href)}" target="_blank" rel="noopener">${esc(s.replace(/^https?:\/\//i, ""))}</a>`;
+                  },
+                  key: (e) => site(e),
+                },
+              ]
+            : []),
           {
             label: "Formations",
-            get: (e) => {
-              const txt = `${e.formations.length}`;
-              return e.formations.length === nbFormationsMax
-                ? `${txt}<span class="meilleur-tag">Plus de choix</span>`
-                : txt;
-            },
-            highlight: (e) => e.formations.length === nbFormationsMax,
+            html: (e) => `<span class="big-num">${nbFormations(e)}</span>`,
+            key: (e) => String(nbFormations(e)),
+            best: (e) =>
+              n > 1 &&
+              maxForm > 0 &&
+              !formAllEqual &&
+              nbFormations(e) === maxForm,
+            tag: "Plus de choix",
           },
           {
             label: "Domaines",
-            get: (e) => `
-            <div class="formations-liste">
-              ${[...new Set(e.formations.map((f) => f.domaine))].map((d) => `<span class="formation-mini">${d}</span>`).join("")}
-            </div>`,
+            html: (e) => {
+              const m = domainesOf(e);
+              if (!m.size) return `<span class="muted">—</span>`;
+              return `<div class="formations-liste">${[...m]
+                .map(
+                  ([d, c]) =>
+                    `<span class="formation-mini${communs.includes(d) ? " commun" : ""}">${esc(d)}<b>${c}</b></span>`,
+                )
+                .join("")}</div>`;
+            },
+            key: (e) => [...domainesOf(e).keys()].sort().join("|"),
           },
         ];
 
-        let html = `<div class="compare-wrap pop-in"><div class="compare-grid glass" style="--n:${n}">`;
-        html += `<div class="cell row-label">École</div>`;
-        ecolesComparees.forEach((e) => {
-          html += `
-          <div class="cell cell-header">
-            <button class="btn-retirer" onclick="retirerEcole(${e.id})" title="Retirer">
-              <svg class="icon" viewBox="0 0 24 24" stroke-width="2.2"><path d="M18 6 6 18M6 6l12 12"/></svg>
-            </button>
-            <div class="carte-sigle">${e.sigle}</div>
-            <div class="nom">${e.nom}</div>
-          </div>`;
-        });
+        const body = rows
+          .map((r) => {
+            const same = n > 1 && new Set(choisies.map(r.key)).size === 1;
+            const cells = choisies
+              .map((e) => {
+                const b = r.best && r.best(e);
+                return `<td class="${b ? "meilleur" : ""}">${r.html(e)}${b ? `<span class="meilleur-tag">${r.tag}</span>` : ""}</td>`;
+              })
+              .join("");
+            return `<tr${same ? ' data-same="1"' : ""}><th scope="row">${r.label}</th>${cells}</tr>`;
+          })
+          .join("");
 
-        lignes.forEach((ligne) => {
-          html += `<div class="cell row-label">${ligne.label}</div>`;
-          ecolesComparees.forEach((e) => {
-            const surligne = ligne.highlight && ligne.highlight(e);
-            html += `<div class="cell ${surligne ? "meilleur" : ""}">${ligne.get(e)}</div>`;
-          });
-        });
-        html += `</div></div>`;
+        zone.innerHTML = `
+          ${n === 1 ? `<div class="hint">${I.info}<span>Ajoute au moins une autre école pour lancer la comparaison.</span></div>` : ""}
+          ${summaryHTML(communs)}
+          <div class="compare-card glass">
+            <div class="compare-scroll" tabindex="0" role="region" aria-label="Tableau comparatif des écoles">
+              <table class="compare-table" style="--n:${n}">
+                <caption class="sr-only">Comparaison de ${n} école${n > 1 ? "s" : ""}</caption>
+                <thead><tr><th scope="col" class="corner">École</th>${ths}</tr></thead>
+                <tbody>${body}</tbody>
+              </table>
+            </div>
+          </div>
+          ${communs.length ? `<p class="legend"><i></i> Domaine proposé par toutes les écoles comparées</p>` : ""}
+          ${n > 1 ? `<p class="scroll-hint">Fais défiler le tableau horizontalement pour voir toutes les écoles →</p>` : ""}`;
 
-        html += `<div style="display:grid;grid-template-columns:170px repeat(${n},minmax(230px,1fr));min-width:620px;gap:0;margin-top:14px;">
-        <div></div>
-        ${ecolesComparees
-          .map(
-            (e) => `
-          <div style="padding:0 18px;">
-            <a href="fiche-ecole.html?id=${e.id}" class="btn btn-secondary" style="font-size:0.8rem;padding:9px 14px;width:100%;justify-content:center;">
-              Voir la fiche
-              <svg class="icon" viewBox="0 0 24 24" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-            </a>
-          </div>`,
+        updateToolbar();
+      }
+
+      /* ── Barre d'outils ──────────────────────────────────────── */
+      function updateToolbar() {
+        const n = choisies.length;
+        $("mini-count").textContent = `${n}/${MAX}`;
+        $("btn-clear").hidden = !n;
+        $("btn-copy").disabled = !n;
+        $("only-diff").disabled = n < 2;
+        if (n < 2) {
+          $("only-diff").checked = false;
+          $("zone").classList.remove("only-diff");
+        }
+        renderPicker(false);
+      }
+
+      $("only-diff").addEventListener("change", (ev) =>
+        $("zone").classList.toggle("only-diff", ev.target.checked),
+      );
+      $("btn-clear").addEventListener("click", () => {
+        choisies = [];
+        persist();
+        render();
+        announce("Comparaison vidée.");
+      });
+      $("btn-copy").addEventListener("click", async () => {
+        try {
+          await navigator.clipboard.writeText(location.href);
+          toast("Lien copié");
+        } catch {
+          window.prompt("Copie ce lien :", location.href);
+        }
+      });
+      $("zone").addEventListener("click", (ev) => {
+        const rm = ev.target.closest("[data-remove]");
+        if (rm) return remove(Number(rm.dataset.remove));
+        if (ev.target.closest("[data-retry]")) init();
+      });
+
+      /* ── Sélecteur d'écoles (recherche + clavier) ────────────── */
+      let pickerIdx = -1;
+      let pickerItems = [];
+
+      function pickerOptions() {
+        const q = $("picker-input").value.trim().toLowerCase();
+        const taken = new Set(choisies.map((e) => Number(e.id)));
+        return toutes
+          .filter(
+            (e) =>
+              !taken.has(Number(e.id)) &&
+              (!q ||
+                (e.nom || "").toLowerCase().includes(q) ||
+                (e.sigle || "").toLowerCase().includes(q)),
           )
-          .join("")}
-      </div>`;
+          .slice(0, 8);
+      }
+      function closePicker() {
+        $("picker-list").hidden = true;
+        $("picker-input").setAttribute("aria-expanded", "false");
+        $("picker-input").removeAttribute("aria-activedescendant");
+        pickerIdx = -1;
+      }
+      function renderPicker(open) {
+        const input = $("picker-input");
+        const full = choisies.length >= MAX;
+        $("picker-count").textContent = `${choisies.length}/${MAX}`;
+        input.disabled = full || !toutes.length;
+        input.placeholder = full
+          ? `Maximum atteint (${MAX} écoles)`
+          : "Ajouter une école : nom ou sigle…";
+        if (full) input.value = "";
+        if (!open || input.disabled) return closePicker();
 
-        if (n < MAX_COMPARAISON) html += blocAjout();
-
-        zone.innerHTML = html;
+        pickerItems = pickerOptions();
+        const list = $("picker-list");
+        list.innerHTML = pickerItems.length
+          ? pickerItems
+              .map(
+                (e, i) => `
+              <li role="option" id="opt-${i}" data-id="${esc(e.id)}" aria-selected="${i === pickerIdx}" class="${i === pickerIdx ? "on" : ""}">
+                <span class="opt-sigle">${esc(e.sigle)}</span>
+                <span class="opt-nom">${esc(e.nom)}</span>
+                <span class="opt-ville">${esc(e.ville || "")}</span>
+              </li>`,
+              )
+              .join("")
+          : `<li class="picker-empty" role="option" aria-disabled="true">Aucune école trouvée</li>`;
+        list.hidden = false;
+        input.setAttribute("aria-expanded", "true");
+        if (pickerIdx >= 0)
+          input.setAttribute("aria-activedescendant", `opt-${pickerIdx}`);
+        else input.removeAttribute("aria-activedescendant");
       }
 
-      function blocAjout() {
-        const dejaChoisies = ecolesComparees.map((e) => e.id);
-        const disponibles = toutesEcoles.filter(
-          (e) => !dejaChoisies.includes(e.id),
-        );
-        return `
-        <div class="ajout-bloc glass">
-          <select id="select-ajout">
-            <option value="">+ Ajouter une école à comparer (${ecolesComparees.length}/${MAX_COMPARAISON})</option>
-            ${disponibles.map((e) => `<option value="${e.id}">${e.sigle} — ${e.nom}</option>`).join("")}
-          </select>
-          <button class="btn btn-orange" style="padding:9px 18px;font-size:0.85rem;" onclick="ajouterDepuisSelect()">Ajouter</button>
-        </div>`;
-      }
+      $("picker-input").addEventListener("focus", () => {
+        pickerIdx = -1;
+        renderPicker(true);
+      });
+      $("picker-input").addEventListener("input", () => {
+        pickerIdx = -1;
+        renderPicker(true);
+      });
+      $("picker-input").addEventListener("keydown", (ev) => {
+        const list = $("picker-list");
+        const n = pickerItems.length;
+        if (ev.key === "ArrowDown" || ev.key === "ArrowUp") {
+          ev.preventDefault();
+          if (list.hidden) return renderPicker(true);
+          if (!n) return;
+          pickerIdx =
+            ev.key === "ArrowDown"
+              ? (pickerIdx + 1) % n
+              : (pickerIdx - 1 + n) % n;
+          renderPicker(true);
+          $(`opt-${pickerIdx}`)?.scrollIntoView({ block: "nearest" });
+        } else if (ev.key === "Enter") {
+          const target =
+            pickerItems[pickerIdx] ||
+            (n === 1 && !list.hidden ? pickerItems[0] : null);
+          if (target) {
+            ev.preventDefault();
+            add(target.id);
+          }
+        } else if (ev.key === "Escape") {
+          closePicker();
+        }
+      });
+      $("picker-list").addEventListener("mousedown", (ev) => {
+        const li = ev.target.closest("li[data-id]");
+        if (li) {
+          ev.preventDefault();
+          add(li.dataset.id);
+        }
+      });
+      document.addEventListener("click", (ev) => {
+        if (!$("picker").contains(ev.target)) closePicker();
+      });
 
-      function ajouterDepuisSelect() {
-        const select = document.getElementById("select-ajout");
-        if (select && select.value) ajouterEcole(select.value);
-      }
+      /* ── Navigation de secours si Nav.js est absent ──────────── */
+      window.addEventListener("load", () => {
+        const n = $("site-nav");
+        if (n && !n.children.length && !n.textContent.trim()) {
+          n.innerHTML = `
+            <nav class="nav">
+              <a href="index.html" class="nav-logo">
+                <span class="mark"><svg class="icon" viewBox="0 0 24 24" stroke="white" stroke-width="2"><path d="M12 2 2 7l10 5 10-5-10-5Z"/><path d="M2 17l10 5 10-5M2 12l10 5 10-5"/></svg></span>
+                Oriente<span>CI</span>
+              </a>
+              <ul class="nav-links">
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="Ecole.html">Les écoles</a></li>
+                <li><a href="faq.html">FAQ</a></li>
+                <li><a href="orientation.html" class="nav-cta">Trouver mon école ${I.arrow}</a></li>
+              </ul>
+            </nav>`;
+        }
+      });
 
       init();
     </script>

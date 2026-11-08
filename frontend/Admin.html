@@ -281,6 +281,24 @@
         background: rgba(236, 72, 153, 0.2);
       }
 
+      /* Badge quota formations (X / 10) */
+      .quota-badge {
+        display: inline-block;
+        padding: 3px 10px;
+        border-radius: var(--r-pill);
+        font-size: 0.78rem;
+        font-weight: 600;
+        background: var(--glass);
+        border: 1px solid var(--glass-border);
+        color: var(--txt-2);
+        white-space: nowrap;
+      }
+      .quota-badge.full {
+        background: rgba(249, 115, 22, 0.14);
+        border-color: rgba(249, 115, 22, 0.35);
+        color: var(--orange-soft);
+      }
+
       /* ── STATS CARDS ── */
       .stats-admin {
         display: grid;
@@ -541,6 +559,20 @@
       .btn-add-formation:hover svg {
         transform: scale(1.2) rotate(90deg);
       }
+      /* Quota atteint : le bouton reste cliquable pour afficher le toast */
+      .btn-add-formation.is-full {
+        opacity: 0.55;
+        border-color: var(--orange-soft);
+        color: var(--orange-soft);
+      }
+      .btn-add-formation.is-full:hover {
+        border-color: var(--orange-soft);
+        color: var(--orange-soft);
+        background: rgba(249, 115, 22, 0.07);
+      }
+      .btn-add-formation.is-full:hover svg {
+        transform: none;
+      }
 
       /* ── TOAST ── */
       .toast {
@@ -571,6 +603,11 @@
       }
       .toast.error {
         background: linear-gradient(135deg, var(--rose), #b91c6e);
+      }
+      .toast.warning {
+        background: linear-gradient(135deg, var(--orange), #c2410c);
+        color: #1a0f06;
+        box-shadow: 0 8px 32px rgba(249, 115, 22, 0.35);
       }
       .toast svg {
         width: 16px;
@@ -863,8 +900,8 @@
         </div>
         <div class="form-row">
           <div class="champ-admin">
-            <label>Type *</label
-            ><select id="f-type">
+            <label>Type *</label>
+            <select id="f-type">
               <option value="publique">Publique</option>
               <option value="privée">Privée</option>
             </select>
@@ -914,10 +951,14 @@
             <path d="M22 10 12 5 2 10l10 5 10-5Z" />
             <path d="M6 12v5c0 1.5 2.7 3 6 3s6-1.5 6-3v-5" />
           </svg>
-          Formations
+          Formations <span id="formations-compteur">(0 / 10)</span>
         </div>
         <div id="formations-container"></div>
-        <button class="btn-add-formation" onclick="ajouterBlocFormation()">
+        <button
+          type="button"
+          class="btn-add-formation"
+          onclick="ajouterBlocFormation()"
+        >
           <svg class="icon" viewBox="0 0 24 24" stroke-width="2.5">
             <path d="M12 5v14M5 12h14" />
           </svg>
@@ -951,6 +992,7 @@
     <script>
       const API = "http://localhost:3000/api";
       const MOT_PASSE = "admin123";
+      const MAX_FORMATIONS = 10;
       let modeEdition = false;
       let idEdition = null;
 
@@ -958,12 +1000,22 @@
         '<svg class="icon" viewBox="0 0 24 24" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg>';
       const ICO_ERR =
         '<svg class="icon" viewBox="0 0 24 24" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 8v4M12 16h.01"/></svg>';
+      const ICO_WARN =
+        '<svg class="icon" viewBox="0 0 24 24" stroke-width="2"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0ZM12 9v4M12 17h.01"/></svg>';
       const ICO_FORM =
         '<svg class="icon" viewBox="0 0 24 24" stroke-width="1.9"><path d="M22 10 12 5 2 10l10 5 10-5Z"/><path d="M6 12v5c0 1.5 2.7 3 6 3s6-1.5 6-3v-5"/></svg>';
       const ICO_EDIT =
         '<svg class="icon" viewBox="0 0 24 24" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7M18.5 2.5a2.12 2.12 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5Z"/></svg>';
       const ICO_DEL =
         '<svg class="icon" viewBox="0 0 24 24" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6M10 11v6M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>';
+
+      /* Échappe une valeur pour l'insérer dans un attribut / textarea HTML */
+      function escAttr(v) {
+        return String(v ?? "")
+          .replace(/&/g, "&amp;")
+          .replace(/"/g, "&quot;")
+          .replace(/</g, "&lt;");
+      }
 
       /* ── AUTH ── */
       function seConnecter() {
@@ -994,33 +1046,73 @@
           .querySelectorAll(".admin-nav-item")
           .forEach((i) => i.classList.remove("active"));
         el.classList.add("active");
+        if (nom === "stats") chargerStats();
       }
 
-      /* ── ÉCOLES ── */
+      /* ── TOAST ──
+         type : "success" (défaut) | "error" | "warning"
+         (l'ancien appel showToast(msg, true) reste compatible = error) */
+      function showToast(msg, type = "success") {
+        if (type === true) type = "error";
+        if (type === false) type = "success";
+        const t = document.getElementById("toast");
+        const ico =
+          type === "error"
+            ? ICO_ERR
+            : type === "warning"
+              ? ICO_WARN
+              : ICO_CHECK;
+        t.className =
+          "toast" + (type === "success" ? "" : " " + type) + " show";
+        t.innerHTML = ico + `<span>${msg}</span>`;
+        clearTimeout(showToast._t);
+        showToast._t = setTimeout(() => t.classList.remove("show"), 3000);
+      }
+
+      /* ── ÉCOLES (CRUD) ── */
       async function chargerEcoles() {
         try {
           const res = await fetch(`${API}/ecoles`);
           const data = await res.json();
           const tbody = document.getElementById("tbody-ecoles");
-          tbody.innerHTML = data.data
-            .map(
-              (e) => `
+          const ecoles = data.data || [];
+          tbody.innerHTML = ecoles
+            .map((e) => {
+              const nb = e.formations?.length || 0;
+              return `
           <tr>
             <td><span class="td-sigle">${e.sigle}</span></td>
             <td class="td-nom">${e.nom}</td>
             <td>${e.ville}${e.quartier ? " · " + e.quartier : ""}</td>
-            <td><span class="badge-type badge-${e.type}">${e.type.charAt(0).toUpperCase() + e.type.slice(1)}</span></td>
-            <td>${e.formations?.length || 0} formation(s)</td>
+            <td><span class="badge-type badge-${e.type}">${e.type ? e.type.charAt(0).toUpperCase() + e.type.slice(1) : ""}</span></td>
+            <td><span class="quota-badge ${nb >= MAX_FORMATIONS ? "full" : ""}">${nb} / ${MAX_FORMATIONS} formation(s)</span></td>
             <td><div class="td-actions">
               <button class="btn-edit" onclick="ouvrirModalEdition(${e.id})">${ICO_EDIT} Modifier</button>
               <button class="btn-del" onclick="supprimer(${e.id})">${ICO_DEL} Suppr.</button>
             </div></td>
-          </tr>`,
-            )
+          </tr>`;
+            })
             .join("");
         } catch {
           document.getElementById("tbody-ecoles").innerHTML =
             '<tr><td colspan="6" style="text-align:center;padding:30px;color:var(--txt-3);">Serveur non disponible.</td></tr>';
+        }
+      }
+
+      async function supprimer(id) {
+        if (!confirm("Voulez-vous vraiment supprimer cette école ?")) return;
+        try {
+          const res = await fetch(`${API}/ecoles/${id}`, {
+            method: "DELETE",
+          });
+          if (res.ok) {
+            showToast("École supprimée avec succès.");
+            chargerEcoles();
+          } else {
+            showToast("Erreur lors de la suppression.", "error");
+          }
+        } catch {
+          showToast("Erreur réseau.", "error");
         }
       }
 
@@ -1029,7 +1121,7 @@
         try {
           const res = await fetch(`${API}/ecoles`);
           const data = await res.json();
-          const ecoles = data.data;
+          const ecoles = data.data || [];
           const totalF = ecoles.reduce(
             (a, e) => a + (e.formations?.length || 0),
             0,
@@ -1037,10 +1129,14 @@
           const villes = [...new Set(ecoles.map((e) => e.ville))].length;
           const priv = ecoles.filter((e) => e.type === "privée").length;
           const stats = [
-            { n: ecoles.length, l: "Écoles référencées", ico: ICO_FORM },
+            {
+              n: ecoles.length,
+              l: "Écoles référencées",
+              ico: '<svg class="icon" viewBox="0 0 24 24" stroke-width="1.9"><path d="M22 10 12 5 2 10l10 5 10-5Z"/><path d="M6 12v5c0 1.5 2.7 3 6 3s6-1.5 6-3v-5"/></svg>',
+            },
             {
               n: totalF,
-              l: "Formations disponibles",
+              l: "Formations enregistrées",
               ico: '<svg class="icon" viewBox="0 0 24 24" stroke-width="1.9"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z"/></svg>',
             },
             {
@@ -1057,7 +1153,7 @@
           document.getElementById("stats-grid").innerHTML = stats
             .map(
               (s) => `
-          <div class="stat-admin-card glass pop-in">
+          <div class="stat-admin-card glass">
             <div class="stat-admin-ico">${s.ico}</div>
             <div>
               <div class="stat-admin-n">${s.n}</div>
@@ -1066,45 +1162,33 @@
           </div>`,
             )
             .join("");
-        } catch {}
+        } catch {
+          document.getElementById("stats-grid").innerHTML =
+            "<p style='color:var(--txt-3)'>Impossible de charger les statistiques.</p>";
+        }
       }
 
-      /* ── MODAL ── */
-      let formationCount = 0;
+      /* ── MODAL GESTION FORMATIONS & FORMULAIRE ── */
       function ouvrirModalAjout() {
         modeEdition = false;
         idEdition = null;
-        formationCount = 0;
         document.getElementById("modal-titre").innerHTML =
-          `${ICO_FORM} Ajouter une école`;
-        [
-          "f-nom",
-          "f-sigle",
-          "f-description",
-          "f-quartier",
-          "f-telephone",
-          "f-email",
-          "f-site",
-          "f-frais-min",
-          "f-frais-max",
-        ].forEach((id) => {
-          document.getElementById(id).value = "";
-        });
-        document.getElementById("f-type").value = "publique";
-        document.getElementById("f-ville").value = "";
-        document.getElementById("formations-container").innerHTML = "";
-        ouvrirModal();
+          ICO_FORM + " Ajouter une école";
+        viderFormulaire();
+        document.getElementById("modal-bg").classList.add("open");
       }
+
       async function ouvrirModalEdition(id) {
         modeEdition = true;
         idEdition = id;
-        formationCount = 0;
         document.getElementById("modal-titre").innerHTML =
-          `${ICO_EDIT} Modifier l'école`;
+          ICO_FORM + " Modifier l'école";
         try {
           const res = await fetch(`${API}/ecoles/${id}`);
           const data = await res.json();
           const e = data.data;
+          if (!e) return;
+
           document.getElementById("f-nom").value = e.nom || "";
           document.getElementById("f-sigle").value = e.sigle || "";
           document.getElementById("f-description").value = e.description || "";
@@ -1116,91 +1200,172 @@
           document.getElementById("f-site").value = e.site_web || "";
           document.getElementById("f-frais-min").value = e.frais_min || "";
           document.getElementById("f-frais-max").value = e.frais_max || "";
-          const fc = document.getElementById("formations-container");
-          fc.innerHTML = "";
-          (e.formations || []).forEach((f) => ajouterBlocFormation(f));
-          ouvrirModal();
+
+          const container = document.getElementById("formations-container");
+          container.innerHTML = "";
+          const formations = e.formations || [];
+          formations
+            .slice(0, MAX_FORMATIONS)
+            .forEach((f) => ajouterBlocFormation(f));
+          majCompteurFormations();
+          if (formations.length > MAX_FORMATIONS) {
+            showToast(
+              `Cette école a ${formations.length} formations : seules les ${MAX_FORMATIONS} premières sont chargées.`,
+              "warning",
+            );
+          }
+          document.getElementById("modal-bg").classList.add("open");
         } catch {
-          afficherToast("Impossible de charger l'école.", true);
+          showToast("Erreur lors du chargement des détails.", "error");
         }
       }
-      function ouvrirModal() {
-        document.getElementById("modal-bg").classList.add("open");
-        document.body.style.overflow = "hidden";
-      }
+
       function fermerModal() {
         document.getElementById("modal-bg").classList.remove("open");
-        document.body.style.overflow = "";
       }
-      document
-        .getElementById("modal-bg")
-        .addEventListener("click", function (e) {
-          if (e.target === this) fermerModal();
-        });
 
-      /* Blocs formation */
+      function viderFormulaire() {
+        document.getElementById("f-nom").value = "";
+        document.getElementById("f-sigle").value = "";
+        document.getElementById("f-description").value = "";
+        document.getElementById("f-type").value = "publique";
+        document.getElementById("f-ville").value = "";
+        document.getElementById("f-quartier").value = "";
+        document.getElementById("f-telephone").value = "";
+        document.getElementById("f-email").value = "";
+        document.getElementById("f-site").value = "";
+        document.getElementById("f-frais-min").value = "";
+        document.getElementById("f-frais-max").value = "";
+        document.getElementById("formations-container").innerHTML = "";
+        majCompteurFormations();
+      }
+
+      /* Renumérote les blocs, met à jour le compteur (X / 10) et l'état du bouton */
+      function majCompteurFormations() {
+        const blocs = document.querySelectorAll(
+          "#formations-container .formation-bloc",
+        );
+        blocs.forEach((b, i) => {
+          b.querySelector(".formation-bloc-titre").innerHTML =
+            `${ICO_FORM} Formation #${i + 1}`;
+        });
+        document.getElementById("formations-compteur").textContent =
+          `(${blocs.length} / ${MAX_FORMATIONS})`;
+        document
+          .querySelector(".btn-add-formation")
+          .classList.toggle("is-full", blocs.length >= MAX_FORMATIONS);
+      }
+
+      function supprimerBlocFormation(btn) {
+        btn.closest(".formation-bloc").remove();
+        majCompteurFormations();
+      }
+
       function ajouterBlocFormation(f = null) {
-        formationCount++;
-        const idx = formationCount;
-        const fc = document.getElementById("formations-container");
+        // Appelé depuis onclick : on ignore un éventuel objet Event
+        if (f instanceof Event) f = null;
+        const container = document.getElementById("formations-container");
+        if (container.children.length >= MAX_FORMATIONS) {
+          showToast("Maximum de 10 formations atteint", "warning");
+          return false;
+        }
         const div = document.createElement("div");
         div.className = "formation-bloc";
-        div.id = `formation-${idx}`;
         div.innerHTML = `
-        <div class="formation-bloc-titre">${ICO_FORM} Formation ${idx}</div>
-        <button class="btn-remove-formation" type="button" onclick="document.getElementById('formation-${idx}').remove()">
-          <svg class="icon" viewBox="0 0 24 24" stroke-width="2.2"><path d="M18 6 6 18M6 6l12 12"/></svg> Retirer
-        </button>
-        <div class="form-row">
-          <div class="champ-admin"><label>Nom *</label><input type="text" class="fn-nom" placeholder="Ex : Licence Informatique" value="${f?.nom || ""}" /></div>
-          <div class="champ-admin"><label>Domaine *</label><input type="text" class="fn-domaine" placeholder="Ex : Informatique" value="${f?.domaine || ""}" /></div>
-        </div>
-        <div class="form-row">
-          <div class="champ-admin"><label>Durée</label><input type="text" class="fn-duree" placeholder="Ex : 3 ans" value="${f?.duree || ""}" /></div>
-          <div class="champ-admin"><label>Moyenne requise /20</label><input type="number" class="fn-moy" min="0" max="20" step="0.5" placeholder="10" value="${f?.moyenne_requise || ""}" /></div>
-        </div>
-        <div class="champ-admin"><label>Description</label><textarea class="fn-desc" placeholder="Présentation courte...">${f?.description || ""}</textarea></div>
-        <div class="champ-admin"><label>Séries acceptées (ex: A,B,C)</label><input type="text" class="fn-series" placeholder="C,D,E" value="${(f?.series_acceptees || []).join(",")}" /></div>
-        <div class="champ-admin"><label>Débouchés (séparés par des virgules)</label><input type="text" class="fn-debouches" placeholder="Développeur, Ingénieur..." value="${(f?.debouches || []).join(", ")}" /></div>`;
-        fc.appendChild(div);
+          <div class="formation-bloc-titre"></div>
+          <button type="button" class="btn-remove-formation" onclick="supprimerBlocFormation(this)">
+            <svg class="icon" viewBox="0 0 24 24" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg> Supprimer
+          </button>
+          <div class="form-row">
+            <div class="champ-admin" style="margin-bottom:10px;">
+              <label>Nom de la formation</label>
+              <input type="text" class="f-form-nom" value="${escAttr(f?.nom)}" placeholder="Ex : Licence en Droit">
+            </div>
+            <div class="champ-admin" style="margin-bottom:10px;">
+              <label>Domaine</label>
+              <input type="text" class="f-form-domaine" value="${escAttr(f?.domaine)}" placeholder="Ex : Droit">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="champ-admin" style="margin-bottom:10px;">
+              <label>Durée</label>
+              <input type="text" class="f-form-duree" value="${escAttr(f?.duree)}" placeholder="Ex : 3 ans">
+            </div>
+            <div class="champ-admin" style="margin-bottom:10px;">
+              <label>Moyenne requise</label>
+              <input type="number" step="0.1" class="f-form-moyenne" value="${escAttr(f?.moyenne_requise)}" placeholder="11">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="champ-admin" style="margin-bottom:0;">
+              <label>Séries acceptées (séparées par des virgules)</label>
+              <input type="text" class="f-form-series" value="${escAttr(f?.series_acceptees?.join(", "))}" placeholder="A, B, C, D">
+            </div>
+            <div class="champ-admin" style="margin-bottom:0;">
+              <label>Débouchés (séparés par des virgules)</label>
+              <input type="text" class="f-form-debouches" value="${escAttr(f?.debouches?.join(", "))}" placeholder="Avocat, Magistrat">
+            </div>
+          </div>
+          <div class="champ-admin" style="margin-top:10px; margin-bottom:0;">
+            <label>Description de la formation</label>
+            <textarea class="f-form-desc" placeholder="Détails du cursus...">${escAttr(f?.description)}</textarea>
+          </div>
+        `;
+        container.appendChild(div);
+        majCompteurFormations();
+        return true;
       }
 
       async function sauvegarder() {
         const nom = document.getElementById("f-nom").value.trim();
         const sigle = document.getElementById("f-sigle").value.trim();
+        const type = document.getElementById("f-type").value;
         const ville = document.getElementById("f-ville").value.trim();
+
         if (!nom || !sigle || !ville) {
-          afficherToast("Nom, sigle et ville sont obligatoires.", true);
+          showToast("Veuillez remplir les champs obligatoires (*).", "error");
           return;
         }
-        const formations = [
-          ...document
-            .getElementById("formations-container")
-            .querySelectorAll(".formation-bloc"),
-        ]
-          .map((b) => ({
-            nom: b.querySelector(".fn-nom").value.trim(),
-            domaine: b.querySelector(".fn-domaine").value.trim(),
-            duree: b.querySelector(".fn-duree").value.trim(),
-            moyenne_requise: parseFloat(b.querySelector(".fn-moy").value) || 10,
-            description: b.querySelector(".fn-desc").value.trim(),
-            series_acceptees: b
-              .querySelector(".fn-series")
-              .value.split(",")
-              .map((s) => s.trim())
-              .filter(Boolean),
-            debouches: b
-              .querySelector(".fn-debouches")
-              .value.split(",")
-              .map((s) => s.trim())
-              .filter(Boolean),
-          }))
-          .filter((f) => f.nom && f.domaine);
+
+        // Récupérer les blocs formations
+        const blocs = document.querySelectorAll(
+          "#formations-container .formation-bloc",
+        );
+        if (blocs.length > MAX_FORMATIONS) {
+          showToast("Maximum de 10 formations atteint", "warning");
+          return;
+        }
+        const formations = [];
+        blocs.forEach((b, idx) => {
+          const fNom = b.querySelector(".f-form-nom").value.trim();
+          if (fNom) {
+            formations.push({
+              id: Date.now() + idx,
+              nom: fNom,
+              domaine: b.querySelector(".f-form-domaine").value.trim(),
+              duree: b.querySelector(".f-form-duree").value.trim(),
+              moyenne_requise:
+                parseFloat(b.querySelector(".f-form-moyenne").value) || 10,
+              series_acceptees: b
+                .querySelector(".f-form-series")
+                .value.split(",")
+                .map((s) => s.trim())
+                .filter(Boolean),
+              debouches: b
+                .querySelector(".f-form-debouches")
+                .value.split(",")
+                .map((d) => d.trim())
+                .filter(Boolean),
+              description: b.querySelector(".f-form-desc").value.trim(),
+            });
+          }
+        });
+
         const payload = {
           nom,
           sigle,
           description: document.getElementById("f-description").value.trim(),
-          type: document.getElementById("f-type").value,
+          type,
           ville,
           quartier: document.getElementById("f-quartier").value.trim(),
           telephone: document.getElementById("f-telephone").value.trim(),
@@ -1212,55 +1377,37 @@
             parseInt(document.getElementById("f-frais-max").value) || 0,
           formations,
         };
-        try {
-          const url = modeEdition
-            ? `${API}/ecoles/${idEdition}`
-            : `${API}/ecoles`;
-          const method = modeEdition ? "PUT" : "POST";
-          const res = await fetch(url, {
-            method,
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(payload),
-          });
-          const data = await res.json();
-          if (!data.success) throw new Error(data.message);
-          afficherToast(modeEdition ? "École mise à jour." : "École ajoutée.");
-          fermerModal();
-          chargerEcoles();
-          chargerStats();
-        } catch (err) {
-          afficherToast(
-            "Erreur : " + (err.message || "Serveur non disponible."),
-            true,
-          );
-        }
-      }
 
-      async function supprimer(id) {
-        if (
-          !confirm(
-            "Supprimer définitivement cette école et toutes ses formations ?",
-          )
-        )
-          return;
         try {
-          await fetch(`${API}/ecoles/${id}`, { method: "DELETE" });
-          afficherToast("École supprimée.");
-          chargerEcoles();
-          chargerStats();
+          let res;
+          if (modeEdition) {
+            res = await fetch(`${API}/ecoles/${idEdition}`, {
+              method: "PUT",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(payload),
+            });
+          } else {
+            res = await fetch(`${API}/ecoles`, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(payload),
+            });
+          }
+
+          if (res.ok) {
+            showToast(
+              modeEdition
+                ? "École modifiée avec succès !"
+                : "École ajoutée avec succès !",
+            );
+            fermerModal();
+            chargerEcoles();
+          } else {
+            showToast("Erreur lors de l'enregistrement.", "error");
+          }
         } catch {
-          afficherToast("Erreur lors de la suppression.", true);
+          showToast("Erreur réseau du serveur.", "error");
         }
-      }
-
-      /* ── TOAST ── */
-      let toastTimer;
-      function afficherToast(msg, err = false) {
-        const t = document.getElementById("toast");
-        t.innerHTML = `${err ? ICO_ERR : ICO_CHECK} ${msg}`;
-        t.className = "toast" + (err ? " error" : "") + " show";
-        clearTimeout(toastTimer);
-        toastTimer = setTimeout(() => t.classList.remove("show"), 3200);
       }
     </script>
   </body>

@@ -21,8 +21,18 @@
           "nom": "Licence en Droit",
           "domaine": "Droit",
           "duree": "3 ans",
-          "debouches": ["Avocat", "Magistrat", "Juriste d'entreprise", "Notaire"],
-          "series_acceptees": ["A", "B", "C", "D"],
+          "debouches": [
+            "Avocat",
+            "Magistrat",
+            "Juriste d'entreprise",
+            "Notaire"
+          ],
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D"
+          ],
           "moyenne_requise": 11,
           "description": "Formation généraliste en droit privé, droit public et droit international."
         },
@@ -31,8 +41,16 @@
           "nom": "Licence en Sciences Économiques",
           "domaine": "Économie",
           "duree": "3 ans",
-          "debouches": ["Économiste", "Analyste financier", "Banquier"],
-          "series_acceptees": ["B", "C", "D"],
+          "debouches": [
+            "Économiste",
+            "Analyste financier",
+            "Banquier"
+          ],
+          "series_acceptees": [
+            "B",
+            "C",
+            "D"
+          ],
           "moyenne_requise": 11,
           "description": "Étude des mécanismes économiques, microéconomie et macroéconomie."
         },
@@ -41,10 +59,144 @@
           "nom": "Licence en Médecine",
           "domaine": "Santé",
           "duree": "7 ans",
-          "debouches": ["Médecin généraliste", "Spécialiste", "Chirurgien"],
-          "series_acceptees": ["C", "D"],
+          "debouches": [
+            "Médecin généraliste",
+            "Spécialiste",
+            "Chirurgien"
+          ],
+          "series_acceptees": [
+            "C",
+            "D"
+          ],
           "moyenne_requise": 14,
           "description": "Formation médicale complète du premier cycle au doctorat d'État."
+        },
+        {
+          "nom": "Doctorat en Pharmacie",
+          "domaine": "Santé",
+          "duree": "6 ans",
+          "moyenne_requise": 13.5,
+          "series_acceptees": [
+            "C",
+            "D"
+          ],
+          "debouches": [
+            "Pharmacien d'officine",
+            "Pharmacien hospitalier",
+            "Responsable qualité"
+          ],
+          "description": "Études pharmaceutiques complètes jusqu'au doctorat d'État.",
+          "id": 104
+        },
+        {
+          "nom": "Doctorat en Chirurgie Dentaire",
+          "domaine": "Santé",
+          "duree": "6 ans",
+          "moyenne_requise": 13.5,
+          "series_acceptees": [
+            "C",
+            "D"
+          ],
+          "debouches": [
+            "Chirurgien-dentiste",
+            "Orthodontiste",
+            "Praticien hospitalier"
+          ],
+          "description": "Odontologie, soins bucco-dentaires et chirurgie.",
+          "id": 105
+        },
+        {
+          "nom": "Licence en Lettres Modernes",
+          "domaine": "Lettres",
+          "duree": "3 ans",
+          "moyenne_requise": 10,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D"
+          ],
+          "debouches": [
+            "Enseignant",
+            "Écrivain",
+            "Journaliste",
+            "Éditeur"
+          ],
+          "description": "Littérature francophone, linguistique et expression écrite.",
+          "id": 106
+        },
+        {
+          "nom": "Licence en Mathématiques-Informatique",
+          "domaine": "Sciences",
+          "duree": "3 ans",
+          "moyenne_requise": 11,
+          "series_acceptees": [
+            "C",
+            "D",
+            "E"
+          ],
+          "debouches": [
+            "Statisticien",
+            "Développeur",
+            "Data analyst"
+          ],
+          "description": "Algèbre, analyse, probabilités et programmation.",
+          "id": 107
+        },
+        {
+          "nom": "Licence en Physique-Chimie",
+          "domaine": "Sciences",
+          "duree": "3 ans",
+          "moyenne_requise": 11,
+          "series_acceptees": [
+            "C",
+            "D"
+          ],
+          "debouches": [
+            "Ingénieur laboratoire",
+            "Enseignant",
+            "Chercheur"
+          ],
+          "description": "Fondamentaux de la physique et de la chimie appliquées.",
+          "id": 108
+        },
+        {
+          "nom": "Licence en Psychologie",
+          "domaine": "Sciences Humaines",
+          "duree": "3 ans",
+          "moyenne_requise": 10,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D"
+          ],
+          "debouches": [
+            "Psychologue",
+            "Conseiller d'orientation",
+            "Chargé de recrutement"
+          ],
+          "description": "Psychologie clinique, sociale et du développement.",
+          "id": 109
+        },
+        {
+          "nom": "Licence en Sciences de Gestion",
+          "domaine": "Gestion",
+          "duree": "3 ans",
+          "moyenne_requise": 11,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D"
+          ],
+          "debouches": [
+            "Gestionnaire",
+            "Contrôleur de gestion",
+            "Entrepreneur"
+          ],
+          "description": "Comptabilité, finance et management des organisations.",
+          "id": 110
         }
       ]
     },
@@ -69,10 +221,173 @@
           "nom": "Licence en Sciences de la Nature",
           "domaine": "Sciences",
           "duree": "3 ans",
-          "debouches": ["Environnementaliste", "Botaniste", "Ingénieur Écologue"],
-          "series_acceptees": ["C", "D"],
+          "debouches": [
+            "Environnementaliste",
+            "Botaniste",
+            "Ingénieur Écologue"
+          ],
+          "series_acceptees": [
+            "C",
+            "D"
+          ],
           "moyenne_requise": 11,
           "description": "Spécialisation en biologie végétale, zoologie et sciences environnementales."
+        },
+        {
+          "nom": "Licence en Sciences de la Terre",
+          "domaine": "Sciences",
+          "duree": "3 ans",
+          "moyenne_requise": 11,
+          "series_acceptees": [
+            "C",
+            "D"
+          ],
+          "debouches": [
+            "Géologue",
+            "Hydrogéologue",
+            "Consultant environnement"
+          ],
+          "description": "Géologie, pédologie et cartographie du sous-sol.",
+          "id": 202
+        },
+        {
+          "nom": "Licence en Biochimie-Microbiologie",
+          "domaine": "Sciences",
+          "duree": "3 ans",
+          "moyenne_requise": 11,
+          "series_acceptees": [
+            "C",
+            "D"
+          ],
+          "debouches": [
+            "Biochimiste",
+            "Technicien de laboratoire",
+            "Qualiticien"
+          ],
+          "description": "Biochimie des aliments, microbiologie et biotechnologies.",
+          "id": 203
+        },
+        {
+          "nom": "Licence en Génie Chimique et Procédés",
+          "domaine": "Industrie",
+          "duree": "3 ans",
+          "moyenne_requise": 11.5,
+          "series_acceptees": [
+            "C",
+            "D",
+            "E"
+          ],
+          "debouches": [
+            "Ingénieur procédés",
+            "Chef de production",
+            "Technicien chimiste"
+          ],
+          "description": "Procédés industriels, bilans matière et énergie.",
+          "id": 204
+        },
+        {
+          "nom": "Licence en Sciences et Technologie des Aliments",
+          "domaine": "Agroalimentaire",
+          "duree": "3 ans",
+          "moyenne_requise": 11,
+          "series_acceptees": [
+            "C",
+            "D"
+          ],
+          "debouches": [
+            "Ingénieur agroalimentaire",
+            "Responsable qualité",
+            "Technologue"
+          ],
+          "description": "Transformation, conservation et sécurité des aliments.",
+          "id": 205
+        },
+        {
+          "nom": "Licence en Mathématiques-Physique-Chimie",
+          "domaine": "Sciences",
+          "duree": "3 ans",
+          "moyenne_requise": 11,
+          "series_acceptees": [
+            "C",
+            "D",
+            "E"
+          ],
+          "debouches": [
+            "Enseignant",
+            "Technicien supérieur",
+            "Chercheur"
+          ],
+          "description": "Socle scientifique pluridisciplinaire.",
+          "id": 206
+        },
+        {
+          "nom": "Licence en Informatique",
+          "domaine": "Informatique",
+          "duree": "3 ans",
+          "moyenne_requise": 11,
+          "series_acceptees": [
+            "C",
+            "D",
+            "E"
+          ],
+          "debouches": [
+            "Développeur",
+            "Administrateur système",
+            "Analyste programmeur"
+          ],
+          "description": "Programmation, bases de données et réseaux.",
+          "id": 207
+        },
+        {
+          "nom": "Licence en Biotechnologies",
+          "domaine": "Sciences",
+          "duree": "3 ans",
+          "moyenne_requise": 11.5,
+          "series_acceptees": [
+            "C",
+            "D"
+          ],
+          "debouches": [
+            "Biotechnologue",
+            "Chargé de R&D",
+            "Technicien biologiste"
+          ],
+          "description": "Génie génétique et applications industrielles du vivant.",
+          "id": 208
+        },
+        {
+          "nom": "Master en Gestion des Ressources en Eau",
+          "domaine": "Environnement",
+          "duree": "2 ans",
+          "moyenne_requise": 12,
+          "series_acceptees": [
+            "C",
+            "D"
+          ],
+          "debouches": [
+            "Hydrologue",
+            "Expert eau et assainissement",
+            "Consultant"
+          ],
+          "description": "Ressources hydriques, qualité de l'eau et aménagement.",
+          "id": 209
+        },
+        {
+          "nom": "Licence en Sciences de l'Environnement",
+          "domaine": "Environnement",
+          "duree": "3 ans",
+          "moyenne_requise": 11,
+          "series_acceptees": [
+            "C",
+            "D"
+          ],
+          "debouches": [
+            "Chargé d'études environnementales",
+            "Ingénieur HSE",
+            "Écologue"
+          ],
+          "description": "Écologie appliquée, pollution et développement durable.",
+          "id": 210
         }
       ]
     },
@@ -97,10 +412,184 @@
           "nom": "Licence en Sociologie",
           "domaine": "Sciences Humaines",
           "duree": "3 ans",
-          "debouches": ["Sociologue", "Chargé d'études sociales", "Ressources Humaines"],
-          "series_acceptees": ["A", "B", "C", "D"],
+          "debouches": [
+            "Sociologue",
+            "Chargé d'études sociales",
+            "Ressources Humaines"
+          ],
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D"
+          ],
           "moyenne_requise": 10,
           "description": "Analyse des dynamiques sociales et comportementales."
+        },
+        {
+          "nom": "Licence en Lettres Modernes",
+          "domaine": "Lettres",
+          "duree": "3 ans",
+          "moyenne_requise": 10,
+          "series_acceptees": [
+            "A",
+            "B"
+          ],
+          "debouches": [
+            "Enseignant",
+            "Journaliste",
+            "Éditeur"
+          ],
+          "description": "Littérature, linguistique et techniques d'écriture.",
+          "id": 302
+        },
+        {
+          "nom": "Licence en Histoire",
+          "domaine": "Sciences Humaines",
+          "duree": "3 ans",
+          "moyenne_requise": 10,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D"
+          ],
+          "debouches": [
+            "Historien",
+            "Archiviste",
+            "Enseignant"
+          ],
+          "description": "Histoire de la Côte d'Ivoire et de l'Afrique.",
+          "id": 303
+        },
+        {
+          "nom": "Licence en Droit Public",
+          "domaine": "Droit",
+          "duree": "3 ans",
+          "moyenne_requise": 11,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D"
+          ],
+          "debouches": [
+            "Administrateur civil",
+            "Juriste",
+            "Magistrat"
+          ],
+          "description": "Droit constitutionnel, administratif et institutions.",
+          "id": 304
+        },
+        {
+          "nom": "Licence en Sciences Économiques",
+          "domaine": "Économie",
+          "duree": "3 ans",
+          "moyenne_requise": 11,
+          "series_acceptees": [
+            "B",
+            "C",
+            "D"
+          ],
+          "debouches": [
+            "Économiste",
+            "Analyste",
+            "Chargé d'études"
+          ],
+          "description": "Micro, macroéconomie et économie du développement.",
+          "id": 305
+        },
+        {
+          "nom": "Licence en Mathématiques",
+          "domaine": "Sciences",
+          "duree": "3 ans",
+          "moyenne_requise": 11,
+          "series_acceptees": [
+            "C",
+            "D",
+            "E"
+          ],
+          "debouches": [
+            "Enseignant",
+            "Statisticien",
+            "Actuaire junior"
+          ],
+          "description": "Analyse, algèbre et probabilités.",
+          "id": 306
+        },
+        {
+          "nom": "Licence en Physique-Chimie",
+          "domaine": "Sciences",
+          "duree": "3 ans",
+          "moyenne_requise": 11,
+          "series_acceptees": [
+            "C",
+            "D"
+          ],
+          "debouches": [
+            "Technicien supérieur",
+            "Enseignant",
+            "Chercheur"
+          ],
+          "description": "Physique générale et chimie des matériaux.",
+          "id": 307
+        },
+        {
+          "nom": "Licence en Géographie",
+          "domaine": "Sciences Humaines",
+          "duree": "3 ans",
+          "moyenne_requise": 10,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D"
+          ],
+          "debouches": [
+            "Géographe",
+            "Aménageur",
+            "Cartographe"
+          ],
+          "description": "Géographie physique, humaine et aménagement.",
+          "id": 308
+        },
+        {
+          "nom": "Licence en Anglais (LLCE)",
+          "domaine": "Lettres",
+          "duree": "3 ans",
+          "moyenne_requise": 10,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D"
+          ],
+          "debouches": [
+            "Traducteur",
+            "Enseignant d'anglais",
+            "Interprète"
+          ],
+          "description": "Langue, littérature et civilisation anglophones.",
+          "id": 309
+        },
+        {
+          "nom": "Licence en Philosophie",
+          "domaine": "Sciences Humaines",
+          "duree": "3 ans",
+          "moyenne_requise": 10,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D"
+          ],
+          "debouches": [
+            "Enseignant",
+            "Consultant en éthique",
+            "Chercheur"
+          ],
+          "description": "Histoire des idées, logique et éthique.",
+          "id": 310
         }
       ]
     },
@@ -125,10 +614,175 @@
           "nom": "Licence en Agronomie",
           "domaine": "Agriculture",
           "duree": "3 ans",
-          "debouches": ["Ingénieur agronome", "Gestionnaire d'exploitations", "Conseiller agricole"],
-          "series_acceptees": ["C", "D"],
+          "debouches": [
+            "Ingénieur agronome",
+            "Gestionnaire d'exploitations",
+            "Conseiller agricole"
+          ],
+          "series_acceptees": [
+            "C",
+            "D"
+          ],
           "moyenne_requise": 11,
           "description": "Sciences agronomiques appliquées au développement rural."
+        },
+        {
+          "nom": "Licence en Sciences Économiques et Gestion",
+          "domaine": "Économie",
+          "duree": "3 ans",
+          "moyenne_requise": 11,
+          "series_acceptees": [
+            "B",
+            "C",
+            "D"
+          ],
+          "debouches": [
+            "Économiste",
+            "Gestionnaire",
+            "Chargé de projets"
+          ],
+          "description": "Économie rurale, gestion et développement régional.",
+          "id": 402
+        },
+        {
+          "nom": "Licence en Biochimie",
+          "domaine": "Sciences",
+          "duree": "3 ans",
+          "moyenne_requise": 11,
+          "series_acceptees": [
+            "C",
+            "D"
+          ],
+          "debouches": [
+            "Biochimiste",
+            "Technicien de laboratoire"
+          ],
+          "description": "Biochimie générale et applications agronomiques.",
+          "id": 403
+        },
+        {
+          "nom": "Licence en Sciences Juridiques",
+          "domaine": "Droit",
+          "duree": "3 ans",
+          "moyenne_requise": 10.5,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D"
+          ],
+          "debouches": [
+            "Juriste",
+            "Greffier",
+            "Collaborateur d'avocat"
+          ],
+          "description": "Droit privé, droit public et procédures.",
+          "id": 404
+        },
+        {
+          "nom": "Licence en Lettres Modernes",
+          "domaine": "Lettres",
+          "duree": "3 ans",
+          "moyenne_requise": 10,
+          "series_acceptees": [
+            "A",
+            "B"
+          ],
+          "debouches": [
+            "Enseignant",
+            "Journaliste",
+            "Éditeur"
+          ],
+          "description": "Littérature francophone et expression.",
+          "id": 405
+        },
+        {
+          "nom": "Licence en Géographie",
+          "domaine": "Sciences Humaines",
+          "duree": "3 ans",
+          "moyenne_requise": 10,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D"
+          ],
+          "debouches": [
+            "Géographe",
+            "Aménageur",
+            "Cartographe"
+          ],
+          "description": "Aménagement du territoire et environnement du nord.",
+          "id": 406
+        },
+        {
+          "nom": "Licence en Informatique",
+          "domaine": "Informatique",
+          "duree": "3 ans",
+          "moyenne_requise": 11,
+          "series_acceptees": [
+            "C",
+            "D",
+            "E"
+          ],
+          "debouches": [
+            "Développeur",
+            "Technicien réseau",
+            "Administrateur"
+          ],
+          "description": "Programmation et systèmes d'information.",
+          "id": 407
+        },
+        {
+          "nom": "Licence en Production Animale",
+          "domaine": "Agriculture",
+          "duree": "3 ans",
+          "moyenne_requise": 11,
+          "series_acceptees": [
+            "C",
+            "D"
+          ],
+          "debouches": [
+            "Zootechnicien",
+            "Éleveur-gestionnaire",
+            "Conseiller agricole"
+          ],
+          "description": "Élevage, nutrition animale et santé du bétail.",
+          "id": 408
+        },
+        {
+          "nom": "Licence en Sciences du Sol et Environnement",
+          "domaine": "Agriculture",
+          "duree": "3 ans",
+          "moyenne_requise": 11,
+          "series_acceptees": [
+            "C",
+            "D"
+          ],
+          "debouches": [
+            "Pédologue",
+            "Agro-environnementaliste",
+            "Technicien agricole"
+          ],
+          "description": "Fertilité des sols et gestion durable des terres.",
+          "id": 409
+        },
+        {
+          "nom": "Master en Développement Rural",
+          "domaine": "Agriculture",
+          "duree": "2 ans",
+          "moyenne_requise": 12,
+          "series_acceptees": [
+            "C",
+            "D"
+          ],
+          "debouches": [
+            "Chef de projet rural",
+            "Consultant ONG",
+            "Coordinateur agricole"
+          ],
+          "description": "Conception et pilotage de projets de développement rural.",
+          "id": 410
         }
       ]
     },
@@ -153,10 +807,177 @@
           "nom": "Licence en Mines et Géologie",
           "domaine": "Sciences",
           "duree": "3 ans",
-          "debouches": ["Géologue", "Ingénieur minier", "Prospection d'énergie"],
-          "series_acceptees": ["C", "D", "E"],
+          "debouches": [
+            "Géologue",
+            "Ingénieur minier",
+            "Prospection d'énergie"
+          ],
+          "series_acceptees": [
+            "C",
+            "D",
+            "E"
+          ],
           "moyenne_requise": 12,
           "description": "Exploration minière et exploitation rationnelle des ressources du sol."
+        },
+        {
+          "nom": "Licence en Génie Électrique et Énergie",
+          "domaine": "Industrie",
+          "duree": "3 ans",
+          "moyenne_requise": 11.5,
+          "series_acceptees": [
+            "C",
+            "D",
+            "E"
+          ],
+          "debouches": [
+            "Ingénieur énergie",
+            "Technicien électricien",
+            "Chef de maintenance"
+          ],
+          "description": "Réseaux électriques, énergies renouvelables et automatismes.",
+          "id": 502
+        },
+        {
+          "nom": "Licence en Génie Civil",
+          "domaine": "BTP",
+          "duree": "3 ans",
+          "moyenne_requise": 11.5,
+          "series_acceptees": [
+            "C",
+            "D",
+            "E"
+          ],
+          "debouches": [
+            "Conducteur de travaux",
+            "Ingénieur BTP",
+            "Chef de chantier"
+          ],
+          "description": "Structures, géotechnique et gestion de chantier.",
+          "id": 503
+        },
+        {
+          "nom": "Licence en Métallurgie et Matériaux",
+          "domaine": "Industrie",
+          "duree": "3 ans",
+          "moyenne_requise": 11.5,
+          "series_acceptees": [
+            "C",
+            "D",
+            "E"
+          ],
+          "debouches": [
+            "Ingénieur métallurgiste",
+            "Contrôleur qualité",
+            "Technicien matériaux"
+          ],
+          "description": "Élaboration et traitement des métaux.",
+          "id": 504
+        },
+        {
+          "nom": "Licence en Informatique",
+          "domaine": "Informatique",
+          "duree": "3 ans",
+          "moyenne_requise": 11,
+          "series_acceptees": [
+            "C",
+            "D",
+            "E"
+          ],
+          "debouches": [
+            "Développeur",
+            "Administrateur système",
+            "Technicien réseau"
+          ],
+          "description": "Programmation, systèmes et bases de données.",
+          "id": 505
+        },
+        {
+          "nom": "Licence en Hydrogéologie",
+          "domaine": "Sciences",
+          "duree": "3 ans",
+          "moyenne_requise": 11.5,
+          "series_acceptees": [
+            "C",
+            "D"
+          ],
+          "debouches": [
+            "Hydrogéologue",
+            "Foreur",
+            "Consultant eau"
+          ],
+          "description": "Prospection et gestion des eaux souterraines.",
+          "id": 506
+        },
+        {
+          "nom": "Licence en Génie Mécanique",
+          "domaine": "Industrie",
+          "duree": "3 ans",
+          "moyenne_requise": 11.5,
+          "series_acceptees": [
+            "C",
+            "D",
+            "E"
+          ],
+          "debouches": [
+            "Mécanicien industriel",
+            "Ingénieur maintenance",
+            "Dessinateur"
+          ],
+          "description": "Conception mécanique et fabrication.",
+          "id": 507
+        },
+        {
+          "nom": "Licence en Chimie Industrielle",
+          "domaine": "Industrie",
+          "duree": "3 ans",
+          "moyenne_requise": 11,
+          "series_acceptees": [
+            "C",
+            "D"
+          ],
+          "debouches": [
+            "Technicien chimiste",
+            "Responsable laboratoire",
+            "Chef d'unité"
+          ],
+          "description": "Procédés chimiques et contrôle de production.",
+          "id": 508
+        },
+        {
+          "nom": "Licence en Environnement et Développement Durable",
+          "domaine": "Environnement",
+          "duree": "3 ans",
+          "moyenne_requise": 11,
+          "series_acceptees": [
+            "C",
+            "D"
+          ],
+          "debouches": [
+            "Chargé HSE",
+            "Consultant environnement",
+            "Écologue"
+          ],
+          "description": "Impact environnemental des mines et gestion des risques.",
+          "id": 509
+        },
+        {
+          "nom": "Master en Ressources Minérales",
+          "domaine": "Sciences",
+          "duree": "2 ans",
+          "moyenne_requise": 12.5,
+          "series_acceptees": [
+            "C",
+            "D",
+            "E"
+          ],
+          "debouches": [
+            "Ingénieur géologue",
+            "Responsable d'exploration",
+            "Consultant minier"
+          ],
+          "description": "Valorisation et gestion des ressources minérales.",
+          "id": 510
         }
       ]
     },
@@ -181,10 +1002,184 @@
           "nom": "Licence Logistique Portuaire",
           "domaine": "Transport",
           "duree": "3 ans",
-          "debouches": ["Responsable transit", "Gestionnaire de stock portuaire", "Agent maritime"],
-          "series_acceptees": ["A", "B", "C", "D"],
+          "debouches": [
+            "Responsable transit",
+            "Gestionnaire de stock portuaire",
+            "Agent maritime"
+          ],
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D"
+          ],
           "moyenne_requise": 11,
           "description": "Spécialisation dans les échanges maritimes et logistiques internationales."
+        },
+        {
+          "nom": "Licence en Tourisme et Hôtellerie",
+          "domaine": "Tourisme",
+          "duree": "3 ans",
+          "moyenne_requise": 10.5,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D"
+          ],
+          "debouches": [
+            "Responsable d'hébergement",
+            "Guide",
+            "Chef de réception"
+          ],
+          "description": "Gestion hôtelière et valorisation touristique du littoral.",
+          "id": 602
+        },
+        {
+          "nom": "Licence en Halieutique et Aquaculture",
+          "domaine": "Agriculture",
+          "duree": "3 ans",
+          "moyenne_requise": 11,
+          "series_acceptees": [
+            "C",
+            "D"
+          ],
+          "debouches": [
+            "Aquaculteur",
+            "Technicien des pêches",
+            "Gestionnaire de ferme piscicole"
+          ],
+          "description": "Ressources halieutiques et élevage de poissons.",
+          "id": 603
+        },
+        {
+          "nom": "Licence en Management Portuaire",
+          "domaine": "Transport",
+          "duree": "3 ans",
+          "moyenne_requise": 11,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D"
+          ],
+          "debouches": [
+            "Gestionnaire de terminal",
+            "Agent portuaire",
+            "Coordinateur d'escale"
+          ],
+          "description": "Exploitation et organisation d'un port.",
+          "id": 604
+        },
+        {
+          "nom": "Licence en Droit Maritime",
+          "domaine": "Droit",
+          "duree": "3 ans",
+          "moyenne_requise": 11,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D"
+          ],
+          "debouches": [
+            "Juriste maritime",
+            "Courtier d'assurance maritime",
+            "Consignataire"
+          ],
+          "description": "Droit de la mer, transport et assurances maritimes.",
+          "id": 605
+        },
+        {
+          "nom": "Licence en Économie Maritime",
+          "domaine": "Économie",
+          "duree": "3 ans",
+          "moyenne_requise": 11,
+          "series_acceptees": [
+            "B",
+            "C",
+            "D"
+          ],
+          "debouches": [
+            "Analyste portuaire",
+            "Économiste des transports",
+            "Chargé d'études"
+          ],
+          "description": "Commerce maritime et économie des ports.",
+          "id": 606
+        },
+        {
+          "nom": "Licence en Informatique de Gestion",
+          "domaine": "Informatique",
+          "duree": "3 ans",
+          "moyenne_requise": 10.5,
+          "series_acceptees": [
+            "B",
+            "C",
+            "D",
+            "E"
+          ],
+          "debouches": [
+            "Analyste programmeur",
+            "Gestionnaire de SI",
+            "Développeur"
+          ],
+          "description": "Systèmes d'information appliqués à la logistique.",
+          "id": 607
+        },
+        {
+          "nom": "Licence en Génie Industriel",
+          "domaine": "Industrie",
+          "duree": "3 ans",
+          "moyenne_requise": 11.5,
+          "series_acceptees": [
+            "C",
+            "D",
+            "E"
+          ],
+          "debouches": [
+            "Ingénieur méthodes",
+            "Responsable production",
+            "Planificateur"
+          ],
+          "description": "Organisation industrielle et amélioration continue.",
+          "id": 608
+        },
+        {
+          "nom": "Licence en Commerce International",
+          "domaine": "Commerce",
+          "duree": "3 ans",
+          "moyenne_requise": 10.5,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D"
+          ],
+          "debouches": [
+            "Import-export",
+            "Responsable achats",
+            "Agent de transit"
+          ],
+          "description": "Techniques du commerce extérieur et incoterms.",
+          "id": 609
+        },
+        {
+          "nom": "Licence en Environnement Littoral",
+          "domaine": "Environnement",
+          "duree": "3 ans",
+          "moyenne_requise": 11,
+          "series_acceptees": [
+            "C",
+            "D"
+          ],
+          "debouches": [
+            "Chargé d'études côtières",
+            "Écologue marin",
+            "Consultant HSE"
+          ],
+          "description": "Gestion durable des zones côtières.",
+          "id": 610
         }
       ]
     },
@@ -209,10 +1204,182 @@
           "nom": "Licence Architecture & Urbanisme",
           "domaine": "Architecture",
           "duree": "3 ans",
-          "debouches": ["Architecte", "Urbaniste", "Chef de projet BTP"],
-          "series_acceptees": ["C", "D", "E"],
+          "debouches": [
+            "Architecte",
+            "Urbaniste",
+            "Chef de projet BTP"
+          ],
+          "series_acceptees": [
+            "C",
+            "D",
+            "E"
+          ],
           "moyenne_requise": 12.5,
           "description": "Conception d'espaces durables et aménagement des territoires urbains."
+        },
+        {
+          "nom": "Licence en Génie Civil",
+          "domaine": "BTP",
+          "duree": "3 ans",
+          "moyenne_requise": 12,
+          "series_acceptees": [
+            "C",
+            "D",
+            "E"
+          ],
+          "debouches": [
+            "Ingénieur BTP",
+            "Conducteur de travaux",
+            "Métreur"
+          ],
+          "description": "Matériaux, structures et gestion de chantier.",
+          "id": 702
+        },
+        {
+          "nom": "Licence en Gestion Urbaine",
+          "domaine": "Architecture",
+          "duree": "3 ans",
+          "moyenne_requise": 11.5,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D"
+          ],
+          "debouches": [
+            "Gestionnaire urbain",
+            "Chargé d'urbanisme",
+            "Agent foncier"
+          ],
+          "description": "Planification et gouvernance des villes.",
+          "id": 703
+        },
+        {
+          "nom": "Licence en Développement Durable",
+          "domaine": "Environnement",
+          "duree": "3 ans",
+          "moyenne_requise": 11,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D"
+          ],
+          "debouches": [
+            "Consultant RSE",
+            "Chargé de projets",
+            "Écologue"
+          ],
+          "description": "Transition écologique et projets durables.",
+          "id": 704
+        },
+        {
+          "nom": "Licence en Géomatique et SIG",
+          "domaine": "Informatique",
+          "duree": "3 ans",
+          "moyenne_requise": 11.5,
+          "series_acceptees": [
+            "C",
+            "D",
+            "E"
+          ],
+          "debouches": [
+            "Cartographe",
+            "Analyste SIG",
+            "Géomaticien"
+          ],
+          "description": "Systèmes d'information géographique et télédétection.",
+          "id": 705
+        },
+        {
+          "nom": "Licence en Topographie",
+          "domaine": "BTP",
+          "duree": "3 ans",
+          "moyenne_requise": 11.5,
+          "series_acceptees": [
+            "C",
+            "D",
+            "E"
+          ],
+          "debouches": [
+            "Géomètre",
+            "Topographe",
+            "Technicien foncier"
+          ],
+          "description": "Levés, cadastre et implantation.",
+          "id": 706
+        },
+        {
+          "nom": "Licence en Sciences de l'Environnement",
+          "domaine": "Environnement",
+          "duree": "3 ans",
+          "moyenne_requise": 11,
+          "series_acceptees": [
+            "C",
+            "D"
+          ],
+          "debouches": [
+            "Chargé HSE",
+            "Écologue",
+            "Technicien environnement"
+          ],
+          "description": "Écosystèmes, pollution et gestion des déchets.",
+          "id": 707
+        },
+        {
+          "nom": "Licence en Informatique",
+          "domaine": "Informatique",
+          "duree": "3 ans",
+          "moyenne_requise": 11,
+          "series_acceptees": [
+            "C",
+            "D",
+            "E"
+          ],
+          "debouches": [
+            "Développeur",
+            "Administrateur réseau",
+            "Technicien"
+          ],
+          "description": "Programmation et systèmes d'information.",
+          "id": 708
+        },
+        {
+          "nom": "Licence en Aménagement du Territoire",
+          "domaine": "Architecture",
+          "duree": "3 ans",
+          "moyenne_requise": 11.5,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D"
+          ],
+          "debouches": [
+            "Aménageur",
+            "Chargé de développement local",
+            "Planificateur"
+          ],
+          "description": "Politiques d'aménagement et développement local.",
+          "id": 709
+        },
+        {
+          "nom": "Master en Management de Projets BTP",
+          "domaine": "BTP",
+          "duree": "2 ans",
+          "moyenne_requise": 12.5,
+          "series_acceptees": [
+            "C",
+            "D",
+            "E"
+          ],
+          "debouches": [
+            "Chef de projet BTP",
+            "Directeur de travaux",
+            "Consultant"
+          ],
+          "description": "Pilotage coûts-délais-qualité des projets de construction.",
+          "id": 710
         }
       ]
     },
@@ -237,10 +1404,197 @@
           "nom": "Licence Informatique & Sciences Numériques",
           "domaine": "Informatique",
           "duree": "3 ans",
-          "debouches": ["Développeur Web", "Administrateur Système", "Spécialiste Sécurité"],
-          "series_acceptees": ["A", "B", "C", "D", "E", "F"],
+          "debouches": [
+            "Développeur Web",
+            "Administrateur Système",
+            "Spécialiste Sécurité"
+          ],
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "E",
+            "F"
+          ],
           "moyenne_requise": 10,
           "description": "Formation 100% en ligne axée sur la programmation, la data et le cloud."
+        },
+        {
+          "nom": "Licence Réseaux et Télécommunications",
+          "domaine": "Informatique",
+          "duree": "3 ans",
+          "moyenne_requise": 10.5,
+          "series_acceptees": [
+            "C",
+            "D",
+            "E",
+            "F"
+          ],
+          "debouches": [
+            "Administrateur réseau",
+            "Technicien télécom",
+            "Ingénieur réseau"
+          ],
+          "description": "Architecture réseau et administration à distance.",
+          "id": 802
+        },
+        {
+          "nom": "Licence Cybersécurité",
+          "domaine": "Informatique",
+          "duree": "3 ans",
+          "moyenne_requise": 11,
+          "series_acceptees": [
+            "C",
+            "D",
+            "E",
+            "F"
+          ],
+          "debouches": [
+            "Analyste sécurité",
+            "Pentester junior",
+            "Responsable SSI"
+          ],
+          "description": "Sécurisation des systèmes et des données.",
+          "id": 803
+        },
+        {
+          "nom": "Licence Systèmes d'Information et Gestion",
+          "domaine": "Informatique",
+          "duree": "3 ans",
+          "moyenne_requise": 10,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "E",
+            "F",
+            "G"
+          ],
+          "debouches": [
+            "Chef de projet SI",
+            "Analyste d'affaires",
+            "Consultant ERP"
+          ],
+          "description": "Conception de systèmes d'information d'entreprise.",
+          "id": 804
+        },
+        {
+          "nom": "Master Data Science et Intelligence Artificielle",
+          "domaine": "Informatique",
+          "duree": "2 ans",
+          "moyenne_requise": 12,
+          "series_acceptees": [
+            "C",
+            "D",
+            "E"
+          ],
+          "debouches": [
+            "Data scientist",
+            "Ingénieur IA",
+            "Analyste big data"
+          ],
+          "description": "Apprentissage automatique et analyse de données.",
+          "id": 805
+        },
+        {
+          "nom": "Master Génie Logiciel",
+          "domaine": "Informatique",
+          "duree": "2 ans",
+          "moyenne_requise": 12,
+          "series_acceptees": [
+            "C",
+            "D",
+            "E"
+          ],
+          "debouches": [
+            "Architecte logiciel",
+            "Développeur senior",
+            "Chef de projet"
+          ],
+          "description": "Conception et qualité logicielle avancées.",
+          "id": 806
+        },
+        {
+          "nom": "Licence Communication Digitale",
+          "domaine": "Communication",
+          "duree": "3 ans",
+          "moyenne_requise": 10,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
+          "debouches": [
+            "Community manager",
+            "Chargé de communication web",
+            "Webmaster"
+          ],
+          "description": "Stratégies de communication en ligne.",
+          "id": 807
+        },
+        {
+          "nom": "Licence Multimédia et Création Numérique",
+          "domaine": "Informatique",
+          "duree": "3 ans",
+          "moyenne_requise": 10,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "E",
+            "F"
+          ],
+          "debouches": [
+            "Graphiste",
+            "Intégrateur web",
+            "Motion designer"
+          ],
+          "description": "Conception graphique, vidéo et web.",
+          "id": 808
+        },
+        {
+          "nom": "Licence Gestion de Projets Numériques",
+          "domaine": "Management",
+          "duree": "3 ans",
+          "moyenne_requise": 10.5,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
+          "debouches": [
+            "Chef de projet digital",
+            "Product owner",
+            "Consultant"
+          ],
+          "description": "Méthodes agiles et pilotage de projets IT.",
+          "id": 809
+        },
+        {
+          "nom": "Licence Technologies de l'Éducation",
+          "domaine": "Éducation",
+          "duree": "3 ans",
+          "moyenne_requise": 10,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D"
+          ],
+          "debouches": [
+            "Concepteur pédagogique",
+            "Formateur en ligne",
+            "Tuteur numérique"
+          ],
+          "description": "Ingénierie pédagogique et e-learning.",
+          "id": 810
         }
       ]
     },
@@ -265,10 +1619,177 @@
           "nom": "Diplôme d'Ingénieur de Conception",
           "domaine": "Ingénierie",
           "duree": "5 ans",
-          "debouches": ["Ingénieur réseau", "Chef de projet technique", "Directeur de production"],
-          "series_acceptees": ["C", "D", "E"],
+          "debouches": [
+            "Ingénieur réseau",
+            "Chef de projet technique",
+            "Directeur de production"
+          ],
+          "series_acceptees": [
+            "C",
+            "D",
+            "E"
+          ],
           "moyenne_requise": 14.5,
           "description": "Recrutement sur prépa et concours pour former l'élite des ingénieurs."
+        },
+        {
+          "nom": "Diplôme d'Ingénieur en Génie Civil",
+          "domaine": "Ingénierie",
+          "duree": "5 ans",
+          "moyenne_requise": 14,
+          "series_acceptees": [
+            "C",
+            "D",
+            "E"
+          ],
+          "debouches": [
+            "Ingénieur structures",
+            "Chef de projet BTP",
+            "Directeur de travaux"
+          ],
+          "description": "Calcul de structures, ouvrages d'art et gestion de chantier.",
+          "id": 902
+        },
+        {
+          "nom": "Diplôme d'Ingénieur en Génie Électrique et Électronique",
+          "domaine": "Ingénierie",
+          "duree": "5 ans",
+          "moyenne_requise": 14,
+          "series_acceptees": [
+            "C",
+            "D",
+            "E"
+          ],
+          "debouches": [
+            "Ingénieur électricien",
+            "Ingénieur automatisme",
+            "Responsable maintenance"
+          ],
+          "description": "Électronique, électrotechnique et systèmes embarqués.",
+          "id": 903
+        },
+        {
+          "nom": "Diplôme d'Ingénieur en Génie Mécanique et Énergétique",
+          "domaine": "Ingénierie",
+          "duree": "5 ans",
+          "moyenne_requise": 14,
+          "series_acceptees": [
+            "C",
+            "D",
+            "E"
+          ],
+          "debouches": [
+            "Ingénieur mécanicien",
+            "Ingénieur énergie",
+            "Responsable production"
+          ],
+          "description": "Mécanique, thermique et efficacité énergétique.",
+          "id": 904
+        },
+        {
+          "nom": "Diplôme d'Ingénieur en Génie Chimique et Agroalimentaire",
+          "domaine": "Ingénierie",
+          "duree": "5 ans",
+          "moyenne_requise": 14,
+          "series_acceptees": [
+            "C",
+            "D"
+          ],
+          "debouches": [
+            "Ingénieur procédés",
+            "Directeur d'usine",
+            "Responsable R&D"
+          ],
+          "description": "Procédés chimiques et transformation agroalimentaire.",
+          "id": 905
+        },
+        {
+          "nom": "Diplôme d'Ingénieur des Mines et Géologie",
+          "domaine": "Ingénierie",
+          "duree": "5 ans",
+          "moyenne_requise": 14,
+          "series_acceptees": [
+            "C",
+            "D",
+            "E"
+          ],
+          "debouches": [
+            "Ingénieur minier",
+            "Géologue d'exploration",
+            "Directeur d'exploitation"
+          ],
+          "description": "Exploration, exploitation et traitement des minerais.",
+          "id": 906
+        },
+        {
+          "nom": "Diplôme d'Ingénieur Agronome",
+          "domaine": "Agriculture",
+          "duree": "5 ans",
+          "moyenne_requise": 14,
+          "series_acceptees": [
+            "C",
+            "D"
+          ],
+          "debouches": [
+            "Ingénieur agronome",
+            "Directeur d'exploitation",
+            "Chef de projet agricole"
+          ],
+          "description": "Productions végétales, animales et filières agricoles.",
+          "id": 907
+        },
+        {
+          "nom": "Diplôme d'Ingénieur en Informatique et Télécommunications",
+          "domaine": "Ingénierie",
+          "duree": "5 ans",
+          "moyenne_requise": 14.5,
+          "series_acceptees": [
+            "C",
+            "D",
+            "E"
+          ],
+          "debouches": [
+            "Ingénieur logiciel",
+            "Architecte réseau",
+            "Chef de projet IT"
+          ],
+          "description": "Systèmes, réseaux, développement et télécoms.",
+          "id": 908
+        },
+        {
+          "nom": "Classes Préparatoires aux Grandes Écoles",
+          "domaine": "Ingénierie",
+          "duree": "2 ans",
+          "moyenne_requise": 14,
+          "series_acceptees": [
+            "C",
+            "D",
+            "E"
+          ],
+          "debouches": [
+            "Élève ingénieur",
+            "Candidat aux écoles d'ingénieurs"
+          ],
+          "description": "Cycle préparatoire aux concours d'accès aux filières d'ingénieur.",
+          "id": 909
+        },
+        {
+          "nom": "Master en Management et Entrepreneuriat Industriel",
+          "domaine": "Management",
+          "duree": "2 ans",
+          "moyenne_requise": 13,
+          "series_acceptees": [
+            "C",
+            "D",
+            "E"
+          ],
+          "debouches": [
+            "Manager industriel",
+            "Entrepreneur",
+            "Directeur d'usine"
+          ],
+          "description": "Gestion d'entreprise appliquée à l'industrie.",
+          "id": 910
         }
       ]
     },
@@ -293,10 +1814,196 @@
           "nom": "Licence en Finance et Comptabilité",
           "domaine": "Gestion",
           "duree": "3 ans",
-          "debouches": ["Comptable", "Auditeur interne", "Contrôleur de gestion"],
-          "series_acceptees": ["B", "C", "D", "G2"],
+          "debouches": [
+            "Comptable",
+            "Auditeur interne",
+            "Contrôleur de gestion"
+          ],
+          "series_acceptees": [
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
           "moyenne_requise": 11,
           "description": "Enseignement théorique et pratique certifiant aux normes comptables."
+        },
+        {
+          "nom": "Licence en Informatique de Gestion",
+          "domaine": "Informatique",
+          "duree": "3 ans",
+          "moyenne_requise": 10.5,
+          "series_acceptees": [
+            "B",
+            "C",
+            "D",
+            "E",
+            "G"
+          ],
+          "debouches": [
+            "Analyste programmeur",
+            "Gestionnaire de SI",
+            "Développeur"
+          ],
+          "description": "Développement d'applications de gestion.",
+          "id": 1002
+        },
+        {
+          "nom": "Licence en Marketing et Communication",
+          "domaine": "Commerce",
+          "duree": "3 ans",
+          "moyenne_requise": 10.5,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
+          "debouches": [
+            "Chef de produit",
+            "Responsable marketing",
+            "Chargé de communication"
+          ],
+          "description": "Marketing stratégique et communication d'entreprise.",
+          "id": 1003
+        },
+        {
+          "nom": "Licence en Gestion des Ressources Humaines",
+          "domaine": "Gestion",
+          "duree": "3 ans",
+          "moyenne_requise": 10.5,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
+          "debouches": [
+            "Responsable RH",
+            "Chargé de recrutement",
+            "Gestionnaire de paie"
+          ],
+          "description": "Gestion du personnel et droit social.",
+          "id": 1004
+        },
+        {
+          "nom": "Licence en Droit des Affaires",
+          "domaine": "Droit",
+          "duree": "3 ans",
+          "moyenne_requise": 11,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D"
+          ],
+          "debouches": [
+            "Juriste d'entreprise",
+            "Consultant juridique",
+            "Fiscaliste"
+          ],
+          "description": "Droit commercial, des sociétés et OHADA.",
+          "id": 1005
+        },
+        {
+          "nom": "Licence en Banque et Assurance",
+          "domaine": "Finance",
+          "duree": "3 ans",
+          "moyenne_requise": 11,
+          "series_acceptees": [
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
+          "debouches": [
+            "Conseiller bancaire",
+            "Gestionnaire de sinistres",
+            "Chargé de clientèle"
+          ],
+          "description": "Techniques bancaires et produits d'assurance.",
+          "id": 1006
+        },
+        {
+          "nom": "Licence en Commerce International",
+          "domaine": "Commerce",
+          "duree": "3 ans",
+          "moyenne_requise": 10.5,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
+          "debouches": [
+            "Responsable import-export",
+            "Acheteur",
+            "Transitaire"
+          ],
+          "description": "Techniques du commerce extérieur.",
+          "id": 1007
+        },
+        {
+          "nom": "Bachelor in Business Administration",
+          "domaine": "Management",
+          "duree": "3 ans",
+          "moyenne_requise": 11,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
+          "debouches": [
+            "Manager",
+            "Entrepreneur",
+            "Consultant"
+          ],
+          "description": "Programme anglophone de gestion des affaires.",
+          "id": 1008
+        },
+        {
+          "nom": "Master en Finance d'Entreprise",
+          "domaine": "Finance",
+          "duree": "2 ans",
+          "moyenne_requise": 12,
+          "series_acceptees": [
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
+          "debouches": [
+            "Directeur financier",
+            "Analyste financier",
+            "Trésorier"
+          ],
+          "description": "Finance corporate et gestion des risques.",
+          "id": 1009
+        },
+        {
+          "nom": "Master en Management de Projets",
+          "domaine": "Management",
+          "duree": "2 ans",
+          "moyenne_requise": 12,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
+          "debouches": [
+            "Chef de projet",
+            "Directeur de programme",
+            "Consultant"
+          ],
+          "description": "Pilotage et évaluation de projets.",
+          "id": 1010
         }
       ]
     },
@@ -321,10 +2028,201 @@
           "nom": "Licence Administration des Entreprises",
           "domaine": "Management",
           "duree": "3 ans",
-          "debouches": ["Manager d'équipe", "Assistant de direction", "Consultant junior"],
-          "series_acceptees": ["A", "B", "C", "D", "G2"],
+          "debouches": [
+            "Manager d'équipe",
+            "Assistant de direction",
+            "Consultant junior"
+          ],
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
           "moyenne_requise": 11,
           "description": "Parcours professionnalisant axé sur la gestion opérationnelle de l'entreprise."
+        },
+        {
+          "nom": "BTS Comptabilité et Gestion",
+          "domaine": "Gestion",
+          "duree": "2 ans",
+          "moyenne_requise": 10,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
+          "debouches": [
+            "Comptable",
+            "Assistant contrôleur",
+            "Gestionnaire de paie"
+          ],
+          "description": "Comptabilité générale, analytique et fiscalité.",
+          "id": 1102
+        },
+        {
+          "nom": "BTS Assistant de Direction",
+          "domaine": "Management",
+          "duree": "2 ans",
+          "moyenne_requise": 10,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
+          "debouches": [
+            "Assistant de direction",
+            "Office manager",
+            "Secrétaire de direction"
+          ],
+          "description": "Organisation administrative et communication professionnelle.",
+          "id": 1103
+        },
+        {
+          "nom": "BTS Banque",
+          "domaine": "Finance",
+          "duree": "2 ans",
+          "moyenne_requise": 10,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
+          "debouches": [
+            "Chargé de clientèle",
+            "Guichetier",
+            "Conseiller bancaire"
+          ],
+          "description": "Opérations bancaires et relation client.",
+          "id": 1104
+        },
+        {
+          "nom": "BTS Commerce International",
+          "domaine": "Commerce",
+          "duree": "2 ans",
+          "moyenne_requise": 10,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
+          "debouches": [
+            "Assistant import-export",
+            "Agent de transit",
+            "Commercial export"
+          ],
+          "description": "Opérations d'import-export et logistique.",
+          "id": 1105
+        },
+        {
+          "nom": "BTS Communication des Entreprises",
+          "domaine": "Communication",
+          "duree": "2 ans",
+          "moyenne_requise": 10,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
+          "debouches": [
+            "Chargé de communication",
+            "Assistant événementiel",
+            "Community manager"
+          ],
+          "description": "Communication interne, externe et événementielle.",
+          "id": 1106
+        },
+        {
+          "nom": "BTS Informatique de Gestion",
+          "domaine": "Informatique",
+          "duree": "2 ans",
+          "moyenne_requise": 10,
+          "series_acceptees": [
+            "B",
+            "C",
+            "D",
+            "E",
+            "F",
+            "G"
+          ],
+          "debouches": [
+            "Développeur d'applications",
+            "Technicien support",
+            "Analyste programmeur"
+          ],
+          "description": "Programmation et bases de données de gestion.",
+          "id": 1107
+        },
+        {
+          "nom": "BTS Ressources Humaines",
+          "domaine": "Gestion",
+          "duree": "2 ans",
+          "moyenne_requise": 10,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
+          "debouches": [
+            "Assistant RH",
+            "Gestionnaire de paie",
+            "Chargé de recrutement"
+          ],
+          "description": "Administration du personnel et paie.",
+          "id": 1108
+        },
+        {
+          "nom": "Licence Marketing Digital",
+          "domaine": "Commerce",
+          "duree": "3 ans",
+          "moyenne_requise": 11,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
+          "debouches": [
+            "Responsable digital",
+            "Chef de produit web",
+            "Traffic manager"
+          ],
+          "description": "Stratégies marketing et publicité en ligne.",
+          "id": 1109
+        },
+        {
+          "nom": "Master Management des Organisations",
+          "domaine": "Management",
+          "duree": "2 ans",
+          "moyenne_requise": 12,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
+          "debouches": [
+            "Directeur adjoint",
+            "Consultant",
+            "Responsable de département"
+          ],
+          "description": "Pilotage stratégique des entreprises.",
+          "id": 1110
         }
       ]
     },
@@ -349,10 +2247,193 @@
           "nom": "Licence en Droit des Affaires",
           "domaine": "Droit",
           "duree": "3 ans",
-          "debouches": ["Juriste d'affaires", "Consultant fiscaliste", "Mandataire judiciaire"],
-          "series_acceptees": ["A", "B", "C", "D"],
+          "debouches": [
+            "Juriste d'affaires",
+            "Consultant fiscaliste",
+            "Mandataire judiciaire"
+          ],
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D"
+          ],
           "moyenne_requise": 12,
           "description": "Spécialisation juridique poussée avec séminaires professionnels de haut niveau."
+        },
+        {
+          "nom": "Licence en Gestion Financière",
+          "domaine": "Finance",
+          "duree": "3 ans",
+          "moyenne_requise": 11.5,
+          "series_acceptees": [
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
+          "debouches": [
+            "Analyste financier",
+            "Trésorier",
+            "Contrôleur de gestion"
+          ],
+          "description": "Finance d'entreprise et marchés.",
+          "id": 1202
+        },
+        {
+          "nom": "Licence en Marketing et Stratégie",
+          "domaine": "Commerce",
+          "duree": "3 ans",
+          "moyenne_requise": 11,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
+          "debouches": [
+            "Chef de produit",
+            "Responsable marketing",
+            "Consultant"
+          ],
+          "description": "Marketing, études de marché et stratégie commerciale.",
+          "id": 1203
+        },
+        {
+          "nom": "Licence en Gestion des Ressources Humaines",
+          "domaine": "Gestion",
+          "duree": "3 ans",
+          "moyenne_requise": 11,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
+          "debouches": [
+            "DRH adjoint",
+            "Chargé de formation",
+            "Recruteur"
+          ],
+          "description": "Gestion des talents et relations sociales.",
+          "id": 1204
+        },
+        {
+          "nom": "Master en Droit des Affaires",
+          "domaine": "Droit",
+          "duree": "2 ans",
+          "moyenne_requise": 12.5,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D"
+          ],
+          "debouches": [
+            "Avocat d'affaires",
+            "Juriste senior",
+            "Directeur juridique"
+          ],
+          "description": "Contrats, sociétés, fiscalité et droit OHADA.",
+          "id": 1205
+        },
+        {
+          "nom": "Licence en Comptabilité Contrôle Audit",
+          "domaine": "Gestion",
+          "duree": "3 ans",
+          "moyenne_requise": 11.5,
+          "series_acceptees": [
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
+          "debouches": [
+            "Comptable",
+            "Auditeur junior",
+            "Contrôleur de gestion"
+          ],
+          "description": "Comptabilité approfondie et audit.",
+          "id": 1206
+        },
+        {
+          "nom": "Licence en Droit Privé",
+          "domaine": "Droit",
+          "duree": "3 ans",
+          "moyenne_requise": 11.5,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D"
+          ],
+          "debouches": [
+            "Juriste",
+            "Clerc",
+            "Collaborateur d'avocat"
+          ],
+          "description": "Droit civil, des obligations et procédure.",
+          "id": 1207
+        },
+        {
+          "nom": "Licence en Relations Internationales",
+          "domaine": "Droit",
+          "duree": "3 ans",
+          "moyenne_requise": 11.5,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D"
+          ],
+          "debouches": [
+            "Diplomate",
+            "Chargé de coopération",
+            "Analyste"
+          ],
+          "description": "Diplomatie, institutions internationales et géopolitique.",
+          "id": 1208
+        },
+        {
+          "nom": "Master en Finance d'Entreprise",
+          "domaine": "Finance",
+          "duree": "2 ans",
+          "moyenne_requise": 12.5,
+          "series_acceptees": [
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
+          "debouches": [
+            "Directeur financier",
+            "Analyste crédit",
+            "Consultant"
+          ],
+          "description": "Ingénierie financière et gestion des risques.",
+          "id": 1209
+        },
+        {
+          "nom": "Master en Management Stratégique",
+          "domaine": "Management",
+          "duree": "2 ans",
+          "moyenne_requise": 12.5,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
+          "debouches": [
+            "Directeur de la stratégie",
+            "Consultant",
+            "Manager général"
+          ],
+          "description": "Stratégie d'entreprise et leadership.",
+          "id": 1210
         }
       ]
     },
@@ -377,10 +2458,194 @@
           "nom": "Bachelor in Computer Science",
           "domaine": "Informatique",
           "duree": "4 ans",
-          "debouches": ["Software Engineer", "Data Scientist", "Cloud Architect"],
-          "series_acceptees": ["C", "D", "E"],
+          "debouches": [
+            "Software Engineer",
+            "Data Scientist",
+            "Cloud Architect"
+          ],
+          "series_acceptees": [
+            "C",
+            "D",
+            "E"
+          ],
           "moyenne_requise": 12,
           "description": "Curriculum de haut niveau aux standards des universités américaines."
+        },
+        {
+          "nom": "Bachelor in Business Administration",
+          "domaine": "Management",
+          "duree": "4 ans",
+          "moyenne_requise": 12,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
+          "debouches": [
+            "Manager",
+            "Entrepreneur",
+            "Consultant"
+          ],
+          "description": "Management selon le modèle des universités américaines.",
+          "id": 1302
+        },
+        {
+          "nom": "Bachelor in International Business",
+          "domaine": "Commerce",
+          "duree": "4 ans",
+          "moyenne_requise": 12,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
+          "debouches": [
+            "Business developer",
+            "Responsable export",
+            "Consultant"
+          ],
+          "description": "Commerce mondial et négociation interculturelle.",
+          "id": 1303
+        },
+        {
+          "nom": "Bachelor in Economics",
+          "domaine": "Économie",
+          "duree": "4 ans",
+          "moyenne_requise": 12,
+          "series_acceptees": [
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
+          "debouches": [
+            "Économiste",
+            "Analyste",
+            "Chargé d'études"
+          ],
+          "description": "Analyse économique et méthodes quantitatives.",
+          "id": 1304
+        },
+        {
+          "nom": "Bachelor in Communication",
+          "domaine": "Communication",
+          "duree": "4 ans",
+          "moyenne_requise": 11.5,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
+          "debouches": [
+            "Chargé de communication",
+            "Journaliste",
+            "Responsable RP"
+          ],
+          "description": "Médias, relations publiques et communication.",
+          "id": 1305
+        },
+        {
+          "nom": "Bachelor in Finance",
+          "domaine": "Finance",
+          "duree": "4 ans",
+          "moyenne_requise": 12,
+          "series_acceptees": [
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
+          "debouches": [
+            "Analyste financier",
+            "Gestionnaire de portefeuille",
+            "Banquier"
+          ],
+          "description": "Marchés financiers et gestion d'actifs.",
+          "id": 1306
+        },
+        {
+          "nom": "Bachelor in Marketing",
+          "domaine": "Commerce",
+          "duree": "4 ans",
+          "moyenne_requise": 11.5,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
+          "debouches": [
+            "Brand manager",
+            "Chef de produit",
+            "Responsable marketing"
+          ],
+          "description": "Comportement du consommateur et marketing digital.",
+          "id": 1307
+        },
+        {
+          "nom": "Bachelor in Political Science",
+          "domaine": "Droit",
+          "duree": "4 ans",
+          "moyenne_requise": 12,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D"
+          ],
+          "debouches": [
+            "Analyste politique",
+            "Diplomate",
+            "Chargé de coopération"
+          ],
+          "description": "Institutions, politiques publiques et relations internationales.",
+          "id": 1308
+        },
+        {
+          "nom": "Bachelor in Information Systems",
+          "domaine": "Informatique",
+          "duree": "4 ans",
+          "moyenne_requise": 12,
+          "series_acceptees": [
+            "C",
+            "D",
+            "E",
+            "F"
+          ],
+          "debouches": [
+            "Analyste SI",
+            "Chef de projet IT",
+            "Consultant"
+          ],
+          "description": "Systèmes d'information et transformation digitale.",
+          "id": 1309
+        },
+        {
+          "nom": "Master of Business Administration (MBA)",
+          "domaine": "Management",
+          "duree": "2 ans",
+          "moyenne_requise": 13,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
+          "debouches": [
+            "Directeur général",
+            "Cadre dirigeant",
+            "Consultant senior"
+          ],
+          "description": "Programme de management général en anglais.",
+          "id": 1310
         }
       ]
     },
@@ -405,10 +2670,192 @@
           "nom": "Licence en Sciences de la Communication",
           "domaine": "Communication",
           "duree": "3 ans",
-          "debouches": ["Chargé de relations publiques", "Journaliste", "Attaché de presse"],
-          "series_acceptees": ["A", "B", "C", "D"],
+          "debouches": [
+            "Chargé de relations publiques",
+            "Journaliste",
+            "Attaché de presse"
+          ],
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D"
+          ],
           "moyenne_requise": 11,
           "description": "Formation aux métiers des médias, de l'événementiel et de la pub."
+        },
+        {
+          "nom": "Licence en Droit Privé",
+          "domaine": "Droit",
+          "duree": "3 ans",
+          "moyenne_requise": 11,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D"
+          ],
+          "debouches": [
+            "Juriste",
+            "Clerc de notaire",
+            "Collaborateur d'avocat"
+          ],
+          "description": "Droit civil, commercial et procédures.",
+          "id": 1402
+        },
+        {
+          "nom": "Licence en Gestion des Ressources Humaines",
+          "domaine": "Gestion",
+          "duree": "3 ans",
+          "moyenne_requise": 11,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
+          "debouches": [
+            "Responsable RH",
+            "Chargé de formation",
+            "Gestionnaire de paie"
+          ],
+          "description": "Gestion du personnel et droit du travail.",
+          "id": 1403
+        },
+        {
+          "nom": "Licence en Philosophie",
+          "domaine": "Sciences Humaines",
+          "duree": "3 ans",
+          "moyenne_requise": 10.5,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D"
+          ],
+          "debouches": [
+            "Enseignant",
+            "Consultant en éthique",
+            "Chercheur"
+          ],
+          "description": "Philosophie générale, éthique et pensée africaine.",
+          "id": 1404
+        },
+        {
+          "nom": "Licence en Gestion Comptabilité",
+          "domaine": "Gestion",
+          "duree": "3 ans",
+          "moyenne_requise": 11,
+          "series_acceptees": [
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
+          "debouches": [
+            "Comptable",
+            "Gestionnaire",
+            "Auditeur junior"
+          ],
+          "description": "Comptabilité, fiscalité et gestion financière.",
+          "id": 1405
+        },
+        {
+          "nom": "Licence en Informatique",
+          "domaine": "Informatique",
+          "duree": "3 ans",
+          "moyenne_requise": 11,
+          "series_acceptees": [
+            "C",
+            "D",
+            "E",
+            "F"
+          ],
+          "debouches": [
+            "Développeur",
+            "Administrateur système",
+            "Technicien réseau"
+          ],
+          "description": "Programmation, réseaux et bases de données.",
+          "id": 1406
+        },
+        {
+          "nom": "Licence en Sciences Juridiques et Politiques",
+          "domaine": "Droit",
+          "duree": "3 ans",
+          "moyenne_requise": 11,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D"
+          ],
+          "debouches": [
+            "Administrateur",
+            "Juriste",
+            "Chargé de mission"
+          ],
+          "description": "Droit public, institutions et science politique.",
+          "id": 1407
+        },
+        {
+          "nom": "Licence en Psychologie",
+          "domaine": "Sciences Humaines",
+          "duree": "3 ans",
+          "moyenne_requise": 11,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D"
+          ],
+          "debouches": [
+            "Psychologue",
+            "Conseiller",
+            "Chargé de recrutement"
+          ],
+          "description": "Psychologie du développement et clinique.",
+          "id": 1408
+        },
+        {
+          "nom": "Licence en Marketing et Commerce",
+          "domaine": "Commerce",
+          "duree": "3 ans",
+          "moyenne_requise": 11,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
+          "debouches": [
+            "Commercial",
+            "Chef de produit",
+            "Responsable marketing"
+          ],
+          "description": "Techniques de vente et stratégie marketing.",
+          "id": 1409
+        },
+        {
+          "nom": "Licence en Théologie",
+          "domaine": "Sciences Humaines",
+          "duree": "3 ans",
+          "moyenne_requise": 10,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D"
+          ],
+          "debouches": [
+            "Théologien",
+            "Enseignant",
+            "Aumônier"
+          ],
+          "description": "Études bibliques, théologiques et éthiques.",
+          "id": 1410
         }
       ]
     },
@@ -433,10 +2880,197 @@
           "nom": "Bachelor Kedge Business School",
           "domaine": "Commerce",
           "duree": "3 ans",
-          "debouches": ["Business Developer", "Chef de produit", "Acheteur international"],
-          "series_acceptees": ["A", "B", "C", "D"],
+          "debouches": [
+            "Business Developer",
+            "Chef de produit",
+            "Acheteur international"
+          ],
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D"
+          ],
           "moyenne_requise": 12.5,
           "description": "Diplôme international avec possibilité d'échanges d'études en Europe."
+        },
+        {
+          "nom": "Bachelor Finance et Comptabilité",
+          "domaine": "Finance",
+          "duree": "3 ans",
+          "moyenne_requise": 12,
+          "series_acceptees": [
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
+          "debouches": [
+            "Analyste financier",
+            "Comptable",
+            "Contrôleur de gestion"
+          ],
+          "description": "Finance d'entreprise et comptabilité internationale.",
+          "id": 1502
+        },
+        {
+          "nom": "Bachelor Marketing Digital",
+          "domaine": "Commerce",
+          "duree": "3 ans",
+          "moyenne_requise": 12,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
+          "debouches": [
+            "Responsable digital",
+            "Brand manager",
+            "Traffic manager"
+          ],
+          "description": "Marketing numérique, data et e-commerce.",
+          "id": 1503
+        },
+        {
+          "nom": "Master Management International",
+          "domaine": "Management",
+          "duree": "2 ans",
+          "moyenne_requise": 13,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
+          "debouches": [
+            "Manager international",
+            "Consultant",
+            "Directeur de filiale"
+          ],
+          "description": "Stratégie et management interculturel.",
+          "id": 1504
+        },
+        {
+          "nom": "MBA Executive",
+          "domaine": "Management",
+          "duree": "2 ans",
+          "moyenne_requise": 13.5,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
+          "debouches": [
+            "Cadre dirigeant",
+            "Directeur général",
+            "Entrepreneur"
+          ],
+          "description": "Programme de management pour cadres en poste.",
+          "id": 1505
+        },
+        {
+          "nom": "Bachelor Entrepreneuriat et Innovation",
+          "domaine": "Management",
+          "duree": "3 ans",
+          "moyenne_requise": 12,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
+          "debouches": [
+            "Entrepreneur",
+            "Intrapreneur",
+            "Chef de projet innovation"
+          ],
+          "description": "Création et développement de start-up.",
+          "id": 1506
+        },
+        {
+          "nom": "Bachelor Supply Chain et Logistique",
+          "domaine": "Logistique",
+          "duree": "3 ans",
+          "moyenne_requise": 12,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
+          "debouches": [
+            "Supply chain manager",
+            "Responsable logistique",
+            "Acheteur"
+          ],
+          "description": "Pilotage des flux et gestion des approvisionnements.",
+          "id": 1507
+        },
+        {
+          "nom": "Bachelor Business Digital",
+          "domaine": "Commerce",
+          "duree": "3 ans",
+          "moyenne_requise": 12,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
+          "debouches": [
+            "Chef de projet digital",
+            "Consultant e-business",
+            "Product owner"
+          ],
+          "description": "Transformation digitale des entreprises.",
+          "id": 1508
+        },
+        {
+          "nom": "Master Audit et Contrôle Financier",
+          "domaine": "Finance",
+          "duree": "2 ans",
+          "moyenne_requise": 13,
+          "series_acceptees": [
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
+          "debouches": [
+            "Auditeur",
+            "Contrôleur financier",
+            "Directeur comptable"
+          ],
+          "description": "Audit légal, interne et gouvernance.",
+          "id": 1509
+        },
+        {
+          "nom": "Bachelor Ressources Humaines",
+          "domaine": "Gestion",
+          "duree": "3 ans",
+          "moyenne_requise": 12,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
+          "debouches": [
+            "Responsable RH",
+            "Chargé de recrutement",
+            "Consultant RH"
+          ],
+          "description": "Stratégie RH et gestion des talents.",
+          "id": 1510
         }
       ]
     },
@@ -461,10 +3095,190 @@
           "nom": "BTS Informatique Développeur d'Application",
           "domaine": "Informatique",
           "duree": "2 ans",
-          "debouches": ["Développeur web", "Gestionnaire de base de données"],
-          "series_acceptees": ["C", "D", "E", "F2"],
+          "debouches": [
+            "Développeur web",
+            "Gestionnaire de base de données"
+          ],
+          "series_acceptees": [
+            "C",
+            "D",
+            "E",
+            "F"
+          ],
           "moyenne_requise": 10,
           "description": "Préparation intensive au BTS d'État et intégration rapide sur le marché du travail."
+        },
+        {
+          "nom": "BTS Réseaux Informatiques et Télécommunications",
+          "domaine": "Informatique",
+          "duree": "2 ans",
+          "moyenne_requise": 10,
+          "series_acceptees": [
+            "C",
+            "D",
+            "E",
+            "F"
+          ],
+          "debouches": [
+            "Technicien réseau",
+            "Administrateur systèmes",
+            "Installateur télécom"
+          ],
+          "description": "Câblage, configuration et maintenance de réseaux.",
+          "id": 1602
+        },
+        {
+          "nom": "BTS Informatique de Gestion",
+          "domaine": "Informatique",
+          "duree": "2 ans",
+          "moyenne_requise": 10,
+          "series_acceptees": [
+            "B",
+            "C",
+            "D",
+            "E",
+            "F",
+            "G"
+          ],
+          "debouches": [
+            "Analyste programmeur",
+            "Technicien support",
+            "Gestionnaire de parc"
+          ],
+          "description": "Développement d'applications de gestion.",
+          "id": 1603
+        },
+        {
+          "nom": "BTS Cybersécurité",
+          "domaine": "Informatique",
+          "duree": "2 ans",
+          "moyenne_requise": 10.5,
+          "series_acceptees": [
+            "C",
+            "D",
+            "E",
+            "F"
+          ],
+          "debouches": [
+            "Technicien sécurité",
+            "Analyste SOC junior",
+            "Administrateur sécurité"
+          ],
+          "description": "Sécurité des réseaux et des systèmes.",
+          "id": 1604
+        },
+        {
+          "nom": "Licence Génie Logiciel",
+          "domaine": "Informatique",
+          "duree": "3 ans",
+          "moyenne_requise": 11,
+          "series_acceptees": [
+            "C",
+            "D",
+            "E"
+          ],
+          "debouches": [
+            "Ingénieur logiciel",
+            "Développeur full-stack",
+            "Chef de projet"
+          ],
+          "description": "Conception, tests et déploiement d'applications.",
+          "id": 1605
+        },
+        {
+          "nom": "Licence Systèmes et Réseaux",
+          "domaine": "Informatique",
+          "duree": "3 ans",
+          "moyenne_requise": 11,
+          "series_acceptees": [
+            "C",
+            "D",
+            "E",
+            "F"
+          ],
+          "debouches": [
+            "Administrateur réseau",
+            "Ingénieur systèmes",
+            "Architecte junior"
+          ],
+          "description": "Administration de serveurs et virtualisation.",
+          "id": 1606
+        },
+        {
+          "nom": "BTS Gestion Commerciale",
+          "domaine": "Commerce",
+          "duree": "2 ans",
+          "moyenne_requise": 10,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
+          "debouches": [
+            "Commercial",
+            "Assistant manager",
+            "Gestionnaire clientèle"
+          ],
+          "description": "Techniques commerciales et gestion de la relation client.",
+          "id": 1607
+        },
+        {
+          "nom": "BTS Comptabilité et Gestion",
+          "domaine": "Gestion",
+          "duree": "2 ans",
+          "moyenne_requise": 10,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
+          "debouches": [
+            "Comptable",
+            "Assistant comptable",
+            "Gestionnaire de paie"
+          ],
+          "description": "Comptabilité générale et analytique.",
+          "id": 1608
+        },
+        {
+          "nom": "Licence Data et Intelligence Artificielle",
+          "domaine": "Informatique",
+          "duree": "3 ans",
+          "moyenne_requise": 11.5,
+          "series_acceptees": [
+            "C",
+            "D",
+            "E"
+          ],
+          "debouches": [
+            "Data analyst",
+            "Développeur IA",
+            "Consultant data"
+          ],
+          "description": "Statistiques, Python et apprentissage automatique.",
+          "id": 1609
+        },
+        {
+          "nom": "Master IT Management",
+          "domaine": "Informatique",
+          "duree": "2 ans",
+          "moyenne_requise": 12,
+          "series_acceptees": [
+            "C",
+            "D",
+            "E"
+          ],
+          "debouches": [
+            "DSI adjoint",
+            "Chef de projet IT",
+            "Consultant"
+          ],
+          "description": "Gouvernance et pilotage des systèmes d'information.",
+          "id": 1610
         }
       ]
     },
@@ -489,10 +3303,198 @@
           "nom": "Licence Marketing et Vente",
           "domaine": "Commerce",
           "duree": "3 ans",
-          "debouches": ["Chef de secteur", "Responsable commercial", "Community manager"],
-          "series_acceptees": ["A", "B", "C", "D", "G1"],
+          "debouches": [
+            "Chef de secteur",
+            "Responsable commercial",
+            "Community manager"
+          ],
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
           "moyenne_requise": 10.5,
           "description": "Techniques de vente modernes, stratégie d'entreprise et e-commerce."
+        },
+        {
+          "nom": "Licence Comptabilité et Finance",
+          "domaine": "Gestion",
+          "duree": "3 ans",
+          "moyenne_requise": 10.5,
+          "series_acceptees": [
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
+          "debouches": [
+            "Comptable",
+            "Analyste financier",
+            "Contrôleur de gestion"
+          ],
+          "description": "Comptabilité approfondie et finance d'entreprise.",
+          "id": 1702
+        },
+        {
+          "nom": "Licence Gestion des Ressources Humaines",
+          "domaine": "Gestion",
+          "duree": "3 ans",
+          "moyenne_requise": 10.5,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
+          "debouches": [
+            "Responsable RH",
+            "Chargé de recrutement",
+            "Gestionnaire de paie"
+          ],
+          "description": "Gestion du capital humain.",
+          "id": 1703
+        },
+        {
+          "nom": "Licence Commerce International",
+          "domaine": "Commerce",
+          "duree": "3 ans",
+          "moyenne_requise": 10.5,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
+          "debouches": [
+            "Responsable export",
+            "Acheteur",
+            "Transitaire"
+          ],
+          "description": "Opérations de commerce extérieur.",
+          "id": 1704
+        },
+        {
+          "nom": "Master Management des Entreprises",
+          "domaine": "Management",
+          "duree": "2 ans",
+          "moyenne_requise": 12,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
+          "debouches": [
+            "Directeur adjoint",
+            "Consultant",
+            "Chef de département"
+          ],
+          "description": "Management stratégique et pilotage.",
+          "id": 1705
+        },
+        {
+          "nom": "BTS Assistant Manager",
+          "domaine": "Management",
+          "duree": "2 ans",
+          "moyenne_requise": 10,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
+          "debouches": [
+            "Assistant de direction",
+            "Office manager",
+            "Assistant administratif"
+          ],
+          "description": "Gestion administrative et appui au management.",
+          "id": 1706
+        },
+        {
+          "nom": "BTS Communication d'Entreprise",
+          "domaine": "Communication",
+          "duree": "2 ans",
+          "moyenne_requise": 10,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
+          "debouches": [
+            "Chargé de communication",
+            "Assistant événementiel",
+            "Community manager"
+          ],
+          "description": "Outils de communication et événementiel.",
+          "id": 1707
+        },
+        {
+          "nom": "Licence Logistique et Transport",
+          "domaine": "Logistique",
+          "duree": "3 ans",
+          "moyenne_requise": 10.5,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
+          "debouches": [
+            "Responsable logistique",
+            "Agent de transit",
+            "Gestionnaire de stocks"
+          ],
+          "description": "Gestion des flux et du transport.",
+          "id": 1708
+        },
+        {
+          "nom": "Master Marketing et Communication",
+          "domaine": "Commerce",
+          "duree": "2 ans",
+          "moyenne_requise": 12,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
+          "debouches": [
+            "Directeur marketing",
+            "Chef de publicité",
+            "Consultant"
+          ],
+          "description": "Stratégie de marque et communication intégrée.",
+          "id": 1709
+        },
+        {
+          "nom": "Licence Banque et Finance",
+          "domaine": "Finance",
+          "duree": "3 ans",
+          "moyenne_requise": 11,
+          "series_acceptees": [
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
+          "debouches": [
+            "Conseiller clientèle",
+            "Analyste de crédit",
+            "Gestionnaire de comptes"
+          ],
+          "description": "Techniques bancaires et marchés financiers.",
+          "id": 1710
         }
       ]
     },
@@ -517,10 +3519,200 @@
           "nom": "BTS Transport & Logistique",
           "domaine": "Logistique",
           "duree": "2 ans",
-          "debouches": ["Responsable d'entrepôt", "Déclarant en douane", "Agent de fret"],
-          "series_acceptees": ["A", "B", "C", "D", "G2"],
+          "debouches": [
+            "Responsable d'entrepôt",
+            "Déclarant en douane",
+            "Agent de fret"
+          ],
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
           "moyenne_requise": 10,
           "description": "Apprentissage opérationnel de la chaîne logistique et de la douane."
+        },
+        {
+          "nom": "BTS Commerce International",
+          "domaine": "Commerce",
+          "duree": "2 ans",
+          "moyenne_requise": 10,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
+          "debouches": [
+            "Assistant import-export",
+            "Agent de transit",
+            "Commercial export"
+          ],
+          "description": "Opérations du commerce extérieur.",
+          "id": 1802
+        },
+        {
+          "nom": "BTS Gestion Commerciale",
+          "domaine": "Commerce",
+          "duree": "2 ans",
+          "moyenne_requise": 10,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
+          "debouches": [
+            "Commercial",
+            "Gestionnaire clientèle",
+            "Chef de rayon"
+          ],
+          "description": "Vente, négociation et gestion commerciale.",
+          "id": 1803
+        },
+        {
+          "nom": "BTS Transit et Douane",
+          "domaine": "Logistique",
+          "duree": "2 ans",
+          "moyenne_requise": 10,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
+          "debouches": [
+            "Déclarant en douane",
+            "Agent de transit",
+            "Gestionnaire de dossiers"
+          ],
+          "description": "Réglementation douanière et formalités d'import-export.",
+          "id": 1804
+        },
+        {
+          "nom": "Licence Logistique et Transport",
+          "domaine": "Logistique",
+          "duree": "3 ans",
+          "moyenne_requise": 10.5,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
+          "debouches": [
+            "Responsable logistique",
+            "Chef de parc",
+            "Planificateur transport"
+          ],
+          "description": "Organisation de la chaîne logistique.",
+          "id": 1805
+        },
+        {
+          "nom": "Licence Douane et Fiscalité",
+          "domaine": "Droit",
+          "duree": "3 ans",
+          "moyenne_requise": 11,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
+          "debouches": [
+            "Inspecteur de douane",
+            "Fiscaliste",
+            "Conseil en douane"
+          ],
+          "description": "Droit douanier et fiscalité des échanges.",
+          "id": 1806
+        },
+        {
+          "nom": "Licence Marketing et Vente",
+          "domaine": "Commerce",
+          "duree": "3 ans",
+          "moyenne_requise": 10.5,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
+          "debouches": [
+            "Responsable commercial",
+            "Chef de produit",
+            "Chargé d'études"
+          ],
+          "description": "Stratégies marketing et techniques de vente.",
+          "id": 1807
+        },
+        {
+          "nom": "BTS Assurance",
+          "domaine": "Finance",
+          "duree": "2 ans",
+          "moyenne_requise": 10,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
+          "debouches": [
+            "Gestionnaire de sinistres",
+            "Agent d'assurance",
+            "Chargé de clientèle"
+          ],
+          "description": "Produits d'assurance et gestion des contrats.",
+          "id": 1808
+        },
+        {
+          "nom": "Master Supply Chain Management",
+          "domaine": "Logistique",
+          "duree": "2 ans",
+          "moyenne_requise": 12,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
+          "debouches": [
+            "Supply chain manager",
+            "Directeur logistique",
+            "Consultant"
+          ],
+          "description": "Pilotage global des chaînes d'approvisionnement.",
+          "id": 1809
+        },
+        {
+          "nom": "Licence Commerce et Distribution",
+          "domaine": "Commerce",
+          "duree": "3 ans",
+          "moyenne_requise": 10.5,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
+          "debouches": [
+            "Responsable de magasin",
+            "Acheteur",
+            "Category manager"
+          ],
+          "description": "Gestion de la distribution et du merchandising.",
+          "id": 1810
         }
       ]
     },
@@ -545,10 +3737,190 @@
           "nom": "BTS Génie Électrique",
           "domaine": "Industrie",
           "duree": "2 ans",
-          "debouches": ["Technicien de maintenance", "Électricien industriel", "Domoticien"],
-          "series_acceptees": ["C", "D", "E", "F1"],
+          "debouches": [
+            "Technicien de maintenance",
+            "Électricien industriel",
+            "Domoticien"
+          ],
+          "series_acceptees": [
+            "C",
+            "D",
+            "E",
+            "F"
+          ],
           "moyenne_requise": 10,
           "description": "Maîtrise des installations électriques industrielles et automatismes."
+        },
+        {
+          "nom": "BTS Informatique Développeur d'Application",
+          "domaine": "Informatique",
+          "duree": "2 ans",
+          "moyenne_requise": 10,
+          "series_acceptees": [
+            "C",
+            "D",
+            "E",
+            "F"
+          ],
+          "debouches": [
+            "Développeur web",
+            "Programmeur",
+            "Technicien support"
+          ],
+          "description": "Programmation web et mobile.",
+          "id": 1902
+        },
+        {
+          "nom": "BTS Maintenance Industrielle",
+          "domaine": "Industrie",
+          "duree": "2 ans",
+          "moyenne_requise": 10,
+          "series_acceptees": [
+            "C",
+            "D",
+            "E",
+            "F"
+          ],
+          "debouches": [
+            "Technicien de maintenance",
+            "Chef d'équipe",
+            "Mécanicien industriel"
+          ],
+          "description": "Maintenance préventive et corrective des équipements.",
+          "id": 1903
+        },
+        {
+          "nom": "BTS Réseaux et Télécommunications",
+          "domaine": "Informatique",
+          "duree": "2 ans",
+          "moyenne_requise": 10,
+          "series_acceptees": [
+            "C",
+            "D",
+            "E",
+            "F"
+          ],
+          "debouches": [
+            "Technicien réseau",
+            "Installateur télécom",
+            "Administrateur"
+          ],
+          "description": "Installation et exploitation de réseaux.",
+          "id": 1904
+        },
+        {
+          "nom": "BTS Électronique",
+          "domaine": "Industrie",
+          "duree": "2 ans",
+          "moyenne_requise": 10,
+          "series_acceptees": [
+            "C",
+            "D",
+            "E",
+            "F"
+          ],
+          "debouches": [
+            "Technicien électronicien",
+            "Dépanneur",
+            "Technicien R&D"
+          ],
+          "description": "Circuits, capteurs et systèmes embarqués.",
+          "id": 1905
+        },
+        {
+          "nom": "Licence Génie Électrique",
+          "domaine": "Industrie",
+          "duree": "3 ans",
+          "moyenne_requise": 11,
+          "series_acceptees": [
+            "C",
+            "D",
+            "E",
+            "F"
+          ],
+          "debouches": [
+            "Ingénieur électricien",
+            "Chef de chantier électrique",
+            "Responsable maintenance"
+          ],
+          "description": "Électrotechnique et distribution d'énergie.",
+          "id": 1906
+        },
+        {
+          "nom": "BTS Froid et Climatisation",
+          "domaine": "Industrie",
+          "duree": "2 ans",
+          "moyenne_requise": 10,
+          "series_acceptees": [
+            "C",
+            "D",
+            "E",
+            "F"
+          ],
+          "debouches": [
+            "Frigoriste",
+            "Technicien de climatisation",
+            "Chef d'équipe"
+          ],
+          "description": "Installation et maintenance de systèmes de froid.",
+          "id": 1907
+        },
+        {
+          "nom": "Licence Informatique Industrielle",
+          "domaine": "Industrie",
+          "duree": "3 ans",
+          "moyenne_requise": 11,
+          "series_acceptees": [
+            "C",
+            "D",
+            "E",
+            "F"
+          ],
+          "debouches": [
+            "Automaticien",
+            "Technicien supérieur",
+            "Ingénieur contrôle-commande"
+          ],
+          "description": "Informatique appliquée aux systèmes industriels.",
+          "id": 1908
+        },
+        {
+          "nom": "Licence Automatismes et Robotique",
+          "domaine": "Industrie",
+          "duree": "3 ans",
+          "moyenne_requise": 11.5,
+          "series_acceptees": [
+            "C",
+            "D",
+            "E",
+            "F"
+          ],
+          "debouches": [
+            "Automaticien",
+            "Roboticien",
+            "Technicien de ligne automatisée"
+          ],
+          "description": "Automates programmables et robots industriels.",
+          "id": 1909
+        },
+        {
+          "nom": "BTS Mécanique et Automatismes Industriels",
+          "domaine": "Industrie",
+          "duree": "2 ans",
+          "moyenne_requise": 10,
+          "series_acceptees": [
+            "C",
+            "D",
+            "E",
+            "F"
+          ],
+          "debouches": [
+            "Technicien mécanicien",
+            "Régleur",
+            "Technicien méthodes"
+          ],
+          "description": "Conception et maintenance de systèmes mécaniques.",
+          "id": 1910
         }
       ]
     },
@@ -573,10 +3945,195 @@
           "nom": "Licence Génie Civil & Bâtiment",
           "domaine": "BTP",
           "duree": "3 ans",
-          "debouches": ["Conducteur de travaux", "Dessinateur projeteur", "Ingénieur BTP"],
-          "series_acceptees": ["C", "D", "E", "F4"],
+          "debouches": [
+            "Conducteur de travaux",
+            "Dessinateur projeteur",
+            "Ingénieur BTP"
+          ],
+          "series_acceptees": [
+            "C",
+            "D",
+            "E",
+            "F"
+          ],
           "moyenne_requise": 11,
           "description": "Calcul de structures, gestion de chantier et génie civil."
+        },
+        {
+          "nom": "Licence Génie Électrique",
+          "domaine": "Industrie",
+          "duree": "3 ans",
+          "moyenne_requise": 11,
+          "series_acceptees": [
+            "C",
+            "D",
+            "E",
+            "F"
+          ],
+          "debouches": [
+            "Ingénieur électricien",
+            "Technicien supérieur",
+            "Responsable maintenance"
+          ],
+          "description": "Installations et réseaux électriques.",
+          "id": 2002
+        },
+        {
+          "nom": "Licence Informatique et Réseaux",
+          "domaine": "Informatique",
+          "duree": "3 ans",
+          "moyenne_requise": 11,
+          "series_acceptees": [
+            "C",
+            "D",
+            "E",
+            "F"
+          ],
+          "debouches": [
+            "Développeur",
+            "Administrateur réseau",
+            "Technicien"
+          ],
+          "description": "Programmation et administration réseau.",
+          "id": 2003
+        },
+        {
+          "nom": "Licence Gestion des Entreprises",
+          "domaine": "Gestion",
+          "duree": "3 ans",
+          "moyenne_requise": 10.5,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
+          "debouches": [
+            "Gestionnaire",
+            "Assistant de direction",
+            "Entrepreneur"
+          ],
+          "description": "Fondamentaux du management.",
+          "id": 2004
+        },
+        {
+          "nom": "Licence Génie Mécanique",
+          "domaine": "Industrie",
+          "duree": "3 ans",
+          "moyenne_requise": 11,
+          "series_acceptees": [
+            "C",
+            "D",
+            "E",
+            "F"
+          ],
+          "debouches": [
+            "Ingénieur mécanicien",
+            "Technicien méthodes",
+            "Dessinateur"
+          ],
+          "description": "Conception et fabrication mécanique.",
+          "id": 2005
+        },
+        {
+          "nom": "BTS Topographie",
+          "domaine": "BTP",
+          "duree": "2 ans",
+          "moyenne_requise": 10,
+          "series_acceptees": [
+            "C",
+            "D",
+            "E",
+            "F"
+          ],
+          "debouches": [
+            "Topographe",
+            "Géomètre",
+            "Technicien foncier"
+          ],
+          "description": "Relevés, cartographie et implantation.",
+          "id": 2006
+        },
+        {
+          "nom": "Licence Qualité Hygiène Sécurité Environnement",
+          "domaine": "Industrie",
+          "duree": "3 ans",
+          "moyenne_requise": 11,
+          "series_acceptees": [
+            "C",
+            "D",
+            "E",
+            "F",
+            "G"
+          ],
+          "debouches": [
+            "Responsable HSE",
+            "Animateur QHSE",
+            "Auditeur qualité"
+          ],
+          "description": "Normes ISO, prévention et gestion des risques.",
+          "id": 2007
+        },
+        {
+          "nom": "Licence Comptabilité et Finance",
+          "domaine": "Gestion",
+          "duree": "3 ans",
+          "moyenne_requise": 10.5,
+          "series_acceptees": [
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
+          "debouches": [
+            "Comptable",
+            "Contrôleur de gestion",
+            "Gestionnaire"
+          ],
+          "description": "Comptabilité générale et gestion financière.",
+          "id": 2008
+        },
+        {
+          "nom": "Master Management de Projets",
+          "domaine": "Management",
+          "duree": "2 ans",
+          "moyenne_requise": 12,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "E",
+            "F",
+            "G"
+          ],
+          "debouches": [
+            "Chef de projet",
+            "Coordinateur",
+            "Consultant"
+          ],
+          "description": "Planification et pilotage de projets techniques.",
+          "id": 2009
+        },
+        {
+          "nom": "BTS Génie Civil",
+          "domaine": "BTP",
+          "duree": "2 ans",
+          "moyenne_requise": 10,
+          "series_acceptees": [
+            "C",
+            "D",
+            "E",
+            "F"
+          ],
+          "debouches": [
+            "Conducteur de travaux",
+            "Technicien BTP",
+            "Chef de chantier"
+          ],
+          "description": "Techniques de construction et gestion de chantier.",
+          "id": 2010
         }
       ]
     },
@@ -601,10 +4158,178 @@
           "nom": "Licence Sciences Infirmières",
           "domaine": "Santé",
           "duree": "3 ans",
-          "debouches": ["Infirmier d'État", "Soignant spécialisé", "Chef de bloc"],
-          "series_acceptees": ["C", "D"],
+          "debouches": [
+            "Infirmier d'État",
+            "Soignant spécialisé",
+            "Chef de bloc"
+          ],
+          "series_acceptees": [
+            "C",
+            "D"
+          ],
           "moyenne_requise": 11.5,
           "description": "Techniques de soins, pharmacologie et éthique médicale."
+        },
+        {
+          "nom": "Licence Sage-Femme",
+          "domaine": "Santé",
+          "duree": "3 ans",
+          "moyenne_requise": 11.5,
+          "series_acceptees": [
+            "C",
+            "D"
+          ],
+          "debouches": [
+            "Sage-femme d'État",
+            "Maïeuticien",
+            "Responsable maternité"
+          ],
+          "description": "Suivi de grossesse, accouchement et soins néonatals.",
+          "id": 2102
+        },
+        {
+          "nom": "Licence Service Social",
+          "domaine": "Sciences Sociales",
+          "duree": "3 ans",
+          "moyenne_requise": 10.5,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D"
+          ],
+          "debouches": [
+            "Assistant social",
+            "Éducateur spécialisé",
+            "Chargé d'action sociale"
+          ],
+          "description": "Accompagnement social et intervention communautaire.",
+          "id": 2103
+        },
+        {
+          "nom": "Licence Santé Publique",
+          "domaine": "Santé",
+          "duree": "3 ans",
+          "moyenne_requise": 11,
+          "series_acceptees": [
+            "B",
+            "C",
+            "D"
+          ],
+          "debouches": [
+            "Chargé de programme santé",
+            "Épidémiologiste junior",
+            "Gestionnaire de centre"
+          ],
+          "description": "Épidémiologie, prévention et politiques de santé.",
+          "id": 2104
+        },
+        {
+          "nom": "Licence Psychologie",
+          "domaine": "Sciences Humaines",
+          "duree": "3 ans",
+          "moyenne_requise": 11,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D"
+          ],
+          "debouches": [
+            "Psychologue",
+            "Conseiller",
+            "Chargé de recrutement"
+          ],
+          "description": "Psychologie clinique et du développement.",
+          "id": 2105
+        },
+        {
+          "nom": "Licence Nutrition et Diététique",
+          "domaine": "Santé",
+          "duree": "3 ans",
+          "moyenne_requise": 11,
+          "series_acceptees": [
+            "C",
+            "D"
+          ],
+          "debouches": [
+            "Diététicien",
+            "Nutritionniste",
+            "Conseiller en nutrition"
+          ],
+          "description": "Nutrition humaine et éducation alimentaire.",
+          "id": 2106
+        },
+        {
+          "nom": "Licence Imagerie Médicale",
+          "domaine": "Santé",
+          "duree": "3 ans",
+          "moyenne_requise": 11.5,
+          "series_acceptees": [
+            "C",
+            "D"
+          ],
+          "debouches": [
+            "Technicien en imagerie",
+            "Manipulateur radio",
+            "Technicien d'échographie"
+          ],
+          "description": "Radiologie, échographie et radioprotection.",
+          "id": 2107
+        },
+        {
+          "nom": "Master Santé Publique",
+          "domaine": "Santé",
+          "duree": "2 ans",
+          "moyenne_requise": 12.5,
+          "series_acceptees": [
+            "B",
+            "C",
+            "D"
+          ],
+          "debouches": [
+            "Responsable de programme",
+            "Épidémiologiste",
+            "Consultant en santé"
+          ],
+          "description": "Management des systèmes de santé.",
+          "id": 2108
+        },
+        {
+          "nom": "Licence Biologie Médicale",
+          "domaine": "Santé",
+          "duree": "3 ans",
+          "moyenne_requise": 11.5,
+          "series_acceptees": [
+            "C",
+            "D"
+          ],
+          "debouches": [
+            "Technicien biologiste",
+            "Analyste de laboratoire",
+            "Qualiticien"
+          ],
+          "description": "Analyses biologiques et diagnostic.",
+          "id": 2109
+        },
+        {
+          "nom": "Licence Sciences Sociales et Développement",
+          "domaine": "Sciences Sociales",
+          "duree": "3 ans",
+          "moyenne_requise": 10.5,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D"
+          ],
+          "debouches": [
+            "Chargé de projet ONG",
+            "Sociologue",
+            "Coordinateur"
+          ],
+          "description": "Projets de développement communautaire.",
+          "id": 2110
         }
       ]
     },
@@ -629,10 +4354,200 @@
           "nom": "BTS Ressources Humaines et Communication",
           "domaine": "Gestion",
           "duree": "2 ans",
-          "debouches": ["Assistant RH", "Chargé du recrutement", "Gestionnaire de paie"],
-          "series_acceptees": ["A", "B", "C", "D", "G1"],
+          "debouches": [
+            "Assistant RH",
+            "Chargé du recrutement",
+            "Gestionnaire de paie"
+          ],
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
           "moyenne_requise": 10,
           "description": "Administration du personnel et gestion des communications d'entreprise."
+        },
+        {
+          "nom": "BTS Comptabilité et Gestion",
+          "domaine": "Gestion",
+          "duree": "2 ans",
+          "moyenne_requise": 10,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
+          "debouches": [
+            "Comptable",
+            "Aide-comptable",
+            "Gestionnaire de paie"
+          ],
+          "description": "Comptabilité générale et analytique.",
+          "id": 2202
+        },
+        {
+          "nom": "BTS Gestion Commerciale",
+          "domaine": "Commerce",
+          "duree": "2 ans",
+          "moyenne_requise": 10,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
+          "debouches": [
+            "Commercial",
+            "Gestionnaire de clientèle",
+            "Chef de rayon"
+          ],
+          "description": "Techniques de vente et relation client.",
+          "id": 2203
+        },
+        {
+          "nom": "BTS Informatique de Gestion",
+          "domaine": "Informatique",
+          "duree": "2 ans",
+          "moyenne_requise": 10,
+          "series_acceptees": [
+            "B",
+            "C",
+            "D",
+            "E",
+            "F",
+            "G"
+          ],
+          "debouches": [
+            "Programmeur",
+            "Technicien support",
+            "Gestionnaire de parc"
+          ],
+          "description": "Développement d'applications de gestion.",
+          "id": 2204
+        },
+        {
+          "nom": "BTS Banque et Finance",
+          "domaine": "Finance",
+          "duree": "2 ans",
+          "moyenne_requise": 10,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
+          "debouches": [
+            "Chargé de clientèle",
+            "Guichetier",
+            "Assistant bancaire"
+          ],
+          "description": "Opérations bancaires courantes.",
+          "id": 2205
+        },
+        {
+          "nom": "BTS Assistant de Direction",
+          "domaine": "Management",
+          "duree": "2 ans",
+          "moyenne_requise": 10,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
+          "debouches": [
+            "Assistant de direction",
+            "Secrétaire de direction",
+            "Office manager"
+          ],
+          "description": "Organisation administrative et secrétariat.",
+          "id": 2206
+        },
+        {
+          "nom": "BTS Communication d'Entreprise",
+          "domaine": "Communication",
+          "duree": "2 ans",
+          "moyenne_requise": 10,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
+          "debouches": [
+            "Chargé de communication",
+            "Assistant événementiel",
+            "Community manager"
+          ],
+          "description": "Communication et événementiel.",
+          "id": 2207
+        },
+        {
+          "nom": "BTS Transport et Logistique",
+          "domaine": "Logistique",
+          "duree": "2 ans",
+          "moyenne_requise": 10,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
+          "debouches": [
+            "Gestionnaire logistique",
+            "Agent de transit",
+            "Responsable d'entrepôt"
+          ],
+          "description": "Gestion des flux et du transport.",
+          "id": 2208
+        },
+        {
+          "nom": "Licence Marketing",
+          "domaine": "Commerce",
+          "duree": "3 ans",
+          "moyenne_requise": 10.5,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
+          "debouches": [
+            "Chef de produit",
+            "Responsable marketing",
+            "Chargé d'études"
+          ],
+          "description": "Marketing opérationnel et stratégique.",
+          "id": 2209
+        },
+        {
+          "nom": "Licence Finance et Comptabilité",
+          "domaine": "Finance",
+          "duree": "3 ans",
+          "moyenne_requise": 10.5,
+          "series_acceptees": [
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
+          "debouches": [
+            "Comptable",
+            "Contrôleur de gestion",
+            "Analyste financier"
+          ],
+          "description": "Comptabilité approfondie et finance.",
+          "id": 2210
         }
       ]
     },
@@ -657,10 +4572,189 @@
           "nom": "BTS Electrotechnique",
           "domaine": "Industrie",
           "duree": "2 ans",
-          "debouches": ["Technicien réseau électrique", "Chef d'équipe maintenance"],
-          "series_acceptees": ["C", "D", "E", "F1", "F2"],
+          "debouches": [
+            "Technicien réseau électrique",
+            "Chef d'équipe maintenance"
+          ],
+          "series_acceptees": [
+            "C",
+            "D",
+            "E",
+            "F"
+          ],
           "moyenne_requise": 10,
           "description": "Gestion des courants forts, moteurs et sous-stations électriques."
+        },
+        {
+          "nom": "BTS Génie Civil",
+          "domaine": "BTP",
+          "duree": "2 ans",
+          "moyenne_requise": 10,
+          "series_acceptees": [
+            "C",
+            "D",
+            "E",
+            "F"
+          ],
+          "debouches": [
+            "Conducteur de travaux",
+            "Technicien BTP",
+            "Chef de chantier"
+          ],
+          "description": "Construction et gestion de chantier.",
+          "id": 2302
+        },
+        {
+          "nom": "BTS Mécanique Automobile",
+          "domaine": "Industrie",
+          "duree": "2 ans",
+          "moyenne_requise": 10,
+          "series_acceptees": [
+            "C",
+            "D",
+            "E",
+            "F"
+          ],
+          "debouches": [
+            "Mécanicien automobile",
+            "Chef d'atelier",
+            "Technicien diagnostic"
+          ],
+          "description": "Diagnostic et réparation de véhicules.",
+          "id": 2303
+        },
+        {
+          "nom": "BTS Maintenance Industrielle",
+          "domaine": "Industrie",
+          "duree": "2 ans",
+          "moyenne_requise": 10,
+          "series_acceptees": [
+            "C",
+            "D",
+            "E",
+            "F"
+          ],
+          "debouches": [
+            "Technicien de maintenance",
+            "Chef d'équipe",
+            "Mécanicien industriel"
+          ],
+          "description": "Maintenance des équipements industriels.",
+          "id": 2304
+        },
+        {
+          "nom": "BTS Froid et Climatisation",
+          "domaine": "Industrie",
+          "duree": "2 ans",
+          "moyenne_requise": 10,
+          "series_acceptees": [
+            "C",
+            "D",
+            "E",
+            "F"
+          ],
+          "debouches": [
+            "Frigoriste",
+            "Technicien de climatisation",
+            "Chef d'équipe"
+          ],
+          "description": "Installation et entretien de systèmes frigorifiques.",
+          "id": 2305
+        },
+        {
+          "nom": "BTS Génie Électrique",
+          "domaine": "Industrie",
+          "duree": "2 ans",
+          "moyenne_requise": 10,
+          "series_acceptees": [
+            "C",
+            "D",
+            "E",
+            "F"
+          ],
+          "debouches": [
+            "Électricien industriel",
+            "Technicien de maintenance",
+            "Domoticien"
+          ],
+          "description": "Installations électriques et automatismes.",
+          "id": 2306
+        },
+        {
+          "nom": "BTS Informatique Industrielle",
+          "domaine": "Industrie",
+          "duree": "2 ans",
+          "moyenne_requise": 10,
+          "series_acceptees": [
+            "C",
+            "D",
+            "E",
+            "F"
+          ],
+          "debouches": [
+            "Technicien automaticien",
+            "Programmeur d'automates",
+            "Technicien supérieur"
+          ],
+          "description": "Informatique appliquée aux procédés industriels.",
+          "id": 2307
+        },
+        {
+          "nom": "BTS Topographie",
+          "domaine": "BTP",
+          "duree": "2 ans",
+          "moyenne_requise": 10,
+          "series_acceptees": [
+            "C",
+            "D",
+            "E",
+            "F"
+          ],
+          "debouches": [
+            "Topographe",
+            "Géomètre",
+            "Technicien foncier"
+          ],
+          "description": "Levés et implantation de chantier.",
+          "id": 2308
+        },
+        {
+          "nom": "Licence Génie Civil",
+          "domaine": "BTP",
+          "duree": "3 ans",
+          "moyenne_requise": 11,
+          "series_acceptees": [
+            "C",
+            "D",
+            "E",
+            "F"
+          ],
+          "debouches": [
+            "Ingénieur BTP",
+            "Conducteur de travaux",
+            "Chef de projet"
+          ],
+          "description": "Structures, béton et gestion de projets.",
+          "id": 2309
+        },
+        {
+          "nom": "BTS Bâtiment",
+          "domaine": "BTP",
+          "duree": "2 ans",
+          "moyenne_requise": 10,
+          "series_acceptees": [
+            "C",
+            "D",
+            "E",
+            "F"
+          ],
+          "debouches": [
+            "Technicien bâtiment",
+            "Métreur",
+            "Chef de chantier"
+          ],
+          "description": "Techniques du bâtiment et métrés.",
+          "id": 2310
         }
       ]
     },
@@ -685,10 +4779,188 @@
           "nom": "BTS Agroalimentaire",
           "domaine": "Agroalimentaire",
           "duree": "2 ans",
-          "debouches": ["Contrôleur qualité", "Responsable chaîne de production"],
-          "series_acceptees": ["C", "D"],
+          "debouches": [
+            "Contrôleur qualité",
+            "Responsable chaîne de production"
+          ],
+          "series_acceptees": [
+            "C",
+            "D"
+          ],
           "moyenne_requise": 10,
           "description": "Transformation et conservation des produits agricoles locaux."
+        },
+        {
+          "nom": "BTS Productions Animales",
+          "domaine": "Agriculture",
+          "duree": "2 ans",
+          "moyenne_requise": 10,
+          "series_acceptees": [
+            "C",
+            "D"
+          ],
+          "debouches": [
+            "Technicien d'élevage",
+            "Gestionnaire de ferme",
+            "Conseiller agricole"
+          ],
+          "description": "Élevage et santé animale.",
+          "id": 2402
+        },
+        {
+          "nom": "BTS Productions Végétales",
+          "domaine": "Agriculture",
+          "duree": "2 ans",
+          "moyenne_requise": 10,
+          "series_acceptees": [
+            "C",
+            "D"
+          ],
+          "debouches": [
+            "Technicien agricole",
+            "Chef de culture",
+            "Conseiller agricole"
+          ],
+          "description": "Cultures, fertilisation et protection des plantes.",
+          "id": 2403
+        },
+        {
+          "nom": "BTS Hôtellerie et Restauration",
+          "domaine": "Tourisme",
+          "duree": "2 ans",
+          "moyenne_requise": 10,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
+          "debouches": [
+            "Chef de réception",
+            "Responsable de restaurant",
+            "Gérant d'hôtel"
+          ],
+          "description": "Gestion hôtelière et service.",
+          "id": 2404
+        },
+        {
+          "nom": "BTS Tourisme",
+          "domaine": "Tourisme",
+          "duree": "2 ans",
+          "moyenne_requise": 10,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
+          "debouches": [
+            "Agent de voyages",
+            "Guide touristique",
+            "Chargé de réservations"
+          ],
+          "description": "Organisation de séjours et accueil touristique.",
+          "id": 2405
+        },
+        {
+          "nom": "BTS Qualité Hygiène Sécurité Environnement",
+          "domaine": "Industrie",
+          "duree": "2 ans",
+          "moyenne_requise": 10,
+          "series_acceptees": [
+            "C",
+            "D",
+            "E",
+            "F",
+            "G"
+          ],
+          "debouches": [
+            "Technicien QHSE",
+            "Animateur sécurité",
+            "Contrôleur qualité"
+          ],
+          "description": "Normes qualité et prévention des risques.",
+          "id": 2406
+        },
+        {
+          "nom": "BTS Gestion Commerciale",
+          "domaine": "Commerce",
+          "duree": "2 ans",
+          "moyenne_requise": 10,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
+          "debouches": [
+            "Commercial",
+            "Gestionnaire clientèle",
+            "Chef de rayon"
+          ],
+          "description": "Vente et gestion commerciale.",
+          "id": 2407
+        },
+        {
+          "nom": "BTS Comptabilité et Gestion",
+          "domaine": "Gestion",
+          "duree": "2 ans",
+          "moyenne_requise": 10,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
+          "debouches": [
+            "Comptable",
+            "Aide-comptable",
+            "Gestionnaire de paie"
+          ],
+          "description": "Comptabilité générale et fiscalité.",
+          "id": 2408
+        },
+        {
+          "nom": "BTS Informatique de Gestion",
+          "domaine": "Informatique",
+          "duree": "2 ans",
+          "moyenne_requise": 10,
+          "series_acceptees": [
+            "B",
+            "C",
+            "D",
+            "E",
+            "F",
+            "G"
+          ],
+          "debouches": [
+            "Programmeur",
+            "Technicien support",
+            "Gestionnaire de parc"
+          ],
+          "description": "Applications de gestion et bases de données.",
+          "id": 2409
+        },
+        {
+          "nom": "Licence Agro-industrie",
+          "domaine": "Agroalimentaire",
+          "duree": "3 ans",
+          "moyenne_requise": 11,
+          "series_acceptees": [
+            "C",
+            "D"
+          ],
+          "debouches": [
+            "Ingénieur agro-industrie",
+            "Responsable de production",
+            "Qualiticien"
+          ],
+          "description": "Industrialisation des filières agricoles.",
+          "id": 2410
         }
       ]
     },
@@ -713,10 +4985,190 @@
           "nom": "Licence Réseaux & Télécoms",
           "domaine": "Informatique",
           "duree": "3 ans",
-          "debouches": ["Ingénieur télécom", "Admin réseau CISCO", "Architecte VoIP"],
-          "series_acceptees": ["C", "D", "E"],
+          "debouches": [
+            "Ingénieur télécom",
+            "Admin réseau CISCO",
+            "Architecte VoIP"
+          ],
+          "series_acceptees": [
+            "C",
+            "D",
+            "E"
+          ],
           "moyenne_requise": 11,
           "description": "Configuration de routeurs, sécurité des données et administration de serveurs."
+        },
+        {
+          "nom": "Licence Systèmes d'Information et Gestion",
+          "domaine": "Informatique",
+          "duree": "3 ans",
+          "moyenne_requise": 11,
+          "series_acceptees": [
+            "B",
+            "C",
+            "D",
+            "E",
+            "G"
+          ],
+          "debouches": [
+            "Analyste SI",
+            "Chef de projet",
+            "Consultant ERP"
+          ],
+          "description": "Conception de systèmes d'information d'entreprise.",
+          "id": 2502
+        },
+        {
+          "nom": "Licence Génie Logiciel",
+          "domaine": "Informatique",
+          "duree": "3 ans",
+          "moyenne_requise": 11,
+          "series_acceptees": [
+            "C",
+            "D",
+            "E"
+          ],
+          "debouches": [
+            "Développeur full-stack",
+            "Ingénieur logiciel",
+            "Architecte junior"
+          ],
+          "description": "Développement web, mobile et tests.",
+          "id": 2503
+        },
+        {
+          "nom": "Licence Cybersécurité",
+          "domaine": "Informatique",
+          "duree": "3 ans",
+          "moyenne_requise": 11,
+          "series_acceptees": [
+            "C",
+            "D",
+            "E",
+            "F"
+          ],
+          "debouches": [
+            "Analyste sécurité",
+            "Administrateur sécurité",
+            "Pentester junior"
+          ],
+          "description": "Sécurité des réseaux et des applications.",
+          "id": 2504
+        },
+        {
+          "nom": "Licence Finance et Comptabilité",
+          "domaine": "Finance",
+          "duree": "3 ans",
+          "moyenne_requise": 10.5,
+          "series_acceptees": [
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
+          "debouches": [
+            "Comptable",
+            "Contrôleur de gestion",
+            "Analyste financier"
+          ],
+          "description": "Comptabilité et gestion financière.",
+          "id": 2505
+        },
+        {
+          "nom": "Licence Marketing et Communication",
+          "domaine": "Commerce",
+          "duree": "3 ans",
+          "moyenne_requise": 10.5,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
+          "debouches": [
+            "Chef de produit",
+            "Chargé de communication",
+            "Responsable marketing"
+          ],
+          "description": "Marketing opérationnel et communication.",
+          "id": 2506
+        },
+        {
+          "nom": "Licence Gestion des Ressources Humaines",
+          "domaine": "Gestion",
+          "duree": "3 ans",
+          "moyenne_requise": 10.5,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
+          "debouches": [
+            "Responsable RH",
+            "Chargé de recrutement",
+            "Gestionnaire de paie"
+          ],
+          "description": "Gestion du personnel et droit social.",
+          "id": 2507
+        },
+        {
+          "nom": "Master Réseaux et Systèmes",
+          "domaine": "Informatique",
+          "duree": "2 ans",
+          "moyenne_requise": 12,
+          "series_acceptees": [
+            "C",
+            "D",
+            "E"
+          ],
+          "debouches": [
+            "Ingénieur réseau",
+            "Architecte infrastructure",
+            "Consultant"
+          ],
+          "description": "Architectures réseau avancées et cloud.",
+          "id": 2508
+        },
+        {
+          "nom": "Master Data et Business Intelligence",
+          "domaine": "Informatique",
+          "duree": "2 ans",
+          "moyenne_requise": 12,
+          "series_acceptees": [
+            "C",
+            "D",
+            "E"
+          ],
+          "debouches": [
+            "Data analyst",
+            "Consultant BI",
+            "Data engineer"
+          ],
+          "description": "Entrepôts de données et analyse décisionnelle.",
+          "id": 2509
+        },
+        {
+          "nom": "Licence Commerce International",
+          "domaine": "Commerce",
+          "duree": "3 ans",
+          "moyenne_requise": 10.5,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
+          "debouches": [
+            "Responsable export",
+            "Acheteur",
+            "Transitaire"
+          ],
+          "description": "Techniques du commerce extérieur.",
+          "id": 2510
         }
       ]
     },
@@ -741,10 +5193,199 @@
           "nom": "BTS Gestion Commerciale",
           "domaine": "Commerce",
           "duree": "2 ans",
-          "debouches": ["Commercial", "Prospection", "Gestionnaire de clientèle"],
-          "series_acceptees": ["A", "B", "C", "D", "G2"],
+          "debouches": [
+            "Commercial",
+            "Prospection",
+            "Gestionnaire de clientèle"
+          ],
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
           "moyenne_requise": 10,
           "description": "Prospection, vente directe et gestion de portefeuille clients."
+        },
+        {
+          "nom": "BTS Comptabilité et Gestion",
+          "domaine": "Gestion",
+          "duree": "2 ans",
+          "moyenne_requise": 10,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
+          "debouches": [
+            "Comptable",
+            "Aide-comptable",
+            "Gestionnaire de paie"
+          ],
+          "description": "Comptabilité générale et analytique.",
+          "id": 2602
+        },
+        {
+          "nom": "BTS Banque",
+          "domaine": "Finance",
+          "duree": "2 ans",
+          "moyenne_requise": 10,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
+          "debouches": [
+            "Chargé de clientèle",
+            "Guichetier",
+            "Assistant bancaire"
+          ],
+          "description": "Opérations bancaires et relation client.",
+          "id": 2603
+        },
+        {
+          "nom": "BTS Ressources Humaines",
+          "domaine": "Gestion",
+          "duree": "2 ans",
+          "moyenne_requise": 10,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
+          "debouches": [
+            "Assistant RH",
+            "Gestionnaire de paie",
+            "Chargé de recrutement"
+          ],
+          "description": "Administration du personnel.",
+          "id": 2604
+        },
+        {
+          "nom": "BTS Assurance",
+          "domaine": "Finance",
+          "duree": "2 ans",
+          "moyenne_requise": 10,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
+          "debouches": [
+            "Agent d'assurance",
+            "Gestionnaire de sinistres",
+            "Chargé de clientèle"
+          ],
+          "description": "Produits et gestion des contrats d'assurance.",
+          "id": 2605
+        },
+        {
+          "nom": "BTS Commerce International",
+          "domaine": "Commerce",
+          "duree": "2 ans",
+          "moyenne_requise": 10,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
+          "debouches": [
+            "Assistant export",
+            "Agent de transit",
+            "Commercial"
+          ],
+          "description": "Opérations d'import-export.",
+          "id": 2606
+        },
+        {
+          "nom": "BTS Assistant Manager",
+          "domaine": "Management",
+          "duree": "2 ans",
+          "moyenne_requise": 10,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
+          "debouches": [
+            "Assistant de direction",
+            "Office manager",
+            "Assistant administratif"
+          ],
+          "description": "Appui administratif et managérial.",
+          "id": 2607
+        },
+        {
+          "nom": "Licence Management des Organisations",
+          "domaine": "Management",
+          "duree": "3 ans",
+          "moyenne_requise": 10.5,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
+          "debouches": [
+            "Gestionnaire",
+            "Responsable d'unité",
+            "Consultant junior"
+          ],
+          "description": "Pilotage et organisation des entreprises.",
+          "id": 2608
+        },
+        {
+          "nom": "Licence Finance Comptabilité Audit",
+          "domaine": "Finance",
+          "duree": "3 ans",
+          "moyenne_requise": 10.5,
+          "series_acceptees": [
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
+          "debouches": [
+            "Comptable",
+            "Auditeur junior",
+            "Contrôleur de gestion"
+          ],
+          "description": "Comptabilité approfondie et audit.",
+          "id": 2609
+        },
+        {
+          "nom": "Licence Marketing Vente",
+          "domaine": "Commerce",
+          "duree": "3 ans",
+          "moyenne_requise": 10.5,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
+          "debouches": [
+            "Commercial",
+            "Chef de produit",
+            "Responsable marketing"
+          ],
+          "description": "Stratégie marketing et techniques de vente.",
+          "id": 2610
         }
       ]
     },
@@ -769,10 +5410,197 @@
           "nom": "Licence Management Intégré",
           "domaine": "Management",
           "duree": "3 ans",
-          "debouches": ["Manager d'unité", "Consultant organisation", "Directeur adjoint"],
-          "series_acceptees": ["A", "B", "C", "D"],
+          "debouches": [
+            "Manager d'unité",
+            "Consultant organisation",
+            "Directeur adjoint"
+          ],
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D"
+          ],
           "moyenne_requise": 11,
           "description": "Stratégie globale d'entreprise et gestion d'équipe pluridisciplinaire."
+        },
+        {
+          "nom": "Licence Finance et Comptabilité",
+          "domaine": "Finance",
+          "duree": "3 ans",
+          "moyenne_requise": 11,
+          "series_acceptees": [
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
+          "debouches": [
+            "Comptable",
+            "Analyste financier",
+            "Contrôleur de gestion"
+          ],
+          "description": "Comptabilité et gestion financière.",
+          "id": 2702
+        },
+        {
+          "nom": "Licence Gestion des Ressources Humaines",
+          "domaine": "Gestion",
+          "duree": "3 ans",
+          "moyenne_requise": 11,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
+          "debouches": [
+            "Responsable RH",
+            "Chargé de recrutement",
+            "Gestionnaire de paie"
+          ],
+          "description": "Gestion du capital humain.",
+          "id": 2703
+        },
+        {
+          "nom": "Licence Marketing et Communication",
+          "domaine": "Commerce",
+          "duree": "3 ans",
+          "moyenne_requise": 11,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
+          "debouches": [
+            "Chef de produit",
+            "Chargé de communication",
+            "Responsable marketing"
+          ],
+          "description": "Marketing et communication d'entreprise.",
+          "id": 2704
+        },
+        {
+          "nom": "Licence Commerce International",
+          "domaine": "Commerce",
+          "duree": "3 ans",
+          "moyenne_requise": 11,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
+          "debouches": [
+            "Responsable export",
+            "Acheteur",
+            "Transitaire"
+          ],
+          "description": "Opérations de commerce extérieur.",
+          "id": 2705
+        },
+        {
+          "nom": "Master Management Stratégique",
+          "domaine": "Management",
+          "duree": "2 ans",
+          "moyenne_requise": 12.5,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
+          "debouches": [
+            "Directeur adjoint",
+            "Consultant",
+            "Manager général"
+          ],
+          "description": "Stratégie et leadership d'entreprise.",
+          "id": 2706
+        },
+        {
+          "nom": "Master Audit et Contrôle de Gestion",
+          "domaine": "Finance",
+          "duree": "2 ans",
+          "moyenne_requise": 12.5,
+          "series_acceptees": [
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
+          "debouches": [
+            "Auditeur",
+            "Contrôleur de gestion",
+            "Directeur financier"
+          ],
+          "description": "Audit, contrôle interne et pilotage.",
+          "id": 2707
+        },
+        {
+          "nom": "Licence Communication et Relations Publiques",
+          "domaine": "Communication",
+          "duree": "3 ans",
+          "moyenne_requise": 11,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
+          "debouches": [
+            "Chargé de RP",
+            "Attaché de presse",
+            "Community manager"
+          ],
+          "description": "Relations médias et communication institutionnelle.",
+          "id": 2708
+        },
+        {
+          "nom": "Licence Logistique et Transport",
+          "domaine": "Logistique",
+          "duree": "3 ans",
+          "moyenne_requise": 11,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
+          "debouches": [
+            "Responsable logistique",
+            "Gestionnaire de stocks",
+            "Agent de transit"
+          ],
+          "description": "Gestion des flux et du transport.",
+          "id": 2709
+        },
+        {
+          "nom": "Licence Entrepreneuriat et Création d'Entreprise",
+          "domaine": "Management",
+          "duree": "3 ans",
+          "moyenne_requise": 11,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
+          "debouches": [
+            "Entrepreneur",
+            "Chef de projet",
+            "Consultant"
+          ],
+          "description": "Montage de projets et plan d'affaires.",
+          "id": 2710
         }
       ]
     },
@@ -783,7 +5611,7 @@
       "description": "Groupe d'enseignement supérieur axé sur l'innovation, l'entrepreneuriat et l'IA.",
       "type": "privée",
       "ville": "Abidjan",
-      "quartier": "II Plateaux ETIENNE",
+      "quartier": "Grand-Bassam, espace VITIB",
       "adresse": "06 BP 6310 Abidjan 06",
       "telephone": "+225 27 22 41 82 82",
       "email": "abidjan@groupecerco.com",
@@ -797,10 +5625,196 @@
           "nom": "Licence Génie Informatique & IA",
           "domaine": "Informatique",
           "duree": "3 ans",
-          "debouches": ["Développeur Python", "Data Analyst", "Consultant IA"],
-          "series_acceptees": ["C", "D", "E"],
+          "debouches": [
+            "Développeur Python",
+            "Data Analyst",
+            "Consultant IA"
+          ],
+          "series_acceptees": [
+            "C",
+            "D",
+            "E"
+          ],
           "moyenne_requise": 11,
           "description": "Création d'applications modernes connectées aux modèles d'intelligence artificielle."
+        },
+        {
+          "nom": "Licence Marketing Digital",
+          "domaine": "Commerce",
+          "duree": "3 ans",
+          "moyenne_requise": 11,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
+          "debouches": [
+            "Responsable digital",
+            "Community manager",
+            "Traffic manager"
+          ],
+          "description": "Marketing en ligne et e-commerce.",
+          "id": 2802
+        },
+        {
+          "nom": "Licence Cybersécurité",
+          "domaine": "Informatique",
+          "duree": "3 ans",
+          "moyenne_requise": 11,
+          "series_acceptees": [
+            "C",
+            "D",
+            "E",
+            "F"
+          ],
+          "debouches": [
+            "Analyste sécurité",
+            "Administrateur sécurité",
+            "Pentester junior"
+          ],
+          "description": "Sécurité des SI et des données.",
+          "id": 2803
+        },
+        {
+          "nom": "Licence Gestion de Projets",
+          "domaine": "Management",
+          "duree": "3 ans",
+          "moyenne_requise": 11,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "E",
+            "F",
+            "G"
+          ],
+          "debouches": [
+            "Chef de projet",
+            "Coordinateur",
+            "Consultant"
+          ],
+          "description": "Méthodes agiles et pilotage de projets.",
+          "id": 2804
+        },
+        {
+          "nom": "Licence Entrepreneuriat et Innovation",
+          "domaine": "Management",
+          "duree": "3 ans",
+          "moyenne_requise": 11,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
+          "debouches": [
+            "Entrepreneur",
+            "Intrapreneur",
+            "Chef de projet innovation"
+          ],
+          "description": "Création d'entreprise et incubation.",
+          "id": 2805
+        },
+        {
+          "nom": "Master Data Science et IA",
+          "domaine": "Informatique",
+          "duree": "2 ans",
+          "moyenne_requise": 12,
+          "series_acceptees": [
+            "C",
+            "D",
+            "E"
+          ],
+          "debouches": [
+            "Data scientist",
+            "Ingénieur IA",
+            "Consultant data"
+          ],
+          "description": "Apprentissage automatique et big data.",
+          "id": 2806
+        },
+        {
+          "nom": "Licence Commerce International",
+          "domaine": "Commerce",
+          "duree": "3 ans",
+          "moyenne_requise": 11,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
+          "debouches": [
+            "Responsable export",
+            "Acheteur",
+            "Transitaire"
+          ],
+          "description": "Opérations d'import-export.",
+          "id": 2807
+        },
+        {
+          "nom": "Licence Communication et Médias",
+          "domaine": "Communication",
+          "duree": "3 ans",
+          "moyenne_requise": 11,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
+          "debouches": [
+            "Chargé de communication",
+            "Journaliste",
+            "Attaché de presse"
+          ],
+          "description": "Médias, RP et production de contenus.",
+          "id": 2808
+        },
+        {
+          "nom": "Master Management de l'Innovation",
+          "domaine": "Management",
+          "duree": "2 ans",
+          "moyenne_requise": 12,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
+          "debouches": [
+            "Directeur innovation",
+            "Chef de projet R&D",
+            "Consultant"
+          ],
+          "description": "Gestion de l'innovation et transformation digitale.",
+          "id": 2809
+        },
+        {
+          "nom": "Licence Finance et Comptabilité",
+          "domaine": "Finance",
+          "duree": "3 ans",
+          "moyenne_requise": 11,
+          "series_acceptees": [
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
+          "debouches": [
+            "Comptable",
+            "Analyste financier",
+            "Contrôleur de gestion"
+          ],
+          "description": "Comptabilité et finance d'entreprise.",
+          "id": 2810
         }
       ]
     },
@@ -825,10 +5839,198 @@
           "nom": "BTS Finance Comptabilité",
           "domaine": "Gestion",
           "duree": "2 ans",
-          "debouches": ["Comptable assistant", "Aide-comptable", "Caissier principal"],
-          "series_acceptees": ["A", "B", "C", "D", "G2"],
+          "debouches": [
+            "Comptable assistant",
+            "Aide-comptable",
+            "Caissier principal"
+          ],
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
           "moyenne_requise": 10,
           "description": "Tenue de livres comptables et déclarations fiscales."
+        },
+        {
+          "nom": "BTS Gestion Commerciale",
+          "domaine": "Commerce",
+          "duree": "2 ans",
+          "moyenne_requise": 10,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
+          "debouches": [
+            "Commercial",
+            "Gestionnaire de clientèle",
+            "Chef de rayon"
+          ],
+          "description": "Vente et relation client.",
+          "id": 2902
+        },
+        {
+          "nom": "BTS Informatique de Gestion",
+          "domaine": "Informatique",
+          "duree": "2 ans",
+          "moyenne_requise": 10,
+          "series_acceptees": [
+            "B",
+            "C",
+            "D",
+            "E",
+            "F",
+            "G"
+          ],
+          "debouches": [
+            "Programmeur",
+            "Technicien support",
+            "Gestionnaire de parc"
+          ],
+          "description": "Applications de gestion.",
+          "id": 2903
+        },
+        {
+          "nom": "BTS Secrétariat de Direction",
+          "domaine": "Management",
+          "duree": "2 ans",
+          "moyenne_requise": 10,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
+          "debouches": [
+            "Secrétaire de direction",
+            "Assistant administratif",
+            "Office manager"
+          ],
+          "description": "Secrétariat, archivage et communication.",
+          "id": 2904
+        },
+        {
+          "nom": "BTS Productions Agricoles",
+          "domaine": "Agriculture",
+          "duree": "2 ans",
+          "moyenne_requise": 10,
+          "series_acceptees": [
+            "C",
+            "D"
+          ],
+          "debouches": [
+            "Technicien agricole",
+            "Conseiller agricole",
+            "Gestionnaire d'exploitation"
+          ],
+          "description": "Productions végétales et animales du nord.",
+          "id": 2905
+        },
+        {
+          "nom": "BTS Transport et Logistique",
+          "domaine": "Logistique",
+          "duree": "2 ans",
+          "moyenne_requise": 10,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
+          "debouches": [
+            "Gestionnaire logistique",
+            "Agent de transit",
+            "Responsable d'entrepôt"
+          ],
+          "description": "Organisation du transport et des stocks.",
+          "id": 2906
+        },
+        {
+          "nom": "BTS Ressources Humaines",
+          "domaine": "Gestion",
+          "duree": "2 ans",
+          "moyenne_requise": 10,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
+          "debouches": [
+            "Assistant RH",
+            "Gestionnaire de paie",
+            "Chargé de recrutement"
+          ],
+          "description": "Administration du personnel.",
+          "id": 2907
+        },
+        {
+          "nom": "BTS Banque et Microfinance",
+          "domaine": "Finance",
+          "duree": "2 ans",
+          "moyenne_requise": 10,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
+          "debouches": [
+            "Agent de microfinance",
+            "Chargé de clientèle",
+            "Guichetier"
+          ],
+          "description": "Opérations bancaires et microfinance.",
+          "id": 2908
+        },
+        {
+          "nom": "BTS Assistant Manager",
+          "domaine": "Management",
+          "duree": "2 ans",
+          "moyenne_requise": 10,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
+          "debouches": [
+            "Assistant de direction",
+            "Office manager",
+            "Assistant administratif"
+          ],
+          "description": "Appui administratif au management.",
+          "id": 2909
+        },
+        {
+          "nom": "BTS Communication d'Entreprise",
+          "domaine": "Communication",
+          "duree": "2 ans",
+          "moyenne_requise": 10,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
+          "debouches": [
+            "Chargé de communication",
+            "Assistant événementiel",
+            "Community manager"
+          ],
+          "description": "Communication et événementiel.",
+          "id": 2910
         }
       ]
     },
@@ -853,10 +6055,199 @@
           "nom": "BTS Carrières Juridiques",
           "domaine": "Droit",
           "duree": "2 ans",
-          "debouches": ["Clerc de notaire", "Secrétaire juridique", "Assistant d'huissier"],
-          "series_acceptees": ["A", "B", "C", "D"],
+          "debouches": [
+            "Clerc de notaire",
+            "Secrétaire juridique",
+            "Assistant d'huissier"
+          ],
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D"
+          ],
           "moyenne_requise": 10,
           "description": "Pratique du secrétariat juridique et rédaction d'actes juridiques simples."
+        },
+        {
+          "nom": "BTS Comptabilité et Gestion",
+          "domaine": "Gestion",
+          "duree": "2 ans",
+          "moyenne_requise": 10,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
+          "debouches": [
+            "Comptable",
+            "Aide-comptable",
+            "Gestionnaire de paie"
+          ],
+          "description": "Comptabilité générale et analytique.",
+          "id": 3002
+        },
+        {
+          "nom": "BTS Gestion Commerciale",
+          "domaine": "Commerce",
+          "duree": "2 ans",
+          "moyenne_requise": 10,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
+          "debouches": [
+            "Commercial",
+            "Gestionnaire de clientèle",
+            "Chef de rayon"
+          ],
+          "description": "Vente et gestion commerciale.",
+          "id": 3003
+        },
+        {
+          "nom": "BTS Banque",
+          "domaine": "Finance",
+          "duree": "2 ans",
+          "moyenne_requise": 10,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
+          "debouches": [
+            "Chargé de clientèle",
+            "Guichetier",
+            "Assistant bancaire"
+          ],
+          "description": "Opérations bancaires courantes.",
+          "id": 3004
+        },
+        {
+          "nom": "BTS Ressources Humaines",
+          "domaine": "Gestion",
+          "duree": "2 ans",
+          "moyenne_requise": 10,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
+          "debouches": [
+            "Assistant RH",
+            "Gestionnaire de paie",
+            "Chargé de recrutement"
+          ],
+          "description": "Administration du personnel.",
+          "id": 3005
+        },
+        {
+          "nom": "BTS Informatique de Gestion",
+          "domaine": "Informatique",
+          "duree": "2 ans",
+          "moyenne_requise": 10,
+          "series_acceptees": [
+            "B",
+            "C",
+            "D",
+            "E",
+            "F",
+            "G"
+          ],
+          "debouches": [
+            "Programmeur",
+            "Technicien support",
+            "Gestionnaire de parc"
+          ],
+          "description": "Applications de gestion.",
+          "id": 3006
+        },
+        {
+          "nom": "BTS Assistant de Direction",
+          "domaine": "Management",
+          "duree": "2 ans",
+          "moyenne_requise": 10,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
+          "debouches": [
+            "Assistant de direction",
+            "Secrétaire de direction",
+            "Office manager"
+          ],
+          "description": "Secrétariat et organisation administrative.",
+          "id": 3007
+        },
+        {
+          "nom": "Licence Droit Privé",
+          "domaine": "Droit",
+          "duree": "3 ans",
+          "moyenne_requise": 10.5,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D"
+          ],
+          "debouches": [
+            "Juriste",
+            "Clerc",
+            "Collaborateur d'avocat"
+          ],
+          "description": "Droit civil et commercial.",
+          "id": 3008
+        },
+        {
+          "nom": "Licence Marketing et Communication",
+          "domaine": "Commerce",
+          "duree": "3 ans",
+          "moyenne_requise": 10.5,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
+          "debouches": [
+            "Chef de produit",
+            "Chargé de communication",
+            "Responsable marketing"
+          ],
+          "description": "Marketing opérationnel et communication.",
+          "id": 3009
+        },
+        {
+          "nom": "BTS Communication d'Entreprise",
+          "domaine": "Communication",
+          "duree": "2 ans",
+          "moyenne_requise": 10,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
+          "debouches": [
+            "Chargé de communication",
+            "Assistant événementiel",
+            "Community manager"
+          ],
+          "description": "Communication interne et externe.",
+          "id": 3010
         }
       ]
     },
@@ -881,10 +6272,195 @@
           "nom": "Licence Audit et Contrôle de Gestion",
           "domaine": "Gestion",
           "duree": "3 ans",
-          "debouches": ["Auditeur", "Contrôleur budgétaire", "Analyste financier"],
-          "series_acceptees": ["C", "D", "G2"],
+          "debouches": [
+            "Auditeur",
+            "Contrôleur budgétaire",
+            "Analyste financier"
+          ],
+          "series_acceptees": [
+            "C",
+            "D",
+            "G"
+          ],
           "moyenne_requise": 11,
           "description": "Évaluation des risques et contrôle des processus comptables en entreprise."
+        },
+        {
+          "nom": "Licence Finance et Comptabilité",
+          "domaine": "Finance",
+          "duree": "3 ans",
+          "moyenne_requise": 11,
+          "series_acceptees": [
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
+          "debouches": [
+            "Comptable",
+            "Analyste financier",
+            "Contrôleur de gestion"
+          ],
+          "description": "Comptabilité et finance d'entreprise.",
+          "id": 3102
+        },
+        {
+          "nom": "Licence Gestion des Ressources Humaines",
+          "domaine": "Gestion",
+          "duree": "3 ans",
+          "moyenne_requise": 11,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
+          "debouches": [
+            "Responsable RH",
+            "Chargé de recrutement",
+            "Gestionnaire de paie"
+          ],
+          "description": "Gestion des talents et paie.",
+          "id": 3103
+        },
+        {
+          "nom": "Licence Marketing et Vente",
+          "domaine": "Commerce",
+          "duree": "3 ans",
+          "moyenne_requise": 11,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
+          "debouches": [
+            "Chef de produit",
+            "Responsable commercial",
+            "Chargé d'études"
+          ],
+          "description": "Marketing et techniques de vente.",
+          "id": 3104
+        },
+        {
+          "nom": "Master Audit et Expertise Comptable",
+          "domaine": "Finance",
+          "duree": "2 ans",
+          "moyenne_requise": 12.5,
+          "series_acceptees": [
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
+          "debouches": [
+            "Auditeur",
+            "Expert-comptable stagiaire",
+            "Directeur comptable"
+          ],
+          "description": "Audit légal et préparation à l'expertise comptable.",
+          "id": 3105
+        },
+        {
+          "nom": "Master Management des Entreprises",
+          "domaine": "Management",
+          "duree": "2 ans",
+          "moyenne_requise": 12.5,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
+          "debouches": [
+            "Directeur adjoint",
+            "Consultant",
+            "Chef de département"
+          ],
+          "description": "Stratégie et management.",
+          "id": 3106
+        },
+        {
+          "nom": "Diplôme de Comptabilité et de Gestion (DCG)",
+          "domaine": "Gestion",
+          "duree": "3 ans",
+          "moyenne_requise": 11.5,
+          "series_acceptees": [
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
+          "debouches": [
+            "Collaborateur comptable",
+            "Chef comptable",
+            "Contrôleur de gestion"
+          ],
+          "description": "Cursus préparatoire aux diplômes d'expertise comptable.",
+          "id": 3107
+        },
+        {
+          "nom": "Licence Commerce International",
+          "domaine": "Commerce",
+          "duree": "3 ans",
+          "moyenne_requise": 11,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
+          "debouches": [
+            "Responsable export",
+            "Acheteur",
+            "Transitaire"
+          ],
+          "description": "Opérations de commerce extérieur.",
+          "id": 3108
+        },
+        {
+          "nom": "Master Gestion des Ressources Humaines",
+          "domaine": "Gestion",
+          "duree": "2 ans",
+          "moyenne_requise": 12.5,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
+          "debouches": [
+            "DRH",
+            "Responsable formation",
+            "Consultant RH"
+          ],
+          "description": "Stratégie RH et relations sociales.",
+          "id": 3109
+        },
+        {
+          "nom": "Licence Fiscalité et Droit des Affaires",
+          "domaine": "Droit",
+          "duree": "3 ans",
+          "moyenne_requise": 11.5,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
+          "debouches": [
+            "Fiscaliste",
+            "Juriste d'entreprise",
+            "Conseil fiscal"
+          ],
+          "description": "Fiscalité des entreprises et droit OHADA.",
+          "id": 3110
         }
       ]
     },
@@ -909,10 +6485,194 @@
           "nom": "Licence Banque & Finance",
           "domaine": "Finance",
           "duree": "3 ans",
-          "debouches": ["Conseiller clientèle banque", "Analyste de crédit", "Trésorier"],
-          "series_acceptees": ["B", "C", "D"],
+          "debouches": [
+            "Conseiller clientèle banque",
+            "Analyste de crédit",
+            "Trésorier"
+          ],
+          "series_acceptees": [
+            "B",
+            "C",
+            "D"
+          ],
           "moyenne_requise": 11,
           "description": "Techniques bancaires, analyse financière et marchés des capitaux."
+        },
+        {
+          "nom": "Licence Comptabilité Contrôle Audit",
+          "domaine": "Gestion",
+          "duree": "3 ans",
+          "moyenne_requise": 11,
+          "series_acceptees": [
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
+          "debouches": [
+            "Comptable",
+            "Auditeur junior",
+            "Contrôleur de gestion"
+          ],
+          "description": "Comptabilité approfondie et audit.",
+          "id": 3202
+        },
+        {
+          "nom": "Licence Marketing et Commerce",
+          "domaine": "Commerce",
+          "duree": "3 ans",
+          "moyenne_requise": 11,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
+          "debouches": [
+            "Chef de produit",
+            "Responsable commercial",
+            "Chargé d'études"
+          ],
+          "description": "Marketing opérationnel et vente.",
+          "id": 3203
+        },
+        {
+          "nom": "Licence Gestion des Ressources Humaines",
+          "domaine": "Gestion",
+          "duree": "3 ans",
+          "moyenne_requise": 11,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
+          "debouches": [
+            "Responsable RH",
+            "Chargé de recrutement",
+            "Gestionnaire de paie"
+          ],
+          "description": "Gestion du personnel.",
+          "id": 3204
+        },
+        {
+          "nom": "Licence Droit des Affaires",
+          "domaine": "Droit",
+          "duree": "3 ans",
+          "moyenne_requise": 11,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D"
+          ],
+          "debouches": [
+            "Juriste d'entreprise",
+            "Fiscaliste",
+            "Collaborateur d'avocat"
+          ],
+          "description": "Droit commercial et OHADA.",
+          "id": 3205
+        },
+        {
+          "nom": "Licence Informatique de Gestion",
+          "domaine": "Informatique",
+          "duree": "3 ans",
+          "moyenne_requise": 11,
+          "series_acceptees": [
+            "B",
+            "C",
+            "D",
+            "E",
+            "G"
+          ],
+          "debouches": [
+            "Analyste programmeur",
+            "Gestionnaire de SI",
+            "Développeur"
+          ],
+          "description": "Développement d'applications de gestion.",
+          "id": 3206
+        },
+        {
+          "nom": "Master Audit et Contrôle de Gestion",
+          "domaine": "Finance",
+          "duree": "2 ans",
+          "moyenne_requise": 12.5,
+          "series_acceptees": [
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
+          "debouches": [
+            "Auditeur",
+            "Contrôleur de gestion",
+            "Directeur financier"
+          ],
+          "description": "Audit, contrôle interne et pilotage.",
+          "id": 3207
+        },
+        {
+          "nom": "Master Finance et Banque",
+          "domaine": "Finance",
+          "duree": "2 ans",
+          "moyenne_requise": 12.5,
+          "series_acceptees": [
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
+          "debouches": [
+            "Analyste financier",
+            "Chargé d'affaires",
+            "Directeur d'agence"
+          ],
+          "description": "Ingénierie financière et gestion bancaire.",
+          "id": 3208
+        },
+        {
+          "nom": "Licence Commerce International",
+          "domaine": "Commerce",
+          "duree": "3 ans",
+          "moyenne_requise": 11,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
+          "debouches": [
+            "Responsable export",
+            "Acheteur",
+            "Transitaire"
+          ],
+          "description": "Opérations d'import-export.",
+          "id": 3209
+        },
+        {
+          "nom": "Licence Logistique et Transport",
+          "domaine": "Logistique",
+          "duree": "3 ans",
+          "moyenne_requise": 11,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
+          "debouches": [
+            "Responsable logistique",
+            "Gestionnaire de stocks",
+            "Agent de transit"
+          ],
+          "description": "Organisation des flux et du transport.",
+          "id": 3210
         }
       ]
     },
@@ -937,10 +6697,173 @@
           "nom": "Licence en Biologie Médicale",
           "domaine": "Santé",
           "duree": "3 ans",
-          "debouches": ["Technicien biologiste", "Analyste en laboratoire", "Qualiticien santé"],
-          "series_acceptees": ["C", "D"],
+          "debouches": [
+            "Technicien biologiste",
+            "Analyste en laboratoire",
+            "Qualiticien santé"
+          ],
+          "series_acceptees": [
+            "C",
+            "D"
+          ],
           "moyenne_requise": 11.5,
           "description": "Analyses sanguines, virologie et prélèvements de laboratoire."
+        },
+        {
+          "nom": "Licence Sciences Infirmières",
+          "domaine": "Santé",
+          "duree": "3 ans",
+          "moyenne_requise": 11.5,
+          "series_acceptees": [
+            "C",
+            "D"
+          ],
+          "debouches": [
+            "Infirmier d'État",
+            "Chef d'unité de soins",
+            "Infirmier spécialisé"
+          ],
+          "description": "Techniques de soins et pharmacologie.",
+          "id": 3302
+        },
+        {
+          "nom": "Licence Sage-Femme",
+          "domaine": "Santé",
+          "duree": "3 ans",
+          "moyenne_requise": 11.5,
+          "series_acceptees": [
+            "C",
+            "D"
+          ],
+          "debouches": [
+            "Sage-femme d'État",
+            "Responsable de maternité",
+            "Maïeuticien"
+          ],
+          "description": "Soins obstétricaux et néonatals.",
+          "id": 3303
+        },
+        {
+          "nom": "Licence Santé Publique",
+          "domaine": "Santé",
+          "duree": "3 ans",
+          "moyenne_requise": 11,
+          "series_acceptees": [
+            "B",
+            "C",
+            "D"
+          ],
+          "debouches": [
+            "Chargé de programme santé",
+            "Épidémiologiste junior",
+            "Gestionnaire de centre"
+          ],
+          "description": "Prévention, épidémiologie et politiques de santé.",
+          "id": 3304
+        },
+        {
+          "nom": "Licence Nutrition et Diététique",
+          "domaine": "Santé",
+          "duree": "3 ans",
+          "moyenne_requise": 11,
+          "series_acceptees": [
+            "C",
+            "D"
+          ],
+          "debouches": [
+            "Diététicien",
+            "Nutritionniste",
+            "Conseiller en nutrition"
+          ],
+          "description": "Nutrition humaine et éducation alimentaire.",
+          "id": 3305
+        },
+        {
+          "nom": "Licence Kinésithérapie et Rééducation",
+          "domaine": "Santé",
+          "duree": "3 ans",
+          "moyenne_requise": 12,
+          "series_acceptees": [
+            "C",
+            "D"
+          ],
+          "debouches": [
+            "Kinésithérapeute",
+            "Technicien de rééducation",
+            "Moniteur"
+          ],
+          "description": "Rééducation fonctionnelle et motricité.",
+          "id": 3306
+        },
+        {
+          "nom": "Licence Imagerie Médicale",
+          "domaine": "Santé",
+          "duree": "3 ans",
+          "moyenne_requise": 11.5,
+          "series_acceptees": [
+            "C",
+            "D"
+          ],
+          "debouches": [
+            "Technicien en imagerie",
+            "Manipulateur radio",
+            "Technicien d'échographie"
+          ],
+          "description": "Radiologie et échographie.",
+          "id": 3307
+        },
+        {
+          "nom": "Licence Santé Communautaire",
+          "domaine": "Santé",
+          "duree": "3 ans",
+          "moyenne_requise": 11,
+          "series_acceptees": [
+            "B",
+            "C",
+            "D"
+          ],
+          "debouches": [
+            "Agent de santé communautaire",
+            "Coordinateur ONG",
+            "Animateur santé"
+          ],
+          "description": "Santé de proximité et promotion de la santé.",
+          "id": 3308
+        },
+        {
+          "nom": "Licence Pharmacie Technique",
+          "domaine": "Santé",
+          "duree": "3 ans",
+          "moyenne_requise": 11.5,
+          "series_acceptees": [
+            "C",
+            "D"
+          ],
+          "debouches": [
+            "Préparateur en pharmacie",
+            "Gestionnaire de stock pharmaceutique",
+            "Délégué médical"
+          ],
+          "description": "Dispensation et gestion du médicament.",
+          "id": 3309
+        },
+        {
+          "nom": "Master Santé Publique",
+          "domaine": "Santé",
+          "duree": "2 ans",
+          "moyenne_requise": 12.5,
+          "series_acceptees": [
+            "B",
+            "C",
+            "D"
+          ],
+          "debouches": [
+            "Responsable de programme",
+            "Épidémiologiste",
+            "Consultant en santé"
+          ],
+          "description": "Management des systèmes de santé.",
+          "id": 3310
         }
       ]
     },
@@ -965,10 +6888,193 @@
           "nom": "Licence en Sciences Politiques",
           "domaine": "Droit",
           "duree": "3 ans",
-          "debouches": ["Analyste politique", "Diplomate", "Consultant en relations publiques"],
-          "series_acceptees": ["A", "B", "C", "D"],
+          "debouches": [
+            "Analyste politique",
+            "Diplomate",
+            "Consultant en relations publiques"
+          ],
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D"
+          ],
           "moyenne_requise": 11,
           "description": "Étude des institutions publiques, géopolitique et gouvernance mondiale."
+        },
+        {
+          "nom": "Licence en Théologie",
+          "domaine": "Sciences Humaines",
+          "duree": "3 ans",
+          "moyenne_requise": 10,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D"
+          ],
+          "debouches": [
+            "Théologien",
+            "Pasteur",
+            "Enseignant"
+          ],
+          "description": "Études bibliques et théologie systématique.",
+          "id": 3402
+        },
+        {
+          "nom": "Licence en Droit Privé",
+          "domaine": "Droit",
+          "duree": "3 ans",
+          "moyenne_requise": 11,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D"
+          ],
+          "debouches": [
+            "Juriste",
+            "Clerc",
+            "Collaborateur d'avocat"
+          ],
+          "description": "Droit civil et commercial.",
+          "id": 3403
+        },
+        {
+          "nom": "Licence en Gestion des Entreprises",
+          "domaine": "Gestion",
+          "duree": "3 ans",
+          "moyenne_requise": 11,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
+          "debouches": [
+            "Gestionnaire",
+            "Entrepreneur",
+            "Chargé de mission"
+          ],
+          "description": "Management et comptabilité des entreprises.",
+          "id": 3404
+        },
+        {
+          "nom": "Licence en Informatique",
+          "domaine": "Informatique",
+          "duree": "3 ans",
+          "moyenne_requise": 11,
+          "series_acceptees": [
+            "C",
+            "D",
+            "E",
+            "F"
+          ],
+          "debouches": [
+            "Développeur",
+            "Administrateur système",
+            "Technicien réseau"
+          ],
+          "description": "Programmation et systèmes d'information.",
+          "id": 3405
+        },
+        {
+          "nom": "Licence en Communication",
+          "domaine": "Communication",
+          "duree": "3 ans",
+          "moyenne_requise": 11,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
+          "debouches": [
+            "Chargé de communication",
+            "Journaliste",
+            "Attaché de presse"
+          ],
+          "description": "Communication, médias et relations publiques.",
+          "id": 3406
+        },
+        {
+          "nom": "Licence en Gestion des Ressources Humaines",
+          "domaine": "Gestion",
+          "duree": "3 ans",
+          "moyenne_requise": 11,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
+          "debouches": [
+            "Responsable RH",
+            "Chargé de recrutement",
+            "Gestionnaire de paie"
+          ],
+          "description": "Gestion du personnel.",
+          "id": 3407
+        },
+        {
+          "nom": "Licence en Psychologie",
+          "domaine": "Sciences Humaines",
+          "duree": "3 ans",
+          "moyenne_requise": 11,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D"
+          ],
+          "debouches": [
+            "Psychologue",
+            "Conseiller",
+            "Chargé de recrutement"
+          ],
+          "description": "Psychologie clinique et sociale.",
+          "id": 3408
+        },
+        {
+          "nom": "Licence en Sciences Économiques",
+          "domaine": "Économie",
+          "duree": "3 ans",
+          "moyenne_requise": 11,
+          "series_acceptees": [
+            "B",
+            "C",
+            "D"
+          ],
+          "debouches": [
+            "Économiste",
+            "Analyste",
+            "Chargé d'études"
+          ],
+          "description": "Micro, macroéconomie et développement.",
+          "id": 3409
+        },
+        {
+          "nom": "Master en Management des Organisations",
+          "domaine": "Management",
+          "duree": "2 ans",
+          "moyenne_requise": 12,
+          "series_acceptees": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "G"
+          ],
+          "debouches": [
+            "Directeur adjoint",
+            "Consultant",
+            "Responsable de département"
+          ],
+          "description": "Management stratégique et leadership.",
+          "id": 3410
         }
       ]
     }

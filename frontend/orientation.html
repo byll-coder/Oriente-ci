@@ -2,131 +2,281 @@
 <html lang="fr">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Indique ta série, ta moyenne et tes envies : OrienteCI calcule les formations et écoles compatibles avec ton BAC."
+    />
     <title>Mon orientation — OrienteCI</title>
     <link rel="stylesheet" href="styles.css" />
+    <script src="Nav.js" defer></script>
     <style>
-      /* ── LAYOUT ────────────────────────────────────────────────── */
+      /* ══ ALIAS DE TOKENS ═══════════════════════════════════════════
+         Tout passe par styles.css ; les valeurs de repli évitent
+         qu'un token manquant casse la page. */
+      :root {
+        --c-line: var(--glass-border-2, rgba(255, 255, 255, 0.07));
+        --c-line-strong: var(--glass-border, rgba(255, 255, 255, 0.12));
+        --c-surface: var(--glass-bg, rgba(255, 255, 255, 0.055));
+        --c-surface-2: var(--glass-bg-2, rgba(255, 255, 255, 0.09));
+        --c-pop: #14112a;
+        --c-txt: var(--txt, #ede9ff);
+        --c-txt-2: var(--txt-2, rgba(237, 233, 255, 0.65));
+        --c-txt-3: var(--txt-3, rgba(237, 233, 255, 0.38));
+        --c-txt-4: var(--txt-4, rgba(237, 233, 255, 0.2));
+        --c-accent: var(--purple-light, #a78bfa);
+        --c-accent-strong: var(--purple, #7c5cfc);
+        --c-accent-deep: var(--purple-deep, #4c2dbd);
+        --c-amber: var(--amber-light, #ffc24d);
+        --c-teal: var(--teal, #0ed2c8);
+        --c-rose: var(--rose, #f43f7e);
+        --c-radius: var(--r, 18px);
+        --c-radius-sm: var(--r-sm, 12px);
+        --c-pill: var(--r-pill, 999px);
+        --c-ease: var(--ease, cubic-bezier(0.22, 1, 0.36, 1));
+      }
+
+      [hidden] {
+        display: none !important;
+      }
+      .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        clip: rect(0 0 0 0);
+        white-space: nowrap;
+      }
+      :focus-visible {
+        outline: 2px solid var(--c-accent);
+        outline-offset: 2px;
+      }
+
+      @keyframes oriIn {
+        from {
+          opacity: 0;
+          transform: translateY(14px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      @keyframes oriSpin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+      @keyframes shimmer {
+        to {
+          background-position: -200% 0;
+        }
+      }
+
+      /* ══ LAYOUT ════════════════════════════════════════════════════ */
+      .section.orient {
+        padding-top: 32px;
+      }
       .orientation-layout {
         display: grid;
-        grid-template-columns: 360px 1fr;
+        grid-template-columns: 380px minmax(0, 1fr);
         gap: 24px;
         align-items: start;
       }
 
-      /* ── FORMULAIRE ────────────────────────────────────────────── */
+      /* ══ FORMULAIRE ════════════════════════════════════════════════ */
       .form-card {
-        border-radius: var(--r-lg);
+        border-radius: var(--r-lg, 26px);
         padding: 28px;
         position: sticky;
-        top: 80px;
+        top: 84px;
+        max-height: calc(100vh - 104px);
+        overflow-y: auto;
+        scrollbar-width: thin;
       }
-      .form-card-head {
-        margin-bottom: 24px;
-        padding-bottom: 20px;
-        border-bottom: 1px solid var(--glass-border-2);
+      .form-head {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 12px;
+        margin-bottom: 22px;
+        padding-bottom: 18px;
+        border-bottom: 1px solid var(--c-line);
       }
-      .form-card-head h2 {
+      .form-head h2 {
         font-size: 1.2rem;
         font-weight: 800;
         letter-spacing: -0.03em;
         margin-bottom: 5px;
       }
-      .form-card-head p {
+      .form-head p {
         font-size: 0.78rem;
-        color: var(--txt-3);
-        font-weight: 400;
+        color: var(--c-txt-3);
+        line-height: 1.5;
+      }
+      .link-btn {
+        background: none;
+        border: none;
+        color: var(--c-txt-3);
+        font-size: 0.76rem;
+        font-weight: 600;
+        cursor: pointer;
+        padding: 4px 2px;
+        white-space: nowrap;
+        transition: color 0.18s;
+      }
+      .link-btn:hover {
+        color: var(--c-accent);
+      }
+      .saved-note {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        margin-top: 8px;
+        font-size: 0.72rem;
+        color: var(--c-teal);
+      }
+      .saved-note svg {
+        width: 12px;
+        height: 12px;
+      }
+
+      .group-title {
+        font-size: 0.68rem;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--c-txt-3);
+        margin: 0 0 14px;
+      }
+      .group-title.spaced {
+        margin-top: 26px;
+        padding-top: 20px;
+        border-top: 1px solid var(--c-line);
       }
 
       .champ {
         margin-bottom: 18px;
       }
-      .champ label {
+      .champ > label,
+      .champ > .label {
         display: flex;
         align-items: center;
         gap: 6px;
-        font-size: 0.76rem;
+        font-size: 0.74rem;
         font-weight: 700;
-        letter-spacing: 0.02em;
-        color: var(--txt-2);
+        letter-spacing: 0.03em;
+        color: var(--c-txt-2);
         margin-bottom: 8px;
         text-transform: uppercase;
       }
-      .champ label svg {
+      .champ > label svg,
+      .champ > .label svg {
         width: 12px;
         height: 12px;
-        color: var(--purple-light);
+        color: var(--c-accent);
       }
       .req {
-        color: var(--amber);
+        color: var(--c-amber);
         margin-left: 2px;
       }
-
       .champ select,
-      .champ input {
+      .champ input[type="number"] {
         width: 100%;
         padding: 12px 14px;
-        border: 1px solid var(--glass-border);
-        border-radius: var(--r-sm);
+        border: 1px solid var(--c-line-strong);
+        border-radius: var(--c-radius-sm);
         font-family: "Plus Jakarta Sans", sans-serif;
         font-size: 0.88rem;
         font-weight: 500;
         background: rgba(255, 255, 255, 0.05);
-        color: var(--txt);
+        color: var(--c-txt);
         transition:
           border-color 0.22s,
           background 0.22s,
           box-shadow 0.22s;
         appearance: none;
+        -moz-appearance: textfield;
       }
       .champ select {
         background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23a78bfa' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
         background-repeat: no-repeat;
         background-position: right 14px center;
+        padding-right: 36px;
         cursor: pointer;
       }
-      .champ select option {
-        background: var(--bg-2);
-        color: var(--txt);
+      .champ select option,
+      .champ select optgroup {
+        background: var(--bg-2, #100e22);
+        color: var(--c-txt);
       }
       .champ input::placeholder {
-        color: var(--txt-4);
+        color: var(--c-txt-4);
         font-weight: 400;
       }
       .champ select:focus,
-      .champ input:focus {
+      .champ input[type="number"]:focus {
         outline: none;
-        border-color: var(--purple);
-        background: rgba(124, 92, 252, 0.08);
+        border-color: var(--c-accent-strong);
+        background-color: rgba(124, 92, 252, 0.08);
         box-shadow: 0 0 0 3px rgba(124, 92, 252, 0.15);
+      }
+      .champ.has-err select,
+      .champ.has-err input[type="number"] {
+        border-color: rgba(244, 63, 126, 0.6);
+        box-shadow: 0 0 0 3px rgba(244, 63, 126, 0.12);
+      }
+      .champ-err {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        margin-top: 7px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        color: var(--c-rose);
+      }
+      .champ-err svg {
+        width: 13px;
+        height: 13px;
+        flex-shrink: 0;
+      }
+      .champ-note {
+        margin-top: 7px;
+        font-size: 0.73rem;
+        color: var(--c-txt-3);
       }
 
       /* Panneau métiers */
       .panneau-metiers {
-        margin-top: 10px;
-        max-height: 0;
-        overflow: hidden;
+        display: grid;
+        grid-template-rows: 0fr;
         opacity: 0;
         transition:
-          max-height 0.45s var(--ease),
-          opacity 0.35s var(--ease);
+          grid-template-rows 0.45s var(--c-ease),
+          opacity 0.35s var(--c-ease),
+          margin 0.35s var(--c-ease);
       }
       .panneau-metiers.open {
-        max-height: 500px;
+        grid-template-rows: 1fr;
         opacity: 1;
+        margin-top: 10px;
       }
       .panneau-metiers-inner {
+        min-height: 0;
+        overflow: hidden;
+      }
+      .panneau-box {
         background: rgba(240, 165, 0, 0.07);
         border: 1px solid rgba(240, 165, 0, 0.2);
-        border-radius: var(--r-sm);
+        border-radius: var(--c-radius-sm);
         padding: 14px;
       }
       .panneau-titre {
-        font-size: 0.72rem;
+        font-size: 0.7rem;
         font-weight: 700;
         text-transform: uppercase;
         letter-spacing: 0.08em;
-        color: var(--amber-light);
+        color: var(--c-amber);
         display: flex;
         align-items: center;
         gap: 6px;
@@ -136,32 +286,19 @@
         width: 12px;
         height: 12px;
       }
-      .metier-item {
+      .metiers-chips {
         display: flex;
-        gap: 10px;
-        padding: 8px 0;
-        border-bottom: 1px solid rgba(240, 165, 0, 0.1);
+        flex-wrap: wrap;
+        gap: 6px;
       }
-      .metier-item:last-child {
-        border-bottom: none;
-      }
-      .metier-dot {
-        width: 5px;
-        height: 5px;
-        border-radius: 50%;
-        background: var(--amber);
-        margin-top: 7px;
-        flex-shrink: 0;
-      }
-      .metier-nom {
-        font-size: 0.8rem;
+      .metier-chip {
+        font-size: 0.74rem;
         font-weight: 600;
-        color: var(--txt);
-      }
-      .metier-desc {
-        font-size: 0.72rem;
-        color: var(--txt-3);
-        line-height: 1.4;
+        color: var(--c-txt);
+        background: rgba(240, 165, 0, 0.1);
+        border: 1px solid rgba(240, 165, 0, 0.2);
+        padding: 5px 11px;
+        border-radius: var(--c-pill);
       }
 
       /* Matières */
@@ -170,90 +307,260 @@
         grid-template-columns: 1fr 1fr;
         gap: 7px;
       }
-      .matiere-label {
+      .chip-check {
+        position: relative;
         display: flex;
         align-items: center;
         gap: 7px;
         font-size: 0.78rem;
         font-weight: 600;
         padding: 9px 11px;
-        border: 1px solid var(--glass-border-2);
-        border-radius: var(--r-sm);
+        border: 1px solid var(--c-line);
+        border-radius: var(--c-radius-sm);
         cursor: pointer;
-        transition: all 0.2s var(--ease);
+        transition: all 0.2s var(--c-ease);
         background: rgba(255, 255, 255, 0.03);
-        color: var(--txt-3);
+        color: var(--c-txt-3);
+        user-select: none;
       }
-      .matiere-label svg {
+      .chip-check svg {
         width: 14px;
         height: 14px;
-        color: var(--purple-light);
+        color: var(--c-accent);
         flex-shrink: 0;
       }
-      .matiere-label input {
-        display: none;
+      .chip-check input {
+        position: absolute;
+        opacity: 0;
+        pointer-events: none;
       }
-      .matiere-label:has(input:checked) {
+      .chip-check:hover {
+        border-color: var(--c-line-strong);
+        color: var(--c-txt-2);
+      }
+      .chip-check:has(input:checked) {
         background: rgba(240, 165, 0, 0.12);
         border-color: rgba(240, 165, 0, 0.35);
-        color: var(--amber-light);
+        color: var(--c-amber);
       }
-      .matiere-label:has(input:checked) svg {
-        color: var(--amber-light);
+      .chip-check:has(input:checked) svg {
+        color: var(--c-amber);
       }
-
-      .form-submit-btn {
+      .chip-check:has(input:focus-visible) {
+        outline: 2px solid var(--c-accent);
+        outline-offset: 2px;
+      }
+      .tech-toggle {
         width: 100%;
-        justify-content: center;
-        margin-top: 8px;
-        padding: 14px;
-        font-size: 0.92rem;
-        background: linear-gradient(135deg, var(--purple), var(--purple-deep));
-        box-shadow: var(--shadow-btn-purple);
-      }
-      .form-submit-btn:hover {
-        background: linear-gradient(135deg, var(--purple-light), var(--purple));
-        box-shadow:
-          0 12px 36px rgba(124, 92, 252, 0.5),
-          0 1px 0 rgba(255, 255, 255, 0.25) inset;
-      }
-
-      /* ── RÉSULTATS ─────────────────────────────────────────────── */
-      .resultats-header {
+        margin-top: 10px;
         display: flex;
         align-items: center;
         justify-content: space-between;
-        margin-bottom: 20px;
-        flex-wrap: wrap;
-        gap: 10px;
-      }
-      .resultats-header h3 {
-        font-size: 1rem;
+        gap: 8px;
+        padding: 10px 12px;
+        font-family: inherit;
+        font-size: 0.76rem;
         font-weight: 700;
-        letter-spacing: -0.02em;
+        color: var(--c-txt-2);
+        background: var(--c-surface);
+        border: 1px dashed var(--c-line-strong);
+        border-radius: var(--c-radius-sm);
+        cursor: pointer;
+        transition:
+          color 0.2s,
+          border-color 0.2s;
       }
-      .resultats-header p {
-        font-size: 0.8rem;
-        color: var(--txt-3);
+      .tech-toggle:hover {
+        color: var(--c-accent);
+        border-color: var(--c-accent);
       }
-      .res-count-pill {
+      .tech-toggle svg {
+        width: 14px;
+        height: 14px;
+        transition: transform 0.3s var(--c-ease);
+      }
+      .tech-toggle[aria-expanded="true"] svg {
+        transform: rotate(180deg);
+      }
+      .tech-wrap {
+        display: grid;
+        grid-template-rows: 0fr;
+        transition: grid-template-rows 0.4s var(--c-ease);
+      }
+      .tech-wrap.open {
+        grid-template-rows: 1fr;
+      }
+      .tech-inner {
+        min-height: 0;
+        overflow: hidden;
+        visibility: hidden;
+        transition: visibility 0.4s;
+      }
+      .tech-wrap.open .tech-inner {
+        visibility: visible;
+      }
+      .tech-inner .matieres {
+        padding-top: 10px;
+      }
+
+      .form-submit {
+        width: 100%;
+        margin-top: 10px;
+        padding: 14px;
+        font-size: 0.92rem;
+      }
+      .form-submit[disabled] {
+        opacity: 0.6;
+        cursor: progress;
+        transform: none;
+      }
+      .mini-spin {
+        width: 15px;
+        height: 15px;
+        border-radius: 50%;
+        border: 2px solid rgba(255, 255, 255, 0.35);
+        border-top-color: #fff;
+        animation: oriSpin 0.7s linear infinite;
+      }
+
+      /* ══ RÉSULTATS ═════════════════════════════════════════════════ */
+      #zone-resultats {
+        min-width: 0;
+        outline: none;
+      }
+      .res-head {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 14px;
+        flex-wrap: wrap;
+        margin-bottom: 18px;
+        animation: oriIn 0.55s var(--c-ease) both;
+      }
+      .res-kicker {
         font-family: "DM Mono", monospace;
-        font-size: 0.75rem;
+        font-size: 0.68rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--c-accent);
+        margin-bottom: 8px;
+      }
+      .res-head h2 {
+        font-size: clamp(1.25rem, 2.6vw, 1.6rem);
+        font-weight: 800;
+        letter-spacing: -0.03em;
+        margin-bottom: 12px;
+      }
+      .profil-chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 7px;
+      }
+      .profil-chip {
+        font-size: 0.74rem;
+        font-weight: 600;
+        color: var(--c-txt-2);
+        background: var(--c-surface);
+        border: 1px solid var(--c-line);
+        padding: 5px 12px;
+        border-radius: var(--c-pill);
+      }
+      .profil-chip.strong {
+        color: var(--c-accent);
+        background: rgba(124, 92, 252, 0.12);
+        border-color: rgba(124, 92, 252, 0.28);
+      }
+      .only-mobile {
+        display: none;
+      }
+
+      .res-toolbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        flex-wrap: wrap;
+        margin-bottom: 18px;
+        animation: oriIn 0.55s var(--c-ease) 0.06s both;
+      }
+      .seg {
+        display: flex;
+        gap: 6px;
+        flex-wrap: wrap;
+      }
+      .seg button {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-family: inherit;
+        font-size: 0.78rem;
+        font-weight: 600;
+        color: var(--c-txt-2);
+        background: var(--c-surface);
+        border: 1px solid var(--c-line);
+        padding: 8px 14px;
+        border-radius: var(--c-pill);
+        cursor: pointer;
+        transition:
+          background 0.2s,
+          color 0.2s,
+          border-color 0.2s;
+      }
+      .seg button b {
+        font-family: "DM Mono", monospace;
         font-weight: 500;
-        background: rgba(124, 92, 252, 0.15);
-        color: var(--purple-light);
-        border: 1px solid rgba(124, 92, 252, 0.28);
-        padding: 4px 12px;
-        border-radius: var(--r-pill);
+        font-size: 0.68rem;
+        background: rgba(255, 255, 255, 0.1);
+        padding: 1px 7px;
+        border-radius: 999px;
+      }
+      .seg button:hover:not(:disabled):not(.on) {
+        color: var(--c-txt);
+        border-color: var(--c-line-strong);
+      }
+      .seg button.on {
+        background: rgba(124, 92, 252, 0.22);
+        border-color: rgba(32, 16, 94, 0.5);
+        color: #fff;
+      }
+      .seg button:disabled {
+        opacity: 0.35;
+        cursor: not-allowed;
+      }
+      .sort {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 0.78rem;
+        font-weight: 600;
+        color: var(--c-txt-3);
+      }
+      .sort select {
+        appearance: none;
+        font-family: inherit;
+        font-size: 0.78rem;
+        font-weight: 600;
+        color: var(--c-txt);
+        background-color: var(--c-surface);
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 12 12'%3E%3Cpath fill='%23a78bfa' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 12px center;
+        border: 1px solid var(--c-line-strong);
+        border-radius: var(--c-pill);
+        padding: 8px 30px 8px 14px;
+        cursor: pointer;
+      }
+      .sort select option {
+        background: var(--bg-2, #100e22);
       }
 
       .carte-resultat {
-        border-radius: var(--r);
+        border-radius: var(--c-radius);
         padding: 22px;
         margin-bottom: 14px;
         transition:
-          transform 0.4s var(--ease),
-          box-shadow 0.4s var(--ease),
+          transform 0.4s var(--c-ease),
+          box-shadow 0.4s var(--c-ease),
           border-color 0.3s;
       }
       .carte-resultat:hover {
@@ -261,53 +568,12 @@
         box-shadow: var(--shadow-lift);
         border-color: rgba(124, 92, 252, 0.3);
       }
-
-      /* Score */
-      .score-row {
+      .badges {
         display: flex;
-        align-items: center;
-        gap: 14px;
-        margin-bottom: 16px;
+        gap: 8px;
+        flex-wrap: wrap;
+        margin-bottom: 14px;
       }
-      .score-track {
-        flex: 1;
-        height: 7px;
-        background: var(--glass-border-2);
-        border-radius: 4px;
-        overflow: hidden;
-      }
-      .score-fill {
-        height: 100%;
-        border-radius: 4px;
-        width: 0;
-        transition: width 0.9s var(--ease);
-      }
-      .fill-top {
-        background: linear-gradient(90deg, var(--purple), var(--teal));
-      }
-      .fill-good {
-        background: linear-gradient(90deg, var(--amber), var(--amber-light));
-      }
-      .fill-ok {
-        background: rgba(255, 255, 255, 0.2);
-      }
-      .score-val {
-        font-family: "DM Mono", monospace;
-        font-size: 1.3rem;
-        font-weight: 500;
-        min-width: 48px;
-        text-align: right;
-      }
-      .score-top {
-        color: var(--purple-light);
-      }
-      .score-good {
-        color: var(--amber-light);
-      }
-      .score-ok {
-        color: var(--txt-3);
-      }
-
       .badge-res {
         display: inline-flex;
         align-items: center;
@@ -316,8 +582,7 @@
         font-weight: 700;
         letter-spacing: 0.04em;
         padding: 4px 11px;
-        border-radius: var(--r-pill);
-        margin-bottom: 12px;
+        border-radius: var(--c-pill);
       }
       .badge-res svg {
         width: 10px;
@@ -325,103 +590,19 @@
       }
       .badge-res-top {
         background: rgba(124, 92, 252, 0.14);
-        color: var(--purple-light);
+        color: var(--c-accent);
         border: 1px solid rgba(124, 92, 252, 0.28);
       }
       .badge-res-good {
         background: rgba(240, 165, 0, 0.12);
-        color: var(--amber-light);
+        color: var(--c-amber);
         border: 1px solid rgba(240, 165, 0, 0.26);
       }
       .badge-res-ok {
-        background: var(--glass-bg);
-        color: var(--txt-3);
-        border: 1px solid var(--glass-border-2);
+        background: var(--c-surface);
+        color: var(--c-txt-3);
+        border: 1px solid var(--c-line);
       }
-
-      .res-formation {
-        font-size: 1.02rem;
-        font-weight: 700;
-        letter-spacing: -0.025em;
-        margin-bottom: 5px;
-      }
-      .res-ecole {
-        display: flex;
-        align-items: center;
-        gap: 6px;
-        font-size: 0.84rem;
-        color: var(--txt-2);
-        margin-bottom: 14px;
-      }
-      .res-ecole svg {
-        width: 13px;
-        height: 13px;
-        color: var(--purple-light);
-      }
-      .res-meta {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 10px 16px;
-        font-size: 0.78rem;
-        color: var(--txt-3);
-        margin-bottom: 12px;
-      }
-      .res-meta span {
-        display: inline-flex;
-        align-items: center;
-        gap: 5px;
-      }
-      .res-meta svg {
-        width: 12px;
-        height: 12px;
-        color: var(--purple-light);
-      }
-      .res-debouches {
-        font-size: 0.8rem;
-        color: var(--txt-3);
-        line-height: 1.5;
-      }
-      .res-debouches strong {
-        color: var(--txt-2);
-        font-weight: 600;
-      }
-
-      /* État vide */
-      .empty-results {
-        text-align: center;
-        padding: 80px 24px;
-        border-radius: var(--r-lg);
-      }
-      .empty-results .empty-ico {
-        width: 60px;
-        height: 60px;
-        margin: 0 auto 20px;
-        border-radius: 18px;
-        background: rgba(124, 92, 252, 0.1);
-        border: 1px solid rgba(124, 92, 252, 0.2);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-      .empty-results .empty-ico svg {
-        width: 28px;
-        height: 28px;
-        color: var(--purple-light);
-      }
-      .empty-results h3 {
-        font-size: 1.1rem;
-        font-weight: 700;
-        margin-bottom: 10px;
-      }
-      .empty-results p {
-        font-size: 0.88rem;
-        color: var(--txt-3);
-        max-width: 340px;
-        margin: 0 auto;
-        line-height: 1.6;
-      }
-
-      /* ── BADGES TYPE DE MATCH ─────────────────────────────────── */
       .badge-match-exact {
         background: rgba(20, 184, 166, 0.12);
         color: #2dd4bf;
@@ -437,84 +618,507 @@
         color: #fdba74;
         border: 1px solid rgba(249, 115, 22, 0.28);
       }
+      .badge-warn {
+        background: rgba(239, 68, 68, 0.12);
+        color: #f87171;
+        border: 1px solid rgba(239, 68, 68, 0.25);
+      }
 
-      /* ── BARRE DE COMPARAISON ──────────────────────────────────── */
-      .compare-bar {
-        position: fixed;
-        bottom: 24px;
-        left: 50%;
-        transform: translateX(-50%) translateY(120px);
-        z-index: 999;
-        background: var(--bg-2, #1a1a2e);
-        border: 1px solid rgba(124, 92, 252, 0.4);
-        border-radius: var(--r-pill, 999px);
-        padding: 12px 20px;
+      .score-row {
         display: flex;
         align-items: center;
-        gap: 16px;
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-        transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-        white-space: nowrap;
+        gap: 14px;
+        margin-bottom: 16px;
       }
-      .compare-bar.visible {
-        transform: translateX(-50%) translateY(0);
+      .score-track {
+        flex: 1;
+        height: 7px;
+        background: var(--c-line);
+        border-radius: 4px;
+        overflow: hidden;
       }
-      .compare-slots {
+      .score-fill {
+        height: 100%;
+        border-radius: 4px;
+        width: 0;
+        transition: width 0.9s var(--c-ease);
+      }
+      .fill-top {
+        background: linear-gradient(
+          90deg,
+          var(--c-accent-strong),
+          var(--c-teal)
+        );
+      }
+      .fill-good {
+        background: linear-gradient(
+          90deg,
+          var(--amber, #f0a500),
+          var(--c-amber)
+        );
+      }
+      .fill-ok {
+        background: rgba(255, 255, 255, 0.2);
+      }
+      .score-val {
+        font-family: "DM Mono", monospace;
+        font-size: 1.3rem;
+        font-weight: 500;
+        min-width: 56px;
+        text-align: right;
+      }
+      .score-val small {
+        font-size: 0.55rem;
+        opacity: 0.6;
+      }
+      .score-top {
+        color: var(--c-accent);
+      }
+      .score-good {
+        color: var(--c-amber);
+      }
+      .score-ok {
+        color: var(--c-txt-3);
+      }
+
+      .res-formation {
+        font-size: 1.05rem;
+        font-weight: 700;
+        letter-spacing: -0.025em;
+        margin-bottom: 6px;
+        line-height: 1.3;
+      }
+      .res-ecole {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 8px;
+        font-size: 0.84rem;
+        color: var(--c-txt-2);
+        margin-bottom: 14px;
+      }
+      .res-ecole .sigle {
+        font-family: "DM Mono", monospace;
+        font-size: 0.66rem;
+        color: #fff;
+        background: linear-gradient(
+          140deg,
+          var(--c-accent-strong),
+          var(--c-accent-deep)
+        );
+        padding: 3px 8px;
+        border-radius: 8px;
+      }
+      .res-ecole svg {
+        width: 13px;
+        height: 13px;
+        color: var(--c-accent);
+      }
+      .res-ecole .where {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+      }
+      .res-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px 18px;
+        font-size: 0.78rem;
+        color: var(--c-txt-3);
+        margin-bottom: 14px;
+      }
+      .res-meta span {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+      }
+      .res-meta svg {
+        width: 12px;
+        height: 12px;
+        color: var(--c-accent);
+      }
+      .res-meta .ok {
+        color: var(--c-teal);
+      }
+      .res-meta .ok svg {
+        color: var(--c-teal);
+      }
+      .res-debouches {
+        display: flex;
+        align-items: baseline;
+        flex-wrap: wrap;
+        gap: 6px 8px;
+        font-size: 0.78rem;
+        color: var(--c-txt-3);
+      }
+      .res-debouches strong {
+        color: var(--c-txt-2);
+        font-weight: 600;
+        margin-right: 2px;
+      }
+      .debouche-chip {
+        font-size: 0.72rem;
+        font-weight: 600;
+        color: var(--c-txt-2);
+        background: var(--c-surface);
+        border: 1px solid var(--c-line);
+        padding: 3px 10px;
+        border-radius: var(--c-pill);
+      }
+      .res-actions {
+        margin-top: 18px;
+        padding-top: 16px;
+        border-top: 1px solid var(--c-line);
         display: flex;
         gap: 10px;
-        align-items: center;
+        flex-wrap: wrap;
       }
-      .compare-slot {
+      .res-actions .btn {
+        padding: 9px 18px;
+        font-size: 0.8rem;
+      }
+      .btn-compare {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 9px 18px;
+        font-family: inherit;
         font-size: 0.8rem;
         font-weight: 600;
-        color: var(--txt-2);
-        background: rgba(124, 92, 252, 0.1);
-        border: 1px dashed rgba(124, 92, 252, 0.3);
-        border-radius: var(--r-sm, 8px);
-        padding: 6px 14px;
-        min-width: 120px;
-        text-align: center;
+        color: var(--c-accent);
+        background: rgba(124, 92, 252, 0.12);
+        border: 1px solid rgba(124, 92, 252, 0.3);
+        border-radius: var(--c-pill);
+        cursor: pointer;
+        transition:
+          background 0.2s,
+          border-color 0.2s,
+          color 0.2s,
+          transform 0.25s var(--c-ease);
       }
-      .compare-slot.filled {
-        border-style: solid;
-        border-color: rgba(124, 92, 252, 0.5);
-        color: var(--purple-light);
+      .btn-compare svg {
+        width: 14px;
+        height: 14px;
       }
-      .compare-vs {
-        font-size: 0.72rem;
-        font-weight: 700;
-        color: var(--txt-4);
-        letter-spacing: 0.05em;
+      .btn-compare:hover {
+        background: rgba(124, 92, 252, 0.2);
+        transform: translateY(-1px);
       }
       .btn-compare.selected {
-        background: rgba(124, 92, 252, 0.25) !important;
-        border-color: var(--purple) !important;
-        color: var(--purple-light) !important;
+        background: rgba(124, 92, 252, 0.28);
+        border-color: var(--c-accent-strong);
+        color: #fff;
       }
-      .compare-clear {
-        background: none;
-        border: none;
-        color: var(--txt-4);
-        cursor: pointer;
-        font-size: 1rem;
-        padding: 4px;
-        line-height: 1;
+      .more-wrap {
+        display: flex;
+        justify-content: center;
+        margin-top: 8px;
       }
 
-      @media (max-width: 768px) {
+      /* ══ ÉTATS ═════════════════════════════════════════════════════ */
+      .empty-results {
+        text-align: center;
+        padding: 72px 28px;
+        border-radius: var(--r-lg, 26px);
+        animation: oriIn 0.55s var(--c-ease) both;
+      }
+      .empty-ico {
+        width: 60px;
+        height: 60px;
+        margin: 0 auto 20px;
+        border-radius: 18px;
+        background: rgba(124, 92, 252, 0.1);
+        border: 1px solid rgba(124, 92, 252, 0.2);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--c-accent);
+      }
+      .empty-ico svg {
+        width: 28px;
+        height: 28px;
+      }
+      .empty-results.error .empty-ico {
+        background: rgba(244, 63, 126, 0.12);
+        border-color: rgba(244, 63, 126, 0.3);
+        color: var(--c-rose);
+      }
+      .empty-results h3 {
+        font-size: 1.15rem;
+        font-weight: 700;
+        margin-bottom: 10px;
+      }
+      .empty-results p {
+        font-size: 0.88rem;
+        color: var(--c-txt-3);
+        max-width: 380px;
+        margin: 0 auto;
+        line-height: 1.65;
+      }
+      .empty-steps {
+        list-style: none;
+        display: grid;
+        gap: 10px;
+        max-width: 340px;
+        margin: 26px auto 0;
+        text-align: left;
+        counter-reset: step;
+      }
+      .empty-steps li {
+        counter-increment: step;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-size: 0.84rem;
+        color: var(--c-txt-2);
+      }
+      .empty-steps li::before {
+        content: counter(step);
+        flex-shrink: 0;
+        width: 26px;
+        height: 26px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: "DM Mono", monospace;
+        font-size: 0.72rem;
+        color: var(--c-accent);
+        background: rgba(124, 92, 252, 0.14);
+        border: 1px solid rgba(124, 92, 252, 0.28);
+      }
+      .state-actions {
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin-top: 24px;
+      }
+      .skel-card {
+        border-radius: var(--c-radius);
+        padding: 22px;
+        margin-bottom: 14px;
+        display: grid;
+        gap: 12px;
+      }
+      .skel-card i {
+        display: block;
+        height: 14px;
+        border-radius: 8px;
+        background: linear-gradient(
+          100deg,
+          rgba(255, 255, 255, 0.04) 30%,
+          rgba(255, 255, 255, 0.1) 50%,
+          rgba(255, 255, 255, 0.04) 70%
+        );
+        background-size: 200% 100%;
+        animation: shimmer 1.4s linear infinite;
+      }
+      .skel-card i:nth-child(1) {
+        width: 38%;
+        height: 22px;
+      }
+      .skel-card i:nth-child(2) {
+        height: 8px;
+      }
+      .skel-card i:nth-child(3) {
+        width: 70%;
+        height: 18px;
+      }
+      .skel-card i:nth-child(4) {
+        width: 52%;
+      }
+
+      /* ══ BARRE DE COMPARAISON ══════════════════════════════════════ */
+      .compare-bar {
+        position: fixed;
+        bottom: 22px;
+        left: 50%;
+        transform: translate(-50%, 160%);
+        z-index: 150;
+        width: min(92%, 680px);
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex-wrap: wrap;
+        padding: 12px 14px 12px 18px;
+        background: rgba(20, 17, 42, 0.92);
+        backdrop-filter: blur(24px) saturate(160%);
+        -webkit-backdrop-filter: blur(24px) saturate(160%);
+        border: 1px solid rgba(124, 92, 252, 0.4);
+        border-radius: var(--r-xl, 36px);
+        box-shadow: 0 24px 60px -12px rgba(0, 0, 0, 0.6);
+        transition: transform 0.5s var(--ease-spring, var(--c-ease));
+      }
+      .compare-bar.visible {
+        transform: translate(-50%, 0);
+      }
+      .compare-chips {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        flex: 1 1 200px;
+        min-width: 0;
+      }
+      .compare-chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        max-width: 100%;
+        font-size: 0.78rem;
+        font-weight: 600;
+        color: var(--c-accent);
+        background: rgba(124, 92, 252, 0.14);
+        border: 1px solid rgba(124, 92, 252, 0.4);
+        padding: 5px 6px 5px 12px;
+        border-radius: var(--c-pill);
+      }
+      .compare-chip > span {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        max-width: 190px;
+      }
+      .compare-chip button {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        border: none;
+        background: rgba(255, 255, 255, 0.1);
+        color: var(--c-txt-2);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        flex-shrink: 0;
+        transition:
+          background 0.2s,
+          color 0.2s;
+      }
+      .compare-chip button svg {
+        width: 10px;
+        height: 10px;
+      }
+      .compare-chip button:hover {
+        background: rgba(244, 63, 126, 0.25);
+        color: var(--c-rose);
+      }
+      .compare-meta {
+        font-family: "DM Mono", monospace;
+        font-size: 0.72rem;
+        color: var(--c-txt-3);
+        white-space: nowrap;
+      }
+      #btn-comparer.disabled {
+        opacity: 0.4;
+        pointer-events: none;
+      }
+      #btn-comparer {
+        padding: 9px 20px;
+        font-size: 0.82rem;
+      }
+      .compare-clear {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        border: none;
+        background: none;
+        color: var(--c-txt-3);
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition:
+          background 0.2s,
+          color 0.2s;
+      }
+      .compare-clear svg {
+        width: 14px;
+        height: 14px;
+      }
+      .compare-clear:hover {
+        background: var(--c-surface-2);
+        color: var(--c-txt);
+      }
+
+      /* ══ TOAST ═════════════════════════════════════════════════════ */
+      #toast {
+        position: fixed;
+        left: 50%;
+        bottom: 28px;
+        transform: translate(-50%, 160%);
+        z-index: 200;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 12px 20px;
+        border-radius: var(--c-pill);
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: #fff;
+        background: linear-gradient(135deg, #7c5cfc, #4c2dbd);
+        box-shadow: 0 20px 50px -10px rgba(76, 45, 189, 0.6);
+        transition: transform 0.45s var(--ease-spring, var(--c-ease));
+      }
+      #toast svg {
+        width: 15px;
+        height: 15px;
+      }
+      #toast.show {
+        transform: translate(-50%, 0);
+      }
+
+      /* ══ RESPONSIVE ════════════════════════════════════════════════ */
+      @media (max-width: 900px) {
         .orientation-layout {
           grid-template-columns: 1fr;
         }
         .form-card {
           position: static;
+          max-height: none;
+          overflow: visible;
+        }
+        .only-mobile {
+          display: inline-flex;
         }
         .matieres {
-          grid-template-columns: repeat(4, 1fr);
+          grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
         }
       }
-      @media (max-width: 480px) {
-        .matieres {
-          grid-template-columns: 1fr 1fr;
+      @media (max-width: 640px) {
+        .section.orient {
+          padding: 24px 5% 120px;
+        }
+        .form-card {
+          padding: 22px 18px;
+        }
+        .carte-resultat {
+          padding: 18px;
+        }
+        .res-actions .btn,
+        .btn-compare {
+          flex: 1 1 100%;
+          justify-content: center;
+        }
+        .sort {
+          width: 100%;
+          justify-content: space-between;
+        }
+        .compare-bar {
+          bottom: 12px;
+          border-radius: 24px;
+        }
+        .empty-results {
+          padding: 52px 20px;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          animation-duration: 0.01ms !important;
+          animation-delay: 0ms !important;
+          transition-duration: 0.01ms !important;
         }
       }
     </style>
@@ -527,15 +1131,12 @@
     </div>
     <div class="grain" aria-hidden="true"></div>
 
-    <!-- NAV -->
     <div id="site-nav"></div>
-    <script src="nav.js"></script>
 
-    <!-- BANNER -->
-    <div class="page-banner fade-up">
-      <div class="page-banner-inner">
+    <header class="page-banner">
+      <div class="page-banner-inner fade-up">
         <div class="eyebrow">
-          <span class=""></span>Formulaire d'orientation
+          <span class="dot"></span>Formulaire d'orientation
         </div>
         <h1>Trouve ton école</h1>
         <p>
@@ -543,29 +1144,50 @@
           ton BAC.
         </p>
       </div>
-    </div>
+    </header>
 
-    <!-- CONTENT -->
-    <section class="section" style="padding-top: 32px">
+    <main class="section orient">
       <div class="orientation-layout">
-        <!-- FORM -->
-        <div class="form-card glass fade-up delay-1">
-          <div class="form-card-head">
-            <h2>Ton profil</h2>
-            <p>Tes informations restent sur cet appareil uniquement.</p>
+        <!-- FORMULAIRE -->
+        <form
+          class="form-card glass fade-up delay-1"
+          id="profil-form"
+          novalidate
+        >
+          <div class="form-head">
+            <div>
+              <h2>Ton profil</h2>
+              <p>Tes informations restent sur cet appareil uniquement.</p>
+              <span class="saved-note" id="saved-note" hidden>
+                <svg class="icon" viewBox="0 0 24 24" stroke-width="2.4">
+                  <path d="M20 6 9 17l-5-5" />
+                </svg>
+                Profil retrouvé
+              </span>
+            </div>
+            <button type="button" class="link-btn" id="btn-reset">
+              Réinitialiser
+            </button>
           </div>
 
-          <div class="champ">
-            <label>
+          <p class="group-title">Indispensable</p>
+
+          <div class="champ" id="champ-serie">
+            <label for="serie">
               <svg class="icon" viewBox="0 0 24 24" stroke-width="2">
                 <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
                 <path
                   d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z"
                 />
               </svg>
-              Série du BAC <span class="req">*</span>
+              Série du BAC <span class="req" aria-hidden="true">*</span>
             </label>
-            <select id="serie">
+            <select
+              id="serie"
+              name="serie"
+              required
+              aria-describedby="err-serie"
+            >
               <option value="">Choisir une série</option>
               <option value="A">
                 Série A — Lettres &amp; Sciences Humaines
@@ -588,41 +1210,58 @@
                 <option value="BT-ELEC">BT Électronique</option>
               </optgroup>
             </select>
+            <p class="champ-err" id="err-serie" role="alert" hidden></p>
           </div>
 
-          <div class="champ">
-            <label>
+          <div class="champ" id="champ-moyenne">
+            <label for="moyenne">
               <svg class="icon" viewBox="0 0 24 24" stroke-width="2">
                 <path d="M3 17l5-5 4 4 8-9" />
               </svg>
-              Moyenne au BAC <span class="req">*</span>
+              Moyenne au BAC <span class="req" aria-hidden="true">*</span>
             </label>
             <input
               type="number"
               id="moyenne"
+              name="moyenne"
               min="0"
               max="20"
-              step="0.5"
+              step="0.01"
+              inputmode="decimal"
               placeholder="Ex : 13.5"
+              required
+              aria-describedby="err-moyenne"
             />
+            <p class="champ-err" id="err-moyenne" role="alert" hidden></p>
           </div>
 
+          <p class="group-title spaced">Pour affiner (facultatif)</p>
+
           <div class="champ">
-            <label>
+            <label for="domaine">
               <svg class="icon" viewBox="0 0 24 24" stroke-width="2">
                 <circle cx="12" cy="12" r="8.5" />
                 <circle cx="12" cy="12" r="4.5" />
               </svg>
               Domaine souhaité
             </label>
-            <select id="domaine" onchange="afficherMetiers()">
+            <select id="domaine" name="domaine">
               <option value="">Pas de préférence</option>
             </select>
-            <div id="panneau-metiers" class="panneau-metiers"></div>
+            <div
+              id="panneau-metiers"
+              class="panneau-metiers"
+              aria-live="polite"
+            >
+              <div
+                class="panneau-metiers-inner"
+                id="panneau-metiers-inner"
+              ></div>
+            </div>
           </div>
 
           <div class="champ">
-            <label>
+            <label for="ville">
               <svg class="icon" viewBox="0 0 24 24" stroke-width="2">
                 <path
                   d="M12 21s7-6.1 7-11.5A7 7 0 0 0 5 9.5C5 14.9 12 21 12 21Z"
@@ -630,13 +1269,16 @@
               </svg>
               Ville préférée
             </label>
-            <select id="ville">
+            <select id="ville" name="ville">
               <option value="">Pas de préférence</option>
             </select>
+            <p class="champ-note" id="filtres-note" hidden>
+              Domaines et villes indisponibles : le serveur ne répond pas.
+            </p>
           </div>
 
-          <div class="champ">
-            <label>
+          <div class="champ" id="champ-budget">
+            <label for="budget">
               <svg class="icon" viewBox="0 0 24 24" stroke-width="2">
                 <circle cx="12" cy="12" r="9" />
                 <path
@@ -648,220 +1290,77 @@
             <input
               type="number"
               id="budget"
+              name="budget"
               min="0"
               step="50000"
-              placeholder="Ex : 500 000"
+              inputmode="numeric"
+              placeholder="Ex : 500000"
+              aria-describedby="err-budget"
             />
+            <p class="champ-err" id="err-budget" role="alert" hidden></p>
           </div>
 
           <div class="champ">
-            <label>
+            <span class="label" id="lbl-matieres">
               <svg class="icon" viewBox="0 0 24 24" stroke-width="2">
                 <path
                   d="M12 17.75 5.8 21l1.2-7L2 9.3l7-1L12 2l3 6.3 7 1-5 4.7 1.2 7Z"
                 />
               </svg>
               Matières fortes
-            </label>
-            <div class="matieres">
-              <label class="matiere-label">
-                <input type="checkbox" value="Mathématiques" />
-                <svg class="icon" viewBox="0 0 24 24" stroke-width="1.9">
-                  <path d="M4 6h16M4 12h9M4 18h16M17 15l3 3-3 3" />
-                </svg>
-                Maths
-              </label>
-              <label class="matiere-label">
-                <input type="checkbox" value="Physique" />
-                <svg class="icon" viewBox="0 0 24 24" stroke-width="1.9">
-                  <circle
-                    cx="12"
-                    cy="12"
-                    r="1.4"
-                    fill="currentColor"
-                    stroke="none"
-                  />
-                  <ellipse cx="12" cy="12" rx="9" ry="3.6" />
-                  <ellipse
-                    cx="12"
-                    cy="12"
-                    rx="9"
-                    ry="3.6"
-                    transform="rotate(60 12 12)"
-                  />
-                  <ellipse
-                    cx="12"
-                    cy="12"
-                    rx="9"
-                    ry="3.6"
-                    transform="rotate(120 12 12)"
-                  />
-                </svg>
-                Physique
-              </label>
-              <label class="matiere-label">
-                <input type="checkbox" value="SVT" />
-                <svg class="icon" viewBox="0 0 24 24" stroke-width="1.9">
-                  <path
-                    d="M12 21c-4-3-7-6.5-7-11a7 7 0 0 1 14 0c0 4.5-3 8-7 11Z"
-                  />
-                  <path d="M12 8v9" />
-                </svg>
-                SVT
-              </label>
-              <label class="matiere-label">
-                <input type="checkbox" value="Français" />
-                <svg class="icon" viewBox="0 0 24 24" stroke-width="1.9">
-                  <path d="M6 4h9l3 3v13H6z" />
-                  <path d="M9 9h6M9 13h6M9 17h4" />
-                </svg>
-                Français
-              </label>
-              <label class="matiere-label">
-                <input type="checkbox" value="Anglais" />
-                <svg class="icon" viewBox="0 0 24 24" stroke-width="1.9">
-                  <circle cx="12" cy="12" r="9" />
-                  <path
-                    d="M3 12h18M12 3c2.5 2.5 4 5.7 4 9s-1.5 6.5-4 9c-2.5-2.5-4-5.7-4-9s1.5-6.5 4-9Z"
-                  />
-                </svg>
-                Anglais
-              </label>
-              <label class="matiere-label">
-                <input type="checkbox" value="Histoire-Géo" />
-                <svg class="icon" viewBox="0 0 24 24" stroke-width="1.9">
-                  <path
-                    d="M12 21s7-6.1 7-11.5A7 7 0 0 0 5 9.5C5 14.9 12 21 12 21Z"
-                  />
-                  <circle cx="12" cy="9.5" r="2.4" />
-                </svg>
-                Hist-Géo
-              </label>
-              <label class="matiere-label">
-                <input type="checkbox" value="Économie" />
-                <svg class="icon" viewBox="0 0 24 24" stroke-width="1.9">
-                  <path d="M3 17l5-5 4 4 8-9" />
-                  <path d="M14 7h6v6" />
-                </svg>
-                Éco
-              </label>
-              <label class="matiere-label">
-                <input type="checkbox" value="Informatique" />
-                <svg class="icon" viewBox="0 0 24 24" stroke-width="1.9">
-                  <rect x="3" y="4" width="18" height="12" rx="2" />
-                  <path d="M8 21h8M12 16v5" />
-                </svg>
-                Info
-              </label>
+            </span>
+            <div
+              class="matieres"
+              id="matieres-generales"
+              role="group"
+              aria-labelledby="lbl-matieres"
+            ></div>
 
-              <!-- Matières techniques -->
-              <label class="matiere-label" title="F1 — Construction Mécanique">
-                <input type="checkbox" value="Dessin Technique" />
-                <svg class="icon" viewBox="0 0 24 24" stroke-width="1.9">
-                  <path
-                    d="M12 20h9M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4Z"
-                  />
-                </svg>
-                Dessin Tech.
-              </label>
-              <label
-                class="matiere-label"
-                title="F1, F2 — Mécanique / Électronique"
-              >
-                <input type="checkbox" value="Technologie" />
-                <svg class="icon" viewBox="0 0 24 24" stroke-width="1.9">
-                  <circle cx="12" cy="12" r="3" />
-                  <path
-                    d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"
-                  />
-                </svg>
-                Techno.
-              </label>
-              <label class="matiere-label" title="F2, BT Électronique">
-                <input type="checkbox" value="Électrotechnique" />
-                <svg class="icon" viewBox="0 0 24 24" stroke-width="1.9">
-                  <path d="M13 2 3 14h9l-1 8 10-12h-9z" />
-                </svg>
-                Électrotech.
-              </label>
-              <label class="matiere-label" title="F2, BT Électronique">
-                <input type="checkbox" value="Électronique" />
-                <svg class="icon" viewBox="0 0 24 24" stroke-width="1.9">
-                  <path
-                    d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2v-4M9 21H5a2 2 0 0 1-2-2v-4m0 0h18"
-                  />
-                </svg>
-                Électronique
-              </label>
-              <label class="matiere-label" title="G2 — Comptabilité">
-                <input type="checkbox" value="Comptabilité" />
-                <svg class="icon" viewBox="0 0 24 24" stroke-width="1.9">
-                  <path
-                    d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"
-                  />
-                  <path d="M14 2v6h6M8 13h8M8 17h5" />
-                </svg>
-                Comptabilité
-              </label>
-              <label
-                class="matiere-label"
-                title="G1, G2 — Secrétariat / Comptabilité"
-              >
-                <input type="checkbox" value="Gestion" />
-                <svg class="icon" viewBox="0 0 24 24" stroke-width="1.9">
-                  <rect x="2" y="3" width="20" height="14" rx="2" />
-                  <path d="M8 21h8M12 17v4" />
-                </svg>
-                Gestion
-              </label>
-              <label class="matiere-label" title="G1 — Secrétariat">
-                <input type="checkbox" value="Bureautique" />
-                <svg class="icon" viewBox="0 0 24 24" stroke-width="1.9">
-                  <path
-                    d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"
-                  />
-                  <rect x="9" y="3" width="6" height="4" rx="2" />
-                </svg>
-                Bureautique
-              </label>
-              <label class="matiere-label" title="G1 — Secrétariat">
-                <input type="checkbox" value="Communication" />
-                <svg class="icon" viewBox="0 0 24 24" stroke-width="1.9">
-                  <path
-                    d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"
-                  />
-                </svg>
-                Communi.
-              </label>
+            <button
+              type="button"
+              class="tech-toggle"
+              id="tech-toggle"
+              aria-expanded="false"
+              aria-controls="tech-wrap"
+            >
+              <span>Matières techniques (séries F, G, BT)</span>
+              <svg class="icon" viewBox="0 0 24 24" stroke-width="2.2">
+                <path d="m6 9 6 6 6-6" />
+              </svg>
+            </button>
+            <div class="tech-wrap" id="tech-wrap">
+              <div class="tech-inner">
+                <div
+                  class="matieres"
+                  id="matieres-techniques"
+                  role="group"
+                  aria-label="Matières techniques"
+                ></div>
+              </div>
             </div>
           </div>
 
-          <button class="btn form-submit-btn" onclick="lancer()">
-            Voir mes résultats
+          <button
+            type="submit"
+            class="btn btn-violet form-submit"
+            id="btn-submit"
+          >
+            <span id="submit-label">Voir mes résultats</span>
             <svg class="icon" viewBox="0 0 24 24" stroke-width="2.2">
               <path d="M5 12h14M13 6l6 6-6 6" />
             </svg>
           </button>
-        </div>
+        </form>
 
         <!-- RÉSULTATS -->
-        <div id="zone-resultats">
-          <div class="empty-results glass">
-            <div class="empty-ico">
-              <svg class="icon" viewBox="0 0 24 24" stroke-width="1.6">
-                <path d="M22 10 12 5 2 10l10 5 10-5Z" />
-                <path d="M6 12v5c0 1.5 2.7 3 6 3s6-1.5 6-3v-5" />
-              </svg>
-            </div>
-            <h3>Remplis ton profil</h3>
-            <p>
-              Indique au minimum ta série et ta moyenne pour découvrir les
-              formations compatibles.
-            </p>
-          </div>
-        </div>
+        <section
+          id="zone-resultats"
+          tabindex="-1"
+          aria-label="Résultats d'orientation"
+          aria-busy="false"
+        ></section>
       </div>
-    </section>
+    </main>
 
     <footer>
       <strong>OrienteCI</strong>
@@ -874,37 +1373,128 @@
     </footer>
 
     <!-- BARRE DE COMPARAISON -->
-    <div class="compare-bar" id="compare-bar">
-      <div class="compare-slots">
-        <div class="compare-slot" id="slot-1">École 1</div>
-        <span class="compare-vs">VS</span>
-        <div class="compare-slot" id="slot-2">École 2</div>
-      </div>
+    <div
+      class="compare-bar"
+      id="compare-bar"
+      role="region"
+      aria-label="Écoles à comparer"
+    >
+      <div class="compare-chips" id="compare-chips"></div>
+      <span class="compare-meta" id="compare-meta">0/3</span>
       <a
         id="btn-comparer"
         href="#"
-        class="btn btn-dark"
-        style="
-          padding: 9px 20px;
-          font-size: 0.82rem;
-          opacity: 0.4;
-          pointer-events: none;
-        "
+        class="btn btn-primary disabled"
+        aria-disabled="true"
       >
         Comparer
         <svg class="icon" viewBox="0 0 24 24" stroke-width="2.2">
           <path d="M5 12h14M13 6l6 6-6 6" />
         </svg>
       </a>
-      <button class="compare-clear" onclick="clearCompare()" title="Vider">
-        ✕
+      <button
+        type="button"
+        class="compare-clear"
+        id="compare-clear"
+        aria-label="Vider la sélection"
+        title="Vider"
+      >
+        <svg class="icon" viewBox="0 0 24 24" stroke-width="2.2">
+          <path d="M18 6 6 18M6 6l12 12" />
+        </svg>
       </button>
     </div>
 
+    <div id="toast" role="status" aria-live="polite">
+      <svg class="icon" viewBox="0 0 24 24" stroke-width="2.4">
+        <path d="M20 6 9 17l-5-5" />
+      </svg>
+      <span id="toast-txt"></span>
+    </div>
+    <div class="sr-only" id="live" aria-live="polite"></div>
+
     <script>
       const API = "http://localhost:3000/api";
+      const PAGE = 10;
+      const MAX_COMP = 3;
+      const PROFIL_KEY = "orienteci.profil";
+      const TECH_SERIES = ["F1", "F2", "G1", "G2", "BT-ELEC"];
+      const REDUCE_MOTION = matchMedia(
+        "(prefers-reduced-motion: reduce)",
+      ).matches;
 
-      /* ── Métiers par domaine ── */
+      /* ── Utilitaires ─────────────────────────────────────────── */
+      const $ = (id) => document.getElementById(id);
+      const esc = (s) =>
+        String(s ?? "").replace(
+          /[&<>"']/g,
+          (c) =>
+            ({
+              "&": "&amp;",
+              "<": "&lt;",
+              ">": "&gt;",
+              '"': "&quot;",
+              "'": "&#39;",
+            })[c],
+        );
+      const num = (v) =>
+        v === null || v === undefined || v === "" || Number.isNaN(Number(v))
+          ? null
+          : Number(v);
+      const fmt = (n, o) => Number(n).toLocaleString("fr", o);
+
+      const svg = (d, sw = 2) =>
+        `<svg class="icon" viewBox="0 0 24 24" stroke-width="${sw}">${d}</svg>`;
+      const IC = {
+        arrow: svg('<path d="M5 12h14M13 6l6 6-6 6"/>', 2.2),
+        check: svg('<path d="M20 6 9 17l-5-5"/>', 2.5),
+        ring: svg('<circle cx="12" cy="12" r="4"/>', 2.5),
+        plus: svg('<path d="M12 5v14M5 12h14"/>'),
+        x: svg('<path d="M18 6 6 18M6 6l12 12"/>', 2.2),
+        pin: svg(
+          '<path d="M12 21s7-6.1 7-11.5A7 7 0 0 0 5 9.5C5 14.9 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.4"/>',
+        ),
+        clock: svg('<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/>'),
+        coin: svg(
+          '<circle cx="12" cy="12" r="9"/><path d="M9.5 15.2c.4.9 1.3 1.5 2.5 1.5 1.6 0 2.7-.9 2.7-2.1 0-1.4-1.2-1.9-2.7-2.2-1.5-.3-2.6-.9-2.6-2.1 0-1.1 1-2 2.6-2 1.1 0 2 .5 2.4 1.3M12 7.5v9"/>',
+        ),
+        target: svg(
+          '<circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="1" fill="currentColor" stroke="none"/>',
+        ),
+        book: svg(
+          '<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z"/>',
+        ),
+        trend: svg('<path d="M3 17l5-5 4 4 8-9"/><path d="M14 7h6v6"/>'),
+        warn: svg(
+          '<path d="M12 9v4M12 17h.01"/><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>',
+          2.4,
+        ),
+        briefcase: svg(
+          '<rect x="3" y="8" width="18" height="12" rx="2"/><path d="M8 8V6a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M3 13h18"/>',
+        ),
+        grad: svg(
+          '<path d="M22 10 12 5 2 10l10 5 10-5Z"/><path d="M6 12v5c0 1.5 2.7 3 6 3s6-1.5 6-3v-5"/>',
+          1.6,
+        ),
+        sad: svg(
+          '<circle cx="12" cy="12" r="9"/><path d="M8 15c1-1.2 2.3-1.8 4-1.8s3 .6 4 1.8M9 9h.01M15 9h.01"/>',
+          1.6,
+        ),
+      };
+
+      let toastTimer;
+      function toast(msg) {
+        $("toast-txt").textContent = msg;
+        $("toast").classList.add("show");
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(
+          () => $("toast").classList.remove("show"),
+          2400,
+        );
+      }
+      const announce = (msg) => ($("live").textContent = msg);
+
+      /* ── Données statiques (inchangées) ──────────────────────── */
       const METIERS = {
         Informatique: [
           "Développeur web/mobile",
@@ -1018,91 +1608,6 @@
         ],
       };
 
-      function afficherMetiers() {
-        const domaine = document.getElementById("domaine").value;
-        const panneau = document.getElementById("panneau-metiers");
-        const metiers = METIERS[domaine];
-        if (!domaine || !metiers) {
-          panneau.classList.remove("open");
-          panneau.innerHTML = "";
-          return;
-        }
-        panneau.innerHTML = `
-    <div class="panneau-metiers-inner">
-      <div class="panneau-titre">
-        <svg class="icon" viewBox="0 0 24 24" stroke-width="2"><rect x="3" y="8" width="18" height="12" rx="2"/><path d="M8 8V6a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M3 13h18"/></svg>
-        Métiers en ${domaine}
-      </div>
-      ${metiers.map((m) => `<div class="metier-item"><div class="metier-dot"></div><div><div class="metier-nom">${m}</div></div></div>`).join("")}
-    </div>`;
-        panneau.classList.add("open");
-      }
-
-      async function init() {
-        try {
-          const [resDom, resVil] = await Promise.all([
-            fetch(`${API}/orientation/domaines`),
-            fetch(`${API}/orientation/villes`),
-          ]);
-          const domaines = (await resDom.json()).data;
-          const villes = (await resVil.json()).data;
-          domaines.forEach((d) =>
-            document
-              .getElementById("domaine")
-              .insertAdjacentHTML(
-                "beforeend",
-                `<option value="${d}">${d}</option>`,
-              ),
-          );
-          villes.forEach((v) =>
-            document
-              .getElementById("ville")
-              .insertAdjacentHTML(
-                "beforeend",
-                `<option value="${v}">${v}</option>`,
-              ),
-          );
-        } catch {}
-      }
-
-      async function lancer() {
-        const serie = document.getElementById("serie").value;
-        const moyenne = document.getElementById("moyenne").value;
-        if (!serie || !moyenne) {
-          alert("La série et la moyenne sont obligatoires !");
-          return;
-        }
-
-        const matieres = [
-          ...document.querySelectorAll(".matieres input:checked"),
-        ].map((i) => i.value);
-        const payload = {
-          serie,
-          moyenne: parseFloat(moyenne),
-          domaine_souhaite:
-            document.getElementById("domaine").value || undefined,
-          ville: document.getElementById("ville").value || undefined,
-          budget_max: document.getElementById("budget").value || undefined,
-          matieres_fortes: matieres,
-        };
-
-        const zone = document.getElementById("zone-resultats");
-        zone.innerHTML = '<div class="spinner"></div>';
-
-        try {
-          const res = await fetch(`${API}/orientation`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(payload),
-          });
-          const data = await res.json();
-          afficherResultats(data.data, data.total);
-        } catch {
-          zone.innerHTML =
-            '<p style="color:var(--txt-3);padding:40px 0;">Impossible de joindre le serveur.</p>';
-        }
-      }
-
       // Libellés des séries (miroir du backend)
       const SERIES_LABELS = {
         A: "Lettres & Sc. Humaines",
@@ -1124,172 +1629,792 @@
         domaine: { txt: "Domaine compatible", cls: "badge-match-domaine" },
       };
 
-      function afficherResultats(resultats, total) {
-        const zone = document.getElementById("zone-resultats");
-        const serieChoisie = document
-          .getElementById("serie")
-          .value.toUpperCase();
+      const LEVELS = {
+        top: { label: "Top match", all: "Top match" },
+        good: { label: "Bon match", all: "Bon match" },
+        ok: { label: "Match possible", all: "Match possible" },
+      };
+      const level = (score) =>
+        score >= 80 ? "top" : score >= 60 ? "good" : "ok";
 
-        if (!total) {
+      const MATIERES = [
+        {
+          value: "Mathématiques",
+          label: "Maths",
+          ico: '<path d="M4 6h16M4 12h9M4 18h16M17 15l3 3-3 3"/>',
+        },
+        {
+          value: "Physique",
+          label: "Physique",
+          ico: '<circle cx="12" cy="12" r="1.4" fill="currentColor" stroke="none"/><ellipse cx="12" cy="12" rx="9" ry="3.6"/><ellipse cx="12" cy="12" rx="9" ry="3.6" transform="rotate(60 12 12)"/><ellipse cx="12" cy="12" rx="9" ry="3.6" transform="rotate(120 12 12)"/>',
+        },
+        {
+          value: "SVT",
+          label: "SVT",
+          ico: '<path d="M12 21c-4-3-7-6.5-7-11a7 7 0 0 1 14 0c0 4.5-3 8-7 11Z"/><path d="M12 8v9"/>',
+        },
+        {
+          value: "Français",
+          label: "Français",
+          ico: '<path d="M6 4h9l3 3v13H6z"/><path d="M9 9h6M9 13h6M9 17h4"/>',
+        },
+        {
+          value: "Anglais",
+          label: "Anglais",
+          ico: '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.5 4 5.7 4 9s-1.5 6.5-4 9c-2.5-2.5-4-5.7-4-9s1.5-6.5 4-9Z"/>',
+        },
+        {
+          value: "Histoire-Géo",
+          label: "Hist-Géo",
+          ico: '<path d="M12 21s7-6.1 7-11.5A7 7 0 0 0 5 9.5C5 14.9 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.4"/>',
+        },
+        {
+          value: "Économie",
+          label: "Éco",
+          ico: '<path d="M3 17l5-5 4 4 8-9"/><path d="M14 7h6v6"/>',
+        },
+        {
+          value: "Informatique",
+          label: "Info",
+          ico: '<rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 21h8M12 16v5"/>',
+        },
+        {
+          tech: true,
+          value: "Dessin Technique",
+          label: "Dessin Tech.",
+          title: "F1 — Construction Mécanique",
+          ico: '<path d="M12 20h9M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4Z"/>',
+        },
+        {
+          tech: true,
+          value: "Technologie",
+          label: "Techno.",
+          title: "F1, F2 — Mécanique / Électronique",
+          ico: '<circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/>',
+        },
+        {
+          tech: true,
+          value: "Électrotechnique",
+          label: "Électrotech.",
+          title: "F2, BT Électronique",
+          ico: '<path d="M13 2 3 14h9l-1 8 10-12h-9z"/>',
+        },
+        {
+          tech: true,
+          value: "Électronique",
+          label: "Électronique",
+          title: "F2, BT Électronique",
+          ico: '<path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2v-4M9 21H5a2 2 0 0 1-2-2v-4m0 0h18"/>',
+        },
+        {
+          tech: true,
+          value: "Comptabilité",
+          label: "Comptabilité",
+          title: "G2 — Comptabilité",
+          ico: '<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M8 13h8M8 17h5"/>',
+        },
+        {
+          tech: true,
+          value: "Gestion",
+          label: "Gestion",
+          title: "G1, G2 — Secrétariat / Comptabilité",
+          ico: '<rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/>',
+        },
+        {
+          tech: true,
+          value: "Bureautique",
+          label: "Bureautique",
+          title: "G1 — Secrétariat",
+          ico: '<path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="2"/>',
+        },
+        {
+          tech: true,
+          value: "Communication",
+          label: "Communi.",
+          title: "G1 — Secrétariat",
+          ico: '<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>',
+        },
+      ];
+
+      function renderMatieres() {
+        const mk = (m) => `
+          <label class="chip-check"${m.title ? ` title="${esc(m.title)}"` : ""}>
+            <input type="checkbox" name="matiere" value="${esc(m.value)}" />
+            ${svg(m.ico, 1.9)}${esc(m.label)}
+          </label>`;
+        $("matieres-generales").innerHTML = MATIERES.filter((m) => !m.tech)
+          .map(mk)
+          .join("");
+        $("matieres-techniques").innerHTML = MATIERES.filter((m) => m.tech)
+          .map(mk)
+          .join("");
+      }
+
+      /* ── Formulaire ──────────────────────────────────────────── */
+      function afficherMetiers() {
+        const domaine = $("domaine").value;
+        const panneau = $("panneau-metiers");
+        const metiers = METIERS[domaine];
+        if (!domaine || !metiers) {
+          panneau.classList.remove("open");
+          $("panneau-metiers-inner").innerHTML = "";
+          return;
+        }
+        $("panneau-metiers-inner").innerHTML = `
+          <div class="panneau-box">
+            <div class="panneau-titre">${IC.briefcase} Métiers en ${esc(domaine)}</div>
+            <div class="metiers-chips">${metiers.map((m) => `<span class="metier-chip">${esc(m)}</span>`).join("")}</div>
+          </div>`;
+        panneau.classList.add("open");
+      }
+
+      function setTech(open) {
+        $("tech-wrap").classList.toggle("open", open);
+        $("tech-toggle").setAttribute("aria-expanded", String(open));
+      }
+      const isTech = (serie) => TECH_SERIES.includes(serie);
+
+      function readProfile() {
+        const moyRaw = $("moyenne").value.trim();
+        const budRaw = $("budget").value.trim();
+        return {
+          serie: $("serie").value,
+          moyenne: moyRaw === "" ? NaN : parseFloat(moyRaw),
+          domaine: $("domaine").value,
+          ville: $("ville").value,
+          budget: budRaw === "" ? null : Number(budRaw),
+          matieres: [
+            ...document.querySelectorAll('input[name="matiere"]:checked'),
+          ].map((i) => i.value),
+        };
+      }
+
+      function setErr(field, msg) {
+        const box = $("champ-" + field);
+        const err = $("err-" + field);
+        const input = $(field);
+        box.classList.toggle("has-err", !!msg);
+        err.hidden = !msg;
+        err.innerHTML = msg ? `${IC.warn}<span>${esc(msg)}</span>` : "";
+        if (msg) input.setAttribute("aria-invalid", "true");
+        else input.removeAttribute("aria-invalid");
+      }
+
+      function validate(p) {
+        const errs = {};
+        if (!p.serie) errs.serie = "Choisis ta série du BAC.";
+        if (Number.isNaN(p.moyenne))
+          errs.moyenne = "Indique ta moyenne au BAC.";
+        else if (p.moyenne < 0 || p.moyenne > 20)
+          errs.moyenne = "La moyenne doit être comprise entre 0 et 20.";
+        if (p.budget !== null && (!Number.isFinite(p.budget) || p.budget < 0))
+          errs.budget = "Le budget doit être un nombre positif.";
+        ["serie", "moyenne", "budget"].forEach((f) => setErr(f, errs[f]));
+        const first = Object.keys(errs)[0];
+        if (first) {
+          $(first).focus();
+          announce(errs[first]);
+        }
+        return !first;
+      }
+
+      function saveProfile() {
+        try {
+          localStorage.setItem(
+            PROFIL_KEY,
+            JSON.stringify({
+              serie: $("serie").value,
+              moyenne: $("moyenne").value,
+              domaine: $("domaine").value,
+              ville: $("ville").value,
+              budget: $("budget").value,
+              matieres: readProfile().matieres,
+            }),
+          );
+        } catch {}
+      }
+      function restoreProfile() {
+        try {
+          const raw = localStorage.getItem(PROFIL_KEY);
+          if (!raw) return;
+          const d = JSON.parse(raw);
+          if (d.serie) $("serie").value = d.serie;
+          if (d.moyenne !== undefined) $("moyenne").value = d.moyenne;
+          if (d.domaine) $("domaine").value = d.domaine;
+          if (d.ville) $("ville").value = d.ville;
+          if (d.budget !== undefined) $("budget").value = d.budget;
+          const set = new Set(d.matieres || []);
+          document
+            .querySelectorAll('input[name="matiere"]')
+            .forEach((i) => (i.checked = set.has(i.value)));
+          afficherMetiers();
+          const techChecked = MATIERES.some((m) => m.tech && set.has(m.value));
+          if (isTech($("serie").value) || techChecked) setTech(true);
+          if (d.serie || d.moyenne) $("saved-note").hidden = false;
+        } catch {}
+      }
+      function resetForm() {
+        $("profil-form").reset();
+        ["serie", "moyenne", "budget"].forEach((f) => setErr(f, ""));
+        afficherMetiers();
+        setTech(false);
+        $("saved-note").hidden = true;
+        try {
+          localStorage.removeItem(PROFIL_KEY);
+        } catch {}
+        state.results = [];
+        renderInitial();
+        announce("Profil réinitialisé.");
+      }
+
+      async function initFiltres() {
+        try {
+          const [resDom, resVil] = await Promise.all([
+            fetch(`${API}/orientation/domaines`),
+            fetch(`${API}/orientation/villes`),
+          ]);
+          if (!resDom.ok || !resVil.ok) throw new Error("http");
+          const domaines = (await resDom.json()).data || [];
+          const villes = (await resVil.json()).data || [];
+          $("domaine").insertAdjacentHTML(
+            "beforeend",
+            domaines
+              .map((d) => `<option value="${esc(d)}">${esc(d)}</option>`)
+              .join(""),
+          );
+          $("ville").insertAdjacentHTML(
+            "beforeend",
+            villes
+              .map((v) => `<option value="${esc(v)}">${esc(v)}</option>`)
+              .join(""),
+          );
+        } catch {
+          $("filtres-note").hidden = false;
+        }
+      }
+
+      /* ── État des résultats ──────────────────────────────────── */
+      const state = {
+        results: [],
+        total: 0,
+        profil: null,
+        niveau: "all",
+        tri: "score",
+        shown: PAGE,
+      };
+      let reqId = 0;
+
+      function renderInitial() {
+        $("zone-resultats").innerHTML = `
+          <div class="empty-results glass">
+            <div class="empty-ico">${IC.grad}</div>
+            <h3>Remplis ton profil</h3>
+            <p>Indique au minimum ta série et ta moyenne pour découvrir les formations compatibles.</p>
+            <ol class="empty-steps">
+              <li>Choisis ta série du BAC</li>
+              <li>Indique ta moyenne</li>
+              <li>Précise tes envies, puis lance le calcul</li>
+            </ol>
+          </div>`;
+      }
+
+      function skeleton() {
+        return `<div aria-hidden="true">${[1, 2, 3]
+          .map(
+            () =>
+              `<div class="skel-card glass"><i></i><i></i><i></i><i></i></div>`,
+          )
+          .join("")}</div>`;
+      }
+
+      async function lancer(ev) {
+        if (ev) ev.preventDefault();
+        const p = readProfile();
+        if (!validate(p)) return;
+        saveProfile();
+        $("saved-note").hidden = true;
+
+        const payload = {
+          serie: p.serie,
+          moyenne: p.moyenne,
+          domaine_souhaite: p.domaine || undefined,
+          ville: p.ville || undefined,
+          budget_max: p.budget ?? undefined,
+          matieres_fortes: p.matieres,
+        };
+
+        const zone = $("zone-resultats");
+        const my = ++reqId;
+        zone.innerHTML = skeleton();
+        zone.setAttribute("aria-busy", "true");
+        setLoading(true);
+        scrollToResults();
+
+        try {
+          const res = await fetch(`${API}/orientation`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload),
+          });
+          if (!res.ok) throw new Error("http " + res.status);
+          const json = await res.json();
+          if (my !== reqId) return;
+          state.results = Array.isArray(json.data) ? json.data : [];
+          state.total = Number.isFinite(Number(json.total))
+            ? Number(json.total)
+            : state.results.length;
+          state.profil = p;
+          state.niveau = "all";
+          state.tri = "score";
+          state.shown = PAGE;
+          renderResults();
+          announce(
+            `${state.total} formation${state.total > 1 ? "s" : ""} trouvée${state.total > 1 ? "s" : ""}.`,
+          );
+        } catch {
+          if (my !== reqId) return;
           zone.innerHTML = `
-      <div class="empty-results glass">
-        <div class="empty-ico">
-          <svg class="icon" viewBox="0 0 24 24" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M8 15c1-1.2 2.3-1.8 4-1.8s3 .6 4 1.8M9 9h.01M15 9h.01"/></svg>
-        </div>
-        <h3>Aucun résultat</h3>
-        <p>Aucune formation ne correspond à tes critères. Essaie d'assouplir tes filtres.</p>
-      </div>`;
+            <div class="empty-results error glass" role="alert">
+              <div class="empty-ico">${svg('<path d="M12 3 2 20h20L12 3Z"/><path d="M12 10v4M12 17h.01"/>', 1.8)}</div>
+              <h3>Impossible de joindre le serveur</h3>
+              <p>Vérifie que le serveur est lancé (<code>npm run dev</code>) puis réessaie.</p>
+              <div class="state-actions"><button type="button" class="btn btn-violet" data-retry>Réessayer</button></div>
+            </div>`;
+        } finally {
+          if (my === reqId) {
+            zone.setAttribute("aria-busy", "false");
+            setLoading(false);
+          }
+        }
+      }
+
+      function setLoading(on) {
+        const b = $("btn-submit");
+        b.disabled = on;
+        $("submit-label").textContent = on
+          ? "Calcul en cours…"
+          : "Voir mes résultats";
+        const ico = b.querySelector("svg, .mini-spin");
+        if (ico)
+          ico.outerHTML = on ? `<span class="mini-spin"></span>` : IC.arrow;
+      }
+
+      function scrollToResults() {
+        if (matchMedia("(max-width: 900px)").matches) {
+          $("zone-resultats").scrollIntoView({
+            behavior: REDUCE_MOTION ? "auto" : "smooth",
+            block: "start",
+          });
+        }
+      }
+
+      /* ── Rendu des résultats ─────────────────────────────────── */
+      function profilChips(p) {
+        const chips = [
+          `<span class="profil-chip strong">Série ${esc(p.serie)}${SERIES_LABELS[p.serie] ? " — " + esc(SERIES_LABELS[p.serie]) : ""}</span>`,
+          `<span class="profil-chip strong">Moy. ${fmt(p.moyenne, { maximumFractionDigits: 2 })}/20</span>`,
+        ];
+        if (p.domaine)
+          chips.push(`<span class="profil-chip">${esc(p.domaine)}</span>`);
+        if (p.ville)
+          chips.push(`<span class="profil-chip">${esc(p.ville)}</span>`);
+        if (p.budget !== null)
+          chips.push(
+            `<span class="profil-chip">≤ ${fmt(p.budget)} F / an</span>`,
+          );
+        if (p.matieres.length) {
+          chips.push(
+            `<span class="profil-chip">${esc(p.matieres.slice(0, 3).join(", "))}${p.matieres.length > 3 ? " +" + (p.matieres.length - 3) : ""}</span>`,
+          );
+        }
+        return chips.join("");
+      }
+
+      function counts() {
+        const c = { all: state.results.length, top: 0, good: 0, ok: 0 };
+        state.results.forEach((r) => c[level(Number(r.score) || 0)]++);
+        return c;
+      }
+
+      function renderResults() {
+        const zone = $("zone-resultats");
+        const p = state.profil;
+
+        if (!state.total) {
+          const relax = [];
+          if (p.budget !== null) relax.push(["budget", "Retirer le budget"]);
+          if (p.ville) relax.push(["ville", "Toutes les villes"]);
+          if (p.domaine) relax.push(["domaine", "Tous les domaines"]);
+          zone.innerHTML = `
+            <div class="empty-results glass">
+              <div class="empty-ico">${IC.sad}</div>
+              <h3>Aucun résultat</h3>
+              <p>Aucune formation ne correspond à tes critères. Essaie d'assouplir tes filtres.</p>
+              ${
+                relax.length
+                  ? `<div class="state-actions">${relax
+                      .map(
+                        ([k, t]) =>
+                          `<button type="button" class="btn btn-secondary" data-relax="${k}">${t}</button>`,
+                      )
+                      .join("")}</div>`
+                  : ""
+              }
+            </div>`;
           return;
         }
 
-        zone.innerHTML = `
-    <div class="resultats-header fade-up">
-      <div>
-        <h3>${total} formation(s) compatible(s)</h3>
-        <p>Série <strong>${serieChoisie}</strong> — ${SERIES_LABELS[serieChoisie] || ""}</p>
-      </div>
-      <span class="res-count-pill">${total} résultats</span>
-    </div>
-    ${resultats
-      .map((r, i) => {
-        const niv = r.score >= 80 ? "top" : r.score >= 60 ? "good" : "ok";
-        const label =
-          r.score >= 80
-            ? "Top match"
-            : r.score >= 60
-              ? "Bon match"
-              : "Match possible";
-        const checkIco = `<svg class="icon" viewBox="0 0 24 24" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg>`;
-        const dotIco = `<svg class="icon" viewBox="0 0 24 24" stroke-width="2.5"><circle cx="12" cy="12" r="4"/></svg>`;
-        const match = MATCH_LABELS[r.type_match] || MATCH_LABELS.domaine;
-        const moyenneOk =
-          r.formation.moyenne_requise &&
-          parseFloat(document.getElementById("moyenne").value) <
-            r.formation.moyenne_requise;
-        return `
-        <div class="carte-resultat glass pop-in" style="animation-delay:${i * 0.05}s">
-          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px;">
-            <span class="badge-res badge-res-${niv}">${niv === "top" ? checkIco : dotIco} ${label}</span>
-            <span class="badge-res ${match.cls}" style="font-size:.68rem;">${match.txt}</span>
-            ${
-              moyenneOk
-                ? `<span class="badge-res" style="background:rgba(239,68,68,.12);color:#f87171;border:1px solid rgba(239,68,68,.25);font-size:.68rem;">
-              <svg class="icon" viewBox="0 0 24 24" stroke-width="2.5" style="width:9px;height:9px;"><path d="M12 9v4M12 17h.01"/><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/></svg>
-              Moyenne insuffisante
-            </span>`
-                : ""
-            }
-          </div>
-          <div class="score-row">
-            <div class="score-track"><div class="score-fill fill-${niv}" data-score="${r.score}"></div></div>
-            <div class="score-val score-${niv}">${r.score}<span style="font-size:.55rem;opacity:.6">/100</span></div>
-          </div>
-          <div class="res-formation">${r.formation.nom}</div>
-          <div class="res-ecole">
-            <svg class="icon" viewBox="0 0 24 24" stroke-width="2"><path d="M12 21s7-6.1 7-11.5A7 7 0 0 0 5 9.5C5 14.9 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.4"/></svg>
-            ${r.ecole.nom} (${r.ecole.sigle}) — ${r.ecole.ville}
-          </div>
-          <div class="res-meta">
-            <span><svg class="icon" viewBox="0 0 24 24" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>${r.formation.duree}</span>
-            <span><svg class="icon" viewBox="0 0 24 24" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M9.5 15.2c.4.9 1.3 1.5 2.5 1.5 1.6 0 2.7-.9 2.7-2.1 0-1.4-1.2-1.9-2.7-2.2-1.5-.3-2.6-.9-2.6-2.1 0-1.1 1-2 2.6-2 1.1 0 2 .5 2.4 1.3M12 7.5v9"/></svg>dès ${Number(r.ecole.frais_min).toLocaleString("fr")} FCFA/an</span>
-            <span><svg class="icon" viewBox="0 0 24 24" stroke-width="2"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="1" fill="currentColor" stroke="none"/></svg>Moy. requise : ${r.formation.moyenne_requise}/20</span>
-            <span><svg class="icon" viewBox="0 0 24 24" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z"/></svg>${r.formation.domaine}</span>
-          </div>
-          ${r.formation.debouches?.length ? `<div class="res-debouches"><strong>Débouchés :</strong> ${r.formation.debouches.join(", ")}</div>` : ""}
-          <div style="margin-top:16px;display:flex;gap:10px;flex-wrap:wrap;">
-            <a href="fiche-ecole.html?id=${r.ecole.id}" class="btn btn-secondary" style="padding:9px 18px;font-size:.8rem;">
-              Voir l'école
-              <svg class="icon" viewBox="0 0 24 24" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-            </a>
-            <button class="btn btn-compare" data-id="${r.ecole.id}" data-nom="${r.ecole.nom}" onclick="toggleCompare(this)"
-              style="padding:9px 18px;font-size:.8rem;background:rgba(124,92,252,0.12);border:1px solid rgba(124,92,252,0.3);color:var(--purple-light);border-radius:var(--r-pill);cursor:pointer;display:inline-flex;align-items:center;gap:6px;font-family:inherit;font-weight:600;transition:all .2s;">
-              <svg class="icon" viewBox="0 0 24 24" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
-              Sélectionner
-            </button>
-          </div>
-        </div>`;
-      })
-      .join("")}`;
+        const c = counts();
+        const seg = (key, text) =>
+          `<button type="button" data-niv="${key}" class="${state.niveau === key ? "on" : ""}" aria-pressed="${state.niveau === key}" ${key !== "all" && !c[key] ? "disabled" : ""}>${text} <b>${c[key]}</b></button>`;
 
+        zone.innerHTML = `
+          <div class="res-head">
+            <div>
+              <div class="res-kicker">Résultats</div>
+              <h2>${state.total} formation${state.total > 1 ? "s" : ""} compatible${state.total > 1 ? "s" : ""}</h2>
+              <div class="profil-chips">${profilChips(p)}</div>
+            </div>
+            <button type="button" class="tool-btn only-mobile btn btn-secondary" data-edit style="padding:9px 16px;font-size:.78rem;">Modifier mon profil</button>
+          </div>
+          <div class="res-toolbar">
+            <div class="seg" role="group" aria-label="Filtrer par niveau de compatibilité">
+              ${seg("all", "Tous")}${seg("top", LEVELS.top.label)}${seg("good", LEVELS.good.label)}${seg("ok", LEVELS.ok.label)}
+            </div>
+            <label class="sort">Trier par
+              <select id="tri">
+                <option value="score">Compatibilité</option>
+                <option value="prix">Frais (croissants)</option>
+                <option value="moy">Moyenne requise (croissante)</option>
+              </select>
+            </label>
+          </div>
+          <div id="res-list"></div>
+          <div class="more-wrap" id="res-more"></div>`;
+        $("tri").value = state.tri;
+        renderList();
+      }
+
+      function view() {
+        let list = state.results.map((r, i) => ({ r, i }));
+        if (state.niveau !== "all")
+          list = list.filter(
+            (x) => level(Number(x.r.score) || 0) === state.niveau,
+          );
+        const byNum = (get) => (a, b) => {
+          const x = num(get(a.r));
+          const y = num(get(b.r));
+          if (x === null && y === null) return a.i - b.i;
+          if (x === null) return 1;
+          if (y === null) return -1;
+          return x - y || a.i - b.i;
+        };
+        if (state.tri === "prix") list.sort(byNum((r) => r.ecole?.frais_min));
+        else if (state.tri === "moy")
+          list.sort(byNum((r) => r.formation?.moyenne_requise));
+        else
+          list.sort(
+            (a, b) =>
+              (Number(b.r.score) || 0) - (Number(a.r.score) || 0) || a.i - b.i,
+          );
+        return list;
+      }
+
+      function renderList() {
+        const list = view();
+        const slice = list.slice(0, state.shown);
+        $("res-list").innerHTML = slice.length
+          ? slice.map((x, i) => cardHTML(x.r, i)).join("")
+          : `<div class="empty-results glass"><div class="empty-ico">${IC.sad}</div><h3>Aucun résultat dans cette catégorie</h3><p>Choisis « Tous » pour revoir l'ensemble des formations.</p></div>`;
+        updateMore(list.length);
+        afterRender();
+      }
+
+      function updateMore(total) {
+        const rest = total - Math.min(state.shown, total);
+        $("res-more").innerHTML =
+          rest > 0
+            ? `<button type="button" class="btn btn-secondary" data-more>Voir ${Math.min(PAGE, rest)} de plus <span style="opacity:.6">(${rest} restantes)</span></button>`
+            : "";
+      }
+
+      function afterRender() {
+        syncCompareButtons();
         requestAnimationFrame(() =>
           requestAnimationFrame(() => {
             document
               .querySelectorAll(".score-fill[data-score]")
               .forEach((b) => {
-                b.style.width = b.dataset.score + "%";
+                b.style.width =
+                  Math.min(100, Math.max(0, Number(b.dataset.score) || 0)) +
+                  "%";
               });
           }),
         );
       }
 
-      /* ── COMPARAISON ── */
-      let compareList = []; // [{id, nom}]
+      function cardHTML(r, i) {
+        const f = r.formation || {};
+        const e = r.ecole || {};
+        const score = Math.round(Number(r.score) || 0);
+        const niv = level(score);
+        const match = MATCH_LABELS[r.type_match] || MATCH_LABELS.domaine;
+        const req = num(f.moyenne_requise);
+        const moy = state.profil ? state.profil.moyenne : NaN;
+        const diff = req !== null && Number.isFinite(moy) ? moy - req : null;
+        const insuffisante = diff !== null && diff < 0;
+        const deb = Array.isArray(f.debouches) ? f.debouches : [];
+        const frais = num(e.frais_min);
 
-      function toggleCompare(btn) {
-        const id = btn.dataset.id;
-        const nom = btn.dataset.nom;
-        const idx = compareList.findIndex((e) => e.id === id);
+        const meta = [
+          f.duree ? `<span>${IC.clock}${esc(f.duree)}</span>` : "",
+          frais !== null
+            ? `<span>${IC.coin}dès ${fmt(frais)} FCFA/an</span>`
+            : "",
+          req !== null
+            ? `<span>${IC.target}Moy. requise : ${fmt(req, { maximumFractionDigits: 2 })}/20</span>`
+            : "",
+          f.domaine ? `<span>${IC.book}${esc(f.domaine)}</span>` : "",
+          diff !== null && diff >= 0
+            ? `<span class="ok">${IC.trend}Ta moyenne dépasse de ${fmt(diff, { maximumFractionDigits: 1 })} pt</span>`
+            : "",
+        ].join("");
 
-        if (idx !== -1) {
-          // Déjà sélectionné → retirer
-          compareList.splice(idx, 1);
-          btn.classList.remove("selected");
-          btn.innerHTML = `<svg class="icon" viewBox="0 0 24 24" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg> Sélectionner`;
-        } else {
-          if (compareList.length >= 2) {
-            // Remplacer le plus ancien
-            const oldId = compareList.shift().id;
-            document
-              .querySelectorAll(`.btn-compare[data-id="${oldId}"]`)
-              .forEach((b) => {
-                b.classList.remove("selected");
-                b.innerHTML = `<svg class="icon" viewBox="0 0 24 24" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg> Sélectionner`;
-              });
+        return `
+        <article class="carte-resultat glass pop-in" style="animation-delay:${i * 0.05}s">
+          <div class="badges">
+            <span class="badge-res badge-res-${niv}">${niv === "top" ? IC.check : IC.ring} ${LEVELS[niv].label}</span>
+            <span class="badge-res ${match.cls}" style="font-size:.68rem;">${match.txt}</span>
+            ${insuffisante ? `<span class="badge-res badge-warn" style="font-size:.68rem;">${IC.warn} Moyenne insuffisante (−${fmt(Math.abs(diff), { maximumFractionDigits: 1 })} pt)</span>` : ""}
+          </div>
+          <div class="score-row">
+            <div class="score-track" role="img" aria-label="Score de compatibilité : ${score} sur 100"><div class="score-fill fill-${niv}" data-score="${score}"></div></div>
+            <div class="score-val score-${niv}">${score}<small>/100</small></div>
+          </div>
+          <h3 class="res-formation">${esc(f.nom || "Formation")}</h3>
+          <div class="res-ecole">
+            ${e.sigle ? `<span class="sigle">${esc(e.sigle)}</span>` : ""}
+            <span>${esc(e.nom || "")}</span>
+            ${e.ville ? `<span class="where">${IC.pin}${esc(e.ville)}</span>` : ""}
+          </div>
+          <div class="res-meta">${meta}</div>
+          ${
+            deb.length
+              ? `<div class="res-debouches"><strong>Débouchés :</strong>${deb
+                  .slice(0, 4)
+                  .map((d) => `<span class="debouche-chip">${esc(d)}</span>`)
+                  .join(
+                    "",
+                  )}${deb.length > 4 ? `<span class="debouche-chip">+${deb.length - 4}</span>` : ""}</div>`
+              : ""
           }
-          compareList.push({ id, nom });
-          btn.classList.add("selected");
-          btn.innerHTML = `<svg class="icon" viewBox="0 0 24 24" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg> Sélectionné ✓`;
+          <div class="res-actions">
+            <a href="fiche-ecole.html?id=${encodeURIComponent(e.id)}" class="btn btn-secondary">Voir l'école ${IC.arrow}</a>
+            <button type="button" class="btn-compare" data-compare="${esc(e.id)}" data-nom="${esc(e.nom)}" aria-pressed="false">${IC.plus} Sélectionner</button>
+          </div>
+        </article>`;
+      }
+
+      /* ── Comparaison (partagée avec Ecole.html / Comparer.html) ─ */
+      let compare = []; // [{ id:Number, nom:String }]
+
+      function loadCompare() {
+        try {
+          const ids = JSON.parse(sessionStorage.getItem("comparaison") || "[]")
+            .map(Number)
+            .filter(Boolean);
+          compare = [...new Set(ids)]
+            .slice(0, MAX_COMP)
+            .map((id) => ({ id, nom: "" }));
+        } catch {
+          compare = [];
         }
+      }
+      function saveCompare() {
+        try {
+          sessionStorage.setItem(
+            "comparaison",
+            JSON.stringify(compare.map((c) => c.id)),
+          );
+        } catch {}
+      }
+      async function hydrateNames() {
+        if (!compare.some((c) => !c.nom)) return;
+        try {
+          const res = await fetch(`${API}/ecoles`);
+          if (!res.ok) return;
+          const data = (await res.json()).data || [];
+          compare.forEach((c) => {
+            const e = data.find((x) => Number(x.id) === c.id);
+            if (e) c.nom = e.nom;
+          });
+          updateCompareBar();
+        } catch {}
+      }
+      const isSel = (id) => compare.some((c) => c.id === Number(id));
+
+      function toggleCompare(id, nom) {
+        id = Number(id);
+        const idx = compare.findIndex((c) => c.id === id);
+        if (idx !== -1) compare.splice(idx, 1);
+        else {
+          if (compare.length >= MAX_COMP) {
+            toast(`Maximum ${MAX_COMP} écoles à comparer.`);
+            return;
+          }
+          compare.push({ id, nom });
+        }
+        saveCompare();
+        syncCompareButtons();
         updateCompareBar();
+      }
+
+      function syncCompareButtons() {
+        document.querySelectorAll("[data-compare]").forEach((b) => {
+          const sel = isSel(b.dataset.compare);
+          b.classList.toggle("selected", sel);
+          b.setAttribute("aria-pressed", String(sel));
+          b.innerHTML = sel
+            ? `${IC.check} Sélectionnée`
+            : `${IC.plus} Sélectionner`;
+        });
       }
 
       function updateCompareBar() {
-        const bar = document.getElementById("compare-bar");
-        const slot1 = document.getElementById("slot-1");
-        const slot2 = document.getElementById("slot-2");
-        const btnComparer = document.getElementById("btn-comparer");
+        $("compare-chips").innerHTML = compare
+          .map((c) => {
+            const name = c.nom || `École n°${c.id}`;
+            return `<span class="compare-chip"><span>${esc(name)}</span><button type="button" data-unsel="${c.id}" aria-label="Retirer ${esc(name)}">${IC.x}</button></span>`;
+          })
+          .join("");
+        const n = compare.length;
+        $("compare-meta").textContent =
+          n === 1 ? "Encore 1 école" : `${n}/${MAX_COMP}`;
+        const btn = $("btn-comparer");
+        const ok = n >= 2;
+        btn.href = ok
+          ? `Comparer.html?ids=${compare.map((c) => c.id).join(",")}`
+          : "#";
+        btn.setAttribute("aria-disabled", String(!ok));
+        btn.classList.toggle("disabled", !ok);
+        $("compare-bar").classList.toggle("visible", n > 0);
+      }
 
-        slot1.textContent = compareList[0]?.nom || "École 1";
-        slot1.className = "compare-slot" + (compareList[0] ? " filled" : "");
-        slot2.textContent = compareList[1]?.nom || "École 2";
-        slot2.className = "compare-slot" + (compareList[1] ? " filled" : "");
+      /* ── Événements ──────────────────────────────────────────── */
+      $("profil-form").addEventListener("submit", lancer);
+      $("btn-reset").addEventListener("click", resetForm);
+      $("domaine").addEventListener("change", afficherMetiers);
+      $("tech-toggle").addEventListener("click", () =>
+        setTech($("tech-toggle").getAttribute("aria-expanded") !== "true"),
+      );
+      $("serie").addEventListener("change", () => {
+        setErr("serie", "");
+        if (isTech($("serie").value)) setTech(true);
+      });
+      $("moyenne").addEventListener("input", () => setErr("moyenne", ""));
+      $("budget").addEventListener("input", () => setErr("budget", ""));
 
-        if (compareList.length === 2) {
-          btnComparer.href = `comparer.html?id1=${compareList[0].id}&id2=${compareList[1].id}`;
-          btnComparer.style.opacity = "1";
-          btnComparer.style.pointerEvents = "auto";
-        } else {
-          btnComparer.href = "#";
-          btnComparer.style.opacity = "0.4";
-          btnComparer.style.pointerEvents = "none";
+      $("zone-resultats").addEventListener("click", (ev) => {
+        const t = ev.target;
+        let el;
+        if ((el = t.closest("[data-compare]")))
+          return toggleCompare(el.dataset.compare, el.dataset.nom);
+        if ((el = t.closest("[data-niv]"))) {
+          state.niveau = el.dataset.niv;
+          state.shown = PAGE;
+          document.querySelectorAll("[data-niv]").forEach((b) => {
+            const on = b.dataset.niv === state.niveau;
+            b.classList.toggle("on", on);
+            b.setAttribute("aria-pressed", String(on));
+          });
+          return renderList();
         }
+        if (t.closest("[data-more]")) {
+          const prev = state.shown;
+          state.shown += PAGE;
+          const list = view();
+          $("res-list").insertAdjacentHTML(
+            "beforeend",
+            list
+              .slice(prev, state.shown)
+              .map((x, i) => cardHTML(x.r, i))
+              .join(""),
+          );
+          updateMore(list.length);
+          return afterRender();
+        }
+        if (t.closest("[data-edit]")) {
+          $("profil-form").scrollIntoView({
+            behavior: REDUCE_MOTION ? "auto" : "smooth",
+            block: "start",
+          });
+          return $("serie").focus({ preventScroll: true });
+        }
+        if ((el = t.closest("[data-relax]"))) {
+          $(el.dataset.relax).value = "";
+          if (el.dataset.relax === "domaine") afficherMetiers();
+          return lancer();
+        }
+        if (t.closest("[data-retry]")) return lancer();
+      });
+      $("zone-resultats").addEventListener("change", (ev) => {
+        if (ev.target.id === "tri") {
+          state.tri = ev.target.value;
+          state.shown = PAGE;
+          renderList();
+        }
+      });
 
-        bar.classList.toggle("visible", compareList.length > 0);
-      }
-
-      function clearCompare() {
-        compareList.forEach(({ id }) => {
-          document
-            .querySelectorAll(`.btn-compare[data-id="${id}"]`)
-            .forEach((b) => {
-              b.classList.remove("selected");
-              b.innerHTML = `<svg class="icon" viewBox="0 0 24 24" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg> Sélectionner`;
-            });
-        });
-        compareList = [];
+      $("compare-bar").addEventListener("click", (ev) => {
+        const un = ev.target.closest("[data-unsel]");
+        if (un) {
+          compare = compare.filter((c) => c.id !== Number(un.dataset.unsel));
+          saveCompare();
+          syncCompareButtons();
+          updateCompareBar();
+        }
+      });
+      $("compare-clear").addEventListener("click", () => {
+        compare = [];
+        saveCompare();
+        syncCompareButtons();
         updateCompareBar();
-      }
+      });
+      $("btn-comparer").addEventListener("click", (ev) => {
+        if ($("btn-comparer").getAttribute("aria-disabled") === "true")
+          ev.preventDefault();
+      });
 
+      /* ── Navigation de secours si Nav.js est absent ──────────── */
+      window.addEventListener("load", () => {
+        const n = $("site-nav");
+        if (n && !n.children.length && !n.textContent.trim()) {
+          n.innerHTML = `
+            <nav class="nav">
+              <a href="index.html" class="nav-logo">
+                <span class="mark"><svg class="icon" viewBox="0 0 24 24" stroke="white" stroke-width="2"><path d="M12 2 2 7l10 5 10-5-10-5Z"/><path d="M2 17l10 5 10-5M2 12l10 5 10-5"/></svg></span>
+                Oriente<span>CI</span>
+              </a>
+              <ul class="nav-links">
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="Ecole.html">Les écoles</a></li>
+                <li><a href="faq.html">FAQ</a></li>
+                <li><a href="orientation.html" class="nav-cta active">Trouver mon école ${IC.arrow}</a></li>
+              </ul>
+            </nav>`;
+        }
+      });
+
+      /* ── Démarrage ───────────────────────────────────────────── */
+      async function init() {
+        renderMatieres();
+        renderInitial();
+        loadCompare();
+        updateCompareBar();
+        await initFiltres();
+        restoreProfile();
+        hydrateNames();
+      }
       init();
     </script>
   </body>

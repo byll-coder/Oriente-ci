@@ -4,9 +4,35 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1.0" />
     <title>Explorer les écoles — OrienteCI</title>
+    <meta
+      name="description"
+      content="Parcours les écoles et universités de Côte d'Ivoire une par une : formations, frais et fiche complète. Filtre par ville, type ou domaine."
+    />
+    <meta name="theme-color" content="#13203b" />
+    <link rel="icon" href="images/logo-nav.png" />
     <link rel="stylesheet" href="styles.css" />
     <script src="Nav.js" defer></script>
     <style>
+      :focus-visible {
+        outline: 2px solid var(--blue);
+        outline-offset: 3px;
+        border-radius: 10px;
+      }
+      .skip {
+        position: absolute;
+        left: 12px;
+        top: -64px;
+        z-index: 400;
+        background: var(--ink);
+        color: #fff;
+        padding: 10px 18px;
+        border-radius: 999px;
+        font-weight: 600;
+        transition: top 0.2s;
+      }
+      .skip:focus {
+        top: 12px;
+      }
       .ec {
         max-width: 1240px;
         margin: 0 auto;
@@ -46,13 +72,15 @@
         border-radius: 999px;
         box-shadow: var(--shadow);
       }
-      .tools input[type="text"] {
+      .tools input {
         flex: 1 1 220px;
         min-width: 0;
         border: 0;
         outline: 0;
         background: none;
         padding: 10px 14px;
+        font: inherit;
+        color: var(--ink);
       }
       .tools select {
         padding: 10px 16px;
@@ -62,6 +90,7 @@
         font-weight: 600;
         font-size: 0.85rem;
         cursor: pointer;
+        color: var(--ink);
       }
       .tools select.actif {
         background: var(--blue-soft);
@@ -103,20 +132,14 @@
           transform 0.75s var(--ease),
           opacity 0.6s var(--ease);
       }
-      .slide.from-r {
-        transform: translateX(70px);
-        opacity: 0;
-      }
-      .slide.from-l {
-        transform: translateX(-70px);
-        opacity: 0;
-      }
-      .slide.out-l {
-        transform: translateX(-70px);
-        opacity: 0;
-      }
+      .slide.from-r,
       .slide.out-r {
         transform: translateX(70px);
+        opacity: 0;
+      }
+      .slide.from-l,
+      .slide.out-l {
+        transform: translateX(-70px);
         opacity: 0;
       }
       .slide-img {
@@ -151,9 +174,6 @@
           rgba(19, 32, 59, 0.8)
         );
       }
-      .slide-top {
-        z-index: 2;
-      }
       .slide-body {
         z-index: 1;
       }
@@ -165,6 +185,7 @@
         display: flex;
         justify-content: space-between;
         gap: 10px;
+        z-index: 2;
       }
       .chips {
         display: flex;
@@ -197,7 +218,7 @@
       }
       .slide-body {
         position: absolute;
-        inset: auto 0 0 0; /* ne couvre plus la zone des boutons du haut */
+        inset: auto 0 0 0;
         display: flex;
         align-items: flex-end;
         justify-content: space-between;
@@ -339,6 +360,42 @@
         padding: 70px 20px;
         color: var(--muted);
       }
+      .status .btn {
+        margin-top: 16px;
+      }
+
+      /* Accès rapide : une pastille par école */
+      .strip {
+        position: relative;
+        display: flex;
+        gap: 8px;
+        overflow-x: auto;
+        padding: 16px 2px 8px;
+        scrollbar-width: thin;
+      }
+      .strip button {
+        flex: none;
+        padding: 8px 14px;
+        border-radius: 999px;
+        border: 1px solid var(--line);
+        background: var(--white);
+        font-size: 0.78rem;
+        font-weight: 700;
+        color: var(--muted);
+        transition:
+          background 0.25s,
+          color 0.25s,
+          border-color 0.25s;
+      }
+      .strip button:hover {
+        border-color: var(--blue);
+        color: var(--ink);
+      }
+      .strip button.on {
+        background: var(--ink);
+        border-color: var(--ink);
+        color: #fff;
+      }
 
       /* Barre de comparaison */
       .barre {
@@ -382,6 +439,29 @@
         font-size: 0.85rem;
         margin-right: 6px;
       }
+      .toast {
+        position: fixed;
+        left: 50%;
+        bottom: 100px;
+        transform: translate(-50%, 16px);
+        background: var(--ink);
+        color: #fff;
+        padding: 12px 20px;
+        border-radius: 999px;
+        font-size: 0.88rem;
+        opacity: 0;
+        pointer-events: none;
+        transition:
+          opacity 0.3s,
+          transform 0.3s var(--ease);
+        z-index: 160;
+        max-width: 92%;
+        text-align: center;
+      }
+      .toast.show {
+        opacity: 1;
+        transform: translate(-50%, 0);
+      }
 
       @media (max-width: 760px) {
         .ec {
@@ -417,45 +497,61 @@
           border-radius: 26px;
         }
       }
+      @media (prefers-reduced-motion: reduce) {
+        .slide,
+        .slide * {
+          transition: none !important;
+        }
+      }
     </style>
   </head>
   <body>
+    <a class="skip" href="#stage-wrap">Aller aux écoles</a>
     <div id="site-nav"></div>
 
     <main class="ec">
       <header class="ec-head rise">
         <span class="eyebrow">Annuaire des établissements</span>
-        <h1>Trouvez l'établissement qui vous correspond</h1>
+        <h1>Trouve l'école qui te correspond</h1>
         <p>
           Parcours les écoles référencées une par une : photo, formations, frais
           et accès direct à la fiche complète.
         </p>
       </header>
 
-      <div class="tools glass rise" style="animation-delay: 0.1s">
+      <div class="tools glass rise" style="animation-delay: 0.1s" role="search">
         <input
-          type="text"
+          type="search"
           id="recherche-input"
-          placeholder="Rechercher par nom ou sigle…"
-          oninput="onSearch()"
+          placeholder="Rechercher par nom, sigle ou ville…"
           aria-label="Rechercher une école"
+          autocomplete="off"
         />
-        <select id="f-ville" onchange="applyFilters()" aria-label="Ville">
+        <select id="f-ville" aria-label="Ville">
           <option value="">Toutes les villes</option>
         </select>
-        <select id="f-type" onchange="applyFilters()" aria-label="Type">
+        <select id="f-type" aria-label="Type">
           <option value="">Tous les types</option>
           <option value="publique">Publique</option>
           <option value="privée">Privée</option>
         </select>
-        <select id="f-domaine" onchange="applyFilters()" aria-label="Domaine">
+        <select id="f-domaine" aria-label="Domaine">
           <option value="">Tous les domaines</option>
         </select>
-        <button class="reset" onclick="resetAll()">Réinitialiser</button>
+        <select id="f-tri" aria-label="Trier">
+          <option value="">Ordre par défaut</option>
+          <option value="az">Nom (A à Z)</option>
+          <option value="prix">Frais les plus bas</option>
+        </select>
+        <button class="reset" id="reset" type="button" hidden>
+          Réinitialiser
+        </button>
       </div>
-      <p class="count" id="result-count"></p>
+      <p class="count" id="result-count" aria-live="polite"></p>
 
-      <p class="status" id="status">Chargement des établissements…</p>
+      <p class="status" id="status" role="status">
+        Chargement des établissements…
+      </p>
 
       <section
         id="stage-wrap"
@@ -465,7 +561,12 @@
       >
         <div class="stage rise" id="stage" aria-live="polite"></div>
         <div class="controls">
-          <button class="round" id="prev" aria-label="École précédente">
+          <button
+            class="round"
+            id="prev"
+            type="button"
+            aria-label="École précédente"
+          >
             <svg class="icon" viewBox="0 0 24 24">
               <path d="M15 6l-6 6 6 6" />
             </svg>
@@ -474,18 +575,28 @@
             <span class="num" id="num">01 / 01</span>
             <div class="track"><i id="bar"></i></div>
           </div>
-          <button class="round" id="next" aria-label="École suivante">
+          <button
+            class="round"
+            id="next"
+            type="button"
+            aria-label="École suivante"
+          >
             <svg class="icon" viewBox="0 0 24 24">
               <path d="M9 6l6 6-6 6" />
             </svg>
           </button>
         </div>
+        <div
+          class="strip"
+          id="strip"
+          aria-label="Accès rapide aux écoles"
+        ></div>
       </section>
     </main>
 
     <footer class="site-foot">
       <strong>OrienteCI</strong>
-      <nav>
+      <nav aria-label="Pied de page">
         <a href="Ecole.html">Écoles</a><a href="orientation.html">Orientation</a
         ><a href="Decouvrire.html">Test personnalité</a
         ><a href="faq.html">FAQ</a>
@@ -494,27 +605,24 @@
 
     <div class="barre" id="barre-comp">
       <span
-        ><strong id="nb-sel">0</strong> école(s) sélectionnée(s)<small
-          id="hint"
-        >
-          · choisis-en au moins 2</small
-        ></span
+        ><strong id="nb-sel">0</strong> <span id="lbl">école sélectionnée</span
+        ><small id="hint"> · choisis-en au moins 2</small></span
       >
       <span>
-        <button class="annuler" onclick="clearSel()">Annuler</button>
-        <button class="btn" id="btn-comparer" onclick="goCompare()" disabled>
+        <button class="annuler" type="button" id="annuler">Annuler</button>
+        <button class="btn" id="btn-comparer" type="button" disabled>
           Comparer
         </button>
       </span>
     </div>
+    <div class="toast" id="toast" role="status"></div>
 
     <script>
       const API = "http://localhost:3000/api";
-      let toutes = [],
-        filtrees = [],
-        idx = 0,
-        terme = "";
+      const MAX_COMP = 3;
+      const CLE = "oriente-comparaison";
       const $ = (id) => document.getElementById(id);
+      const reduit = matchMedia("(prefers-reduced-motion: reduce)").matches;
       const esc = (s) =>
         String(s ?? "").replace(
           /[&<>"']/g,
@@ -528,15 +636,20 @@
             })[c],
         );
       const pad = (n) => String(n).padStart(2, "0");
+      const norm = (s) =>
+        String(s ?? "")
+          .normalize("NFD")
+          .replace(/[\u0300-\u036f]/g, "")
+          .toLowerCase();
 
       const PIN = `<svg class="icon" viewBox="0 0 24 24"><path d="M12 21s7-6.1 7-11.5A7 7 0 0 0 5 9.5C5 14.9 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.4"/></svg>`;
       const SCALE = `<svg class="icon" viewBox="0 0 24 24"><path d="M12 3v18M6 8l-3 6a3.5 3.5 0 0 0 6 0Zm12 0-3 6a3.5 3.5 0 0 0 6 0Z"/><path d="M4 21h16M6 8h12"/></svg>`;
       const ARROW = `<svg class="icon" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>`;
 
-      /* ── Comparaison ── */
-      const MAX_COMP = 3;
-      const CLE = "oriente-comparaison";
-      let sel = [];
+      let toutes = [],
+        filtrees = [],
+        idx = 0,
+        sel = [];
       try {
         sel = JSON.parse(sessionStorage.getItem(CLE) || "[]")
           .map(Number)
@@ -548,6 +661,17 @@
         } catch (e) {}
       };
 
+      /* ── Message temporaire ── */
+      let tt;
+      function toast(msg) {
+        const t = $("toast");
+        t.textContent = msg;
+        t.classList.add("show");
+        clearTimeout(tt);
+        tt = setTimeout(() => t.classList.remove("show"), 2600);
+      }
+
+      /* ── Comparaison ── */
       function etatBouton(btn, on) {
         btn.classList.toggle("on", on);
         btn.setAttribute("aria-pressed", on);
@@ -559,7 +683,9 @@
         const i = sel.indexOf(id);
         if (i !== -1) sel.splice(i, 1);
         else if (sel.length >= MAX_COMP)
-          return alert(`Maximum ${MAX_COMP} écoles à comparer.`);
+          return toast(
+            `Tu peux comparer ${MAX_COMP} écoles au maximum. Retires-en une d'abord.`,
+          );
         else sel.push(id);
         etatBouton(btn, sel.includes(id));
         sauver();
@@ -573,79 +699,147 @@
       }
       function majBarre() {
         $("nb-sel").textContent = sel.length;
+        $("lbl").textContent =
+          sel.length > 1 ? "écoles sélectionnées" : "école sélectionnée";
         $("hint").hidden = sel.length >= 2;
         $("btn-comparer").disabled = sel.length < 2;
         $("barre-comp").classList.toggle("show", sel.length >= 1);
       }
       function goCompare() {
-        if (sel.length < 2) return;
-        location.href = `Comparer.html?ids=${sel.join(",")}`;
+        if (sel.length >= 2)
+          location.href = `Comparer.html?ids=${sel.join(",")}`;
       }
 
       /* ── Chargement des données ── */
       async function init() {
+        $("status").hidden = false;
+        $("status").textContent = "Chargement des établissements…";
+        const c = new AbortController(),
+          t = setTimeout(() => c.abort(), 8000);
         try {
-          const [rE, rD, rV] = await Promise.all([
-            fetch(`${API}/ecoles`),
-            fetch(`${API}/orientation/domaines`),
-            fetch(`${API}/orientation/villes`),
-          ]);
-          toutes = (await rE.json()).data;
-          (await rV.json()).data.forEach((v) =>
-            $("f-ville").insertAdjacentHTML(
-              "beforeend",
-              `<option value="${esc(v)}">${esc(v)}</option>`,
-            ),
-          );
-          (await rD.json()).data.forEach((d) =>
-            $("f-domaine").insertAdjacentHTML(
-              "beforeend",
-              `<option value="${esc(d)}">${esc(d)}</option>`,
-            ),
-          );
-          applyFilters();
-        } catch {
+          const r = await fetch(`${API}/ecoles`, { signal: c.signal });
+          if (!r.ok) throw new Error("HTTP " + r.status);
+          toutes = (await r.json()).data || [];
+        } catch (err) {
+          console.error("Chargement des écoles impossible :", err);
           $("status").innerHTML =
-            "Serveur non disponible. Lance <code>npm run dev</code>.";
+            `Impossible de charger les écoles pour le moment.<br /><button class="btn btn-ghost" id="retry" type="button">Réessayer</button>`;
+          $("retry").addEventListener("click", init);
+          return;
+        } finally {
+          clearTimeout(t);
         }
+        remplirFiltres();
+        depuisURL();
+        sel = sel.filter((id) => toutes.some((e) => e.id === id));
+        sauver();
+        majBarre();
+        appliquer();
       }
 
-      /* ── Recherche et filtres (inchangés) ── */
-      function onSearch() {
-        terme = $("recherche-input").value.trim().toLowerCase();
-        applyFilters();
+      /* Villes et domaines viennent directement des écoles chargées */
+      function remplirFiltres() {
+        const villes = [
+          ...new Set(toutes.map((e) => e.ville).filter(Boolean)),
+        ].sort((a, b) => a.localeCompare(b, "fr"));
+        const doms = [
+          ...new Set(
+            toutes
+              .flatMap((e) => (e.formations || []).map((f) => f.domaine))
+              .filter(Boolean),
+          ),
+        ].sort((a, b) => a.localeCompare(b, "fr"));
+        $("f-ville").insertAdjacentHTML(
+          "beforeend",
+          villes
+            .map((v) => `<option value="${esc(v)}">${esc(v)}</option>`)
+            .join(""),
+        );
+        $("f-domaine").insertAdjacentHTML(
+          "beforeend",
+          doms
+            .map((d) => `<option value="${esc(d)}">${esc(d)}</option>`)
+            .join(""),
+        );
       }
-      function applyFilters() {
+
+      /* Les liens ?q=…&ville=…&type=…&domaine=… pré-remplissent la page */
+      function depuisURL() {
+        const p = new URLSearchParams(location.search);
+        $("recherche-input").value = p.get("q") || "";
+        [
+          ["ville", "f-ville"],
+          ["type", "f-type"],
+          ["domaine", "f-domaine"],
+          ["tri", "f-tri"],
+        ].forEach(([k, id]) => {
+          const v = p.get(k);
+          if (v && [...$(id).options].some((o) => o.value === v))
+            $(id).value = v;
+        });
+      }
+      function versURL(q, ville, type, domaine, tri) {
+        const p = new URLSearchParams();
+        if (q) p.set("q", q);
+        if (ville) p.set("ville", ville);
+        if (type) p.set("type", type);
+        if (domaine) p.set("domaine", domaine);
+        if (tri) p.set("tri", tri);
+        try {
+          history.replaceState(
+            null,
+            "",
+            p.toString() ? "?" + p : location.pathname,
+          );
+        } catch (e) {}
+      }
+
+      /* ── Recherche et filtres ── */
+      let tm;
+      function appliquer() {
+        const qraw = $("recherche-input").value.trim(),
+          q = norm(qraw);
         const ville = $("f-ville").value,
           type = $("f-type").value,
-          domaine = $("f-domaine").value;
-        $("f-ville").classList.toggle("actif", !!ville);
-        $("f-type").classList.toggle("actif", !!type);
-        $("f-domaine").classList.toggle("actif", !!domaine);
+          dom = $("f-domaine").value,
+          tri = $("f-tri").value;
+        ["f-ville", "f-type", "f-domaine", "f-tri"].forEach((id) =>
+          $(id).classList.toggle("actif", !!$(id).value),
+        );
+        $("reset").hidden = !(qraw || ville || type || dom || tri);
         let res = toutes;
         if (ville) res = res.filter((e) => e.ville === ville);
         if (type) res = res.filter((e) => e.type === type);
-        if (domaine)
+        if (dom)
           res = res.filter((e) =>
-            e.formations.some((f) => f.domaine === domaine),
+            (e.formations || []).some((f) => f.domaine === dom),
           );
-        if (terme)
+        if (q)
           res = res.filter(
             (e) =>
-              e.nom.toLowerCase().includes(terme) ||
-              e.sigle.toLowerCase().includes(terme),
+              norm(e.nom).includes(q) ||
+              norm(e.sigle).includes(q) ||
+              norm(e.ville).includes(q),
+          );
+        if (tri === "az")
+          res = [...res].sort((a, b) => a.nom.localeCompare(b.nom, "fr"));
+        if (tri === "prix")
+          res = [...res].sort(
+            (a, b) => (a.frais_min ?? Infinity) - (b.frais_min ?? Infinity),
           );
         filtrees = res;
+        versURL(qraw, ville, type, dom, tri);
         render();
       }
       function resetAll() {
-        ["f-ville", "f-type", "f-domaine"].forEach((id) => ($(id).value = ""));
+        ["f-ville", "f-type", "f-domaine", "f-tri"].forEach(
+          (id) => ($(id).value = ""),
+        );
         $("recherche-input").value = "";
-        terme = "";
-        applyFilters();
+        appliquer();
       }
 
-      /* ── Une seule carte à la fois ── */
+      /* ── Une seule carte à la fois (affichage inchangé) ── */
       function slideHTML(e) {
         // Champs optionnels : affichés seulement s'ils existent dans l'API
         const img = e.image || e.photo || e.image_url || e.logo;
@@ -661,12 +855,13 @@
           reste = forms.length - shown.length;
         const type = e.type ? e.type[0].toUpperCase() + e.type.slice(1) : "";
         const on = sel.includes(e.id);
+        const lettre = e.sigle || e.nom[0];
         return `
-          ${img ? `<img class="slide-img" src="${esc(img)}" alt="${esc(e.nom)}" />` : `<div class="slide-ph" aria-hidden="true">${esc(e.sigle || e.nom[0])}</div>`}
+          ${img ? `<img class="slide-img" src="${esc(img)}" alt="${esc(e.nom)}" data-s="${esc(lettre)}" />` : `<div class="slide-ph" aria-hidden="true">${esc(lettre)}</div>`}
           <div class="slide-shade"></div>
           <div class="slide-top">
             <div class="chips"><span class="chip">${esc(type)}</span><span class="chip">${PIN}${esc(e.ville)}${e.quartier ? ", " + esc(e.quartier) : ""}</span></div>
-            <button class="chip cmp ${on ? "on" : ""}" data-id="${e.id}" aria-pressed="${on}">${SCALE}<span>${on ? "Sélectionné ✓" : "Sélectionner"}</span></button>
+            <button class="chip cmp ${on ? "on" : ""}" type="button" data-id="${e.id}" aria-pressed="${on}">${SCALE}<span>${on ? "Sélectionné ✓" : "Sélectionner"}</span></button>
           </div>
           <div class="slide-body">
             <h2 class="slide-name"><small>${esc(e.sigle)}</small>${esc(e.nom)}</h2>
@@ -692,6 +887,9 @@
         const old = stage.querySelector(".slide");
         const el = document.createElement("article");
         el.className = `slide ${dir > 0 ? "from-r" : "from-l"}`;
+        el.setAttribute("role", "group");
+        el.setAttribute("aria-roledescription", "diapositive");
+        el.setAttribute("aria-label", `${idx + 1} sur ${n}`);
         el.innerHTML = slideHTML(filtrees[idx]);
         stage.append(el);
         void el.offsetWidth; // force le départ de l'animation
@@ -703,31 +901,90 @@
         $("num").textContent = `${pad(idx + 1)} / ${pad(n)}`;
         $("bar").style.width = `${((idx + 1) / n) * 100}%`;
         $("prev").disabled = $("next").disabled = n < 2;
+        majStrip();
+        [1, -1].forEach((d) => {
+          // précharge les photos voisines
+          const v = filtrees[(idx + d + n) % n],
+            u = v && (v.image || v.photo || v.image_url || v.logo);
+          if (u) new Image().src = u;
+        });
+      }
+
+      function majStrip() {
+        const strip = $("strip");
+        [...strip.children].forEach((b, i) =>
+          b.classList.toggle("on", i === idx),
+        );
+        const b = strip.children[idx];
+        if (b)
+          strip.scrollTo({
+            left: b.offsetLeft - strip.clientWidth / 2 + b.offsetWidth / 2,
+            behavior: reduit ? "auto" : "smooth",
+          });
       }
 
       function render() {
         const n = filtrees.length;
         $("result-count").innerHTML = n
-          ? `<strong>${n}</strong> école(s) trouvée(s)`
+          ? `<strong>${n}</strong> ${n > 1 ? "écoles trouvées" : "école trouvée"}`
           : "";
         $("stage-wrap").hidden = !n;
         $("status").hidden = !!n;
         if (!n) {
-          $("status").textContent =
-            "Aucune école trouvée. Essaie un autre mot-clé ou réinitialise les filtres.";
+          $("status").innerHTML =
+            `Aucune école trouvée. Essaie un autre mot-clé ou retire un filtre.<br /><button class="btn btn-ghost" id="vider" type="button">Réinitialiser les filtres</button>`;
+          $("vider").addEventListener("click", resetAll);
           $("stage").innerHTML = "";
+          $("strip").innerHTML = "";
           return;
         }
         $("stage").innerHTML = "";
+        $("strip").innerHTML = filtrees
+          .map(
+            (e, i) =>
+              `<button type="button" data-i="${i}" aria-label="Aller à ${esc(e.nom)}">${esc(e.sigle || e.nom)}</button>`,
+          )
+          .join("");
         show(0, 1);
       }
 
+      /* ── Événements ── */
+      $("recherche-input").addEventListener("input", () => {
+        clearTimeout(tm);
+        tm = setTimeout(appliquer, 200);
+      });
+      ["f-ville", "f-type", "f-domaine", "f-tri"].forEach((id) =>
+        $(id).addEventListener("change", appliquer),
+      );
+      $("reset").addEventListener("click", resetAll);
+      $("annuler").addEventListener("click", clearSel);
+      $("btn-comparer").addEventListener("click", goCompare);
       $("next").addEventListener("click", () => show(idx + 1, 1));
       $("prev").addEventListener("click", () => show(idx - 1, -1));
       $("stage").addEventListener("click", (e) => {
         const b = e.target.closest(".cmp");
         if (b) toggleSel(Number(b.dataset.id), b);
       });
+      $("strip").addEventListener("click", (e) => {
+        const b = e.target.closest("button");
+        if (!b) return;
+        const i = +b.dataset.i;
+        if (i !== idx) show(i, i > idx ? 1 : -1);
+      });
+      // Photo introuvable : on affiche le placeholder à la place
+      $("stage").addEventListener(
+        "error",
+        (e) => {
+          const im = e.target;
+          if (!im.classList || !im.classList.contains("slide-img")) return;
+          const ph = document.createElement("div");
+          ph.className = "slide-ph";
+          ph.setAttribute("aria-hidden", "true");
+          ph.textContent = im.dataset.s || "";
+          im.replaceWith(ph);
+        },
+        true,
+      );
 
       // Clavier : flèches gauche / droite (sauf dans un champ)
       addEventListener("keydown", (e) => {
