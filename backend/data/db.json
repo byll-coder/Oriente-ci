@@ -9,106 +9,42 @@
       "ville": "Abidjan",
       "quartier": "Cocody",
       "adresse": "22 BP 582 Abidjan 22",
-      "telephone": "+225 22 44 90 00",
+      "telephone": "+225 27 22 44 90 00",
       "email": "contact@univ-fhb.edu.ci",
       "site_web": "https://www.univ-fhb.edu.ci",
       "frais_min": 50000,
       "frais_max": 200000,
+      "image": "./assets/image/ufhb.png",
       "formations": [
         {
           "id": 101,
           "nom": "Licence en Droit",
           "domaine": "Droit",
           "duree": "3 ans",
-          "debouches": [
-            "Avocat",
-            "Magistrat",
-            "Juriste d'entreprise",
-            "Notaire"
-          ],
-          "series_acceptees": [
-            "A",
-            "B",
-            "C",
-            "D"
-          ],
+          "debouches": ["Avocat", "Magistrat", "Juriste d'entreprise", "Notaire"],
+          "series_acceptees": ["A", "B", "C", "D"],
           "moyenne_requise": 11,
-          "description": "Formation généraliste en droit privé, droit public et droit international. Très reconnue par les employeurs publics et privés."
+          "description": "Formation généraliste en droit privé, droit public et droit international."
         },
         {
           "id": 102,
           "nom": "Licence en Sciences Économiques",
           "domaine": "Économie",
           "duree": "3 ans",
-          "debouches": [
-            "Économiste",
-            "Analyste financier",
-            "Conseiller économique",
-            "Banquier"
-          ],
-          "series_acceptees": [
-            "B",
-            "C",
-            "D"
-          ],
+          "debouches": ["Économiste", "Analyste financier", "Banquier"],
+          "series_acceptees": ["B", "C", "D"],
           "moyenne_requise": 11,
-          "description": "Étude des mécanismes économiques, microéconomie, macroéconomie et statistiques appliquées."
+          "description": "Étude des mécanismes économiques, microéconomie et macroéconomie."
         },
         {
           "id": 103,
           "nom": "Licence en Médecine",
           "domaine": "Santé",
           "duree": "7 ans",
-          "debouches": [
-            "Médecin généraliste",
-            "Spécialiste",
-            "Chirurgien",
-            "Chercheur médical"
-          ],
-          "series_acceptees": [
-            "C",
-            "D"
-          ],
+          "debouches": ["Médecin généraliste", "Spécialiste", "Chirurgien"],
+          "series_acceptees": ["C", "D"],
           "moyenne_requise": 14,
-          "description": "Formation médicale complète du premier cycle jusqu'au doctorat. Accès sur concours très sélectif."
-        },
-        {
-          "id": 104,
-          "nom": "Licence en Lettres Modernes",
-          "domaine": "Lettres",
-          "duree": "3 ans",
-          "debouches": [
-            "Enseignant",
-            "Journaliste",
-            "Écrivain",
-            "Traducteur",
-            "Communicant"
-          ],
-          "series_acceptees": [
-            "A",
-            "B"
-          ],
-          "moyenne_requise": 10,
-          "description": "Étude de la littérature française et africaine, linguistique et communication."
-        },
-        {
-          "id": 105,
-          "nom": "Licence en Sciences et Technologie",
-          "domaine": "Sciences",
-          "duree": "3 ans",
-          "debouches": [
-            "Chercheur",
-            "Ingénieur",
-            "Technicien de laboratoire",
-            "Enseignant"
-          ],
-          "series_acceptees": [
-            "C",
-            "D",
-            "E"
-          ],
-          "moyenne_requise": 12,
-          "description": "Mathématiques, physique, chimie et biologie. Formation solide en sciences fondamentales et appliquées."
+          "description": "Formation médicale complète du premier cycle au doctorat d'État."
         }
       ]
     },
@@ -116,89 +52,27 @@
       "id": 2,
       "nom": "Université Nangui Abrogoua",
       "sigle": "UNA",
-      "description": "Référence en sciences, biologie, environnement, mathématiques, physique et recherche scientifique.",
+      "description": "Université publique spécialisée dans les sciences de la nature, de la terre, de l'environnement et des technologies d'abobo-adjamé.",
       "type": "publique",
       "ville": "Abidjan",
       "quartier": "Abobo",
-      "adresse": "BP 801 Abidjan 02",
-      "telephone": "+225 20 37 78 00",
-      "email": "contact@una.edu.ci",
-      "site_web": "",
+      "adresse": "02 BP 801 Abidjan 02",
+      "telephone": "+225 27 20 30 42 00",
+      "email": "info@univ-na.ci",
+      "site_web": "https://www.univ-na.ci",
       "frais_min": 50000,
-      "frais_max": 150000,
+      "frais_max": 200000,
+      "image": "./assets/image/una.png",
       "formations": [
         {
           "id": 201,
-          "nom": "Licence en Biologie",
+          "nom": "Licence en Sciences de la Nature",
           "domaine": "Sciences",
           "duree": "3 ans",
-          "debouches": [
-            "Biologiste",
-            "Chercheur",
-            "Technicien de laboratoire",
-            "Environnementaliste"
-          ],
-          "series_acceptees": [
-            "C",
-            "D"
-          ],
+          "debouches": ["Environnementaliste", "Botaniste", "Ingénieur Écologue"],
+          "series_acceptees": ["C", "D"],
           "moyenne_requise": 11,
-          "description": "Formation approfondie en biologie cellulaire, génétique, écologie et sciences de la vie."
-        },
-        {
-          "id": 202,
-          "nom": "Licence en Mathématiques",
-          "domaine": "Sciences",
-          "duree": "3 ans",
-          "debouches": [
-            "Enseignant",
-            "Statisticien",
-            "Actuaire",
-            "Ingénieur",
-            "Chercheur"
-          ],
-          "series_acceptees": [
-            "C",
-            "D",
-            "E"
-          ],
-          "moyenne_requise": 12,
-          "description": "Algèbre, analyse, probabilités et statistiques. Excellente base pour l'ingénierie et la recherche."
-        },
-        {
-          "id": 203,
-          "nom": "Licence en Sciences de l'Environnement",
-          "domaine": "Environnement",
-          "duree": "3 ans",
-          "debouches": [
-            "Écologue",
-            "Consultant environnemental",
-            "Chargé de mission développement durable"
-          ],
-          "series_acceptees": [
-            "C",
-            "D"
-          ],
-          "moyenne_requise": 11,
-          "description": "Étude des écosystèmes, pollution, changement climatique et gestion des ressources naturelles."
-        },
-        {
-          "id": 204,
-          "nom": "Licence en Physique",
-          "domaine": "Sciences",
-          "duree": "3 ans",
-          "debouches": [
-            "Physicien",
-            "Ingénieur",
-            "Enseignant",
-            "Technicien en énergie"
-          ],
-          "series_acceptees": [
-            "C",
-            "E"
-          ],
-          "moyenne_requise": 12,
-          "description": "Mécanique, électromagnétisme, thermodynamique et physique quantique."
+          "description": "Spécialisation en biologie végétale, zoologie et sciences environnementales."
         }
       ]
     },
@@ -206,2119 +80,895 @@
       "id": 3,
       "nom": "Université Alassane Ouattara",
       "sigle": "UAO",
-      "description": "Forte en droit, économie, gestion, lettres, langues et sciences humaines.",
+      "description": "Deuxième pôle universitaire public du pays, très prisé pour les lettres, les sciences humaines et le droit.",
       "type": "publique",
       "ville": "Bouaké",
-      "quartier": "Centre",
-      "adresse": "BP V 18 Bouaké",
-      "telephone": "+225 31 63 36 10",
-      "email": "contact@uao.edu.ci",
-      "site_web": "",
+      "quartier": "Campus 1 & 2",
+      "adresse": "01 BP V 18 Bouaké 01",
+      "telephone": "+225 27 31 63 35 99",
+      "email": "contact@univ-ao.edu.ci",
+      "site_web": "https://www.univ-ao.edu.ci",
       "frais_min": 50000,
-      "frais_max": 150000,
+      "frais_max": 200000,
+      "image": "./assets/image/uao.png",
       "formations": [
         {
           "id": 301,
-          "nom": "Licence en Droit et Sciences Politiques",
-          "domaine": "Droit",
-          "duree": "3 ans",
-          "debouches": [
-            "Juriste",
-            "Diplomate",
-            "Fonctionnaire",
-            "Conseiller politique"
-          ],
-          "series_acceptees": [
-            "A",
-            "B",
-            "C",
-            "D"
-          ],
-          "moyenne_requise": 11,
-          "description": "Droit public, droit privé, institutions politiques et relations internationales."
-        },
-        {
-          "id": 302,
-          "nom": "Licence en Gestion",
-          "domaine": "Gestion",
-          "duree": "3 ans",
-          "debouches": [
-            "Gestionnaire",
-            "Comptable",
-            "Responsable RH",
-            "Chef de projet"
-          ],
-          "series_acceptees": [
-            "A",
-            "B",
-            "C",
-            "D"
-          ],
-          "moyenne_requise": 11,
-          "description": "Comptabilité, finances, ressources humaines et management des organisations."
-        },
-        {
-          "id": 303,
-          "nom": "Licence en Langues Étrangères Appliquées",
-          "domaine": "Lettres",
-          "duree": "3 ans",
-          "debouches": [
-            "Traducteur",
-            "Interprète",
-            "Guide touristique",
-            "Commercial international"
-          ],
-          "series_acceptees": [
-            "A",
-            "B"
-          ],
-          "moyenne_requise": 10,
-          "description": "Anglais, espagnol ou allemand appliqués aux métiers du commerce et de la communication."
-        },
-        {
-          "id": 304,
-          "nom": "Licence en Sciences Humaines",
+          "nom": "Licence en Sociologie",
           "domaine": "Sciences Humaines",
           "duree": "3 ans",
-          "debouches": [
-            "Sociologue",
-            "Psychologue",
-            "Travailleur social",
-            "Enseignant"
-          ],
-          "series_acceptees": [
-            "A",
-            "B",
-            "D"
-          ],
+          "debouches": ["Sociologue", "Chargé d'études sociales", "Ressources Humaines"],
+          "series_acceptees": ["A", "B", "C", "D"],
           "moyenne_requise": 10,
-          "description": "Sociologie, psychologie, histoire et géographie humaine."
+          "description": "Analyse des dynamiques sociales et comportementales."
         }
       ]
     },
     {
       "id": 4,
-      "nom": "Université Jean Lorougnon Guédé",
-      "sigle": "UJLoG",
-      "description": "Agriculture, environnement, sciences naturelles et développement rural.",
+      "nom": "Université Péléforo Gon Coulibaly",
+      "sigle": "UPGC",
+      "description": "Université publique du nord de la Côte d'Ivoire axée sur l'agronomie et les sciences économiques.",
       "type": "publique",
-      "ville": "Daloa",
-      "quartier": "Centre",
-      "adresse": "BP 150 Daloa",
-      "telephone": "+225 32 78 45 00",
-      "email": "contact@ujlog.edu.ci",
-      "site_web": "",
+      "ville": "Korhogo",
+      "quartier": "Peleforo",
+      "adresse": "BP 1328 Korhogo",
+      "telephone": "+225 27 36 86 04 22",
+      "email": "info@upgc.edu.ci",
+      "site_web": "https://www.upgc.edu.ci",
       "frais_min": 50000,
-      "frais_max": 150000,
+      "frais_max": 200000,
+      "image": "./assets/image/upgc.png",
       "formations": [
         {
           "id": 401,
           "nom": "Licence en Agronomie",
           "domaine": "Agriculture",
           "duree": "3 ans",
-          "debouches": [
-            "Ingénieur agronome",
-            "Conseiller agricole",
-            "Chef d'exploitation",
-            "Chercheur"
-          ],
-          "series_acceptees": [
-            "C",
-            "D"
-          ],
+          "debouches": ["Ingénieur agronome", "Gestionnaire d'exploitations", "Conseiller agricole"],
+          "series_acceptees": ["C", "D"],
           "moyenne_requise": 11,
-          "description": "Productions végétales, élevage, sol, irrigation et développement agricole durable."
-        },
-        {
-          "id": 402,
-          "nom": "Licence en Sciences de l'Environnement et du Développement Rural",
-          "domaine": "Environnement",
-          "duree": "3 ans",
-          "debouches": [
-            "Écologue",
-            "Agent de développement rural",
-            "Consultant ONG",
-            "Forestier"
-          ],
-          "series_acceptees": [
-            "C",
-            "D"
-          ],
-          "moyenne_requise": 11,
-          "description": "Gestion des ressources naturelles, agroécologie et développement des communautés rurales."
-        },
-        {
-          "id": 403,
-          "nom": "Licence en Sciences Naturelles",
-          "domaine": "Sciences",
-          "duree": "3 ans",
-          "debouches": [
-            "Enseignant",
-            "Technicien environnement",
-            "Chercheur en biologie"
-          ],
-          "series_acceptees": [
-            "C",
-            "D"
-          ],
-          "moyenne_requise": 10,
-          "description": "Botanique, zoologie, écologie et sciences de la terre."
+          "description": "Sciences agronomiques appliquées au développement rural."
         }
       ]
     },
     {
       "id": 5,
-      "nom": "Université Péléforo Gon Coulibaly",
-      "sigle": "UPGC",
-      "description": "Économie, sciences sociales, agriculture et développement régional.",
+      "nom": "Université de Man",
+      "sigle": "U-MAN",
+      "description": "Université polytechnique axée sur les sciences de la terre, les mines, l'énergie et la métallurgie.",
       "type": "publique",
-      "ville": "Korhogo",
-      "quartier": "Centre",
-      "adresse": "BP 1328 Korhogo",
-      "telephone": "+225 36 86 02 10",
-      "email": "contact@upgc.edu.ci",
-      "site_web": "",
+      "ville": "Man",
+      "quartier": "Kassiapleu",
+      "adresse": "BP 20 Man",
+      "telephone": "+225 27 33 79 21 00",
+      "email": "contact@univ-man.edu.ci",
+      "site_web": "https://www.univ-man.edu.ci",
       "frais_min": 50000,
-      "frais_max": 150000,
+      "frais_max": 200000,
+      "image": "./assets/image/u-man.png",
       "formations": [
         {
           "id": 501,
-          "nom": "Licence en Économie et Développement",
-          "domaine": "Économie",
+          "nom": "Licence en Mines et Géologie",
+          "domaine": "Sciences",
           "duree": "3 ans",
-          "debouches": [
-            "Économiste",
-            "Planificateur",
-            "Agent de développement",
-            "Fonctionnaire"
-          ],
-          "series_acceptees": [
-            "A",
-            "B",
-            "C",
-            "D"
-          ],
-          "moyenne_requise": 11,
-          "description": "Économie rurale, développement local, politiques publiques et gestion de projets."
-        },
-        {
-          "id": 502,
-          "nom": "Licence en Sciences Sociales",
-          "domaine": "Sciences Humaines",
-          "duree": "3 ans",
-          "debouches": [
-            "Sociologue",
-            "Travailleur social",
-            "Agent ONG",
-            "Chercheur"
-          ],
-          "series_acceptees": [
-            "A",
-            "B",
-            "D"
-          ],
-          "moyenne_requise": 10,
-          "description": "Sociologie, anthropologie et sciences politiques appliquées au développement."
-        },
-        {
-          "id": 503,
-          "nom": "Licence en Agriculture et Développement Régional",
-          "domaine": "Agriculture",
-          "duree": "3 ans",
-          "debouches": [
-            "Conseiller agricole",
-            "Chef de projet rural",
-            "Agent de l'État"
-          ],
-          "series_acceptees": [
-            "C",
-            "D"
-          ],
-          "moyenne_requise": 10,
-          "description": "Agriculture adaptée au Nord de la Côte d'Ivoire, développement des filières locales."
+          "debouches": ["Géologue", "Ingénieur minier", "Prospection d'énergie"],
+          "series_acceptees": ["C", "D", "E"],
+          "moyenne_requise": 12,
+          "description": "Exploration minière et exploitation rationnelle des ressources du sol."
         }
       ]
     },
     {
       "id": 6,
-      "nom": "Université de Man",
-      "sigle": "UDM",
-      "description": "Mines, géologie, énergie, agroforesterie, tourisme et génie industriel.",
+      "nom": "Université de San Pedro",
+      "sigle": "USP",
+      "description": "Université thématique orientée vers la logistique portuaire, le tourisme et l'halieutique.",
       "type": "publique",
-      "ville": "Man",
-      "quartier": "Centre",
-      "adresse": "BP 20 Man",
-      "telephone": "",
-      "email": "contact@udman.edu.ci",
-      "site_web": "",
+      "ville": "San-Pédro",
+      "quartier": "Nawa",
+      "adresse": "BP 1200 San Pedro",
+      "telephone": "+225 27 34 71 00 11",
+      "email": "secretariat@univ-sanpedro.edu.ci",
+      "site_web": "https://www.univ-sanpedro.edu.ci",
       "frais_min": 50000,
-      "frais_max": 150000,
+      "frais_max": 200000,
+      "image": "./assets/image/usp.png",
       "formations": [
         {
           "id": 601,
-          "nom": "Licence en Géologie et Mines",
-          "domaine": "Mines",
+          "nom": "Licence Logistique Portuaire",
+          "domaine": "Transport",
           "duree": "3 ans",
-          "debouches": [
-            "Géologue",
-            "Ingénieur minier",
-            "Prospecteur",
-            "Consultant en ressources minières"
-          ],
-          "series_acceptees": [
-            "C",
-            "D",
-            "E"
-          ],
-          "moyenne_requise": 12,
-          "description": "Géologie appliquée, exploitation minière, pétrologie et ressources du sous-sol ivoirien."
-        },
-        {
-          "id": 602,
-          "nom": "Licence en Énergie et Génie Industriel",
-          "domaine": "Ingénierie",
-          "duree": "3 ans",
-          "debouches": [
-            "Technicien en énergie",
-            "Ingénieur industriel",
-            "Responsable maintenance"
-          ],
-          "series_acceptees": [
-            "C",
-            "E"
-          ],
-          "moyenne_requise": 12,
-          "description": "Énergies renouvelables, procédés industriels et maintenance des équipements."
-        },
-        {
-          "id": 603,
-          "nom": "Licence en Agroforesterie",
-          "domaine": "Agriculture",
-          "duree": "3 ans",
-          "debouches": [
-            "Forestier",
-            "Agronome",
-            "Consultant environnement",
-            "Agent de terrain ONG"
-          ],
-          "series_acceptees": [
-            "C",
-            "D"
-          ],
+          "debouches": ["Responsable transit", "Gestionnaire de stock portuaire", "Agent maritime"],
+          "series_acceptees": ["A", "B", "C", "D"],
           "moyenne_requise": 11,
-          "description": "Gestion des forêts, cultures associées aux arbres et conservation de la biodiversité."
-        },
-        {
-          "id": 604,
-          "nom": "Licence en Tourisme et Hôtellerie",
-          "domaine": "Tourisme",
-          "duree": "3 ans",
-          "debouches": [
-            "Guide touristique",
-            "Manager hôtelier",
-            "Agent de voyage",
-            "Promoteur culturel"
-          ],
-          "series_acceptees": [
-            "A",
-            "B",
-            "C",
-            "D"
-          ],
-          "moyenne_requise": 10,
-          "description": "Gestion hôtelière, promotion touristique et valorisation du patrimoine local de l'Ouest ivoirien."
+          "description": "Spécialisation dans les échanges maritimes et logistiques internationales."
         }
       ]
     },
     {
       "id": 7,
-      "nom": "Université de San Pedro",
-      "sigle": "USP",
-      "description": "Logistique portuaire, ressources marines, commerce, développement durable.",
+      "nom": "Université de Bondoukou",
+      "sigle": "UB",
+      "description": "Nouvelle université moderne formant en architecture, urbanisme et développement durable.",
       "type": "publique",
-      "ville": "San Pedro",
-      "quartier": "Centre",
-      "adresse": "BP 382 San Pedro",
-      "telephone": "",
-      "email": "contact@usp.edu.ci",
-      "site_web": "",
+      "ville": "Bondoukou",
+      "quartier": "Goli",
+      "adresse": "BP 150 Bondoukou",
+      "telephone": "+225 27 35 90 12 34",
+      "email": "contact@univ-bondoukou.edu.ci",
+      "site_web": "https://www.univ-bondouko.edu.ci",
       "frais_min": 50000,
-      "frais_max": 150000,
+      "frais_max": 200000,
+      "image": "./assets/image/ub.png",
       "formations": [
         {
           "id": 701,
-          "nom": "Licence en Logistique et Transport Portuaire",
-          "domaine": "Logistique",
+          "nom": "Licence Architecture & Urbanisme",
+          "domaine": "Architecture",
           "duree": "3 ans",
-          "debouches": [
-            "Logisticien",
-            "Agent portuaire",
-            "Transitaire",
-            "Responsable supply chain"
-          ],
-          "series_acceptees": [
-            "A",
-            "B",
-            "C",
-            "D"
-          ],
-          "moyenne_requise": 11,
-          "description": "Gestion des flux portuaires, douane, transport maritime et logistique internationale."
-        },
-        {
-          "id": 702,
-          "nom": "Licence en Sciences de la Mer et Ressources Marines",
-          "domaine": "Environnement",
-          "duree": "3 ans",
-          "debouches": [
-            "Biologiste marin",
-            "Gestionnaire des pêches",
-            "Chercheur",
-            "Agent de l'État"
-          ],
-          "series_acceptees": [
-            "C",
-            "D"
-          ],
-          "moyenne_requise": 11,
-          "description": "Écologie marine, halieutique, gestion durable des ressources côtières et marines."
-        },
-        {
-          "id": 703,
-          "nom": "Licence en Commerce et Développement Durable",
-          "domaine": "Commerce",
-          "duree": "3 ans",
-          "debouches": [
-            "Commercial export",
-            "Chargé RSE",
-            "Responsable achats",
-            "Consultant développement"
-          ],
-          "series_acceptees": [
-            "A",
-            "B",
-            "C",
-            "D"
-          ],
-          "moyenne_requise": 11,
-          "description": "Commerce international, responsabilité sociétale et développement durable appliqués au port de San Pedro."
+          "debouches": ["Architecte", "Urbaniste", "Chef de projet BTP"],
+          "series_acceptees": ["C", "D", "E"],
+          "moyenne_requise": 12.5,
+          "description": "Conception d'espaces durables et aménagement des territoires urbains."
         }
       ]
     },
     {
       "id": 8,
-      "nom": "Université de Bondoukou",
-      "sigle": "UDB",
-      "description": "Architecture, urbanisme, gouvernance, développement durable, communication.",
+      "nom": "Université Virtuelle de Côte d'Ivoire",
+      "sigle": "UVCI",
+      "description": "Université publique spécialisée dans l'enseignement à distance et la formation au numérique.",
       "type": "publique",
-      "ville": "Bondoukou",
-      "quartier": "Centre",
-      "adresse": "BP 01 Bondoukou",
-      "telephone": "",
-      "email": "contact@udb.edu.ci",
-      "site_web": "",
+      "ville": "Abidjan",
+      "quartier": "Deux Plateaux",
+      "adresse": "28 BP 536 Abidjan 28",
+      "telephone": "+225 27 22 51 51 40",
+      "email": "courrier@uvci.edu.ci",
+      "site_web": "https://uvci.edu.ci",
       "frais_min": 50000,
-      "frais_max": 150000,
+      "frais_max": 200000,
+      "image": "./assets/image/uvci.png",
       "formations": [
         {
           "id": 801,
-          "nom": "Licence en Architecture et Urbanisme",
-          "domaine": "Architecture",
+          "nom": "Licence Informatique & Sciences Numériques",
+          "domaine": "Informatique",
           "duree": "3 ans",
-          "debouches": [
-            "Architecte",
-            "Urbaniste",
-            "Dessinateur BTP",
-            "Chef de projet urbain"
-          ],
-          "series_acceptees": [
-            "C",
-            "D",
-            "E"
-          ],
-          "moyenne_requise": 12,
-          "description": "Conception architecturale, aménagement du territoire et urbanisme durable."
-        },
-        {
-          "id": 802,
-          "nom": "Licence en Gouvernance et Administration",
-          "domaine": "Droit",
-          "duree": "3 ans",
-          "debouches": [
-            "Administrateur civil",
-            "Agent de l'État",
-            "Gestionnaire de collectivité",
-            "Consultant"
-          ],
-          "series_acceptees": [
-            "A",
-            "B",
-            "C",
-            "D"
-          ],
-          "moyenne_requise": 11,
-          "description": "Administration publique, gestion des institutions, décentralisation et gouvernance locale."
-        },
-        {
-          "id": 803,
-          "nom": "Licence en Communication et Médias",
-          "domaine": "Communication",
-          "duree": "3 ans",
-          "debouches": [
-            "Journaliste",
-            "Community manager",
-            "Chargé de communication",
-            "Attaché de presse"
-          ],
-          "series_acceptees": [
-            "A",
-            "B"
-          ],
+          "debouches": ["Développeur Web", "Administrateur Système", "Spécialiste Sécurité"],
+          "series_acceptees": ["A", "B", "C", "D", "E", "F"],
           "moyenne_requise": 10,
-          "description": "Journalisme, communication digitale, relations publiques et médias audiovisuels."
+          "description": "Formation 100% en ligne axée sur la programmation, la data et le cloud."
         }
       ]
     },
     {
       "id": 9,
-      "nom": "Université Virtuelle de Côte d'Ivoire",
-      "sigle": "UVCI",
-      "description": "Formation à distance, informatique, numérique, flexibilité pour les étudiants.",
+      "nom": "Institut National Polytechnique Félix Houphouët-Boigny",
+      "sigle": "INP-HB",
+      "description": "Le fleuron des grandes écoles d'ingénieurs d'Afrique de l'Ouest. Très grande exigence académique.",
       "type": "publique",
-      "ville": "Abidjan",
-      "quartier": "Plateau",
-      "adresse": "Boulevard de la République, Plateau",
-      "telephone": "+225 20 21 00 00",
-      "email": "contact@uvci.edu.ci",
-      "site_web": "https://www.uvci.edu.ci",
-      "frais_min": 30000,
-      "frais_max": 100000,
+      "ville": "Yamoussoukro",
+      "quartier": "Centre",
+      "adresse": "BP 1093 Yamoussoukro",
+      "telephone": "+225 27 30 64 66 66",
+      "email": "info@inphb.ci",
+      "site_web": "https://www.inphb.ci",
+      "frais_min": 50000,
+      "frais_max": 300000,
+      "image": "./assets/image/inphb.png",
       "formations": [
         {
           "id": 901,
-          "nom": "Licence en Informatique (à distance)",
-          "domaine": "Informatique",
-          "duree": "3 ans",
-          "debouches": [
-            "Développeur",
-            "Technicien IT",
-            "Administrateur système",
-            "Data analyst"
-          ],
-          "series_acceptees": [
-            "C",
-            "D",
-            "E"
-          ],
-          "moyenne_requise": 11,
-          "description": "Programmation, réseaux, bases de données et développement web. 100% en ligne, accessible partout en Côte d'Ivoire."
-        },
-        {
-          "id": 902,
-          "nom": "Licence en Sciences du Numérique (à distance)",
-          "domaine": "Informatique",
-          "duree": "3 ans",
-          "debouches": [
-            "Data scientist",
-            "Analyste numérique",
-            "Chargé de transformation digitale"
-          ],
-          "series_acceptees": [
-            "C",
-            "D",
-            "E"
-          ],
-          "moyenne_requise": 11,
-          "description": "Intelligence artificielle, big data, cybersécurité et transformation digitale des entreprises."
-        },
-        {
-          "id": 903,
-          "nom": "Licence en Gestion (à distance)",
-          "domaine": "Gestion",
-          "duree": "3 ans",
-          "debouches": [
-            "Gestionnaire",
-            "Comptable",
-            "Entrepreneur",
-            "Responsable administratif"
-          ],
-          "series_acceptees": [
-            "A",
-            "B",
-            "C",
-            "D"
-          ],
-          "moyenne_requise": 10,
-          "description": "Comptabilité, management et entrepreneuriat. Formation flexible idéale pour les étudiants en activité."
+          "nom": "Diplôme d'Ingénieur de Conception",
+          "domaine": "Ingénierie",
+          "duree": "5 ans",
+          "debouches": ["Ingénieur réseau", "Chef de projet technique", "Directeur de production"],
+          "series_acceptees": ["C", "D", "E"],
+          "moyenne_requise": 14.5,
+          "description": "Recrutement sur prépa et concours pour former l'élite des ingénieurs."
         }
       ]
     },
     {
       "id": 10,
-      "nom": "Institut National Polytechnique Félix Houphouët-Boigny",
-      "sigle": "INP-HB",
-      "description": "Grande école publique d'ingénieurs, référence nationale en ingénierie, intelligence artificielle, génie civil et électronique.",
-      "type": "publique",
-      "ville": "Yamoussoukro",
-      "quartier": "Centre-ville",
-      "adresse": "",
-      "telephone": "+225 30 64 66 70",
-      "email": "contact@inphb.ci",
-      "site_web": "https://www.inphb.ci",
-      "frais_min": 150000,
-      "frais_max": 400000,
+      "nom": "Institut Universitaire d'Abidjan",
+      "sigle": "IUA",
+      "description": "Établissement privé de renom offrant des formations universitaires anglophones et francophones.",
+      "type": "privée",
+      "ville": "Abidjan",
+      "quartier": "Riviera 3",
+      "adresse": "08 BP 1215 Abidjan 08",
+      "telephone": "+225 27 22 47 22 22",
+      "email": "contact@iua-ci.net",
+      "site_web": "https://iua-ci.net",
+      "frais_min": 600000,
+      "frais_max": 1200000,
+      "image": "./assets/image/iua.png",
       "formations": [
         {
           "id": 1001,
-          "nom": "Diplôme d'Ingénieur en Informatique et IA",
-          "domaine": "Informatique",
-          "duree": "5 ans",
-          "debouches": [
-            "Ingénieur logiciel",
-            "Data scientist",
-            "Ingénieur IA"
-          ],
-          "series_acceptees": [
-            "C",
-            "D",
-            "E"
-          ],
-          "moyenne_requise": 14,
-          "description": "Formation d'excellence en intelligence artificielle, programmation avancée et data science."
-        },
-        {
-          "id": 1002,
-          "nom": "Diplôme d'Ingénieur en Génie Civil",
-          "domaine": "Ingénierie",
-          "duree": "5 ans",
-          "debouches": [
-            "Ingénieur BTP",
-            "Chef de chantier",
-            "Bureau d'études"
-          ],
-          "series_acceptees": [
-            "C",
-            "D"
-          ],
-          "moyenne_requise": 13,
-          "description": "Conception et construction d'ouvrages, structures et infrastructures."
-        },
-        {
-          "id": 1003,
-          "nom": "Diplôme d'Ingénieur en Génie Électrique",
-          "domaine": "Ingénierie",
-          "duree": "5 ans",
-          "debouches": [
-            "Ingénieur électricien",
-            "Technicien réseaux électriques",
-            "Automaticien"
-          ],
-          "series_acceptees": [
-            "C",
-            "E"
-          ],
-          "moyenne_requise": 13,
-          "description": "Électrotechnique, automatisme et systèmes électroniques industriels."
+          "nom": "Licence en Finance et Comptabilité",
+          "domaine": "Gestion",
+          "duree": "3 ans",
+          "debouches": ["Comptable", "Auditeur interne", "Contrôleur de gestion"],
+          "series_acceptees": ["B", "C", "D", "G2"],
+          "moyenne_requise": 11,
+          "description": "Enseignement théorique et pratique certifiant aux normes comptables."
         }
       ]
     },
     {
       "id": 11,
-      "nom": "Institut Universitaire d'Abidjan",
-      "sigle": "IUA",
-      "description": "École privée reconnue en informatique, génie logiciel et gestion d'entreprise.",
+      "nom": "Pigier Côte d'Ivoire",
+      "sigle": "PIGIER",
+      "description": "L'école des métiers de l'entreprise, leader privé de la formation en gestion et commerce.",
       "type": "privée",
       "ville": "Abidjan",
-      "quartier": "Abidjan",
-      "adresse": "",
-      "telephone": "",
-      "email": "",
-      "site_web": "",
-      "frais_min": 500000,
-      "frais_max": 900000,
+      "quartier": "Plateau",
+      "adresse": "01 BP 1585 Abidjan 01",
+      "telephone": "+225 27 20 30 35 00",
+      "email": "pigier@pigier.ci",
+      "site_web": "https://www.pigierci.com/",
+      "frais_min": 750000,
+      "frais_max": 1500000,
+      "image": "./assets/image/pigier.png",
       "formations": [
         {
-          "id": 1004,
-          "nom": "Licence en Génie Logiciel",
-          "domaine": "Informatique",
+          "id": 1101,
+          "nom": "Licence Administration des Entreprises",
+          "domaine": "Management",
           "duree": "3 ans",
-          "debouches": [
-            "Développeur",
-            "Ingénieur logiciel",
-            "Chef de projet IT"
-          ],
-          "series_acceptees": [
-            "C",
-            "D",
-            "E"
-          ],
+          "debouches": ["Manager d'équipe", "Assistant de direction", "Consultant junior"],
+          "series_acceptees": ["A", "B", "C", "D", "G2"],
           "moyenne_requise": 11,
-          "description": "Développement d'applications, architecture logicielle et cycle de vie des projets informatiques."
-        },
-        {
-          "id": 1005,
-          "nom": "Licence en Gestion des Entreprises",
-          "domaine": "Gestion",
-          "duree": "3 ans",
-          "debouches": [
-            "Gestionnaire",
-            "Chargé de projet",
-            "Entrepreneur"
-          ],
-          "series_acceptees": [
-            "A",
-            "B",
-            "C",
-            "D"
-          ],
-          "moyenne_requise": 10,
-          "description": "Management, comptabilité et stratégie d'entreprise."
+          "description": "Parcours professionnalisant axé sur la gestion opérationnelle de l'entreprise."
         }
       ]
     },
     {
       "id": 12,
-      "nom": "Pigier Côte d'Ivoire",
-      "sigle": "Pigier",
-      "description": "Référence historique en comptabilité, finance, ressources humaines et marketing.",
+      "nom": "Université des Lagunes",
+      "sigle": "UL",
+      "description": "Université privée de prestige tenue par la fondation FAP-CI, reconnue pour la rigueur du Master droit.",
       "type": "privée",
       "ville": "Abidjan",
-      "quartier": "Abidjan",
-      "adresse": "",
-      "telephone": "",
-      "email": "",
-      "site_web": "",
-      "frais_min": 450000,
-      "frais_max": 850000,
+      "quartier": "Riviera Bonoumin",
+      "adresse": "01 BP 12792 Abidjan 01",
+      "telephone": "+225 27 22 40 00 60",
+      "email": "info@ulagunes.cid.ci",
+      "site_web": "https://www.universitedeslagunes.edu.ci",
+      "frais_min": 1000000,
+      "frais_max": 2000000,
+      "image": "./assets/image/ul.png",
       "formations": [
         {
-          "id": 1006,
-          "nom": "BTS Comptabilité et Finance",
-          "domaine": "Comptabilité",
-          "duree": "2 ans",
-          "debouches": [
-            "Comptable",
-            "Auditeur junior",
-            "Gestionnaire de paie"
-          ],
-          "series_acceptees": [
-            "A",
-            "B",
-            "C",
-            "D"
-          ],
-          "moyenne_requise": 10,
-          "description": "Comptabilité générale, fiscalité et gestion financière des entreprises."
-        },
-        {
-          "id": 1007,
-          "nom": "BTS Ressources Humaines",
-          "domaine": "Gestion",
-          "duree": "2 ans",
-          "debouches": [
-            "Chargé RH",
-            "Gestionnaire de paie",
-            "Recruteur"
-          ],
-          "series_acceptees": [
-            "A",
-            "B",
-            "C",
-            "D"
-          ],
-          "moyenne_requise": 10,
-          "description": "Gestion du personnel, recrutement et droit social."
-        },
-        {
-          "id": 1008,
-          "nom": "BTS Marketing",
-          "domaine": "Marketing",
-          "duree": "2 ans",
-          "debouches": [
-            "Chargé marketing",
-            "Chef de produit",
-            "Community manager"
-          ],
-          "series_acceptees": [
-            "A",
-            "B",
-            "C",
-            "D"
-          ],
-          "moyenne_requise": 10,
-          "description": "Stratégie marketing, étude de marché et communication commerciale."
+          "id": 1201,
+          "nom": "Licence en Droit des Affaires",
+          "domaine": "Droit",
+          "duree": "3 ans",
+          "debouches": ["Juriste d'affaires", "Consultant fiscaliste", "Mandataire judiciaire"],
+          "series_acceptees": ["A", "B", "C", "D"],
+          "moyenne_requise": 12,
+          "description": "Spécialisation juridique poussée avec séminaires professionnels de haut niveau."
         }
       ]
     },
     {
       "id": 13,
-      "nom": "Université des Lagunes",
-      "sigle": "ULAG",
-      "description": "Université privée pluridisciplinaire en droit, économie et gestion.",
+      "nom": "International University of Grand-Bassam",
+      "sigle": "IUGB",
+      "description": "Université américaine à Grand-Bassam, enseignements 100% en anglais sur le modèle US.",
       "type": "privée",
-      "ville": "Abidjan",
-      "quartier": "Abidjan",
-      "adresse": "",
-      "telephone": "",
-      "email": "",
-      "site_web": "",
-      "frais_min": 400000,
-      "frais_max": 750000,
+      "ville": "Grand-Bassam",
+      "quartier": "Quartier France",
+      "adresse": "BP 564 Grand-Bassam",
+      "telephone": "+225 27 21 30 34 00",
+      "email": "info@iugb.edu.ci",
+      "site_web": "https://iugb.edu.ci",
+      "frais_min": 2500000,
+      "frais_max": 4500000,
+      "image": "./assets/image/iugb.png",
       "formations": [
         {
-          "id": 1009,
-          "nom": "Licence en Droit",
-          "domaine": "Droit",
-          "duree": "3 ans",
-          "debouches": [
-            "Juriste",
-            "Avocat",
-            "Conseiller juridique"
-          ],
-          "series_acceptees": [
-            "A",
-            "B",
-            "C",
-            "D"
-          ],
-          "moyenne_requise": 10,
-          "description": "Droit privé, droit des affaires et procédures judiciaires."
-        },
-        {
-          "id": 1010,
-          "nom": "Licence en Économie",
-          "domaine": "Économie",
-          "duree": "3 ans",
-          "debouches": [
-            "Économiste",
-            "Analyste",
-            "Conseiller financier"
-          ],
-          "series_acceptees": [
-            "B",
-            "C",
-            "D"
-          ],
-          "moyenne_requise": 10,
-          "description": "Théories économiques, marchés et politiques économiques."
-        },
-        {
-          "id": 1011,
-          "nom": "Licence en Gestion",
-          "domaine": "Gestion",
-          "duree": "3 ans",
-          "debouches": [
-            "Gestionnaire",
-            "Comptable",
-            "Responsable administratif"
-          ],
-          "series_acceptees": [
-            "A",
-            "B",
-            "C",
-            "D"
-          ],
-          "moyenne_requise": 10,
-          "description": "Comptabilité, finance et management des organisations."
+          "id": 1301,
+          "nom": "Bachelor in Computer Science",
+          "domaine": "Informatique",
+          "duree": "4 ans",
+          "debouches": ["Software Engineer", "Data Scientist", "Cloud Architect"],
+          "series_acceptees": ["C", "D", "E"],
+          "moyenne_requise": 12,
+          "description": "Curriculum de haut niveau aux standards des universités américaines."
         }
       ]
     },
     {
       "id": 14,
-      "nom": "International University of Grand-Bassam",
-      "sigle": "IUGB",
-      "description": "Université privée anglophone, programme américain en business, informatique et relations internationales.",
+      "nom": "Université Catholique de l'Afrique de l'Ouest",
+      "sigle": "UCAO-UUA",
+      "description": "Établissement privé confessionnel garantissant une solide éducation intellectuelle et éthique.",
       "type": "privée",
-      "ville": "Grand-Bassam",
-      "quartier": "Grand-Bassam",
-      "adresse": "",
-      "telephone": "",
-      "email": "",
-      "site_web": "",
-      "frais_min": 900000,
-      "frais_max": 1800000,
+      "ville": "Abidjan",
+      "quartier": "Cocody St Jean",
+      "adresse": "08 BP 22 BP 838 Abidjan 08",
+      "telephone": "+225 27 22 40 49 70",
+      "email": "ucao_uua@ucao.ci",
+      "site_web": "https://ucao.ci",
+      "frais_min": 650000,
+      "frais_max": 1200000,
+      "image": "./assets/image/ucao.png",
       "formations": [
         {
-          "id": 1012,
-          "nom": "Bachelor in Business Administration",
-          "domaine": "Gestion",
-          "duree": "4 ans",
-          "debouches": [
-            "Manager",
-            "Entrepreneur",
-            "Consultant"
-          ],
-          "series_acceptees": [
-            "A",
-            "B",
-            "C",
-            "D"
-          ],
-          "moyenne_requise": 12,
-          "description": "Programme américain en management, finance et entrepreneuriat, enseigné en anglais."
-        },
-        {
-          "id": 1013,
-          "nom": "Bachelor in Computer Science",
-          "domaine": "Informatique",
-          "duree": "4 ans",
-          "debouches": [
-            "Développeur",
-            "Ingénieur logiciel",
-            "Analyste systèmes"
-          ],
-          "series_acceptees": [
-            "C",
-            "D",
-            "E"
-          ],
-          "moyenne_requise": 12,
-          "description": "Programmation, structures de données et systèmes informatiques, cursus international."
-        },
-        {
-          "id": 1014,
-          "nom": "Bachelor in International Relations",
-          "domaine": "Sciences Humaines",
-          "duree": "4 ans",
-          "debouches": [
-            "Diplomate",
-            "Chargé de mission internationale",
-            "Analyste politique"
-          ],
-          "series_acceptees": [
-            "A",
-            "B"
-          ],
+          "id": 1401,
+          "nom": "Licence en Sciences de la Communication",
+          "domaine": "Communication",
+          "duree": "3 ans",
+          "debouches": ["Chargé de relations publiques", "Journaliste", "Attaché de presse"],
+          "series_acceptees": ["A", "B", "C", "D"],
           "moyenne_requise": 11,
-          "description": "Relations internationales, diplomatie et géopolitique, en anglais."
+          "description": "Formation aux métiers des médias, de l'événementiel et de la pub."
         }
       ]
     },
     {
       "id": 15,
-      "nom": "Université Catholique de l'Afrique de l'Ouest",
-      "sigle": "UCAO-UUA",
-      "description": "Université privée catholique forte en droit, gestion et communication.",
+      "nom": "BEM Abidjan",
+      "sigle": "BEM",
+      "description": "Campus ivoirien de Bordeaux Executive Management, classé parmi les meilleures business schools.",
       "type": "privée",
       "ville": "Abidjan",
-      "quartier": "Abidjan",
-      "adresse": "",
-      "telephone": "",
-      "email": "",
-      "site_web": "",
-      "frais_min": 400000,
-      "frais_max": 800000,
+      "quartier": "Deux Plateaux",
+      "adresse": "06 BP 2541 Abidjan 06",
+      "telephone": "+225 27 22 52 88 00",
+      "email": "admissions@bem.ci",
+      "site_web": "https://bem.ci",
+      "frais_min": 2000000,
+      "frais_max": 3800000,
+      "image": "./assets/image/bem.png",
       "formations": [
         {
-          "id": 1015,
-          "nom": "Licence en Droit",
-          "domaine": "Droit",
+          "id": 1501,
+          "nom": "Bachelor Kedge Business School",
+          "domaine": "Commerce",
           "duree": "3 ans",
-          "debouches": [
-            "Juriste",
-            "Avocat",
-            "Magistrat"
-          ],
-          "series_acceptees": [
-            "A",
-            "B",
-            "C",
-            "D"
-          ],
-          "moyenne_requise": 10,
-          "description": "Droit civil, droit pénal et institutions judiciaires."
-        },
-        {
-          "id": 1016,
-          "nom": "Licence en Communication",
-          "domaine": "Communication",
-          "duree": "3 ans",
-          "debouches": [
-            "Journaliste",
-            "Chargé de communication",
-            "Attaché de presse"
-          ],
-          "series_acceptees": [
-            "A",
-            "B"
-          ],
-          "moyenne_requise": 10,
-          "description": "Journalisme, médias et communication institutionnelle."
-        },
-        {
-          "id": 1017,
-          "nom": "Licence en Gestion",
-          "domaine": "Gestion",
-          "duree": "3 ans",
-          "debouches": [
-            "Gestionnaire",
-            "Comptable",
-            "Responsable administratif"
-          ],
-          "series_acceptees": [
-            "A",
-            "B",
-            "C",
-            "D"
-          ],
-          "moyenne_requise": 10,
-          "description": "Management et gestion administrative des entreprises."
+          "debouches": ["Business Developer", "Chef de produit", "Acheteur international"],
+          "series_acceptees": ["A", "B", "C", "D"],
+          "moyenne_requise": 12.5,
+          "description": "Diplôme international avec possibilité d'échanges d'études en Europe."
         }
       ]
     },
     {
       "id": 16,
-      "nom": "BEM Abidjan",
-      "sigle": "BEM",
-      "description": "École de commerce privée spécialisée en management, finance et commerce.",
+      "nom": "AGITEL-Formation",
+      "sigle": "AGITEL",
+      "description": "Grande école privée spécialisée dans la haute formation en gestion et technologies informatiques.",
       "type": "privée",
       "ville": "Abidjan",
-      "quartier": "Abidjan",
-      "adresse": "",
-      "telephone": "",
-      "email": "",
-      "site_web": "",
-      "frais_min": 600000,
-      "frais_max": 1100000,
+      "quartier": "Riviera Palmeraie",
+      "adresse": "11 BP 2465 Abidjan 11",
+      "telephone": "+225 27 22 49 20 00",
+      "email": "info@agitel.ci",
+      "site_web": "https://agitelformation.com/",
+      "frais_min": 500000,
+      "frais_max": 950000,
+      "image": "./assets/image/agitel.png",
       "formations": [
         {
-          "id": 1018,
-          "nom": "Licence en Management",
-          "domaine": "Management",
-          "duree": "3 ans",
-          "debouches": [
-            "Manager",
-            "Chef de projet",
-            "Consultant"
-          ],
-          "series_acceptees": [
-            "A",
-            "B",
-            "C",
-            "D"
-          ],
-          "moyenne_requise": 11,
-          "description": "Leadership, stratégie d'entreprise et gestion d'équipe."
-        },
-        {
-          "id": 1019,
-          "nom": "Licence en Finance",
-          "domaine": "Gestion",
-          "duree": "3 ans",
-          "debouches": [
-            "Analyste financier",
-            "Contrôleur de gestion",
-            "Banquier"
-          ],
-          "series_acceptees": [
-            "B",
-            "C",
-            "D"
-          ],
-          "moyenne_requise": 11,
-          "description": "Analyse financière, marchés et gestion de portefeuille."
+          "id": 1601,
+          "nom": "BTS Informatique Développeur d'Application",
+          "domaine": "Informatique",
+          "duree": "2 ans",
+          "debouches": ["Développeur web", "Gestionnaire de base de données"],
+          "series_acceptees": ["C", "D", "E", "F2"],
+          "moyenne_requise": 10,
+          "description": "Préparation intensive au BTS d'État et intégration rapide sur le marché du travail."
         }
       ]
     },
     {
       "id": 17,
-      "nom": "AGITEL-Formation",
-      "sigle": "AGITEL",
-      "description": "École privée spécialisée en télécommunications, réseaux et cybersécurité.",
+      "nom": "HEC Abidjan",
+      "sigle": "HEC-ABIDJAN",
+      "description": "École supérieure de commerce et de management préparant aux diplômes nationaux et internationaux.",
       "type": "privée",
       "ville": "Abidjan",
-      "quartier": "Abidjan",
-      "adresse": "",
-      "telephone": "",
-      "email": "",
-      "site_web": "",
-      "frais_min": 450000,
-      "frais_max": 850000,
+      "quartier": "Deux Plateaux Vallon",
+      "adresse": "08 BP 2760 Abidjan 08",
+      "telephone": "+225 27 22 41 40 40",
+      "email": "contact@hecabidjan.com",
+      "site_web": "https://hecabidjan.com/",
+      "frais_min": 600000,
+      "frais_max": 1100000,
+      "image": "./assets/image/hec.png",
       "formations": [
         {
-          "id": 1020,
-          "nom": "BTS Télécommunications",
-          "domaine": "Informatique",
-          "duree": "2 ans",
-          "debouches": [
-            "Technicien télécoms",
-            "Ingénieur réseaux",
-            "Administrateur systèmes"
-          ],
-          "series_acceptees": [
-            "C",
-            "D",
-            "E"
-          ],
-          "moyenne_requise": 10,
-          "description": "Réseaux, transmission de données et infrastructures télécoms."
-        },
-        {
-          "id": 1021,
-          "nom": "Licence en Cybersécurité",
-          "domaine": "Informatique",
+          "id": 1701,
+          "nom": "Licence Marketing et Vente",
+          "domaine": "Commerce",
           "duree": "3 ans",
-          "debouches": [
-            "Analyste sécurité",
-            "Expert cybersécurité",
-            "Consultant SI"
-          ],
-          "series_acceptees": [
-            "C",
-            "D",
-            "E"
-          ],
-          "moyenne_requise": 11,
-          "description": "Sécurité informatique, protection des données et audit de systèmes."
+          "debouches": ["Chef de secteur", "Responsable commercial", "Community manager"],
+          "series_acceptees": ["A", "B", "C", "D", "G1"],
+          "moyenne_requise": 10.5,
+          "description": "Techniques de vente modernes, stratégie d'entreprise et e-commerce."
         }
       ]
     },
     {
       "id": 18,
-      "nom": "HEC Abidjan",
-      "sigle": "HEC-CI",
-      "description": "École de commerce privée en finance, management et commerce international.",
+      "nom": "Institut Supérieur des Carrières Commerciales",
+      "sigle": "ISCC",
+      "description": "Établissement privé spécialisé dans la logistique, le transit et le commerce international.",
       "type": "privée",
       "ville": "Abidjan",
-      "quartier": "Abidjan",
-      "adresse": "",
-      "telephone": "",
-      "email": "",
-      "site_web": "",
-      "frais_min": 650000,
-      "frais_max": 1200000,
+      "quartier": "Treichville",
+      "adresse": "01 BP 4512 Abidjan 01",
+      "telephone": "+225 27 21 24 15 88",
+      "email": "contact@iscc.edu.ci",
+      "site_web": "https://iscc.edu.ci/",
+      "frais_min": 450000,
+      "frais_max": 850000,
+      "image": "./assets/image/iscc.png",
       "formations": [
         {
-          "id": 1022,
-          "nom": "Licence en Commerce International",
-          "domaine": "Commerce",
-          "duree": "3 ans",
-          "debouches": [
-            "Commercial export",
-            "Responsable import/export",
-            "Négociateur international"
-          ],
-          "series_acceptees": [
-            "A",
-            "B",
-            "C",
-            "D"
-          ],
-          "moyenne_requise": 11,
-          "description": "Échanges internationaux, douane et négociation commerciale."
-        },
-        {
-          "id": 1023,
-          "nom": "Licence en Finance d'Entreprise",
-          "domaine": "Gestion",
-          "duree": "3 ans",
-          "debouches": [
-            "Analyste financier",
-            "Contrôleur de gestion",
-            "Trésorier"
-          ],
-          "series_acceptees": [
-            "B",
-            "C",
-            "D"
-          ],
-          "moyenne_requise": 11,
-          "description": "Gestion financière, comptabilité analytique et investissement."
+          "id": 1801,
+          "nom": "BTS Transport & Logistique",
+          "domaine": "Logistique",
+          "duree": "2 ans",
+          "debouches": ["Responsable d'entrepôt", "Déclarant en douane", "Agent de fret"],
+          "series_acceptees": ["A", "B", "C", "D", "G2"],
+          "moyenne_requise": 10,
+          "description": "Apprentissage opérationnel de la chaîne logistique et de la douane."
         }
       ]
     },
     {
       "id": 19,
-      "nom": "Institut Supérieur de Technologie de Côte d'Ivoire",
-      "sigle": "ISTCI",
-      "description": "École privée technique en informatique et génie industriel.",
+      "nom": "Institut Universitaire de Technologie d'Abidjan",
+      "sigle": "IUTA",
+      "description": "Centre de formation supérieure technique axé sur le génie électrique et l'informatique.",
       "type": "privée",
       "ville": "Abidjan",
-      "quartier": "Abidjan",
-      "adresse": "",
-      "telephone": "",
-      "email": "",
-      "site_web": "",
-      "frais_min": 400000,
-      "frais_max": 750000,
+      "quartier": "Marcory",
+      "adresse": "15 BP 890 Abidjan 15",
+      "telephone": "+225 27 21 26 30 10",
+      "email": "info@iuta.ci",
+      "site_web": "https://iuta.ci/",
+      "frais_min": 500000,
+      "frais_max": 900000,
+      "image": "./assets/image/iuta.png",
       "formations": [
         {
-          "id": 1024,
-          "nom": "BTS Informatique de Gestion",
-          "domaine": "Informatique",
+          "id": 1901,
+          "nom": "BTS Génie Électrique",
+          "domaine": "Industrie",
           "duree": "2 ans",
-          "debouches": [
-            "Développeur",
-            "Technicien informatique",
-            "Administrateur BD"
-          ],
-          "series_acceptees": [
-            "C",
-            "D",
-            "E"
-          ],
+          "debouches": ["Technicien de maintenance", "Électricien industriel", "Domoticien"],
+          "series_acceptees": ["C", "D", "E", "F1"],
           "moyenne_requise": 10,
-          "description": "Programmation, bases de données et systèmes d'information de gestion."
-        },
-        {
-          "id": 1025,
-          "nom": "Licence en Génie Industriel",
-          "domaine": "Ingénierie",
-          "duree": "3 ans",
-          "debouches": [
-            "Ingénieur process",
-            "Responsable production",
-            "Qualiticien"
-          ],
-          "series_acceptees": [
-            "C",
-            "D",
-            "E"
-          ],
-          "moyenne_requise": 11,
-          "description": "Optimisation des processus industriels et gestion de production."
+          "description": "Maîtrise des installations électriques industrielles et automatismes."
         }
       ]
     },
     {
       "id": 20,
-      "nom": "Institut Supérieur des Carrières Commerciales",
-      "sigle": "ISCC",
-      "description": "École privée spécialisée en commerce et comptabilité.",
+      "nom": "Institut International Polytechnique des Élites d'Abidjan",
+      "sigle": "IIPEA",
+      "description": "Établissement polytechnique axé sur les métiers scientifiques et de gestion.",
       "type": "privée",
       "ville": "Abidjan",
-      "quartier": "Abidjan",
-      "adresse": "",
-      "telephone": "",
-      "email": "",
-      "site_web": "",
-      "frais_min": 350000,
-      "frais_max": 650000,
+      "quartier": "Riviera Palmeraie",
+      "adresse": "25 BP 1420 Abidjan 25",
+      "telephone": "+225 27 22 49 80 80",
+      "email": "direction@iipea.net",
+      "site_web": "https://iipea.net/",
+      "frais_min": 550000,
+      "frais_max": 1000000,
+      "image": "./assets/image/iipea.png",
       "formations": [
         {
-          "id": 1026,
-          "nom": "BTS Commerce",
-          "domaine": "Commerce",
-          "duree": "2 ans",
-          "debouches": [
-            "Commercial",
-            "Responsable vente",
-            "Chargé clientèle"
-          ],
-          "series_acceptees": [
-            "A",
-            "B",
-            "C",
-            "D"
-          ],
-          "moyenne_requise": 9,
-          "description": "Techniques de vente, négociation et gestion commerciale."
-        },
-        {
-          "id": 1027,
-          "nom": "BTS Comptabilité et Gestion",
-          "domaine": "Comptabilité",
-          "duree": "2 ans",
-          "debouches": [
-            "Comptable",
-            "Assistant financier",
-            "Gestionnaire"
-          ],
-          "series_acceptees": [
-            "A",
-            "B",
-            "C",
-            "D"
-          ],
-          "moyenne_requise": 9,
-          "description": "Comptabilité générale et gestion des entreprises."
+          "id": 2001,
+          "nom": "Licence Génie Civil & Bâtiment",
+          "domaine": "BTP",
+          "duree": "3 ans",
+          "debouches": ["Conducteur de travaux", "Dessinateur projeteur", "Ingénieur BTP"],
+          "series_acceptees": ["C", "D", "E", "F4"],
+          "moyenne_requise": 11,
+          "description": "Calcul de structures, gestion de chantier et génie civil."
         }
       ]
     },
     {
       "id": 21,
-      "nom": "Institut Universitaire de Technologie d'Abidjan",
-      "sigle": "IUTA",
-      "description": "École privée technique en informatique et réseaux.",
+      "nom": "Institut Supérieur Jean Paul II",
+      "sigle": "ISJP2",
+      "description": "Institut universitaire formant des professionnels rigoureux dans le domaine de la santé et des sciences sociales.",
       "type": "privée",
       "ville": "Abidjan",
-      "quartier": "Abidjan",
-      "adresse": "",
-      "telephone": "",
-      "email": "",
-      "site_web": "",
-      "frais_min": 400000,
-      "frais_max": 750000,
+      "quartier": "Cocody Angré",
+      "adresse": "08 BP 3321 Abidjan 08",
+      "telephone": "+225 27 22 50 15 20",
+      "email": "contact@isjp2.edu.ci",
+      "site_web": "https://www.isjp2.edu.ci/",
+      "frais_min": 600000,
+      "frais_max": 1100000,
+      "image": "./assets/image/isjp2.jpg",
       "formations": [
         {
-          "id": 1028,
-          "nom": "BTS Réseaux Informatiques",
-          "domaine": "Informatique",
-          "duree": "2 ans",
-          "debouches": [
-            "Administrateur réseau",
-            "Technicien systèmes",
-            "Support IT"
-          ],
-          "series_acceptees": [
-            "C",
-            "D",
-            "E"
-          ],
-          "moyenne_requise": 10,
-          "description": "Configuration réseaux, maintenance et support informatique."
-        },
-        {
-          "id": 1029,
-          "nom": "Licence en Informatique",
-          "domaine": "Informatique",
+          "id": 2101,
+          "nom": "Licence Sciences Infirmières",
+          "domaine": "Santé",
           "duree": "3 ans",
-          "debouches": [
-            "Développeur",
-            "Analyste programmeur",
-            "Chef de projet IT"
-          ],
-          "series_acceptees": [
-            "C",
-            "D",
-            "E"
-          ],
-          "moyenne_requise": 11,
-          "description": "Programmation, génie logiciel et gestion de projets informatiques."
+          "debouches": ["Infirmier d'État", "Soignant spécialisé", "Chef de bloc"],
+          "series_acceptees": ["C", "D"],
+          "moyenne_requise": 11.5,
+          "description": "Techniques de soins, pharmacologie et éthique médicale."
         }
       ]
     },
     {
       "id": 22,
-      "nom": "Institut International Polytechnique des Élites d'Abidjan",
-      "sigle": "IIPEA",
-      "description": "École privée d'ingénierie et d'informatique.",
+      "nom": "Groupe Loko",
+      "sigle": "LOKO",
+      "description": "Un des plus anciens et vastes réseaux d'enseignement privé supérieur et technique en Côte d'Ivoire.",
       "type": "privée",
       "ville": "Abidjan",
-      "quartier": "Abidjan",
-      "adresse": "",
-      "telephone": "",
-      "email": "",
-      "site_web": "",
-      "frais_min": 500000,
-      "frais_max": 950000,
+      "quartier": "Koumassi / Marcory",
+      "adresse": "01 BP 1198 Abidjan 01",
+      "telephone": "+225 27 21 56 40 00",
+      "email": "info@groupeloko.net",
+      "site_web": "https://groupeloko.net/",
+      "frais_min": 450000,
+      "frais_max": 900000,
+      "image": "./assets/image/LOKO.png",
       "formations": [
         {
-          "id": 1030,
-          "nom": "Licence en Ingénierie Informatique",
-          "domaine": "Informatique",
-          "duree": "3 ans",
-          "debouches": [
-            "Ingénieur logiciel",
-            "Développeur",
-            "Chef de projet IT"
-          ],
-          "series_acceptees": [
-            "C",
-            "D",
-            "E"
-          ],
-          "moyenne_requise": 11,
-          "description": "Conception de systèmes informatiques et programmation avancée."
-        },
-        {
-          "id": 1031,
-          "nom": "Licence en Génie Électrique",
-          "domaine": "Ingénierie",
-          "duree": "3 ans",
-          "debouches": [
-            "Ingénieur électricien",
-            "Technicien automatisme",
-            "Responsable maintenance"
-          ],
-          "series_acceptees": [
-            "C",
-            "E"
-          ],
-          "moyenne_requise": 11,
-          "description": "Électrotechnique et systèmes automatisés."
+          "id": 2201,
+          "nom": "BTS Ressources Humaines et Communication",
+          "domaine": "Gestion",
+          "duree": "2 ans",
+          "debouches": ["Assistant RH", "Chargé du recrutement", "Gestionnaire de paie"],
+          "series_acceptees": ["A", "B", "C", "D", "G1"],
+          "moyenne_requise": 10,
+          "description": "Administration du personnel et gestion des communications d'entreprise."
         }
       ]
     },
     {
       "id": 23,
-      "nom": "Institut Supérieur Jean Paul II",
-      "sigle": "ISJP II",
-      "description": "École privée spécialisée en banque, finance et communication.",
+      "nom": "École Supérieure de Technologie Loko",
+      "sigle": "EST-LOKO",
+      "description": "Branche technologique industrielle du Groupe Loko pour le génie civil et la mécanique.",
       "type": "privée",
       "ville": "Abidjan",
-      "quartier": "Abidjan",
-      "adresse": "",
-      "telephone": "",
-      "email": "",
-      "site_web": "",
-      "frais_min": 400000,
-      "frais_max": 750000,
+      "quartier": "Marcory Zone 4",
+      "adresse": "01 BP 1198 Abidjan 01",
+      "telephone": "+225 27 21 35 12 12",
+      "email": "est@groupeloko.net",
+      "site_web": "https://groupeloko.net/est/",
+      "frais_min": 500000,
+      "frais_max": 950000,
+      "image": "./assets/image/est-loko.png",
       "formations": [
         {
-          "id": 1032,
-          "nom": "Licence en Banque et Finance",
-          "domaine": "Gestion",
-          "duree": "3 ans",
-          "debouches": [
-            "Conseiller bancaire",
-            "Analyste crédit",
-            "Gestionnaire de compte"
-          ],
-          "series_acceptees": [
-            "A",
-            "B",
-            "C",
-            "D"
-          ],
+          "id": 2301,
+          "nom": "BTS Electrotechnique",
+          "domaine": "Industrie",
+          "duree": "2 ans",
+          "debouches": ["Technicien réseau électrique", "Chef d'équipe maintenance"],
+          "series_acceptees": ["C", "D", "E", "F1", "F2"],
           "moyenne_requise": 10,
-          "description": "Opérations bancaires, crédit et gestion financière."
-        },
-        {
-          "id": 1033,
-          "nom": "Licence en Communication",
-          "domaine": "Communication",
-          "duree": "3 ans",
-          "debouches": [
-            "Chargé de communication",
-            "Community manager",
-            "Attaché de presse"
-          ],
-          "series_acceptees": [
-            "A",
-            "B"
-          ],
-          "moyenne_requise": 10,
-          "description": "Communication d'entreprise et médias digitaux."
+          "description": "Gestion des courants forts, moteurs et sous-stations électriques."
         }
       ]
     },
     {
       "id": 24,
-      "nom": "Groupe Loko",
-      "sigle": "Loko",
-      "description": "École privée proposant des BTS en informatique et gestion.",
+      "nom": "ISTTA",
+      "sigle": "ISTTA",
+      "description": "Institut Supérieur de Technologie du Tertiaire et de l'Agro-industrie.",
       "type": "privée",
       "ville": "Abidjan",
-      "quartier": "Abidjan",
-      "adresse": "",
-      "telephone": "",
-      "email": "",
-      "site_web": "",
-      "frais_min": 350000,
-      "frais_max": 650000,
+      "quartier": "Adjamé 220 Logements",
+      "adresse": "04 BP 789 Abidjan 04",
+      "telephone": "+225 27 20 37 45 45",
+      "email": "contact@istta.ci",
+      "site_web": "https://www.istta.ci/",
+      "frais_min": 400000,
+      "frais_max": 800000,
+      "image": "./assets/image/isstta.png",
       "formations": [
         {
-          "id": 1034,
-          "nom": "BTS Informatique de Gestion",
-          "domaine": "Informatique",
+          "id": 2401,
+          "nom": "BTS Agroalimentaire",
+          "domaine": "Agroalimentaire",
           "duree": "2 ans",
-          "debouches": [
-            "Développeur",
-            "Technicien informatique",
-            "Support IT"
-          ],
-          "series_acceptees": [
-            "C",
-            "D",
-            "E"
-          ],
-          "moyenne_requise": 9,
-          "description": "Programmation et systèmes d'information de gestion."
-        },
-        {
-          "id": 1035,
-          "nom": "BTS Gestion Commerciale",
-          "domaine": "Gestion",
-          "duree": "2 ans",
-          "debouches": [
-            "Gestionnaire",
-            "Responsable commercial",
-            "Assistant de direction"
-          ],
-          "series_acceptees": [
-            "A",
-            "B",
-            "C",
-            "D"
-          ],
-          "moyenne_requise": 9,
-          "description": "Gestion d'entreprise et techniques commerciales."
+          "debouches": ["Contrôleur qualité", "Responsable chaîne de production"],
+          "series_acceptees": ["C", "D"],
+          "moyenne_requise": 10,
+          "description": "Transformation et conservation des produits agricoles locaux."
         }
       ]
     },
     {
       "id": 25,
-      "nom": "EST Loko",
-      "sigle": "EST-Loko",
-      "description": "École privée technique en génie civil et génie électrique.",
+      "nom": "ESGIS Côte d'Ivoire",
+      "sigle": "ESGIS",
+      "description": "École Supérieure de Gestion d'Informatique et de Sciences, réseau international d'Afrique de l'Ouest.",
       "type": "privée",
       "ville": "Abidjan",
-      "quartier": "Abidjan",
-      "adresse": "",
-      "telephone": "",
-      "email": "",
-      "site_web": "",
-      "frais_min": 400000,
-      "frais_max": 750000,
+      "quartier": "Zone 4C",
+      "adresse": "18 BP 1899 Abidjan 18",
+      "telephone": "+225 27 21 25 98 00",
+      "email": "infoci@esgis.org",
+      "site_web": "https://esgis.ci/",
+      "frais_min": 650000,
+      "frais_max": 1300000,
+      "image": "./assets/image/esgiss.png",
       "formations": [
         {
-          "id": 1036,
-          "nom": "BTS Génie Civil",
-          "domaine": "Ingénierie",
-          "duree": "2 ans",
-          "debouches": [
-            "Technicien BTP",
-            "Conducteur de travaux",
-            "Dessinateur projeteur"
-          ],
-          "series_acceptees": [
-            "C",
-            "D"
-          ],
-          "moyenne_requise": 10,
-          "description": "Construction, structures et travaux publics."
-        },
-        {
-          "id": 1037,
-          "nom": "BTS Génie Électrique",
-          "domaine": "Ingénierie",
-          "duree": "2 ans",
-          "debouches": [
-            "Technicien électricien",
-            "Électrotechnicien",
-            "Responsable maintenance"
-          ],
-          "series_acceptees": [
-            "C",
-            "E"
-          ],
-          "moyenne_requise": 10,
-          "description": "Installations électriques et systèmes automatisés."
+          "id": 2501,
+          "nom": "Licence Réseaux & Télécoms",
+          "domaine": "Informatique",
+          "duree": "3 ans",
+          "debouches": ["Ingénieur télécom", "Admin réseau CISCO", "Architecte VoIP"],
+          "series_acceptees": ["C", "D", "E"],
+          "moyenne_requise": 11,
+          "description": "Configuration de routeurs, sécurité des données et administration de serveurs."
         }
       ]
     },
     {
       "id": 26,
-      "nom": "ISTTA",
-      "sigle": "ISTTA",
-      "description": "École privée en informatique et comptabilité.",
+      "nom": "École Supérieure de Gestion Abidjan",
+      "sigle": "ESG",
+      "description": "Établissement privé axé sur les filières tertiaires, de management et comptabilité.",
       "type": "privée",
       "ville": "Abidjan",
-      "quartier": "Abidjan",
-      "adresse": "",
-      "telephone": "",
-      "email": "",
-      "site_web": "",
-      "frais_min": 350000,
-      "frais_max": 650000,
+      "quartier": "Trechville Arras",
+      "adresse": "05 BP 1201 Abidjan 05",
+      "telephone": "+225 27 21 24 88 55",
+      "email": "contact@esg.ci",
+      "site_web": "https://esg.ci/",
+      "frais_min": 450000,
+      "frais_max": 850000,
+      "image": "./assets/image/esg.png",
       "formations": [
         {
-          "id": 1038,
-          "nom": "BTS Informatique de Gestion",
-          "domaine": "Informatique",
+          "id": 2601,
+          "nom": "BTS Gestion Commerciale",
+          "domaine": "Commerce",
           "duree": "2 ans",
-          "debouches": [
-            "Développeur",
-            "Technicien informatique",
-            "Support IT"
-          ],
-          "series_acceptees": [
-            "C",
-            "D",
-            "E"
-          ],
-          "moyenne_requise": 9,
-          "description": "Programmation et gestion des systèmes d'information."
-        },
-        {
-          "id": 1039,
-          "nom": "BTS Comptabilité et Gestion",
-          "domaine": "Comptabilité",
-          "duree": "2 ans",
-          "debouches": [
-            "Comptable",
-            "Assistant financier",
-            "Gestionnaire"
-          ],
-          "series_acceptees": [
-            "A",
-            "B",
-            "C",
-            "D"
-          ],
-          "moyenne_requise": 9,
-          "description": "Comptabilité et gestion financière des entreprises."
+          "debouches": ["Commercial", "Prospection", "Gestionnaire de clientèle"],
+          "series_acceptees": ["A", "B", "C", "D", "G2"],
+          "moyenne_requise": 10,
+          "description": "Prospection, vente directe et gestion de portefeuille clients."
         }
       ]
     },
     {
       "id": 27,
-      "nom": "ESGIS Côte d'Ivoire",
-      "sigle": "ESGIS",
-      "description": "École privée en informatique, réseaux et génie logiciel.",
+      "nom": "SUP'Management Côte d'Ivoire",
+      "sigle": "SUP'MANAGEMENT",
+      "description": "Membre du réseau euro-africain SUP'Management, formant des cadres dirigeants d'entreprises.",
       "type": "privée",
       "ville": "Abidjan",
-      "quartier": "Abidjan",
-      "adresse": "",
-      "telephone": "",
-      "email": "",
-      "site_web": "",
-      "frais_min": 450000,
-      "frais_max": 850000,
+      "quartier": "Riviera 2",
+      "adresse": "25 BP 2244 Abidjan 25",
+      "telephone": "+225 27 22 43 45 45",
+      "email": "info@supmanagement.ci",
+      "site_web": "https://supmanagement.ci/",
+      "frais_min": 700000,
+      "frais_max": 1400000,
+      "image": "https://images.unsplash.com/photo-1552664730-d307ca884978?w=800",
       "formations": [
         {
-          "id": 1040,
-          "nom": "Licence en Génie Logiciel",
-          "domaine": "Informatique",
+          "id": 2701,
+          "nom": "Licence Management Intégré",
+          "domaine": "Management",
           "duree": "3 ans",
-          "debouches": [
-            "Développeur",
-            "Ingénieur logiciel",
-            "Chef de projet IT"
-          ],
-          "series_acceptees": [
-            "C",
-            "D",
-            "E"
-          ],
+          "debouches": ["Manager d'unité", "Consultant organisation", "Directeur adjoint"],
+          "series_acceptees": ["A", "B", "C", "D"],
           "moyenne_requise": 11,
-          "description": "Développement d'applications et architecture logicielle."
-        },
-        {
-          "id": 1041,
-          "nom": "BTS Réseaux et Télécommunications",
-          "domaine": "Informatique",
-          "duree": "2 ans",
-          "debouches": [
-            "Administrateur réseau",
-            "Technicien télécoms",
-            "Support IT"
-          ],
-          "series_acceptees": [
-            "C",
-            "D",
-            "E"
-          ],
-          "moyenne_requise": 10,
-          "description": "Configuration et maintenance des réseaux informatiques."
+          "description": "Stratégie globale d'entreprise et gestion d'équipe pluridisciplinaire."
         }
       ]
     },
     {
       "id": 28,
-      "nom": "ESG",
-      "sigle": "ESG",
-      "description": "École privée en gestion, finance et marketing.",
+      "nom": "CERCO Côte d'Ivoire",
+      "sigle": "CERCO",
+      "description": "Groupe d'enseignement supérieur axé sur l'innovation, l'entrepreneuriat et l'IA.",
       "type": "privée",
       "ville": "Abidjan",
-      "quartier": "Abidjan",
-      "adresse": "",
-      "telephone": "",
-      "email": "",
-      "site_web": "",
-      "frais_min": 400000,
-      "frais_max": 750000,
+      "quartier": "II Plateaux ETIENNE",
+      "adresse": "06 BP 6310 Abidjan 06",
+      "telephone": "+225 27 22 41 82 82",
+      "email": "abidjan@groupecerco.com",
+      "site_web": "https://groupecerco.com/",
+      "frais_min": 500000,
+      "frais_max": 950000,
+      "image": "./assets/image/cerco.png",
       "formations": [
         {
-          "id": 1042,
-          "nom": "Licence en Gestion",
-          "domaine": "Gestion",
+          "id": 2801,
+          "nom": "Licence Génie Informatique & IA",
+          "domaine": "Informatique",
           "duree": "3 ans",
-          "debouches": [
-            "Gestionnaire",
-            "Comptable",
-            "Responsable administratif"
-          ],
-          "series_acceptees": [
-            "A",
-            "B",
-            "C",
-            "D"
-          ],
-          "moyenne_requise": 10,
-          "description": "Comptabilité, finance et management des organisations."
-        },
-        {
-          "id": 1043,
-          "nom": "Licence en Marketing",
-          "domaine": "Marketing",
-          "duree": "3 ans",
-          "debouches": [
-            "Chargé marketing",
-            "Chef de produit",
-            "Community manager"
-          ],
-          "series_acceptees": [
-            "A",
-            "B",
-            "C",
-            "D"
-          ],
-          "moyenne_requise": 10,
-          "description": "Stratégie marketing et communication commerciale."
+          "debouches": ["Développeur Python", "Data Analyst", "Consultant IA"],
+          "series_acceptees": ["C", "D", "E"],
+          "moyenne_requise": 11,
+          "description": "Création d'applications modernes connectées aux modèles d'intelligence artificielle."
         }
       ]
     },
     {
       "id": 29,
-      "nom": "SUP'Management",
-      "sigle": "SUP-MGT",
-      "description": "École privée en management et commerce international.",
+      "nom": "Institut de Formation Professionnelle et Académique du Nord",
+      "sigle": "IFRAN",
+      "description": "Établissement privé du nord ivoirien axé sur le développement des compétences techniques et tertiaires.",
       "type": "privée",
-      "ville": "Abidjan",
-      "quartier": "Abidjan",
-      "adresse": "",
-      "telephone": "",
-      "email": "",
-      "site_web": "",
-      "frais_min": 500000,
-      "frais_max": 950000,
+      "ville": "Korhogo",
+      "quartier": "Soba",
+      "adresse": "BP 450 Korhogo",
+      "telephone": "+225 27 36 86 12 00",
+      "email": "contact@ifran.net",
+      "site_web": "https://ifran.net/",
+      "frais_min": 350000,
+      "frais_max": 650000,
+      "image": "https://images.unsplash.com/photo-1519452635265-7b1fbfd1e4e0?w=800",
       "formations": [
         {
-          "id": 1044,
-          "nom": "Licence en Management",
-          "domaine": "Management",
-          "duree": "3 ans",
-          "debouches": [
-            "Manager",
-            "Chef de projet",
-            "Consultant"
-          ],
-          "series_acceptees": [
-            "A",
-            "B",
-            "C",
-            "D"
-          ],
-          "moyenne_requise": 11,
-          "description": "Leadership, organisation et stratégie d'entreprise."
-        },
-        {
-          "id": 1045,
-          "nom": "Licence en Commerce International",
-          "domaine": "Commerce",
-          "duree": "3 ans",
-          "debouches": [
-            "Commercial export",
-            "Responsable import/export",
-            "Négociateur"
-          ],
-          "series_acceptees": [
-            "A",
-            "B",
-            "C",
-            "D"
-          ],
-          "moyenne_requise": 11,
-          "description": "Commerce international et négociation interculturelle."
+          "id": 2901,
+          "nom": "BTS Finance Comptabilité",
+          "domaine": "Gestion",
+          "duree": "2 ans",
+          "debouches": ["Comptable assistant", "Aide-comptable", "Caissier principal"],
+          "series_acceptees": ["A", "B", "C", "D", "G2"],
+          "moyenne_requise": 10,
+          "description": "Tenue de livres comptables et déclarations fiscales."
         }
       ]
     },
     {
       "id": 30,
-      "nom": "CERCO Côte d'Ivoire",
-      "sigle": "CERCO",
-      "description": "École privée proposant des BTS en informatique et gestion.",
+      "nom": "Institut Famah",
+      "sigle": "FAMAH",
+      "description": "Grande école privée proposant des cycles BTS et Licences professionnelles reconnus par le CAMES.",
       "type": "privée",
       "ville": "Abidjan",
-      "quartier": "Abidjan",
-      "adresse": "",
-      "telephone": "",
-      "email": "",
-      "site_web": "https://groupecerco.com/",
-      "frais_min": 350000,
-      "frais_max": 650000,
+      "quartier": "Riviera 3",
+      "adresse": "25 BP 891 Abidjan 25",
+      "telephone": "+225 27 22 47 40 10",
+      "email": "contact@institutfamah.com",
+      "site_web": "https://institutfamah.com/",
+      "frais_min": 450000,
+      "frais_max": 850000,
+      "image": "./assets/image/fammah.png",
       "formations": [
         {
-          "nom": "BTS Informatique de Gestion",
-          "domaine": "Informatique",
+          "id": 3001,
+          "nom": "BTS Carrières Juridiques",
+          "domaine": "Droit",
           "duree": "2 ans",
-          "moyenne_requise": 9,
-          "description": "Programmation et systèmes d'information de gestion.",
-          "series_acceptees": [
-            "C",
-            "D",
-            "E"
-          ],
-          "debouches": [
-            "Développeur",
-            "Technicien informatique",
-            "Support IT"
-          ]
-        },
-        {
-          "nom": "BTS Gestion des Entreprises",
-          "domaine": "Gestion",
-          "duree": "2 ans",
-          "moyenne_requise": 9,
-          "description": "Gestion administrative et comptable des entreprises.",
-          "series_acceptees": [
-            "A",
-            "B",
-            "C",
-            "D"
-          ],
-          "debouches": [
-            "Gestionnaire",
-            "Assistant de direction",
-            "Comptable"
-          ]
-        },
-        {
-          "nom": "licence en marketing digital",
-          "domaine": "marketing",
-          "duree": "3 ans",
-          "moyenne_requise": 2,
-          "description": "",
-          "series_acceptees": [
-            "toutes les séries"
-          ],
-          "debouches": [
-            "marketeur pro"
-          ]
+          "debouches": ["Clerc de notaire", "Secrétaire juridique", "Assistant d'huissier"],
+          "series_acceptees": ["A", "B", "C", "D"],
+          "moyenne_requise": 10,
+          "description": "Pratique du secrétariat juridique et rédaction d'actes juridiques simples."
         }
       ]
     },
     {
       "id": 31,
-      "nom": "IFRAN",
-      "sigle": "IFRAN",
-      "description": "École privée en informatique, réseaux et télécommunications.",
+      "nom": "Groupe EDHEC Abidjan",
+      "sigle": "EDHEC-CI",
+      "description": "École des hautes études commerciales d'Abidjan axée sur l'audit, l'expertise comptable et les RH.",
       "type": "privée",
       "ville": "Abidjan",
-      "quartier": "Abidjan",
-      "adresse": "",
-      "telephone": "",
-      "email": "",
-      "site_web": "",
-      "frais_min": 400000,
-      "frais_max": 750000,
+      "quartier": "Cocody Mermoz",
+      "adresse": "08 BP 2210 Abidjan 08",
+      "telephone": "+225 27 22 44 18 18",
+      "email": "info@edhec.ci",
+      "site_web": "https://edhec.ci/",
+      "frais_min": 600000,
+      "frais_max": 1200000,
+      "image": "https://images.unsplash.com/photo-1497215728101-856f4ea42174?w=800",
       "formations": [
         {
-          "id": 1048,
-          "nom": "BTS Réseaux et Télécommunications",
-          "domaine": "Informatique",
-          "duree": "2 ans",
-          "debouches": [
-            "Technicien télécoms",
-            "Administrateur réseau",
-            "Support IT"
-          ],
-          "series_acceptees": [
-            "C",
-            "D",
-            "E"
-          ],
-          "moyenne_requise": 10,
-          "description": "Réseaux, télécommunications et infrastructures informatiques."
-        },
-        {
-          "id": 1049,
-          "nom": "Licence en Informatique",
-          "domaine": "Informatique",
+          "id": 3101,
+          "nom": "Licence Audit et Contrôle de Gestion",
+          "domaine": "Gestion",
           "duree": "3 ans",
-          "debouches": [
-            "Développeur",
-            "Analyste programmeur",
-            "Chef de projet IT"
-          ],
-          "series_acceptees": [
-            "C",
-            "D",
-            "E"
-          ],
+          "debouches": ["Auditeur", "Contrôleur budgétaire", "Analyste financier"],
+          "series_acceptees": ["C", "D", "G2"],
           "moyenne_requise": 11,
-          "description": "Programmation et gestion de projets informatiques."
+          "description": "Évaluation des risques et contrôle des processus comptables en entreprise."
         }
       ]
     },
     {
       "id": 32,
-      "nom": "Institut Famah",
-      "sigle": "Famah",
-      "description": "École privée en gestion, comptabilité et commerce.",
+      "nom": "Institut Supérieur de Management Adonai",
+      "sigle": "ISM ADONAI",
+      "description": "Établissement privé panafricain certifié par le CAMES, réputé pour les filières comptables et d'audit.",
       "type": "privée",
       "ville": "Abidjan",
-      "quartier": "Abidjan",
-      "adresse": "",
-      "telephone": "",
-      "email": "",
-      "site_web": "",
-      "frais_min": 350000,
-      "frais_max": 650000,
+      "quartier": "Cocody Angré",
+      "adresse": "01 BP 4001 Abidjan 01",
+      "telephone": "+225 27 22 52 77 77",
+      "email": "abidjan@ismadonai.com",
+      "site_web": "https://ismadonai.com/",
+      "frais_min": 550000,
+      "frais_max": 1000000,
+      "image": "https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=800",
       "formations": [
         {
-          "id": 1050,
-          "nom": "BTS Comptabilité et Gestion",
-          "domaine": "Comptabilité",
-          "duree": "2 ans",
-          "debouches": [
-            "Comptable",
-            "Assistant financier",
-            "Gestionnaire"
-          ],
-          "series_acceptees": [
-            "A",
-            "B",
-            "C",
-            "D"
-          ],
-          "moyenne_requise": 9,
-          "description": "Comptabilité générale et gestion financière."
-        },
-        {
-          "id": 1051,
-          "nom": "BTS Commerce",
-          "domaine": "Commerce",
-          "duree": "2 ans",
-          "debouches": [
-            "Commercial",
-            "Responsable vente",
-            "Chargé clientèle"
-          ],
-          "series_acceptees": [
-            "A",
-            "B",
-            "C",
-            "D"
-          ],
-          "moyenne_requise": 9,
-          "description": "Techniques de vente et gestion commerciale."
+          "id": 3201,
+          "nom": "Licence Banque & Finance",
+          "domaine": "Finance",
+          "duree": "3 ans",
+          "debouches": ["Conseiller clientèle banque", "Analyste de crédit", "Trésorier"],
+          "series_acceptees": ["B", "C", "D"],
+          "moyenne_requise": 11,
+          "description": "Techniques bancaires, analyse financière et marchés des capitaux."
         }
       ]
     },
     {
       "id": 33,
-      "nom": "Groupe EDHEC Abidjan",
-      "sigle": "EDHEC-CI",
-      "description": "École privée en banque, finance et assurance.",
+      "nom": "Institut Sainte Marie",
+      "sigle": "ISM-SANTE",
+      "description": "Établissement confessionnel dédié aux formations médico-sanitaires et carrières paramédicales.",
       "type": "privée",
       "ville": "Abidjan",
-      "quartier": "Abidjan",
-      "adresse": "",
-      "telephone": "",
-      "email": "",
-      "site_web": "",
+      "quartier": "Cocody Attoban",
+      "adresse": "08 BP 1450 Abidjan 08",
+      "telephone": "+225 27 22 42 90 90",
+      "email": "secretariat@institutsaintemarie.ci",
+      "site_web": "https://institutsaintemarie.ci/",
       "frais_min": 500000,
-      "frais_max": 950000,
+      "frais_max": 900000,
+      "image": "https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=800",
       "formations": [
         {
-          "id": 1052,
-          "nom": "Licence en Banque et Assurance",
-          "domaine": "Gestion",
+          "id": 3301,
+          "nom": "Licence en Biologie Médicale",
+          "domaine": "Santé",
           "duree": "3 ans",
-          "debouches": [
-            "Conseiller bancaire",
-            "Agent d'assurance",
-            "Analyste risques"
-          ],
-          "series_acceptees": [
-            "A",
-            "B",
-            "C",
-            "D"
-          ],
-          "moyenne_requise": 10,
-          "description": "Opérations bancaires, produits d'assurance et gestion des risques."
-        },
-        {
-          "id": 1053,
-          "nom": "Licence en Finance",
-          "domaine": "Gestion",
-          "duree": "3 ans",
-          "debouches": [
-            "Analyste financier",
-            "Contrôleur de gestion",
-            "Trésorier"
-          ],
-          "series_acceptees": [
-            "B",
-            "C",
-            "D"
-          ],
-          "moyenne_requise": 11,
-          "description": "Analyse financière et gestion de portefeuille."
+          "debouches": ["Technicien biologiste", "Analyste en laboratoire", "Qualiticien santé"],
+          "series_acceptees": ["C", "D"],
+          "moyenne_requise": 11.5,
+          "description": "Analyses sanguines, virologie et prélèvements de laboratoire."
         }
       ]
     },
     {
       "id": 34,
-      "nom": "ISM Adonai",
-      "sigle": "ISM-Adonai",
-      "description": "École privée en informatique et gestion.",
-      "type": "privée",
-      "ville": "Abidjan",
-      "quartier": "Abidjan",
-      "adresse": "",
-      "telephone": "",
-      "email": "",
-      "site_web": "",
-      "frais_min": 350000,
-      "frais_max": 650000,
-      "formations": [
-        {
-          "id": 1054,
-          "nom": "BTS Informatique de Gestion",
-          "domaine": "Informatique",
-          "duree": "2 ans",
-          "debouches": [
-            "Développeur",
-            "Technicien informatique",
-            "Support IT"
-          ],
-          "series_acceptees": [
-            "C",
-            "D",
-            "E"
-          ],
-          "moyenne_requise": 9,
-          "description": "Programmation et systèmes d'information."
-        },
-        {
-          "id": 1055,
-          "nom": "BTS Gestion Commerciale",
-          "domaine": "Gestion",
-          "duree": "2 ans",
-          "debouches": [
-            "Gestionnaire",
-            "Responsable commercial",
-            "Assistant de direction"
-          ],
-          "series_acceptees": [
-            "A",
-            "B",
-            "C",
-            "D"
-          ],
-          "moyenne_requise": 9,
-          "description": "Gestion d'entreprise et techniques commerciales."
-        }
-      ]
-    },
-    {
-      "id": 35,
-      "nom": "Institut Sainte Marie",
-      "sigle": "ISM",
-      "description": "École privée en commerce, gestion et BTS.",
-      "type": "privée",
-      "ville": "Abidjan",
-      "quartier": "Abidjan",
-      "adresse": "",
-      "telephone": "",
-      "email": "",
-      "site_web": "",
-      "frais_min": 350000,
-      "frais_max": 650000,
-      "formations": [
-        {
-          "id": 1056,
-          "nom": "BTS Commerce",
-          "domaine": "Commerce",
-          "duree": "2 ans",
-          "debouches": [
-            "Commercial",
-            "Responsable vente",
-            "Chargé clientèle"
-          ],
-          "series_acceptees": [
-            "A",
-            "B",
-            "C",
-            "D"
-          ],
-          "moyenne_requise": 9,
-          "description": "Techniques de vente et négociation commerciale."
-        },
-        {
-          "id": 1057,
-          "nom": "BTS Gestion",
-          "domaine": "Gestion",
-          "duree": "2 ans",
-          "debouches": [
-            "Gestionnaire",
-            "Comptable",
-            "Assistant de direction"
-          ],
-          "series_acceptees": [
-            "A",
-            "B",
-            "C",
-            "D"
-          ],
-          "moyenne_requise": 9,
-          "description": "Gestion administrative et comptable."
-        }
-      ]
-    },
-    {
-      "id": 36,
       "nom": "Université Méthodiste de Côte d'Ivoire",
-      "sigle": "UMCI",
-      "description": "Université privée confessionnelle en théologie, gestion et sciences sociales.",
+      "sigle": "UMECI",
+      "description": "Université privée protestante réputée pour sa discipline, son cadre d'étude et son corps professoral.",
       "type": "privée",
       "ville": "Abidjan",
-      "quartier": "Abidjan",
-      "adresse": "",
-      "telephone": "",
-      "email": "",
-      "site_web": "",
-      "frais_min": 350000,
-      "frais_max": 700000,
+      "quartier": "Cocody Riviera 2",
+      "adresse": "08 BP 1559 Abidjan 08",
+      "telephone": "+225 27 22 40 44 80",
+      "email": "info@umeci.org",
+      "site_web": "https://umeci.org/",
+      "frais_min": 650000,
+      "frais_max": 1300000,
+      "image": "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=800",
       "formations": [
         {
-          "id": 1058,
-          "nom": "Licence en Théologie",
-          "domaine": "Sciences Humaines",
+          "id": 3401,
+          "nom": "Licence en Sciences Politiques",
+          "domaine": "Droit",
           "duree": "3 ans",
-          "debouches": [
-            "Pasteur",
-            "Enseignant religieux",
-            "Conseiller spirituel"
-          ],
-          "series_acceptees": [
-            "A",
-            "B"
-          ],
-          "moyenne_requise": 9,
-          "description": "Études bibliques, théologie et éthique."
-        },
-        {
-          "id": 1059,
-          "nom": "Licence en Gestion",
-          "domaine": "Gestion",
-          "duree": "3 ans",
-          "debouches": [
-            "Gestionnaire",
-            "Comptable",
-            "Responsable administratif"
-          ],
-          "series_acceptees": [
-            "A",
-            "B",
-            "C",
-            "D"
-          ],
-          "moyenne_requise": 10,
-          "description": "Management et gestion des organisations."
-        },
-        {
-          "id": 1060,
-          "nom": "Licence en Sciences Sociales",
-          "domaine": "Sciences Humaines",
-          "duree": "3 ans",
-          "debouches": [
-            "Travailleur social",
-            "Sociologue",
-            "Agent ONG"
-          ],
-          "series_acceptees": [
-            "A",
-            "B",
-            "D"
-          ],
-          "moyenne_requise": 9,
-          "description": "Sociologie, psychologie et travail social."
+          "debouches": ["Analyste politique", "Diplomate", "Consultant en relations publiques"],
+          "series_acceptees": ["A", "B", "C", "D"],
+          "moyenne_requise": 11,
+          "description": "Étude des institutions publiques, géopolitique et gouvernance mondiale."
         }
       ]
     }
